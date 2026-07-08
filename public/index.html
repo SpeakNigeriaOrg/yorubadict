@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ọ̀rọ̀ | The Yoruba Dictionary · Speak Nigeria</title>
+<meta name="description" content="Ọ̀rọ̀ — a free Yorùbá dictionary built from Wiktionary data. Search Yorùbá or English, in either direction, with tone marks or without. A Speak Nigeria project." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="wordmark-group">
+      <a href="#/" class="wordmark">
+        <span class="wordmark-yo">Ọ̀rọ̀</span><span class="wordmark-en">The Yoruba Dictionary</span>
+      </a>
+      <a href="https://speaknigeria.org" class="parent-link" target="_blank" rel="noopener noreferrer">
+        <img src="favicon.svg" alt="" width="14" height="14" />
+        A Speak Nigeria project
+      </a>
+    </div>
+
+    <div class="header-search">
+      <input
+        id="search-input"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Search Yorùbá or English…  (ile, fa, pull…)"
+        aria-label="Search the dictionary"
+      />
+      <div class="tone-rule" aria-hidden="true"><span></span><span></span><span></span></div>
+      
+      <!-- Insert the toggle here -->
+      <div class="search-mode-toggle" id="search-mode-toggle">
+        <label><input type="radio" name="search_mode" value="both" checked> Both</label>
+        <label><input type="radio" name="search_mode" value="yoruba"> Yorùbá only</label>
+        <label><input type="radio" name="search_mode" value="english"> English gloss only</label>
+      </div>
+      
+    </div>
+    
+    <a href="#/about" class="ghost-btn">About</a>
+    <button id="data-quality-toggle" class="ghost-btn" type="button">Data quality</button>
+  </div>
+</header>
+
+<main class="app-shell">
+  <aside id="results-pane" class="results-pane" aria-label="Search results">
+    <div id="results-list" role="listbox"></div>
+  </aside>
+
+  <section id="entry-pane" class="entry-pane" aria-label="Entry detail">
+    <div id="entry-content"></div>
+  </section>
+</main>
+
+<div id="quality-panel" class="quality-panel hidden">
+  <div class="quality-panel-inner">
+    <button id="quality-close" class="ghost-btn" type="button">Close</button>
+    <h2>Data quality report</h2>
+    <div id="quality-content"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="https://speaknigeria.org" class="parent-brand" target="_blank" rel="noopener noreferrer">
+      <img src="favicon.svg" alt="" width="22" height="22" />
+      <span>Speak Nigeria</span>
+    </a>
+    <p>
+      A project of <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Speak Nigeria</a>,
+      a nonprofit helping children learn Nigerian heritage languages. Built from the Kaikki Yorùbá Wiktionary
+      extract — every search runs locally in your browser, nothing is sent to a server.
+    </p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#/about">About this dictionary</a>
+      <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">speaknigeria.org ↗</a>
+      <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Yorùbá courses ↗</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

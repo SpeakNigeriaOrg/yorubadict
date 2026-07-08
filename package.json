@@ -1,0 +1,16 @@
+{
+  "name": "yorubadict",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Ọ̀rọ̀ — a free, fully static, client-side Yoruba dictionary built from a Kaikki Wiktionary JSONL extract.",
+  "scripts": {
+    "build": "node build/normalize.mjs",
+    "build:custom": "node build/normalize.mjs",
+    "serve": "node server/dev-server.mjs",
+    "start": "npm run build && npm run serve"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
