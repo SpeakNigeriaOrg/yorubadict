@@ -465,8 +465,11 @@
       <div class="quality-stat"><span>Homograph spellings</span><strong>${Object.keys(v.duplicateNormalizedSpellings).length}</strong></div>
       <div class="quality-stat"><span>Circular derivation chains</span><strong>${v.circularDerivations.length}</strong></div>
       <div class="quality-note">
-        This build was run against a small sample of the Kaikki extract, so most cross-references (derived terms, related words) point outside the current dataset and appear as dashed, unresolved pills in entries. Rebuilding against the full Yorùbá Wiktionary extract will resolve the large majority of them automatically — resolution happens purely from spelling matches at build time, no data re-entry needed.
+        These are gaps in the underlying Wiktionary data — inferred spellings, missing pronunciations, cross-references that don't resolve to an entry in this extract, homographs, and so on — not bugs in this site. Fixing one means editing the source entry on Wiktionary itself; we'll pick up the fix automatically next time we rebuild from a fresh extract.
       </div>
+      <a class="quality-download" href="data/validation-report.json" download="yorubadict-quality-report.json">
+        Download the full report (JSON) — every affected entry ID, for fixing on Wiktionary
+      </a>
     `;
   }
 
