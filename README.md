@@ -1,174 +1,305 @@
-# Ọ̀rọ̀ | The Yoruba Dictionary (local build)
+# Ọ̀rọ̀ | The Yoruba Dictionary
 
-A fully static, client-side Yorùbá dictionary built from the Kaikki
-Wiktionary JSONL extract, per the attached spec. No backend, no database —
-an offline build pipeline compiles the raw extract into browser-ready JSON,
-and the runtime does all searching locally in the browser.
+A free, fast Yorùbá ↔ English dictionary, built from Wiktionary's data but
+designed the way a dictionary should work. It's a project of
+[Speak Nigeria](https://speaknigeria.org), the nonprofit behind free courses
+and resources for Nigerian heritage languages.
 
-This build ships with a 16-line sample (`data/sample.jsonl`) drawn from the
-real Kaikki Yorùbá extract, so you can see the whole pipeline working
-end-to-end today. Point it at the full extract and it scales the same way —
-nothing about the pipeline is sample-specific.
+## Why this exists
+
+Wiktionary's raw data is one of the best resources anywhere for learning
+Yorùbá. That's not really about vocabulary — it's because Yorùbá habitually
+builds larger words out of smaller building-block words, and Wiktionary's
+etymology breakdowns capture that better than any other resource online.
+Understanding those building blocks isn't historical trivia; Yorùbá is a
+living language, and it's one of the things students in Speak Nigeria's own
+classes love most about it. It's fundamental to real fluency.
+
+The Wiktionary website itself, though, is genuinely hard to use for this. To
+find a word you have to type it a very specific way — no tone marks, but
+with underdots, and no other combination works. Any search surfaces results
+in every language Wiktionary covers, not just Yorùbá. And because it's
+crowdsourced, its etymology links are inconsistent — sometimes a parent word
+documents the words derived from it, sometimes only the derived word
+documents where it came from, sometimes both, sometimes neither, entirely
+depending on which page a contributor happened to edit. Tracing a family of
+related words means guessing which page has the link and searching for it by
+hand. Most dictionaries also make you
+pick a direction — Yorùbá-to-English or English-to-Yorùbá — instead of
+letting you search both at once.
+
+Ọ̀rọ̀ starts from the same underlying data (via [Kaikki](https://kaikki.org),
+which does its own cleanup pass on Wiktionary's raw wikitext) and fixes the
+rest:
+
+- **Search it the way you'd write it.** With or without tone marks, with or
+  without underdots — every spelling of a Yorùbá word finds the same entry.
+- **Search both directions at once**, or lock to either Yorùbá-only or
+  English-only.
+- **Links that go both ways.** Whichever side of a relationship Wiktionary
+  happens to document — parent or derived word — we automatically synthesize
+  the missing reverse link, turning its inconsistent, crowdsourced etymology
+  links into a real, two-way, navigable path through the language.
+- **Everything runs in your browser.** No search requests leave your device
+  after the page loads.
+
+See the in-app [About page](public/index.html) (`#/about`) for the
+user-facing version of this pitch.
+
+**Status:** pre-launch. Currently a local/static build; the plan is to
+deploy it at `yorubadict.com`.
+
+---
+
+Everything below this line is implementation detail — useful if you're
+contributing, auditing data quality, or just curious how it works.
 
 ## Quick start
 
 ```
-npm run build     # runs the offline pipeline against data/sample.jsonl
-npm run serve     # serves public/ at http://localhost:8080
+npm run serve     # serves public/ at http://localhost:8080, using the data already built
 ```
 
-Or both at once: `npm start`.
+To rebuild the real dictionary from the committed Kaikki extract:
 
-You need Node 18+. No dependencies are installed — everything here is
-vanilla Node/JS/HTML/CSS on purpose, matching the spec's "no backend, no
-database, deployable to static hosting" requirement.
+```
+npm run build -- data/dictionary-Yoruba.jsonl
+```
+
+**Careful:** `npm run build` with no arguments (and `npm start`, which calls
+it) defaults to `data/sample.jsonl` — a 16-record smoke-test fixture, not the
+real dictionary. Running it with no argument will silently overwrite
+`public/data/*.json` with that 16-entry sample. `build:custom` in
+`package.json` is not actually a different code path — it runs the exact
+same command as `build`; the only way to target a different file is the
+`-- path/to/file.jsonl` argument shown above.
+
+You need Node 18+ — no dependencies are installed; everything here is
+vanilla Node/JS/HTML/CSS on purpose, so there's nothing to `npm install` and
+nothing that can go out of date.
 
 **Why a dev server at all, if it's static?** Browsers block `fetch()`
 against `file://` URLs (CORS), so `public/` needs to be served over
 `http://` to test locally. `server/dev-server.mjs` is a ~50-line
 zero-dependency static file server that exists *only* for this — it is not
 part of the deployed app and does no server-side logic beyond "read the
-file, return it." Deploy `public/` to Cloudflare Pages, Netlify, GitHub
-Pages, or any static host and it works the same way, no dev server
-involved.
+file, return it."
 
-## Using your own JSONL
+## What actually ships to the browser
+
+There is no backend and no database. On first load, `public/app.js` fetches
+three static JSON files and does everything else — search, ranking,
+rendering, routing — locally:
+
+| File | Current size | Contents |
+|---|---|---|
+| `data/entries.json` | ~6.6 MB | every entry, keyed by id, for O(1) lookup |
+| `data/search-index.json` | ~2.6 MB | Yorùbá tier indices + English inverted index |
+| `data/validation-report.json` | ~450 KB | data-quality diagnostics (below) |
+
+That's roughly 9.6 MB fetched up front for ~6,270 entries. This is a
+deliberate tradeoff for simplicity and a genuinely offline-after-load
+experience, but it hasn't been tested at meaningfully larger scale, and one
+thing is an outright inefficiency worth fixing: `validation-report.json` is
+fetched on *every* visit just so the "Data quality" panel can render if
+someone clicks it — it should be lazy-loaded on demand instead, not on boot.
+
+## The pipeline: Kaikki JSONL → browser-ready JSON
 
 ```
-npm run build -- path/to/your-kaikki-extract.jsonl
+Kaikki JSONL (data/dictionary-Yoruba.jsonl)
+  -> build/lib/parser.mjs         Stage 1: parse JSONL, collect line-level errors
+  -> build/lib/normalizer.mjs     Stage 2: canonical form inference, per-field
+                                    extraction, garbled-table detection
+  -> build/lib/relationships.mjs  Stage 3: alias resolution + reciprocal
+                                    relationship synthesis, with provenance
+  -> build/lib/validator.mjs      Stage 4: diagnostic report (never mutates data)
+  -> build/lib/search-index.mjs   Stage 5: sorted Yorùbá tiers + English BM25 index
+  -> public/data/*.json           Static browser assets
 ```
 
-## Architecture
+`build/normalize.mjs` orchestrates all five stages. Run against the current
+`data/dictionary-Yoruba.jsonl` (6,273 raw Kaikki records, already filtered
+to Yorùbá), it produces:
 
-Matches the spec's compiler pipeline exactly:
+- **0 parse errors** — the extract is clean JSONL.
+- **778 entries** with an inferred rather than explicitly-tagged canonical
+  spelling (see below).
+- **374 entries** with no IPA in the source data.
+- **2,760 unresolved relationship references** — a derived/related/synonym
+  points to a spelling that isn't in this extract.
+- **724 spellings** shared by more than one homograph once tone marks and
+  underdots are stripped.
+- **1 circular derivation chain.**
 
-```
-Kaikki JSONL
-  -> build/lib/parser.mjs         (Stage 1: parse JSONL, report errors)
-  -> build/lib/normalizer.mjs     (Stage 2: canonical form inference,
-                                    orthographic normalization, per-field
-                                    extraction — never discards source data)
-  -> build/lib/relationships.mjs  (Stage 3: alias resolution + reciprocal
-                                    relationship synthesis, with provenance)
-  -> build/lib/validator.mjs      (Stage 4: diagnostic report)
-  -> build/lib/search-index.mjs   (Stage 5: sorted Yorùbá tier indices +
-                                    English BM25 inverted index)
-  -> public/data/*.json           (Static browser assets)
-```
+All of these are visible live in the app via the "Data quality" button, not
+just in this file — nothing about data quality is hidden from users.
 
-`build/normalize.mjs` orchestrates all five stages and writes:
+### Canonical forms and homographs
 
-- `public/data/entries.json` — canonical entries, keyed by stable id
-- `public/data/search-index.json` — Yorùbá exact/tone/orthography tiers
-  (sorted arrays, binary-searched for O(log n) exact + prefix lookups) and
-  an English inverted index (postings + document frequency + document
-  lengths, scored client-side with BM25)
-- `public/data/validation-report.json` — same report, published for the
-  in-app "Data quality" panel
+Kaikki records don't always tag which form of a word is canonical (this is
+common for single-letter "character" entries and some function words). The
+normalizer prefers an explicit `canonical` tag when Kaikki provides one
+(confidence `1.0`); otherwise it falls back to the raw headword itself
+(confidence `0.5`, and logged to the validation report). The original source
+value is always kept alongside the inferred one — normalization supplements
+the data, it never discards anything.
 
-### Entry IDs
+Etymology is handled the same way: we don't re-derive or re-parse it. Kaikki
+already splits a word into separate records when Wiktionary documents
+multiple, unrelated etymologies for the same spelling (via `etymology_number`
+— e.g. one `ilé` meaning "house" and a different, unrelated `ilé` from a
+different root). We preserve that split by using Kaikki's own per-sense id as
+our entry id, so homographs stay distinct, independently searchable entries
+with their own etymology text rather than getting merged into one confusing
+entry.
 
-Each entry's id is its first sense's Kaikki-assigned sense id (e.g.
-`en-fa-yo-verb-OFVmd8R8`) — already a stable, source-derived identifier that
-doesn't depend on our own spelling-normalization decisions, satisfying the
-spec's "stable internal identifier independent of spelling" requirement
-without inventing a new ID scheme.
+### Detecting broken tables and linking out to Wiktionary
 
-### Orthographic normalization
+Some Yorùbá Wiktionary entries carry complex regional-dialect comparison
+tables. Kaikki's wikitext-to-JSON conversion doesn't always survive those
+tables intact — they can come through as mangled text (a stray mojibake
+marker character), an oddly long "word" (anything over 50 characters is
+almost never an actual term), or a full sentence (anything containing `. `).
 
-Implements the spec's three independent dimensions exactly as specified
-(verified against the spec's own worked example, `ilẹ̀ → ilẹ → ile`):
-
-- **exact** — untouched
-- **tone-insensitive** — tone marks (grave/acute/macron) stripped via NFD
-  decomposition, underdots preserved
-- **orthography-insensitive** — tone marks *and* underdots stripped,
-  lowercased
-
-The same normalization functions are duplicated (deliberately, not
-imported) in `public/app.js` — the browser needs the exact same rules
-applied to the user's query as the pipeline applied to the headwords, and
-keeping them as plain, dependency-free functions in both places avoids a
-build step for the frontend itself.
+Rather than render garbage or silently drop the whole relationship, the
+normalizer (`extractRelationList` in `build/lib/normalizer.mjs`) detects
+these cases and replaces them with a single fallback pill that links directly
+to that word's own Yorùbá section on Wiktionary ("View complex dialect data
+on Wiktionary"). Nothing is lost — it's just deferred to the source, which
+can render its own tables correctly.
 
 ### Relationship synthesis and its honest limits
 
 `derived`/`related`/`synonyms`/`antonyms`/`descendants` are resolved against
 an alias index (spelling → entry ids) built from every entry's headword,
-canonical form, and alternative forms. Unresolved references — the target
-spelling isn't in the current dataset — are kept, tagged `resolved: false`,
-and logged to the validation report rather than silently dropped. In the UI
-they render as dashed, non-clickable pills instead of broken links.
+canonical form, and alternative forms. Unresolved references are kept —
+tagged `resolved: false` and logged to the validation report — rather than
+silently dropped; the UI renders them as dashed, non-clickable pills instead
+of broken links.
 
-**With only 16 sample entries, most cross-references will show as
-unresolved** — e.g. `fà`'s derived term `ọfà` isn't in this sample, so it
-renders as plain unresolved text. This is expected, not a bug: resolution
-happens purely from spelling matches at build time, so rebuilding against
-the full ~40k-entry extract resolves the large majority of them
-automatically, with no changes to the pipeline or frontend.
+Because Wiktionary is crowdsourced, which side of a relationship gets
+documented is inconsistent — sometimes the parent lists the derived word,
+sometimes only the derived word documents its own origin, sometimes both
+sides already link each other, sometimes neither does structurally and the
+connection only exists in freeform etymology prose. The synthesis step
+(`build/lib/relationships.mjs`) is direction-agnostic: it walks every
+entry's own declared relations exactly as written, without assuming which
+side is "the parent," and adds the missing reciprocal onto whichever entry
+doesn't already have it — so it doesn't matter which page happened to carry
+the structured link, the connection ends up navigable from both entries
+either way. These synthesized links are visually marked with a small ↺ and a
+tooltip explaining they were inferred, not stated by Wiktionary, so the
+data's real provenance stays legible.
 
-Reciprocal links are synthesized where the source lists a relationship but
-the target doesn't reference it back (e.g. A → derivedTerms → B without B →
-derivedFrom → A). These are visually marked with a small ↺ and a tooltip
-explaining they were inferred, not stated by Wiktionary — per the spec's
-provenance-tracking requirement.
+The one thing this can't do: if a relationship exists only in unstructured
+etymology prose, with no `derived`/`related`/`synonyms`/`antonyms` list on
+*either* entry, we don't mine the prose text for it, so no link gets
+synthesized in either direction. That's a real limit of the current
+pipeline, not a design choice.
+
+### Orthographic normalization
+
+Yorùbá orthography has three independent dimensions, and `build/lib/orthography.mjs`
+generates all three for every headword (worked example: `ilẹ̀ → ilẹ → ile`):
+
+- **exact** — untouched, as written
+- **tone-insensitive** — tone marks (grave/acute/macron) stripped via NFD
+  decomposition, underdots preserved
+- **orthography-insensitive** — tone marks *and* underdots stripped,
+  lowercased
+
+The same normalization functions are duplicated (deliberately, not imported)
+in `public/app.js` — the browser needs to apply the exact same rules to the
+user's query as the build pipeline applied to the headwords, and keeping
+them as small, dependency-free functions in both places avoids adding a
+frontend build step just to share code.
 
 ### Search ranking
 
-Implements the spec's priority order exactly (`public/app.js`, `search()`):
-exact Yorùbá match → tone-insensitive → orthography-insensitive → prefix →
-English BM25, deduped by id, first-seen tier wins (deterministic).
+Priority order (`public/app.js`, `search()`): exact Yorùbá match →
+tone-insensitive → orthography-insensitive → prefix → English BM25, deduped
+by id, first-seen tier wins. This is what makes "search both directions at
+once" work without a special-cased merge step — it's just running the
+Yorùbá tiers and the English index and keeping first-seen order.
 
-### Routing
+### Entry IDs and routing
 
-Uses hash-based routes (`#/entry/<id>`) rather than the spec's illustrative
-path-based example (`/entry/ilé`). Two reasons: (1) spellings aren't unique
-identifiers here — six different `de` homographs exist in the sample alone
-— so an id-based route is more correct than a spelling-based one regardless
-of URL style; (2) hash routes need zero server-side rewrite configuration
-on any static host, keeping the "fully static, zero backend" property
-airtight. Deep links, bookmarks, and the back button all work as specified.
-If you'd rather have path-based URLs for a production deploy, that mainly
-means adding a `_redirects`/`_headers` rule on your host (e.g. `/* /index.html
-200` on Cloudflare Pages) and swapping `location.hash` for
-`history.pushState` in `app.js` — the entry-rendering code doesn't change.
+Each entry's id is its first sense's Kaikki-assigned sense id (e.g.
+`en-fa-yo-verb-OFVmd8R8`) — a stable, source-derived identifier that doesn't
+depend on our own spelling-normalization decisions, and stays stable across
+rebuilds even if a headword's canonical spelling changes.
 
-### What's genuinely untested at scale
+Routing is hash-based (`#/entry/<id>`, `#/about`) rather than path-based.
+Two reasons: spellings aren't unique — many homographs share a spelling —
+so an id-based route is more correct regardless of URL style; and hash
+routes need zero server-side rewrite configuration on any static host,
+keeping the "fully static, zero backend" property airtight. Deep links,
+bookmarks, and the back button all work.
 
-This has only been run against 16 entries. Things worth checking once you
-have the full extract:
+## Staying fresh: the build is *not* automated
 
-- **Performance** at ~40k+ entries — the search-index build is O(n), and
-  browser-side binary search is O(log n) per query, so it should hold up,
-  but it hasn't been measured against the spec's <20ms / <3MB targets at
-  real scale.
-- **English index size** — the current inverted index is unpruned (every
-  token, including fairly generic ones, gets a postings list). At full
-  scale you may want a stopword list beyond the current minimal one, or to
-  drop terms above a document-frequency ceiling.
-- **Fuzzy search** (spec section 6.5) is explicitly out of scope for this
-  version, matching the spec's own "may be added later."
+There is no scheduled job pulling new data. `data/dictionary-Yoruba.jsonl` is
+a manually-downloaded snapshot of Kaikki's Yorùbá extract, committed as-is.
+Refreshing it is a manual, three-step process:
+
+1. Download a current extract from [kaikki.org](https://kaikki.org).
+2. `npm run build -- path/to/new-extract.jsonl`
+3. Commit and redeploy the regenerated `public/data/*.json`.
+
+There's currently no automated way to know how stale the shipped data is
+short of downloading a fresh extract and diffing entry counts. A scheduled
+rebuild (a periodic GitHub Action, say) plus a visible "data last refreshed"
+date is the obvious next step, but neither exists yet.
+
+`data/sample.jsonl` (16 records) is a separate, tiny fixture kept around for
+fast pipeline smoke-testing — it's not related to the real dictionary build.
+
+## Deployment: built for Cloudflare Pages (or any static host)
+
+There's no backend, no server-side routing, no environment variables, and no
+secrets. Because routing is hash-based, the URL fragment never reaches the
+server, so deployment is just "serve `public/` as static files" — no
+`_redirects` rewrite rule needed, unlike a typical single-page app using
+`history.pushState`.
+
+Two ways to run this in CI:
+
+- **Commit the generated `public/data/*.json`** (what this repo currently
+  does) and set the host's build command to none, output directory `public/`.
+  What's in the repo is exactly what ships.
+- **Or** set the build command to `npm run build` so the host regenerates
+  `public/data` on every deploy from whatever `data/*.jsonl` is committed.
+
+If you ever want path-based URLs instead of hash routes, that mainly means
+adding a rewrite rule on your host (e.g. `/* /index.html 200` on Cloudflare
+Pages) and swapping `location.hash` for `history.pushState` in `app.js` —
+the entry-rendering code itself doesn't change.
 
 ## Project layout
 
 ```
-data/sample.jsonl              16-line sample from the real Kaikki extract
+data/
+  dictionary-Yoruba.jsonl        the real, committed Kaikki Yorùbá extract (6,273 records)
+  sample.jsonl                   16-record fixture for pipeline smoke-testing
 build/
-  normalize.mjs                 pipeline orchestrator (entry point)
+  normalize.mjs                  pipeline orchestrator (entry point)
   lib/
-    orthography.mjs             tone/underdot stripping
-    parser.mjs                  Stage 1
-    normalizer.mjs               Stage 2
-    relationships.mjs            Stage 3
-    validator.mjs                 Stage 4
-    search-index.mjs              Stage 5
-  validation-report.json        (generated)
-public/                          <- deploy this directory as-is
+    orthography.mjs              tone/underdot stripping
+    parser.mjs                   Stage 1
+    normalizer.mjs                Stage 2 (canonical forms, garbled-table detection)
+    relationships.mjs             Stage 3 (alias resolution, reciprocal synthesis)
+    validator.mjs                  Stage 4 (diagnostic report)
+    search-index.mjs               Stage 5 (Yorùbá tiers + English BM25 index)
+  validation-report.json          (generated, pretty-printed copy for local inspection)
+public/                            <- deploy this directory as-is
   index.html
   style.css
+  _tokens.css                     shared design tokens (also used by speaknigeria.org)
+  favicon.svg
   app.js
-  data/                          (generated: entries.json, search-index.json,
-                                   validation-report.json)
+  data/                            (generated: entries.json, search-index.json,
+                                     validation-report.json)
 server/
-  dev-server.mjs                local-testing-only static file server
+  dev-server.mjs                  local-testing-only static file server
 ```

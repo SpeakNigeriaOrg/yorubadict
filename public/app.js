@@ -362,14 +362,14 @@
         <p>Yorùbá is fundamentally different from English in how habitually it builds larger words out of smaller building-block words. That's not etymology in the sense of historical trivia — Yorùbá is a living language, and understanding those building blocks is fundamental to using it as one. It's one of the things students in our own classes love most about the language, and it's fundamental to real fluency. Wiktionary is not comprehensive in these breakdowns, but it's a better source for them than anywhere else online.</p>
 
         <h2>Where Wiktionary falls short</h2>
-        <p>Wiktionary's own site, though, is genuinely difficult to use. To find a word, you have to type it a very specific way — without tone marks, but with underdots. No other combination works. Any search also surfaces results in every language Wiktionary covers, not just Yorùbá, burying what you came for. And its etymologies only point one way: a parent word lists the words derived from it, but those derived words don't link back to the parent — so tracing a family of related words means constant manual re-searching.</p>
+        <p>Wiktionary's own site, though, is genuinely difficult to use. To find a word, you have to type it a very specific way — without tone marks, but with underdots. No other combination works. Any search also surfaces results in every language Wiktionary covers, not just Yorùbá, burying what you came for. And because it's crowdsourced, its etymology links are inconsistent — sometimes a parent word documents the words derived from it, sometimes only the derived word documents where it came from, sometimes both, sometimes neither, depending entirely on which page a contributor happened to edit. Tracing a family of related words means guessing which page has the link and searching for it by hand.</p>
 
         <h2>What we changed</h2>
         <ul>
           <li><strong>Cleaned data, twice over.</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing.</li>
           <li><strong>Search it the way you'd write it.</strong> With or without tone marks, with or without underdots — every spelling of a Yorùbá word finds the same entry.</li>
           <li><strong>Search both directions at once.</strong> Most dictionaries make you choose Yorùbá-to-English or English-to-Yorùbá. Here you can search both together, or lock to either direction.</li>
-          <li><strong>Links that go both ways.</strong> Wherever a word lists a derived term, we automatically synthesize the reverse link back to it — turning Wiktionary's one-way etymologies into a real, two-way, navigable path through the language.</li>
+          <li><strong>Links that go both ways.</strong> Whichever side of a relationship Wiktionary happens to document — parent or derived word — we automatically synthesize the missing reverse link, turning its inconsistent, crowdsourced etymology links into a real, two-way, navigable path through the language.</li>
         </ul>
 
         <h2>Part of Speak Nigeria</h2>
