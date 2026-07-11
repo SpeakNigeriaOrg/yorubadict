@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T18:24:14.158Z",
+  "generatedAt": "2026-07-11T18:30:35.279Z",
   "totalEntries": 6272,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -8939,14 +8939,14 @@
       "en-họ-yo-verb-PYVNhVDe",
       "en-họ-yo-verb-VeRMyz3C",
       "en-họ-yo-verb-DggLfg53",
-      "en-họ-yo-verb-xqBK93YU",
+      "en-họ-yo-verb--~tXUPUE",
       "en-wọ-yo-verb-VDNwoM8b"
     ],
     "wọ": [
       "en-họ-yo-verb-PYVNhVDe",
       "en-họ-yo-verb-VeRMyz3C",
       "en-họ-yo-verb-DggLfg53",
-      "en-họ-yo-verb-xqBK93YU",
+      "en-họ-yo-verb--~tXUPUE",
       "en-wọ-yo-verb-lDELpvOE",
       "en-wọ-yo-verb-Ynd6TzKK",
       "en-wọ-yo-verb-K4opAeCO",
@@ -13395,12 +13395,12 @@
       "en-pẹlu-yo-verb-~WuffiaT"
     ],
     "ẹsinmirin": [
-      "en-Ẹsinmirin-yo-noun-MRi1qeuv",
-      "en-Ẹsinmirin-yo-name-~xEe17c7"
+      "en-Ẹsinmirin-yo-noun-kPYMaO~y",
+      "en-Ẹsinmirin-yo-name-To8L-Nas"
     ],
     "ẹsimirin": [
-      "en-Ẹsinmirin-yo-noun-MRi1qeuv",
-      "en-Ẹsinmirin-yo-name-~xEe17c7"
+      "en-Ẹsinmirin-yo-noun-kPYMaO~y",
+      "en-Ẹsinmirin-yo-name-To8L-Nas"
     ],
     "arugbo": [
       "en-arugbo-yo-noun-fyglhJg9",
@@ -15156,17 +15156,17 @@
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "ga荙Ǹcàgù荙"
+      "text": "ga媙Ǹcàgù媙"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "ga荙Baàtɛgù荙"
+      "text": "ga媙Baàtɛgù媙"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "ga荙Ìdàácàgù荙BeninIgbó Ìdàácàgù荙Ọ̀họ̀rí"
+      "text": "ga媙Ìdàácàgù媙BeninIgbó Ìdàácàgù媙Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
@@ -15181,22 +15181,22 @@
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́ga荙Onigbologa荙Kétu"
+      "text": "ÌjèÌkpòbɛ́ga媙Onigbologa媙Kétu"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "ÀnàgóKétugù荙Ifɛ̀Akpáréga荙"
+      "text": "ÀnàgóKétugù媙Ifɛ̀Akpáréga媙"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "gù荙Atakpamɛga荙"
+      "text": "gù媙Atakpamɛga媙"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
       "relationType": "synonyms",
-      "text": "gù荙Bokoga荙Tchettiga荙"
+      "text": "gù媙Bokoga媙Tchettiga媙"
     },
     {
       "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
@@ -16246,22 +16246,22 @@
     {
       "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
       "relationType": "synonyms",
-      "text": "ịnụ́愑Àkúrẹ́Àkúrẹ́ụnụ́愑"
+      "text": "ịnụ́薄Àkúrẹ́Àkúrẹ́ụnụ́薄"
     },
     {
       "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
       "relationType": "synonyms",
-      "text": "ịnụ́愑Mọ̀bàỌ̀tùn Èkìtìụnụ́愑"
+      "text": "ịnụ́薄Mọ̀bàỌ̀tùn Èkìtìụnụ́薄"
     },
     {
       "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
       "relationType": "synonyms",
-      "text": "OkunOwéinú愑"
+      "text": "OkunOwéinú薄"
     },
     {
       "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
       "relationType": "synonyms",
-      "text": "unú愑Kabbainú愑"
+      "text": "unú薄Kabbainú薄"
     },
     {
       "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
@@ -16406,7 +16406,7 @@
     {
       "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
       "relationType": "synonyms",
-      "text": "le止Òkìtìpupani止"
+      "text": "le械Òkìtìpupani械"
     },
     {
       "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
@@ -16571,72 +16571,72 @@
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "eni豯"
+      "text": "eni虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "erin豯Ìwẹrẹiyẹmẹriko豯"
+      "text": "erin虉Ìwẹrẹiyẹmẹriko虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Abẹ́òkútaerin豯"
+      "text": "àjànàkú虉Abẹ́òkútaerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Èkóerin豯"
+      "text": "àjànàkú虉Èkóerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Ìbàdànerin豯"
+      "text": "àjànàkú虉Ìbàdànerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Ìlọrinerin豯"
+      "text": "àjànàkú虉Ìlọrinerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Ọ̀yọ́erin豯"
+      "text": "àjànàkú虉Ọ̀yọ́erin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Ògbómọ̀ṣọ́erin豯"
+      "text": "àjànàkú虉Ògbómọ̀ṣọ́erin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Ìwóerin豯"
+      "text": "àjànàkú虉Ìwóerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Standard YorùbáNàìjíríàerin豯"
+      "text": "àjànàkú虉Standard YorùbáNàìjíríàerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjànàkú豯Bɛ̀nɛ̀erin豯"
+      "text": "àjànàkú虉Bɛ̀nɛ̀erin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjɛ̀nàkú豯BeninIgbó Ìdàácàerin豯"
+      "text": "àjɛ̀nàkú虉BeninIgbó Ìdàácàerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjɛ̀nàkú豯Gbómìnàerin豯"
+      "text": "àjɛ̀nàkú虉Gbómìnàerin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "àjɛ̀nàkú豯Ọ̀họ̀rí"
+      "text": "àjɛ̀nàkú虉Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
@@ -16651,52 +16651,52 @@
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́erin豯"
+      "text": "ÌjèÌkpòbɛ́erin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "ayanakú豯"
+      "text": "ayanakú虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "ayanakun豯"
+      "text": "ayanakun虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "elufán豯"
+      "text": "elufán虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "eñi豯"
+      "text": "eñi虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "erin豯"
+      "text": "erin虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "karakundo豯"
+      "text": "karakundo虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "malú allanacú豯"
+      "text": "malú allanacú虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "malú豯"
+      "text": "malú虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "synonyms",
-      "text": "ayanuko豯Havanaalufán豯"
+      "text": "ayanuko虉Havanaalufán虉"
     },
     {
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
@@ -17226,47 +17226,47 @@
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "orúgho械Mahinorígho械"
+      "text": "orúgho懙Mahinorígho懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "orúgho械Oǹdóoígho械"
+      "text": "orúgho懙Oǹdóoígho懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "oí械Oǹdóoígho械"
+      "text": "oí懙Oǹdóoígho懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwo械Baàtɛéwo械"
+      "text": "eéwo懙Baàtɛéwo懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwo械Ìdàácàeríwo械"
+      "text": "eéwo懙Ìdàácàeríwo懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "erío械"
+      "text": "erío懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwo械BeninIgbó Ìdàácàeríwo械"
+      "text": "eéwo懙BeninIgbó Ìdàácàeríwo懙"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwo械Ọ̀họ̀rí"
+      "text": "eéwo懙Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-Ìjèerí械Ọ̀họ̀rí"
+      "text": "Ɔ̀hɔ̀rí-Ìjèerí懙Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
@@ -17276,7 +17276,7 @@
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́erí械Kétu"
+      "text": "ÌjèÌkpòbɛ́erí懙Kétu"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
@@ -18056,47 +18056,52 @@
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìnPREDICATEỌ̀yọ́òsìPREDICATE"
+      "text": "òsìn焝Ọ̀yọ́òsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìnPREDICATEÒgbómọ̀ṣọ́òsìPREDICATE"
+      "text": "òsìn焝Ògbómọ̀ṣọ́òsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìnPREDICATEStandard YorùbáNàìjíríàòsìPREDICATE"
+      "text": "òsìn焝Standard YorùbáNàìjíríàòsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìnPREDICATEBɛ̀nɛ̀òsìPREDICATENortheast Yoruba"
+      "text": "òsìn焝Bɛ̀nɛ̀òsì焝Northeast Yoruba"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òhìPREDICATEKabbaohìPREDICATE"
+      "text": "òhì焝Kabbaohì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "Southwest YorubaIfɛ̀AkpáréàwóòsìPREDICATE"
+      "text": "òhì焝Ọ̀wọ́rọ̀ohì焝Lọ́kọ́jaohì焝Ede languages"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìPREDICATEAtakpamɛàwóòsìPREDICATE"
+      "text": "Southwest YorubaIfɛ̀Akpáréàwóòsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìPREDICATEEst-MonoàwóòsìPREDICATE"
+      "text": "òsì焝Atakpamɛàwóòsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "synonyms",
-      "text": "òsìPREDICATETchettiàwóòsìPREDICATE"
+      "text": "òsì焝Est-Monoàwóòsì焝"
+    },
+    {
+      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
+      "relationType": "synonyms",
+      "text": "òsì焝Tchettiàwóòsì焝"
     },
     {
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
@@ -19161,17 +19166,17 @@
     {
       "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
       "relationType": "synonyms",
-      "text": "ọdùdù犨Ìwẹrẹẹ̀dọ̀n犨"
+      "text": "ọdùdù刷Ìwẹrẹẹ̀dọ̀n刷"
     },
     {
       "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
       "relationType": "synonyms",
-      "text": "OkunOwéọkọ̀n犨"
+      "text": "OkunOwéọkọ̀n刷"
     },
     {
       "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
       "relationType": "synonyms",
-      "text": "ẹ̀kẹ̀dọ̀犨Kabbaọkọ̀n犨"
+      "text": "ẹ̀kẹ̀dọ̀刷Kabbaọkọ̀n刷"
     },
     {
       "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
@@ -19461,7 +19466,7 @@
     {
       "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
       "relationType": "synonyms",
-      "text": "ùwà械Oǹdóùghà械"
+      "text": "ùwà圤Oǹdóùghà圤"
     },
     {
       "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
@@ -19591,7 +19596,7 @@
     {
       "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
       "relationType": "synonyms",
-      "text": "oghó讦Ìwẹrẹeghó讦"
+      "text": "oghó吟Ìwẹrẹeghó吟"
     },
     {
       "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
@@ -19646,17 +19651,17 @@
     {
       "sourceEntryId": "en-Balogun-yo-name-4x-ckhU~",
       "relationType": "derivedTerms",
+      "text": "balógun"
+    },
+    {
+      "sourceEntryId": "en-Balogun-yo-name-4x-ckhU~",
+      "relationType": "derivedTerms",
       "text": "Ọ̀tún Balógun"
     },
     {
       "sourceEntryId": "en-Balogun-yo-name-4x-ckhU~",
       "relationType": "derivedTerms",
       "text": "Òsì Balógun"
-    },
-    {
-      "sourceEntryId": "en-Balogun-yo-name-4x-ckhU~",
-      "relationType": "derivedTerms",
-      "text": "balógun"
     },
     {
       "sourceEntryId": "en-lẹ-yo-verb-K5XGaUkD",
@@ -20686,37 +20691,37 @@
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ìtaROOKÌjẹ̀búÌjẹ̀bú Òdeọ̀bùROOK"
+      "text": "ìta抚Ìjẹ̀búÌjẹ̀bú Òdeọ̀bù抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ìtaROOKRẹ́mọẸ̀pẹ́ọ̀bùROOK"
+      "text": "ìta抚Rẹ́mọẸ̀pẹ́ọ̀bù抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ìtaROOKÌkòròdúọ̀bùROOK"
+      "text": "ìta抚Ìkòròdúọ̀bù抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ìtaROOKṢágámùọ̀bùROOK"
+      "text": "ìta抚Ṣágámùọ̀bù抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ẹrẹ́jàROOKÀkúrẹ́Àkúrẹ́ọjàROOK"
+      "text": "ẹrẹ́jà抚Àkúrẹ́Àkúrẹ́ọjà抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "ẹrẹ́jàROOKMọ̀bàỌ̀tùn ÈkìtìọjàROOK"
+      "text": "ẹrẹ́jà抚Mọ̀bàỌ̀tùn Èkìtìọjà抚"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
       "relationType": "synonyms",
-      "text": "OkunOwéọjàROOKKabbaọjàROOKEde languages"
+      "text": "OkunOwéọjà抚Kabbaọjà抚Ede languages"
     },
     {
       "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
@@ -21501,16 +21506,6 @@
     {
       "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
       "relationType": "synonyms",
-      "text": "sị́kọ́nALMULIKÀkúrẹ́Àkúrẹ́sị́kọ́ALMULIK"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "sị́kọ́nALMULIKMọ̀bàỌ̀tùn Èkìtìsị́kọ́ALMULIK"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
       "text": "now deemed dialects of Yorùbá in Nigeria"
     },
     {
@@ -21611,157 +21606,157 @@
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "aụn宷"
+      "text": "aụn揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábaụn宷"
+      "text": "alábaụn揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "ọlọ́baụn宷Àkúrẹ́Àkúrẹ́ìjàpá宷"
+      "text": "ọlọ́baụn揂Àkúrẹ́Àkúrẹ́ìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "ọlọ́baụn宷Mọ̀bàỌ̀tùn Èkìtììjàpá宷"
+      "text": "ọlọ́baụn揂Mọ̀bàỌ̀tùn Èkìtììjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "ọlọ́baụn宷Northwest YorubaÀwórììjàpá宷"
+      "text": "ọlọ́baụn揂Northwest YorubaÀwórììjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "awun宷"
+      "text": "awun揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábawun宷Èbúté Mẹ́tàìjàpá宷"
+      "text": "alábawun揂Èbúté Mẹ́tàìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábawun宷Èkóìjàpá宷"
+      "text": "alábawun揂Èkóìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábawun宷Ìbàdànìjàpá宷"
+      "text": "alábawun揂Ìbàdànìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "ahun宷"
+      "text": "ahun揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìbàdànìjàpá宷"
+      "text": "alábahun揂Ìbàdànìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìbàràpáìjàpá宷"
+      "text": "alábahun揂Ìbàràpáìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Igbó Òràìjàpá宷"
+      "text": "alábahun揂Igbó Òràìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìbọ̀lọ́ìjàpá宷"
+      "text": "alábahun揂Ìbọ̀lọ́ìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Òṣogboìjàpá宷"
+      "text": "alábahun揂Òṣogboìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ọ̀fàìjàpá宷"
+      "text": "alábahun揂Ọ̀fàìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìlọrinìjàpá宷"
+      "text": "alábahun揂Ìlọrinìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷OǹkóÒtùìjàpá宷"
+      "text": "alábahun揂OǹkóÒtùìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìwéré Iléìjàpá宷"
+      "text": "alábahun揂Ìwéré Iléìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Òkèhòìjàpá宷"
+      "text": "alábahun揂Òkèhòìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìsẹ́yìnìjàpá宷"
+      "text": "alábahun揂Ìsẹ́yìnìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ṣakíìjàpá宷"
+      "text": "alábahun揂Ṣakíìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Tedéìjàpá宷"
+      "text": "alábahun揂Tedéìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ìgbẹ́tììjàpá宷"
+      "text": "alábahun揂Ìgbẹ́tììjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ọ̀yọ́ìjàpá宷"
+      "text": "alábahun揂Ọ̀yọ́ìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Ògbómọ̀ṣọ́ìjàpá宷"
+      "text": "alábahun揂Ògbómọ̀ṣọ́ìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábahun宷Standard YorùbáNàìjíríàìjàpá宷"
+      "text": "alábahun揂Standard YorùbáNàìjíríàìjàpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábawun宷Bɛ̀nɛ̀ìjàkpá宷"
+      "text": "alábawun揂Bɛ̀nɛ̀ìjàkpá揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "alábawun宷Northeast Yoruba"
+      "text": "alábawun揂Northeast Yoruba"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "OkunOwéọbaun宷Kabbaọbaun宷Ede languages"
+      "text": "OkunOwéọbaun揂Kabbaọbaun揂Ede languages"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
       "relationType": "synonyms",
-      "text": "áwìrì宷BeninIgbó Ìdàácàògìdán宷"
+      "text": "áwìrì揂BeninIgbó Ìdàácàògìdán揂"
     },
     {
       "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
@@ -22476,6 +22471,16 @@
     {
       "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
       "relationType": "synonyms",
+      "text": "leleaɔ̃錷Kandilèléiàrɔ̃錷"
+    },
+    {
+      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
+      "relationType": "synonyms",
+      "text": "leleaɔ̃錷Northern NagoKamboleãràwó錷"
+    },
+    {
+      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
+      "relationType": "synonyms",
       "text": "now deemed dialects of Yorùbá in Nigeria"
     },
     {
@@ -22511,11 +22516,6 @@
     {
       "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
       "relationType": "synonyms",
-      "text": "isu趾Kabbausu趾"
-    },
-    {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "synonyms",
       "text": "now deemed dialects of Yorùbá in Nigeria"
     },
     {
@@ -22546,7 +22546,7 @@
     {
       "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
       "relationType": "synonyms",
-      "text": "àtẹlẹhin忢Kabbaẹhìn忢"
+      "text": "àtẹlẹhin鏼Kabbaẹhìn鏼"
     },
     {
       "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
@@ -22691,7 +22691,7 @@
     {
       "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
       "relationType": "synonyms",
-      "text": "loguó珍Havanalogwó珍"
+      "text": "loguó蔴Havanalogwó蔴"
     },
     {
       "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
@@ -23241,27 +23241,27 @@
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
       "relationType": "synonyms",
-      "text": "wíìnyɛ̀窆Atakpamɛtsárũ窆"
+      "text": "wíìnyɛ̀縴Atakpamɛtsárũ縴"
     },
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
       "relationType": "synonyms",
-      "text": "wíìnyɛ̀窆Bokotsárũ窆"
+      "text": "wíìnyɛ̀縴Bokotsárũ縴"
     },
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
       "relationType": "synonyms",
-      "text": "wíìnyɛ̀窆Est-Monotsárũ窆"
+      "text": "wíìnyɛ̀縴Est-Monotsárũ縴"
     },
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
       "relationType": "synonyms",
-      "text": "wíìnyɛ̀窆Moretantsárũ窆"
+      "text": "wíìnyɛ̀縴Moretantsárũ縴"
     },
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
       "relationType": "synonyms",
-      "text": "wíìnyɛ̀窆Tchettitsárũ窆"
+      "text": "wíìnyɛ̀縴Tchettitsárũ縴"
     },
     {
       "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
@@ -23411,47 +23411,47 @@
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "orúghoBELLY DANCEMahinoríghoBELLY DANCE"
+      "text": "orúgho俩Mahinorígho俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "orúghoBELLY DANCEOǹdóoíghoBELLY DANCE"
+      "text": "orúgho俩Oǹdóoígho俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "oíBELLY DANCEOǹdóoíghoBELLY DANCE"
+      "text": "oí俩Oǹdóoígho俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwoBELLY DANCEBaàtɛéwoBELLY DANCE"
+      "text": "eéwo俩Baàtɛéwo俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwoBELLY DANCEÌdàácàeríwoBELLY DANCE"
+      "text": "eéwo俩Ìdàácàeríwo俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eríoBELLY DANCE"
+      "text": "erío俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwoBELLY DANCEBeninIgbó ÌdàácàeríwoBELLY DANCE"
+      "text": "eéwo俩BeninIgbó Ìdàácàeríwo俩"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "eéwoBELLY DANCEỌ̀họ̀rí"
+      "text": "eéwo俩Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-ÌjèeríBELLY DANCEỌ̀họ̀rí"
+      "text": "Ɔ̀hɔ̀rí-Ìjèerí俩Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
@@ -23461,7 +23461,7 @@
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́eríBELLY DANCEKétu"
+      "text": "ÌjèÌkpòbɛ́erí俩Kétu"
     },
     {
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
@@ -23966,37 +23966,37 @@
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "obìnrẹn墨Ìjẹ̀búÌjẹ̀bú Òdeobìrẹn墨"
+      "text": "obìnrẹn銇Ìjẹ̀búÌjẹ̀bú Òdeobìrẹn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "obìnrẹn墨Rẹ́mọẸ̀pẹ́obìrẹn墨"
+      "text": "obìnrẹn銇Rẹ́mọẸ̀pẹ́obìrẹn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "obìnrẹn墨Ìkòròdúobìrẹn墨"
+      "text": "obìnrẹn銇Ìkòròdúobìrẹn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "obìnrẹn墨Ṣágámùobìrẹn墨"
+      "text": "obìnrẹn銇Ṣágámùobìrẹn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "ọbụ̀rịn墨Àkúrẹ́Àkúrẹ́ọbị̀nrịn墨"
+      "text": "ọbụ̀rịn銇Àkúrẹ́Àkúrẹ́ọbị̀nrịn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "ọbụ̀rịn墨Mọ̀bàỌ̀tùn Èkìtìọbị̀nrịn墨"
+      "text": "ọbụ̀rịn銇Mọ̀bàỌ̀tùn Èkìtìọbị̀nrịn銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "OkunOwéóbùnrin墨Kabbaóbùnrin墨Ede languages"
+      "text": "OkunOwéóbùnrin銇Kabbaóbùnrin銇Ede languages"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
@@ -24011,17 +24011,17 @@
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́obirɛn墨Onigboloobìnrɛn墨Kétu"
+      "text": "ÌjèÌkpòbɛ́obirɛn銇Onigboloobìnrɛn銇Kétu"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "ÀnàgóKétuobìnrin墨Ifɛ̀Akpáréɔnɔbɛ̃̀ɛ̃墨"
+      "text": "ÀnàgóKétuobìnrin銇Ifɛ̀Akpáréɔnɔbɛ̃̀ɛ̃銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
       "relationType": "synonyms",
-      "text": "ɔbĩrĩ墨Atakpamɛonɛbùɛ̃墨"
+      "text": "ɔbĩrĩ銇Atakpamɛonɛbùɛ̃銇"
     },
     {
       "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
@@ -24066,12 +24066,12 @@
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "synonyms",
-      "text": "olokìrin櫾BeninIgbó Ìdàácàolokìnrin櫾"
+      "text": "olokìrin縴BeninIgbó Ìdàácàolokìnrin縴"
     },
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "synonyms",
-      "text": "olokìrin櫾Ọ̀họ̀rí"
+      "text": "olokìrin縴Ọ̀họ̀rí"
     },
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
@@ -24086,17 +24086,17 @@
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "synonyms",
-      "text": "ÌjèOnigbolookìin櫾Kétu"
+      "text": "ÌjèOnigbolookìin縴Kétu"
     },
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "synonyms",
-      "text": "ÀnàgóKétuɔkùnrin櫾Ifɛ̀Akpáréɔnɛkĩ̀rĩ櫾"
+      "text": "ÀnàgóKétuɔkùnrin縴Ifɛ̀Akpáréɔnɛkĩ̀rĩ縴"
     },
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "synonyms",
-      "text": "ɔnɔkɛ̃̀ɛ̃櫾Atakpamɛonɛkũ̀rɛ̃櫾"
+      "text": "ɔnɔkɛ̃̀ɛ̃縴Atakpamɛonɛkũ̀rɛ̃縴"
     },
     {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
@@ -24702,6 +24702,11 @@
       "sourceEntryId": "en-aṣọ_oke-yo-noun-6XvEfVHD",
       "relationType": "descendants",
       "text": "aso oke"
+    },
+    {
+      "sourceEntryId": "en-sọrọ_soke-yo-verb-zjLiM20R",
+      "relationType": "descendants",
+      "text": "Soro Soke"
     },
     {
       "sourceEntryId": "en-ijanu-yo-noun-6YilkEUl",
@@ -27296,57 +27301,52 @@
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Abẹ́òkútaìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTAbẹ́òkútaìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Èkóìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÈkóìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìbàdànìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÌbàdànìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìlọrinìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÌlọrinìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ọ̀yọ́ìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTỌ̀yọ́ìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ògbómọ̀ṣọ́ìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÒgbómọ̀ṣọ́ìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìkirèìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÌkirèìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìwóìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTÌwóìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Standard YorùbáNàìjíríàìbéèrè稦"
+      "text": "ìbèèrèSTATEMENTBɛ̀nɛ̀ìbéèrèSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
       "relationType": "synonyms",
-      "text": "ìbèèrè稦Bɛ̀nɛ̀ìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "m̀bèìn稦Baàtɛìmbèìn稦"
+      "text": "m̀bèìnSTATEMENTBaàtɛìmbèìnSTATEMENT"
     },
     {
       "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
@@ -27885,7 +27885,7 @@
       "en-ẹdọ-yo-noun-SbwMyDuV"
     ]
   ],
-  "kaikkiSourceDate": null,
-  "kaikkiReleaseTag": null,
-  "kaikkiParseErrorCount": null
+  "kaikkiSourceDate": "2026-07-11",
+  "kaikkiReleaseTag": "build-3",
+  "kaikkiParseErrorCount": 0
 }
