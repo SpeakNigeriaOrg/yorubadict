@@ -9,7 +9,7 @@
 //     document lengths) so the browser can score BM25 itself with no
 //     server round-trip.
 
-import { allForms } from './orthography.mjs';
+import { allForms, spellingsForEntry } from './orthography.mjs';
 
 const STOPWORDS = new Set([
   'a', 'an', 'the', 'to', 'of', 'or', 'and', 'in', 'on', 'as', 'is', 'be',
@@ -43,17 +43,14 @@ function englishTextForEntry(entry) {
   return { glossText: glossParts.join(' '), exampleText: exampleParts.join(' ') };
 }
 
-// Every searchable spelling for an entry - its canonical form plus each
-// alt form Wiktionary lists (e.g. iná's alt form uná) - each with its own
-// exact/toneInsensitive/orthographyInsensitive tiers, all pointing back at
-// the same entry. Without this, alt forms are real, displayed data that's
-// simply never findable by search.
+// Every searchable spelling for an entry - headword, canonical form, and
+// each alt form Wiktionary lists (e.g. iná's alt form uná) - each with its
+// own exact/toneInsensitive/orthographyInsensitive tiers, all pointing back
+// at the same entry. Without this, alt forms (and the raw headword, when it
+// differs from the canonical spelling) are real, displayed/resolvable data
+// that's simply never findable by search.
 function searchableForms(entry) {
-  const forms = [entry.forms];
-  for (const alt of entry.altForms || []) {
-    if (alt.form) forms.push(allForms(alt.form));
-  }
-  return forms;
+  return spellingsForEntry(entry).map(allForms);
 }
 
 function buildSortedTierIndex(entries, tierKey, formsByEntry) {

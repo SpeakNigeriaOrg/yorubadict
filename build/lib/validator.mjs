@@ -3,6 +3,8 @@
 // Stage 4: Validation. Produces a report describing detected inconsistencies
 // in the data. Never modifies entries — purely diagnostic.
 
+import { spellingsForEntry, toneInsensitiveForm } from './orthography.mjs';
+
 export function buildValidationReport(entries, unresolvedRelations, parseErrors) {
   const report = {
     generatedAt: new Date().toISOString(),
@@ -15,7 +17,7 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors)
     circularDerivations: [],
   };
 
-  const toneIndex = new Map(); // toneInsensitive spelling -> [ids]
+  const toneIndex = new Map(); // toneInsensitive spelling -> Set(ids)
 
   for (const entry of entries) {
     if (entry.canonicalForm.inferenceMethod !== 'explicit_canonical_tag') {
@@ -31,14 +33,19 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors)
       report.missingIpa.push({ entryId: entry.id, headword: entry.headword });
     }
 
-    const key = entry.forms.toneInsensitive;
-    if (!toneIndex.has(key)) toneIndex.set(key, []);
-    toneIndex.get(key).push(entry.id);
+    // Every spelling this entry answers to (headword, canonical form, alt
+    // forms) - not just its canonical form - so two entries that only
+    // coincide via an alt spelling still surface as homographs.
+    for (const spelling of spellingsForEntry(entry)) {
+      const key = toneInsensitiveForm(spelling);
+      if (!toneIndex.has(key)) toneIndex.set(key, new Set());
+      toneIndex.get(key).add(entry.id);
+    }
   }
 
   for (const [spelling, ids] of toneIndex.entries()) {
-    if (ids.length > 1) {
-      report.duplicateNormalizedSpellings[spelling] = ids;
+    if (ids.size > 1) {
+      report.duplicateNormalizedSpellings[spelling] = [...ids];
     }
   }
 

@@ -525,12 +525,25 @@
 
     els.searchInput.addEventListener('input', onSearchInput);
     els.searchInput.addEventListener('keydown', onSearchKeydown);
+    function closeQualityPanel() {
+      els.qualityPanel.classList.add('hidden');
+    }
+
     els.qualityToggle.addEventListener('click', () => {
       renderQualityPanel();
       els.qualityPanel.classList.remove('hidden');
     });
-    els.qualityClose.addEventListener('click', () => {
-      els.qualityPanel.classList.add('hidden');
+    els.qualityClose.addEventListener('click', closeQualityPanel);
+    // Clicking the backdrop (anywhere in the fixed overlay outside the
+    // panel itself) closes it too - checking e.target avoids closing on
+    // clicks that bubble up from inside quality-panel-inner.
+    els.qualityPanel.addEventListener('click', (e) => {
+      if (e.target === els.qualityPanel) closeQualityPanel();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !els.qualityPanel.classList.contains('hidden')) {
+        closeQualityPanel();
+      }
     });
 
     // Component-word pills link to one ranked-best homograph, but several

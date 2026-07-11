@@ -41,3 +41,19 @@ export function allForms(s) {
     orthographyInsensitive: orthographyInsensitiveForm(s),
   };
 }
+
+// Every raw spelling string worth treating as an alias for an entry: its
+// raw Wiktionary headword (often untoned/less-specific than its real
+// spelling), its own canonical form, and each alternative form. Single
+// source of truth for "what spellings does this entry answer to" - used
+// both for relationship/morpheme alias resolution and for building the
+// search index, which previously computed this set two different,
+// independently-reasoned ways (one included the headword, the other
+// didn't).
+export function spellingsForEntry(entry) {
+  const spellings = new Set([entry.headword, entry.canonicalForm.value]);
+  for (const alt of entry.altForms || []) {
+    if (alt.form) spellings.add(alt.form);
+  }
+  return [...spellings].filter(Boolean);
+}

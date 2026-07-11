@@ -12,6 +12,8 @@
 //      auditing the data) can tell "the dictionary said this" apart from
 //      "we inferred this."
 
+import { spellingsForEntry } from './orthography.mjs';
+
 function buildAliasIndex(entries) {
   const index = new Map(); // spelling -> Set(entryId)
 
@@ -22,9 +24,7 @@ function buildAliasIndex(entries) {
   };
 
   for (const entry of entries) {
-    add(entry.headword, entry.id);
-    add(entry.canonicalForm.value, entry.id);
-    for (const alt of entry.altForms) add(alt.form, entry.id);
+    for (const spelling of spellingsForEntry(entry)) add(spelling, entry.id);
   }
 
   return index;

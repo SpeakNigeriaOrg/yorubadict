@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T16:52:03.481Z",
+  "generatedAt": "2026-07-11T17:20:24.359Z",
   "totalEntries": 6273,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -6181,7 +6181,8 @@
     ],
     "f": [
       "en-f-yo-character-GcbgjaJg",
-      "en-F-yo-character-GcbgjaJg"
+      "en-F-yo-character-GcbgjaJg",
+      "en-ف-yo-character-Gg83yO7G"
     ],
     "fa": [
       "en-fa-yo-verb-OFVmd8R8",
@@ -6189,7 +6190,8 @@
     ],
     "y": [
       "en-y-yo-character-5uZs2vHV",
-      "en-Y-yo-character-5uZs2vHV"
+      "en-Y-yo-character-5uZs2vHV",
+      "en-ي-yo-character-Cn7TnSum"
     ],
     "de": [
       "en-de-yo-verb-AVeqjNGn",
@@ -6199,10 +6201,22 @@
       "en-de-yo-prep-qSz2boMC",
       "en-de-yo-verb-4yzOzUrV"
     ],
+    "دعِ": [
+      "en-de-yo-verb-AVeqjNGn",
+      "en-de-yo-verb-nn3OgLQE",
+      "en-de-yo-verb-v3CFj4nj",
+      "en-de-yo-verb-MaosAbO4",
+      "en-de-yo-prep-qSz2boMC",
+      "en-de-yo-verb-4yzOzUrV",
+      "en-دعِ-yo-verb-yRxXohlh"
+    ],
     "in": [
       "en-in-yo-pron-f-JIt~vv",
       "en-in-yo-pron-6ZklU40f",
-      "en-in-yo-pron-BeTBAJ53"
+      "en-in-yo-pron-BeTBAJ53",
+      "en-n-yo-particle-yo:progressive",
+      "en-ẹ-yo-pron-xWEu5v70",
+      "en-ẹ-yo-pron-Z3VHhYPH"
     ],
     "o": [
       "en-o-yo-character-DH~zt4JU",
@@ -6214,7 +6228,19 @@
       "en-o-yo-intj-2EJR6o9U",
       "en-o-yo-particle-ZTLMUbvy",
       "en-o-yo-verb-rtjhekLI",
-      "en-O-yo-character-DH~zt4JU"
+      "en-ko-yo-particle-ZxlkYAyt",
+      "en-O-yo-character-DH~zt4JU",
+      "en-yoo-yo-verb-yo:intentional",
+      "en-وْ-yo-character-o8oFa~wN"
+    ],
+    "oo": [
+      "en-o-yo-intj-2EJR6o9U",
+      "en-oo-yo-noun-vjoubrE3",
+      "en-oo-yo-verb-3PUI1q-k",
+      "en-yoo-yo-verb-yo:intentional",
+      "en-iwo-yo-noun-lUMJjxcE",
+      "en-owo-yo-noun-Jx5UC9-4",
+      "en-wuwo-yo-verb-3PUI1q-k"
     ],
     "i": [
       "en-i-yo-character-CPhLBG1q",
@@ -6222,7 +6248,9 @@
       "en-i-yo-particle-hs39Qmje",
       "en-i-yo-pron-9deM-3Vx",
       "en-i-yo-pron-gJOyAsa7",
-      "en-I-yo-character-CPhLBG1q"
+      "en-n-yo-particle-yo:progressive",
+      "en-I-yo-character-CPhLBG1q",
+      "en-اِ-yo-character-TgCoV39U"
     ],
     "sun": [
       "en-sun-yo-verb-w~6onUrj",
@@ -6238,6 +6266,10 @@
       "en-are-yo-noun-ZIHziF~4",
       "en-are-yo-noun-1m10aAYQ"
     ],
+    "ganbia": [
+      "en-Gambia-yo-name-MTCxnpAN",
+      "en-Ganbia-yo-name-vXtGreA4"
+    ],
     "mi": [
       "en-mi-yo-noun-yqAU8Uo-",
       "en-mi-yo-pron-R8SxU7Q3",
@@ -6248,9 +6280,30 @@
       "en-mi-yo-verb-3WRTF9Cv",
       "en-mi-yo-verb-tl5wN536",
       "en-mi-yo-pron-h-6a74t3",
-      "en-mi-yo-noun-aFkz2w0-"
+      "en-mi-yo-noun-aFkz2w0-",
+      "en-n-yo-particle-yo:progressive",
+      "en-mo-yo-pron-D7Ok9CkU"
+    ],
+    "m": [
+      "en-mi-yo-noun-aFkz2w0-",
+      "en-m-yo-character-fODVeyzD",
+      "en-m-yo-pron-~-dbUpUu",
+      "en-m-yo-particle-OoRJFo7v",
+      "en-M-yo-character-fODVeyzD",
+      "en-م-yo-character-pgMVk1go",
+      "en-ḿ-yo-character-193Q9cio",
+      "en-m̀-yo-character-pc~TsXr-",
+      "en-Ḿ-yo-character-6zvScuZl",
+      "en-m̄-yo-character-UcTQcAdV",
+      "en-M̀-yo-character-iORmE3Sq",
+      "en-M̄-yo-character-vdYiCywF"
     ],
     "ami": [
+      "en-ami-yo-noun-ZLDJsckI",
+      "en-ami-yo-intj-nhIV-BM4",
+      "en-ami-yo-noun-V9SqN3JQ"
+    ],
+    "اَمِ": [
       "en-ami-yo-noun-ZLDJsckI",
       "en-ami-yo-intj-nhIV-BM4",
       "en-ami-yo-noun-V9SqN3JQ"
@@ -6258,7 +6311,16 @@
     "win": [
       "en-win-yo-verb-trYXiGWd",
       "en-win-yo-verb-BsVCin63",
-      "en-win-yo-verb-FlRLHntn"
+      "en-win-yo-verb-FlRLHntn",
+      "en-ịn-yo-verb-FlRLHntn"
+    ],
+    "hin": [
+      "en-win-yo-verb-FlRLHntn",
+      "en-ịn-yo-verb-FlRLHntn"
+    ],
+    "ịn": [
+      "en-win-yo-verb-FlRLHntn",
+      "en-ịn-yo-verb-FlRLHntn"
     ],
     "ao": [
       "en-ao-yo-noun-U5~dKxQI",
@@ -6266,7 +6328,37 @@
       "en-ao-yo-noun-kTSBn1MX",
       "en-ao-yo-noun-cAVkyCEi",
       "en-ao-yo-noun-Y7g2UOVU",
-      "en-Ao-yo-name-CFsk2U7K"
+      "en-Ao-yo-name-CFsk2U7K",
+      "en-awo-yo-noun-dkFDPqbU",
+      "en-awo-yo-noun-h3gSsLz8",
+      "en-agho-yo-noun-VYYP-C4Y",
+      "en-Awo-yo-name-EpUTN6T7"
+    ],
+    "awo": [
+      "en-ao-yo-noun-U5~dKxQI",
+      "en-ao-yo-noun-iUBfNISa",
+      "en-ao-yo-noun-kTSBn1MX",
+      "en-ao-yo-noun-cAVkyCEi",
+      "en-ao-yo-noun-Y7g2UOVU",
+      "en-awo-yo-noun-dkFDPqbU",
+      "en-awo-yo-noun-h3gSsLz8",
+      "en-awo-yo-noun-eB-Q491K",
+      "en-agho-yo-noun-VYYP-C4Y",
+      "en-Awo-yo-name-EpUTN6T7"
+    ],
+    "agho": [
+      "en-ao-yo-noun-U5~dKxQI",
+      "en-ao-yo-noun-iUBfNISa",
+      "en-ao-yo-noun-kTSBn1MX",
+      "en-ao-yo-noun-cAVkyCEi",
+      "en-ao-yo-noun-Y7g2UOVU",
+      "en-awo-yo-noun-h3gSsLz8",
+      "en-agho-yo-noun-VYYP-C4Y"
+    ],
+    "uo": [
+      "en-ao-yo-noun-Y7g2UOVU",
+      "en-iho-yo-noun-Oe5FUZcH",
+      "en-iwo-yo-noun-lUMJjxcE"
     ],
     "an": [
       "en-an-yo-pron-TR2sK9Ig",
@@ -6276,9 +6368,18 @@
       "en-to-yo-verb-Tvot62ME",
       "en-to-yo-verb-1alueZdR",
       "en-to-yo-verb-yY2oI1eV",
-      "en-to-yo-verb-j3m1yPtS"
+      "en-to-yo-verb-j3m1yPtS",
+      "en-ko-yo-conj-jn~AI2r0"
     ],
     "tutu": [
+      "en-tutu-yo-verb-KeZnVXnJ",
+      "en-tutu-yo-adj-TJi3tCZR"
+    ],
+    "titu": [
+      "en-tutu-yo-verb-KeZnVXnJ",
+      "en-tutu-yo-adj-TJi3tCZR"
+    ],
+    "tutun": [
       "en-tutu-yo-verb-KeZnVXnJ",
       "en-tutu-yo-adj-TJi3tCZR"
     ],
@@ -6290,6 +6391,14 @@
       "en-hi-yo-noun-ASfL5v3O",
       "en-hi-yo-prep-aWOju~yQ"
     ],
+    "si": [
+      "en-hi-yo-prep-aWOju~yQ",
+      "en-si-yo-noun-IyX2HhRs",
+      "en-si-yo-prep-aWOju~yQ",
+      "en-si-yo-verb-WAIRyWaA",
+      "en-si-yo-verb-LO~8QjJM",
+      "en-si-yo-conj-YgERG4Og"
+    ],
     "gun": [
       "en-gun-yo-verb-BUmCZS6m",
       "en-gun-yo-verb-JNDZ1G7y",
@@ -6299,6 +6408,17 @@
       "en-gun-yo-verb-g0UBR4PQ",
       "en-gun-yo-verb-qZVWdHo7",
       "en-gun-yo-verb-m8CeRdfL"
+    ],
+    "gan": [
+      "en-gun-yo-verb-g0UBR4PQ",
+      "en-gan-yo-verb-C-J5wmHJ",
+      "en-gan-yo-verb-2mj8308z",
+      "en-gan-yo-verb-EaW2Y~-0",
+      "en-gan-yo-verb-tADKsB7F",
+      "en-gan-yo-verb-31~ZLuvB",
+      "en-gan-yo-verb-ie3U7xiI",
+      "en-gan-yo-verb-SGzNsYK~",
+      "en-gan-an-yo-prep_phrase-ng689C7o"
     ],
     "ba": [
       "en-ba-yo-verb-N20jylCl",
@@ -6312,15 +6432,32 @@
     ],
     "eye": [
       "en-eye-yo-noun-SlO7ppnL",
-      "en-eye-yo-noun-SlO7ppnL1"
+      "en-eye-yo-noun-SlO7ppnL1",
+      "en-yeye-yo-noun-jlU0phM~",
+      "en-yeye-yo-noun-Lp3mf7lX",
+      "en-yeye-yo-adv-lzAcG~yq",
+      "en-yeye-yo-det-VDscS9T2"
+    ],
+    "yeye": [
+      "en-eye-yo-noun-SlO7ppnL",
+      "en-eye-yo-noun-SlO7ppnL1",
+      "en-yeye-yo-noun-jlU0phM~",
+      "en-yeye-yo-noun-Lp3mf7lX",
+      "en-yeye-yo-adv-lzAcG~yq",
+      "en-yeye-yo-det-VDscS9T2"
     ],
     "he": [
       "en-he-yo-verb-3aYb8I4M",
-      "en-he-yo-verb-1yh7dY8j"
+      "en-he-yo-verb-1yh7dY8j",
+      "en-se-yo-verb-qUY3OFDp"
     ],
     "uwe": [
       "en-uwe-yo-noun-a-LT0xQ~",
-      "en-uwe-yo-noun-IJPOBgdF"
+      "en-uwe-yo-noun-IJPOBgdF",
+      "en-iwe-yo-noun-OCY1yTJb",
+      "en-iwe-yo-noun-v4xH689P",
+      "en-iwe-yo-pron-HreWAkEe",
+      "en-uwẹ-yo-pron-7bXPrtOL"
     ],
     "re": [
       "en-re-yo-verb-gNM9bcDR",
@@ -6335,10 +6472,20 @@
       "en-re-yo-verb-RlTHDg4V",
       "en-re-yo-noun-bwEmdDj5"
     ],
+    "r": [
+      "en-re-yo-noun-bwEmdDj5",
+      "en-r-yo-character-J9IAFMEj",
+      "en-R-yo-character-J9IAFMEj"
+    ],
     "do": [
       "en-do-yo-noun-g6sWO8up",
       "en-do-yo-verb-~kie5llR",
       "en-do-yo-verb-WUJULA1z"
+    ],
+    "d": [
+      "en-do-yo-noun-g6sWO8up",
+      "en-d-yo-character-7blxeZhB",
+      "en-D-yo-character-7blxeZhB"
     ],
     "ke": [
       "en-ke-yo-verb-SmEXNkkd",
@@ -6359,13 +6506,47 @@
       "en-dodo-yo-noun-uerhPiNM",
       "en-dodo-yo-verb-mtMwAeZw"
     ],
+    "d'odo": [
+      "en-dodo-yo-verb-TzbxtbnG",
+      "en-dodo-yo-verb-mtMwAeZw"
+    ],
+    "mọmọ": [
+      "en-mama-yo-noun-zwYi7ypm",
+      "en-mọmọ-yo-noun-YVXnxWfk"
+    ],
     "pin": [
       "en-pin-yo-verb-MPBtsaU6",
       "en-pin-yo-verb-dJhTD84U"
     ],
+    "were": [
+      "en-were-yo-noun-gCs~7DRQ",
+      "en-iere-yo-noun-~lpRrR9H",
+      "en-iwere-yo-noun-~lpRrR9H"
+    ],
+    "iere": [
+      "en-were-yo-noun-gCs~7DRQ",
+      "en-iere-yo-noun-~lpRrR9H",
+      "en-iwere-yo-noun-~lpRrR9H"
+    ],
+    "iwere": [
+      "en-were-yo-noun-gCs~7DRQ",
+      "en-iere-yo-noun-~lpRrR9H",
+      "en-iwere-yo-noun-~lpRrR9H"
+    ],
     "go": [
       "en-go-yo-verb-qeWhR9Nw",
       "en-go-yo-verb-lfyLYT4c"
+    ],
+    "ga": [
+      "en-go-yo-verb-lfyLYT4c",
+      "en-ga-yo-verb-zFlAfZok",
+      "en-ga-yo-verb-lfyLYT4c",
+      "en-ga-yo-verb-xQmFj09V"
+    ],
+    "gọn": [
+      "en-go-yo-verb-lfyLYT4c",
+      "en-gọn-yo-verb-lfyLYT4c",
+      "en-gọn-yo-verb-1M9vpHcE"
     ],
     "ye": [
       "en-ye-yo-noun-zwYi7ypm",
@@ -6409,7 +6590,21 @@
       "en-bi-yo-verb-th3MASfF",
       "en-bi-yo-verb-E9hwbPOi",
       "en-bi-yo-verb-~4YEG~Dq",
-      "en-bi-yo-verb-Ce6jRUDc"
+      "en-bi-yo-verb-Ce6jRUDc",
+      "en-bẹ-yo-verb-lvCUO4a5"
+    ],
+    "bẹ": [
+      "en-bi-yo-verb-lvCUO4a5",
+      "en-bẹ-yo-verb-XQ31nnU1",
+      "en-bẹ-yo-verb-hEcG2l2N",
+      "en-bẹ-yo-verb-9spnkTOg",
+      "en-bẹ-yo-verb-dKc~LFwp",
+      "en-bẹ-yo-verb-xVpO2Q~h",
+      "en-bẹ-yo-verb-OjWcMC7x",
+      "en-bẹ-yo-verb-q4mG3dKb",
+      "en-bẹ-yo-verb-Lo2k5Y0m",
+      "en-bẹ-yo-verb-YLTVB5L2",
+      "en-bẹ-yo-verb-lvCUO4a5"
     ],
     "du": [
       "en-du-yo-verb-9r0DfYq-",
@@ -6422,7 +6617,8 @@
       "en-e-yo-noun-9QIbpMwX",
       "en-e-yo-pron-Fwn-UO0B",
       "en-e-yo-pron-UpYrXOfa",
-      "en-E-yo-character-PxkhD1Fm"
+      "en-E-yo-character-PxkhD1Fm",
+      "en-عِ-yo-character-7AL9d6xV"
     ],
     "san": [
       "en-san-yo-verb-E7of3YFU",
@@ -6435,23 +6631,35 @@
       "en-rin-yo-verb-UBmQtsa~",
       "en-rin-yo-verb-KhL~drUK",
       "en-rin-yo-verb-SpSubmG5",
-      "en-rin-yo-verb-97mpTeR1"
+      "en-rin-yo-verb-97mpTeR1",
+      "en-yin-yo-det-Q45KFK9T",
+      "en-yin-yo-pron-0k-Xxhuc",
+      "en-rin-in-yo-det--yxXVmnV"
+    ],
+    "rẹn": [
+      "en-rin-yo-verb-fuQaLMDb",
+      "en-rin-yo-verb-UBmQtsa~",
+      "en-rẹn-yo-verb-UBmQtsa~",
+      "en-rẹn-yo-verb-icLBTR14",
+      "en-rẹn-yo-verb-Hyc2f7HP"
+    ],
+    "rịn": [
+      "en-rin-yo-verb-fuQaLMDb",
+      "en-rin-yo-verb-UBmQtsa~"
     ],
     "b": [
       "en-b-yo-character-cW0~V1lX",
       "en-B-yo-character-cW0~V1lX"
     ],
-    "d": [
-      "en-d-yo-character-7blxeZhB",
-      "en-D-yo-character-7blxeZhB"
-    ],
     "g": [
       "en-g-yo-character-EikjS7IX",
-      "en-G-yo-character-EikjS7IX"
+      "en-G-yo-character-EikjS7IX",
+      "en-غ-yo-character-7IJ6QkB~"
     ],
     "h": [
       "en-h-yo-character-tx8uq123",
-      "en-H-yo-character-tx8uq123"
+      "en-H-yo-character-tx8uq123",
+      "en-ه-yo-character-LdDcefpA"
     ],
     "j": [
       "en-j-yo-character-ROrzY4J-",
@@ -6459,38 +6667,31 @@
     ],
     "k": [
       "en-k-yo-character-RW-F~PZT",
-      "en-K-yo-character-RW-F~PZT"
+      "en-K-yo-character-RW-F~PZT",
+      "en-ك-yo-character-p~6L~WsJ"
     ],
     "l": [
       "en-l-yo-character-SZybyxHS",
-      "en-L-yo-character-SZybyxHS"
-    ],
-    "m": [
-      "en-m-yo-character-fODVeyzD",
-      "en-m-yo-pron-~-dbUpUu",
-      "en-m-yo-particle-OoRJFo7v",
-      "en-M-yo-character-fODVeyzD",
-      "en-ḿ-yo-character-193Q9cio",
-      "en-m̀-yo-character-pc~TsXr-",
-      "en-Ḿ-yo-character-6zvScuZl",
-      "en-m̄-yo-character-UcTQcAdV",
-      "en-M̀-yo-character-iORmE3Sq",
-      "en-M̄-yo-character-vdYiCywF"
+      "en-L-yo-character-SZybyxHS",
+      "en-ل-yo-character-mGxFW5tj"
     ],
     "n": [
       "en-n-yo-character-wYhmiKlz",
       "en-n-yo-particle-yo:progressive",
       "en-n-yo-pron-i9ESTIJJ",
       "en-N-yo-character-wYhmiKlz",
-      "en-N-yo-pron-oS~HLXCQ"
+      "en-N-yo-pron-oS~HLXCQ",
+      "en-mo-yo-pron-D7Ok9CkU",
+      "en-ن-yo-character-7hclxwOZ"
+    ],
+    "ng": [
+      "en-n-yo-pron-i9ESTIJJ",
+      "en-ng-yo-pron-6kRzHeGk"
     ],
     "p": [
       "en-p-yo-character-t7CbtxXx",
-      "en-P-yo-character-t7CbtxXx"
-    ],
-    "r": [
-      "en-r-yo-character-J9IAFMEj",
-      "en-R-yo-character-J9IAFMEj"
+      "en-P-yo-character-t7CbtxXx",
+      "en-پ-yo-character-NXrzzGNC"
     ],
     "s": [
       "en-s-yo-character-Rnve89sP",
@@ -6498,6 +6699,7 @@
     ],
     "t": [
       "en-t-yo-character-FA0t69vH",
+      "en-ت-yo-character-vxPnQUol",
       "en-T-yo-character-FA0t69vH"
     ],
     "u": [
@@ -6505,10 +6707,12 @@
       "en-u-yo-noun-2YsMsj8i",
       "en-u-yo-pron-nmFijwJc",
       "en-u-yo-pron-Lij2fBhG",
-      "en-U-yo-character-ZlYVbvdW"
+      "en-U-yo-character-ZlYVbvdW",
+      "en-اُ-yo-character-15JMa-K4"
     ],
     "w": [
       "en-w-yo-character-i-k8BAUg",
+      "en-و-yo-character-uCO7gZyz",
       "en-W-yo-character-i-k8BAUg"
     ],
     "ese": [
@@ -6522,11 +6726,22 @@
     "ewe": [
       "en-ewe-yo-noun-acXdaKA6",
       "en-ewe-yo-noun-wOgbPmhh",
-      "en-ewe-yo-noun-lr-AZIn4"
+      "en-ewe-yo-noun-lr-AZIn4",
+      "en-eghe-yo-noun-n5EWH0ND"
+    ],
+    "ee": [
+      "en-ewe-yo-noun-lr-AZIn4",
+      "en-eghe-yo-noun-NUmyogXm",
+      "en-eghe-yo-noun-n5EWH0ND"
     ],
     "ore": [
       "en-ore-yo-noun-CTs5oz4-",
       "en-ore-yo-noun-eJqE6U32"
+    ],
+    "oe": [
+      "en-ore-yo-noun-CTs5oz4-",
+      "en-owe-yo-noun-sRKITWSV",
+      "en-owe-yo-noun-XGYgLU6e"
     ],
     "han": [
       "en-han-yo-verb-3QAwETAh",
@@ -6534,11 +6749,54 @@
       "en-han-yo-verb-I--L1dxn",
       "en-han-yo-verb-8LZiJGA8",
       "en-han-yo-verb-0QEP1Ces",
-      "en-han-yo-verb-oyTQIQVF"
+      "en-han-yo-verb-oyTQIQVF",
+      "en-ghọn-yo-verb-8LZiJGA8",
+      "en-ghọn-yo-verb-bw~dPneS",
+      "en-ghọn-yo-verb-JaKgizuj",
+      "en-ghọn-yo-verb-MIs93Vz2"
+    ],
+    "ọn": [
+      "en-han-yo-verb-3QAwETAh",
+      "en-han-yo-verb-65UnKEp3",
+      "en-han-yo-verb-I--L1dxn",
+      "en-han-yo-verb-8LZiJGA8",
+      "en-han-yo-verb-0QEP1Ces",
+      "en-han-yo-verb-oyTQIQVF",
+      "en-wọn-yo-verb-Tz6u76wz",
+      "en-ọn-yo-pron-EZNn0uDU",
+      "en-ọn-yo-pron-7s060eCI",
+      "en-ghọn-yo-verb-8LZiJGA8",
+      "en-ghọn-yo-verb-bw~dPneS",
+      "en-ghọn-yo-verb-JaKgizuj",
+      "en-ghọn-yo-verb-MIs93Vz2"
+    ],
+    "ghan": [
+      "en-han-yo-verb-3QAwETAh",
+      "en-han-yo-verb-65UnKEp3",
+      "en-han-yo-verb-I--L1dxn",
+      "en-han-yo-verb-8LZiJGA8",
+      "en-han-yo-verb-0QEP1Ces",
+      "en-han-yo-verb-oyTQIQVF",
+      "en-ghan-yo-pron-5d0ivQen",
+      "en-ghan-yo-pron--8yPAGd~",
+      "en-ghan-yo-verb-LfCJgSGD",
+      "en-wọn-yo-verb-xWzpz9h6",
+      "en-ghọn-yo-verb-MIs93Vz2"
+    ],
+    "ghọn": [
+      "en-han-yo-verb-8LZiJGA8",
+      "en-ghan-yo-verb-LfCJgSGD",
+      "en-wọn-yo-verb-xWzpz9h6",
+      "en-wọn-yo-verb-Tz6u76wz",
+      "en-ghọn-yo-verb-8LZiJGA8",
+      "en-ghọn-yo-verb-bw~dPneS",
+      "en-ghọn-yo-verb-JaKgizuj",
+      "en-ghọn-yo-verb-MIs93Vz2"
     ],
     "hun": [
       "en-hun-yo-verb-w~6onUrj",
-      "en-hun-yo-verb-JaKgizuj"
+      "en-hun-yo-verb-JaKgizuj",
+      "en-ghọn-yo-verb-JaKgizuj"
     ],
     "aa": [
       "en-aa-yo-contraction-O~6gkCi-",
@@ -6546,10 +6804,12 @@
     ],
     "gb": [
       "en-GB-yo-character-KZoWFbHu",
+      "en-ڠ-yo-character-gMu3fCpm",
       "en-Gb-yo-character-rOSN0-RM",
       "en-gb-yo-character-rOSN0-RM"
     ],
     "ha": [
+      "en-ha-yo-intj-uUk1ZKmk",
       "en-ha-yo-verb-Ed2r0y89",
       "en-ha-yo-verb-zOiRm7RC",
       "en-ha-yo-verb-dSqGVI9e",
@@ -6561,7 +6821,14 @@
       "en-ni-yo-prep-sMSnxPOE",
       "en-ni-yo-verb-KlHIAFBs",
       "en-ni-yo-verb-2y4cGvZD",
-      "en-ni-yo-verb-ym4H-0vB"
+      "en-ni-yo-verb-ym4H-0vB",
+      "en-nị-yo-pron-aV3C1uOP"
+    ],
+    "nẹ": [
+      "en-ni-yo-verb-11K4IPdV",
+      "en-nẹ-yo-verb-11K4IPdV",
+      "en-nẹ-yo-verb-Fy64VqG8",
+      "en-nẹ-yo-verb-vArdDnKM"
     ],
     "un": [
       "en-un-yo-pron-nCFowsQX",
@@ -6584,23 +6851,41 @@
       "en-ta-yo-verb-z8VmeN0C",
       "en-ta-yo-verb-eY8Kff4H"
     ],
+    "duo": [
+      "en-duo-yo-verb-pIpnd5CW",
+      "en-duro-yo-verb-g4ppckIk"
+    ],
     "mu": [
       "en-mu-yo-verb-5i9kA2DY",
       "en-mu-yo-verb-TuaAS407",
       "en-mu-yo-verb-NKGymsVL",
       "en-mu-yo-verb-Vk7G5aRj"
     ],
+    "yu": [
+      "en-yu-yo-verb-gNM9bcDR",
+      "en-yun-yo-verb-gNM9bcDR"
+    ],
+    "yun": [
+      "en-yu-yo-verb-gNM9bcDR",
+      "en-yun-yo-verb-gNM9bcDR",
+      "en-yun-yo-verb-ilqldTYi",
+      "en-yọn-yo-verb-TCKFiOo6",
+      "en-yụn-yo-verb-TCKFiOo6"
+    ],
+    "ju": [
+      "en-yu-yo-verb-gNM9bcDR",
+      "en-ju-yo-verb-rXsYG5fG",
+      "en-ju-yo-verb-OIvvwKGh",
+      "en-ju-yo-verb-47MSqiNf"
+    ],
+    "hu": [
+      "en-yu-yo-verb-gNM9bcDR",
+      "en-wu-yo-verb-sH8UXsse"
+    ],
     "na": [
       "en-na-yo-verb-wJiqPxZw",
       "en-na-yo-verb-B70KjR1c",
       "en-na-yo-verb-a97z-ZXy"
-    ],
-    "si": [
-      "en-si-yo-noun-IyX2HhRs",
-      "en-si-yo-prep-aWOju~yQ",
-      "en-si-yo-verb-WAIRyWaA",
-      "en-si-yo-verb-LO~8QjJM",
-      "en-si-yo-conj-YgERG4Og"
     ],
     "ti": [
       "en-ti-yo-noun-pYdnggPA",
@@ -6611,10 +6896,9 @@
       "en-ti-yo-verb-FIIzcuAQ",
       "en-ti-yo-verb-WU-LAHyv"
     ],
-    "ga": [
-      "en-ga-yo-verb-zFlAfZok",
-      "en-ga-yo-verb-lfyLYT4c",
-      "en-ga-yo-verb-xQmFj09V"
+    "tii": [
+      "en-ti-yo-particle-yo:relational",
+      "en-tii-yo-noun-qfdNHsNu"
     ],
     "se": [
       "en-se-yo-verb-qUY3OFDp",
@@ -6629,9 +6913,32 @@
       "en-la-yo-verb-upiAfijB",
       "en-la-yo-verb-SYRCW2PC"
     ],
+    "eu": [
+      "en-eu-yo-noun-ULxm2Krl",
+      "en-ewu-yo-noun-BuGZP~~F",
+      "en-owu-yo-noun-ULxm2Krl",
+      "en-owu-yo-noun-aeOZhRyE",
+      "en-owu-yo-noun-PzY0WmFJ",
+      "en-ẹwu-yo-noun-BiZSZF~v"
+    ],
+    "owu": [
+      "en-eu-yo-noun-ULxm2Krl",
+      "en-owu-yo-noun-ULxm2Krl",
+      "en-owu-yo-noun-aeOZhRyE",
+      "en-owu-yo-noun-PzY0WmFJ",
+      "en-Owu-yo-name-cZ~mIlau",
+      "en-Owu-yo-name-IMoh6fFC"
+    ],
     "ho": [
       "en-ho-yo-verb-yG~NxbN7",
       "en-ho-yo-verb-L237tM7r"
+    ],
+    "fo": [
+      "en-ho-yo-verb-L237tM7r",
+      "en-fo-yo-verb-WQQiW1~2",
+      "en-fo-yo-verb-qY3ufYdY",
+      "en-fo-yo-verb-kmZbmXWo",
+      "en-fo-yo-verb-T7yYU-Kz"
     ],
     "po": [
       "en-po-yo-verb--QTe14pL",
@@ -6642,7 +6949,12 @@
       "en-ra-yo-verb-fi7Tk9Ul",
       "en-ra-yo-verb-JU2tUS50",
       "en-ra-yo-verb-KENldFbB",
-      "en-ra-yo-particle-WgAh9Ibp"
+      "en-ra-yo-particle-WgAh9Ibp",
+      "en-ria-yo-pron-y5bIz2RD"
+    ],
+    "ria": [
+      "en-ra-yo-det-y5bIz2RD",
+      "en-ria-yo-pron-y5bIz2RD"
     ],
     "pa": [
       "en-pa-yo-verb-Ps~5DR-I",
@@ -6654,6 +6966,14 @@
       "en-pa-yo-verb-92TeXsR4"
     ],
     "pe": [
+      "en-pe-yo-verb-1TDqBQC8",
+      "en-pe-yo-verb-3py-OgbU",
+      "en-pe-yo-verb-w-u6ERnE",
+      "en-pe-yo-verb-Pr46rTDL",
+      "en-pe-yo-conj-jn~AI2r0",
+      "en-pe-yo-verb-wj7KaBz-"
+    ],
+    "پعِ": [
       "en-pe-yo-verb-1TDqBQC8",
       "en-pe-yo-verb-3py-OgbU",
       "en-pe-yo-verb-w-u6ERnE",
@@ -6673,6 +6993,7 @@
     "ika": [
       "en-ika-yo-noun-e-5aJtNz",
       "en-ika-yo-noun-1DBGV6cx",
+      "en-ida-yo-noun-m7RNTFHd",
       "en-Ika-yo-name-t5yxKJ-2"
     ],
     "idi": [
@@ -6681,7 +7002,16 @@
       "en-idi-yo-noun-F-Y~Dgis",
       "en-idi-yo-noun-Qc2wkoJi",
       "en-idi-yo-noun-sKi~nQGs",
-      "en-idi-yo-noun-se18kJpr"
+      "en-idi-yo-noun-se18kJpr",
+      "en-udi-yo-noun-0Uiu4lol",
+      "en-udi-yo-noun-i~6z6j8K",
+      "en-Odi-yo-name-GZGwYUwW"
+    ],
+    "udi": [
+      "en-idi-yo-noun-F-Y~Dgis",
+      "en-idi-yo-noun-Qc2wkoJi",
+      "en-udi-yo-noun-0Uiu4lol",
+      "en-udi-yo-noun-i~6z6j8K"
     ],
     "da": [
       "en-da-yo-verb-FsER6m5k",
@@ -6705,11 +7035,9 @@
       "en-da-yo-verb-ijkR~QeS",
       "en-da-yo-verb-fCRRyppk"
     ],
-    "fo": [
-      "en-fo-yo-verb-WQQiW1~2",
-      "en-fo-yo-verb-qY3ufYdY",
-      "en-fo-yo-verb-kmZbmXWo",
-      "en-fo-yo-verb-T7yYU-Kz"
+    "ikan": [
+      "en-ikan-yo-noun-A4l0iaFs",
+      "en-ọkan-yo-num-dpLDrTVA"
     ],
     "yi": [
       "en-yi-yo-noun-UnvC7keQ",
@@ -6743,6 +7071,16 @@
       "en-ada-yo-noun-DClvN33T",
       "en-ada-yo-noun-vZR~9nfp"
     ],
+    "ago": [
+      "en-ago-yo-intj-W6elzjCO",
+      "en-ago-yo-noun-Dk8eJ225"
+    ],
+    "ogo": [
+      "en-ago-yo-noun-Dk8eJ225",
+      "en-ogo-yo-noun-l8VAm-hl",
+      "en-ogo-yo-noun-mEhCinst",
+      "en-ogo-yo-noun-BQimNERd"
+    ],
     "ale": [
       "en-ale-yo-noun-KvgEODbJ",
       "en-ale-yo-noun-sesjhSU~"
@@ -6757,9 +7095,29 @@
       "en-apa-yo-noun-vygVyeEg",
       "en-apa-yo-noun-61csXPXT"
     ],
+    "ọka": [
+      "en-apa-yo-noun-3ff~Xr2d",
+      "en-ọka-yo-noun-ZgmENsRz",
+      "en-ọka-yo-noun-alOXtDjA",
+      "en-ẹka-yo-noun-FMAmtLDX",
+      "en-ẹka-yo-noun-dV-FDcaZ",
+      "en-ẹka-yo-noun-q3O0i5U0"
+    ],
+    "aka": [
+      "en-apa-yo-noun-3ff~Xr2d",
+      "en-aka-yo-noun-F~ChcCnH",
+      "en-aka-yo-noun-TAHButjo",
+      "en-aka-yo-noun-0TzHumh~",
+      "en-aka-yo-noun-koYbklZU"
+    ],
     "dan": [
       "en-dan-yo-verb-6qb2UgjB",
       "en-dan-yo-verb-bIUQhMt9"
+    ],
+    "dẹn": [
+      "en-dan-yo-verb-6qb2UgjB",
+      "en-dan-yo-verb-bIUQhMt9",
+      "en-dẹn-yo-verb-Hl4SX947"
     ],
     "fun": [
       "en-fun-yo-verb-CJWlMuQE",
@@ -6768,6 +7126,11 @@
     "yin": [
       "en-yin-yo-det-Q45KFK9T",
       "en-yin-yo-pron-0k-Xxhuc"
+    ],
+    "rin-in": [
+      "en-yin-yo-det-Q45KFK9T",
+      "en-yin-yo-pron-0k-Xxhuc",
+      "en-rin-in-yo-det--yxXVmnV"
     ],
     "maa": [
       "en-maa-yo-particle-yo:anticipative",
@@ -6800,6 +7163,12 @@
       "en-oni-yo-noun-4PT3Z6yI",
       "en-Oni-yo-name-gfzTXdhh"
     ],
+    "eni": [
+      "en-oni-yo-noun-4PT3Z6yI",
+      "en-eni-yo-noun-LL0ZUCli",
+      "en-eni-yo-noun-ROxTYXXi",
+      "en-eni-yo-num-dpLDrTVA"
+    ],
     "kura": [
       "en-kura-yo-noun-gm9kvwcP",
       "en-kura-yo-verb-Ra6CfJvM",
@@ -6815,15 +7184,42 @@
       "en-odo-yo-noun-60X5tlAh",
       "en-odo-yo-noun-LeATR1z1"
     ],
+    "سَارِ": [
+      "en-saari-yo-noun-K9Yqa5d5",
+      "en-سَارِ-yo-noun-lfh530gO"
+    ],
     "lo": [
       "en-lo-yo-verb-KvMKb9e5",
       "en-lo-yo-verb-dcFBOFoE",
       "en-lo-yo-verb-Lxy7DKf6",
       "en-lo-yo-verb-DtekQT8F"
     ],
+    "asẹn": [
+      "en-asin-yo-noun-8BT69Ijo",
+      "en-asẹn-yo-noun-BNCNqKiK"
+    ],
     "ala": [
       "en-ala-yo-noun-h3h1dTfq",
       "en-ala-yo-noun-9n0fwnl~"
+    ],
+    "io": [
+      "en-io-yo-noun-0KwkDBTg",
+      "en-iwo-yo-noun-lUMJjxcE"
+    ],
+    "owo": [
+      "en-io-yo-noun-0KwkDBTg",
+      "en-oo-yo-noun-vjoubrE3",
+      "en-oo-yo-verb-3PUI1q-k",
+      "en-owo-yo-noun-R6UWTbwf",
+      "en-owo-yo-noun-Jx5UC9-4"
+    ],
+    "ogho": [
+      "en-io-yo-noun-0KwkDBTg",
+      "en-ogho-yo-noun-QiRic9xf"
+    ],
+    "egho": [
+      "en-io-yo-noun-0KwkDBTg",
+      "en-egho-yo-noun-qBPprZve"
     ],
     "din": [
       "en-din-yo-verb-Hl4SX947",
@@ -6838,6 +7234,15 @@
       "en-ire-yo-noun-obCI4xNR",
       "en-Ire-yo-name-ZV--9RiB"
     ],
+    "ure": [
+      "en-ire-yo-noun-ViOLsFKk",
+      "en-ire-yo-noun-VLWaaIqZ",
+      "en-ire-yo-noun-RHuUD5id",
+      "en-ire-yo-noun-4QaeddXO",
+      "en-ire-yo-noun-d2GaAZJ9",
+      "en-ire-yo-noun-obCI4xNR",
+      "en-ure-yo-noun-vXX-PfEX"
+    ],
     "ira": [
       "en-ira-yo-noun-7L-qwbP8",
       "en-ira-yo-noun-rXzwRdZw",
@@ -6846,7 +7251,29 @@
       "en-ira-yo-noun-SCzvUxAt",
       "en-ira-yo-noun-Tx-fiAeu",
       "en-ira-yo-noun-vVfDo8MZ",
-      "en-ira-yo-noun-48oU-5FX"
+      "en-ira-yo-noun-48oU-5FX",
+      "en-ara-yo-noun-UCLcBgiV",
+      "en-ịra-yo-noun-7L-qwbP8"
+    ],
+    "ara": [
+      "en-ira-yo-noun-7L-qwbP8",
+      "en-ara-yo-noun-Iw2DWNyO",
+      "en-ara-yo-intj-LPJNul-w",
+      "en-ara-yo-noun-Se~3R~e2",
+      "en-ara-yo-noun-UCLcBgiV",
+      "en-ara-yo-noun-etOdY5fk",
+      "en-ara-yo-noun-vqX-4XGA",
+      "en-ịra-yo-noun-7L-qwbP8"
+    ],
+    "ia": [
+      "en-ira-yo-noun-7L-qwbP8",
+      "en-ara-yo-noun-UCLcBgiV",
+      "en-ịra-yo-noun-7L-qwbP8"
+    ],
+    "ịra": [
+      "en-ira-yo-noun-7L-qwbP8",
+      "en-ara-yo-noun-UCLcBgiV",
+      "en-ịra-yo-noun-7L-qwbP8"
     ],
     "abo": [
       "en-abo-yo-noun-bZxpv2Lk",
@@ -6885,9 +7312,26 @@
       "en-aye-yo-noun-JP75l2Oo",
       "en-Aye-yo-name-t8m1zNPj"
     ],
+    "aiye": [
+      "en-aye-yo-noun-SG6kYiTR",
+      "en-aye-yo-noun-FMYGVEOO",
+      "en-aye-yo-noun-JP75l2Oo",
+      "en-aiye-yo-noun-YkjwPqy4"
+    ],
+    "ايعِ": [
+      "en-aye-yo-noun-SG6kYiTR",
+      "en-aye-yo-noun-FMYGVEOO",
+      "en-aye-yo-noun-JP75l2Oo",
+      "en-ايعِ-yo-noun-QgmQj19P"
+    ],
     "pere": [
       "en-pere-yo-noun-5VAyJfob",
       "en-pere-yo-adv--QWxlULt"
+    ],
+    "پعِرعِ": [
+      "en-pere-yo-noun-5VAyJfob",
+      "en-pere-yo-adv--QWxlULt",
+      "en-پعِرعِ-yo-adv-Wa~i8JWZ"
     ],
     "ojo": [
       "en-ojo-yo-noun-MZtExXCk",
@@ -6902,7 +7346,28 @@
     ],
     "ita": [
       "en-ita-yo-noun-MSB6IGX0",
-      "en-ita-yo-noun-LVxo~V8w"
+      "en-ita-yo-noun-LVxo~V8w",
+      "en-uta-yo-noun-LVxo~V8w",
+      "en-ata-yo-noun-gcFVhaaq",
+      "en-ịta-yo-noun-LVxo~V8w"
+    ],
+    "ịta": [
+      "en-ita-yo-noun-LVxo~V8w",
+      "en-ịta-yo-noun-LVxo~V8w"
+    ],
+    "ụta": [
+      "en-ita-yo-noun-LVxo~V8w",
+      "en-ịta-yo-noun-LVxo~V8w"
+    ],
+    "ata": [
+      "en-ita-yo-noun-LVxo~V8w",
+      "en-ata-yo-noun-gcFVhaaq",
+      "en-ịta-yo-noun-LVxo~V8w"
+    ],
+    "uta": [
+      "en-ita-yo-noun-LVxo~V8w",
+      "en-uta-yo-noun-LVxo~V8w",
+      "en-ata-yo-noun-gcFVhaaq"
     ],
     "araba": [
       "en-araba-yo-noun-iDNpD0tk",
@@ -6914,11 +7379,42 @@
       "en-erin-yo-noun-7q4bTQGG",
       "en-erin-yo-noun-jXH8Ds38",
       "en-erin-yo-noun-411UFGjB",
-      "en-erin-yo-noun-Z7XVb07G"
+      "en-erin-yo-noun-Z7XVb07G",
+      "en-ẹrin-yo-noun-Ksj3jRwr"
     ],
-    "oo": [
-      "en-oo-yo-noun-vjoubrE3",
-      "en-oo-yo-verb-3PUI1q-k"
+    "orin": [
+      "en-erin-yo-noun-Z7XVb07G",
+      "en-orin-yo-noun-Y~dciQsF",
+      "en-orin-yo-noun-qD8fgHr2"
+    ],
+    "wuwo": [
+      "en-oo-yo-verb-3PUI1q-k",
+      "en-wuwo-yo-verb-3PUI1q-k"
+    ],
+    "wowo": [
+      "en-oo-yo-verb-3PUI1q-k",
+      "en-wowo-yo-verb-Gu0Wcb-L",
+      "en-wowo-yo-noun-eEF7sg~5",
+      "en-wuwo-yo-verb-3PUI1q-k"
+    ],
+    "wo": [
+      "en-oo-yo-verb-3PUI1q-k",
+      "en-wo-yo-det-1ewFw-7t",
+      "en-wo-yo-verb-p2wgJpFb",
+      "en-wuwo-yo-verb-3PUI1q-k"
+    ],
+    "oi": [
+      "en-oi-yo-noun-OqHkq4Vo",
+      "en-ori-yo-noun-dkAZMXZ8"
+    ],
+    "ori": [
+      "en-oi-yo-noun-OqHkq4Vo",
+      "en-ori-yo-noun-ny5tM6Nx",
+      "en-ori-yo-noun-ZnuTJ8wL",
+      "en-ori-yo-noun-PKtSuPWj",
+      "en-ori-yo-noun-zsHS7APW",
+      "en-ori-yo-noun-dkAZMXZ8",
+      "en-Ori-yo-name-N9gpil-7"
     ],
     "jo": [
       "en-jo-yo-verb-YInOfrwL",
@@ -6927,12 +7423,19 @@
     ],
     "ana": [
       "en-ana-yo-noun-lSPZ--eb",
-      "en-ana-yo-noun-sesjhSU~"
+      "en-ana-yo-noun-sesjhSU~",
+      "en-ọna-yo-noun-NEaJ757L"
+    ],
+    "anọ": [
+      "en-ana-yo-noun-lSPZ--eb",
+      "en-ana-yo-noun-sesjhSU~",
+      "en-ọna-yo-noun-NEaJ757L"
     ],
     "dun": [
       "en-dun-yo-verb-dMbDKp6W",
       "en-dun-yo-verb-eU0kvZBf",
-      "en-dun-yo-verb-d8rW-8fz"
+      "en-dun-yo-verb-d8rW-8fz",
+      "en-yụn-yo-verb-TCKFiOo6"
     ],
     "ere": [
       "en-ere-yo-noun-wnl9fNEJ",
@@ -6940,22 +7443,22 @@
       "en-ere-yo-noun-SMNmbl08",
       "en-ere-yo-noun-QYpnXMXM",
       "en-ere-yo-noun-~bu8x7j6",
-      "en-ere-yo-noun-U0IgZUUP"
+      "en-ere-yo-noun-U0IgZUUP",
+      "en-eree-yo-noun-z7OEb6M8"
     ],
     "ege": [
       "en-ege-yo-noun-BNVpZCKf",
       "en-ege-yo-noun-eUGDj8Y~"
     ],
-    "aka": [
-      "en-aka-yo-noun-F~ChcCnH",
-      "en-aka-yo-noun-TAHButjo",
-      "en-aka-yo-noun-0TzHumh~",
-      "en-aka-yo-noun-koYbklZU"
-    ],
     "owe": [
       "en-owe-yo-noun-sRKITWSV",
       "en-owe-yo-noun-XGYgLU6e",
+      "en-iwe-yo-noun-v4xH689P",
       "en-Owe-yo-name-60ibKzsf"
+    ],
+    "oghe": [
+      "en-owe-yo-noun-sRKITWSV",
+      "en-owe-yo-noun-XGYgLU6e"
     ],
     "wi": [
       "en-wi-yo-noun-yCNBjO2s",
@@ -6976,14 +7479,25 @@
       "en-ki-yo-verb-TxwfPHdj",
       "en-ki-yo-particle-eh1Xaj4Z"
     ],
+    "isa": [
+      "en-isa-yo-noun-wEX2NN3S",
+      "en-Yisa-yo-name-va4-9c21"
+    ],
     "fi": [
+      "en-fi-yo-noun-69QjSqUl",
+      "en-fi-yo-verb-2RAQPRcf",
+      "en-fi-yo-verb-ZbQ1vJEl"
+    ],
+    "فِ": [
       "en-fi-yo-noun-69QjSqUl",
       "en-fi-yo-verb-2RAQPRcf",
       "en-fi-yo-verb-ZbQ1vJEl"
     ],
     "ulu": [
       "en-ulu-yo-noun-TmTb3phP",
-      "en-ulu-yo-noun-vS5LMFCI"
+      "en-ulu-yo-noun-vS5LMFCI",
+      "en-ilu-yo-noun-Fo3nj~iD",
+      "en-ilu-yo-noun-XrWm1R7O"
     ],
     "titi": [
       "en-titi-yo-adv-sbu~-kMM",
@@ -7014,6 +7528,13 @@
       "en-ri-yo-verb-f762r-U9",
       "en-ri-yo-verb-cqRa235Q"
     ],
+    "elu": [
+      "en-elu-yo-noun-XbAQvdzJ",
+      "en-olu-yo-noun-xRdnl~my",
+      "en-olu-yo-noun-zRAZfNuq",
+      "en-olu-yo-det-a20z8Gas",
+      "en-ẹlu-yo-noun-wPPmTslV"
+    ],
     "oro": [
       "en-oro-yo-noun-lNLvOgUl",
       "en-oro-yo-noun-7U0MgNaT",
@@ -7022,10 +7543,6 @@
       "en-oro-yo-noun-oGXnseMC",
       "en-oro-yo-noun-jw0En96g",
       "en-Oro-yo-name-k2FaZynI"
-    ],
-    "wo": [
-      "en-wo-yo-det-1ewFw-7t",
-      "en-wo-yo-verb-p2wgJpFb"
     ],
     "ro": [
       "en-ro-yo-verb-ci5lfH8k",
@@ -7040,6 +7557,18 @@
       "en-bora-yo-verb-hyqk7e-k",
       "en-bora-yo-verb-jaUwhPND"
     ],
+    "afrika": [
+      "en-Afrika-yo-name-zIspzIfE",
+      "en-Afirika-yo-name-Oq80NWGp"
+    ],
+    "odio": [
+      "en-odio-yo-noun-6B3-aYQa",
+      "en-odio-yo-intj-8wHwA9BY"
+    ],
+    "odigho": [
+      "en-odio-yo-noun-6B3-aYQa",
+      "en-odio-yo-intj-8wHwA9BY"
+    ],
     "ka": [
       "en-ka-yo-verb-Ty~A-DMC",
       "en-ka-yo-verb-nxkusgc9",
@@ -7048,21 +7577,27 @@
       "en-ka-yo-verb-w6dJaP34",
       "en-ka-yo-verb-sKfy-6Mm"
     ],
+    "kan": [
+      "en-ka-yo-verb-Um3bFKDq",
+      "en-kan-yo-adj-dpLDrTVA",
+      "en-kan-yo-verb-ka3~0l2x",
+      "en-kan-yo-verb-uvkE5ojw"
+    ],
     "labalaba": [
       "en-labalaba-yo-noun-gNq~ZRuP",
       "en-labalaba-yo-noun-quW-Gyea"
     ],
-    "kan": [
-      "en-kan-yo-adj-dpLDrTVA",
-      "en-kan-yo-verb-ka3~0l2x",
-      "en-kan-yo-verb-uvkE5ojw"
+    "laba-laba": [
+      "en-labalaba-yo-noun-gNq~ZRuP",
+      "en-labalaba-yo-noun-quW-Gyea"
     ],
     "koko": [
       "en-koko-yo-noun-xbJBRSus",
       "en-koko-yo-noun-dA2UchVd",
       "en-koko-yo-noun-XHqdQB48",
       "en-koko-yo-noun-JR~s1ZLl",
-      "en-koko-yo-noun-7FgNHiNc"
+      "en-koko-yo-noun-7FgNHiNc",
+      "en-ikoko-yo-noun-Hxs6CjF8"
     ],
     "ati": [
       "en-ati-yo-noun-gr4TUl8j",
@@ -7092,35 +7627,66 @@
       "en-Ayọ-yo-name-ko~Bte37",
       "en-ayọ-yo-noun-sRNAW2-R"
     ],
+    "sango": [
+      "en-Sango-yo-name-M2VY~ais",
+      "en-Ṣango-yo-name-R9w~xhjQ"
+    ],
     "oye": [
       "en-oye-yo-noun-5HgZtVQx",
       "en-oye-yo-noun--rrsfnr8",
-      "en-oye-yo-noun-xyJeGQb9"
+      "en-oye-yo-noun-xyJeGQb9",
+      "en-iye-yo-noun-HTzYj0CI"
+    ],
+    "iye": [
+      "en-oye-yo-noun-xyJeGQb9",
+      "en-iye-yo-noun-IImldv3w",
+      "en-iye-yo-noun-HTzYj0CI",
+      "en-iye-yo-noun-lU1eE5J-",
+      "en-iye-yo-noun-Y71wZe8e"
     ],
     "ibo": [
       "en-ibo-yo-noun-YIV2SlU4",
       "en-ibo-yo-noun-vgIUou77"
     ],
-    "ori": [
-      "en-ori-yo-noun-ny5tM6Nx",
-      "en-ori-yo-noun-ZnuTJ8wL",
-      "en-ori-yo-noun-PKtSuPWj",
-      "en-ori-yo-noun-zsHS7APW",
-      "en-ori-yo-noun-dkAZMXZ8",
-      "en-Ori-yo-name-N9gpil-7"
+    "imu": [
+      "en-imu-yo-noun-134iEj5k",
+      "en-ụmụ-yo-noun-134iEj5k"
     ],
     "etu": [
       "en-etu-yo-noun-Nw7IIZY3",
       "en-etu-yo-noun-UM5NkrMC",
       "en-etu-yo-noun-X~PX2I-v",
+      "en-etu-yo-noun-2pFwFy8P",
+      "en-ẹtu-yo-noun-wf6jMTht",
+      "en-ẹtu-yo-noun-h3gSsLz8",
+      "en-ẹtu-yo-noun-X~PX2I-v"
+    ],
+    "atu": [
+      "en-etu-yo-noun-Nw7IIZY3",
+      "en-etu-yo-noun-UM5NkrMC",
+      "en-etu-yo-noun-X~PX2I-v",
       "en-etu-yo-noun-2pFwFy8P"
     ],
-    "ara": [
+    "ẹtu": [
+      "en-etu-yo-noun-Nw7IIZY3",
+      "en-etu-yo-noun-UM5NkrMC",
+      "en-etu-yo-noun-X~PX2I-v",
+      "en-etu-yo-noun-2pFwFy8P",
+      "en-ẹtu-yo-noun-wf6jMTht",
+      "en-ẹtu-yo-noun-h3gSsLz8",
+      "en-ẹtu-yo-noun-X~PX2I-v"
+    ],
+    "ارَ": [
       "en-ara-yo-noun-Iw2DWNyO",
-      "en-ara-yo-noun-Se~3R~e2",
-      "en-ara-yo-noun-UCLcBgiV",
-      "en-ara-yo-noun-etOdY5fk",
-      "en-ara-yo-noun-vqX-4XGA"
+      "en-ara-yo-intj-LPJNul-w",
+      "en-ارَ-yo-noun-J-R9TYDH"
+    ],
+    "ọra": [
+      "en-ara-yo-noun-Iw2DWNyO",
+      "en-ara-yo-intj-LPJNul-w",
+      "en-ọra-yo-noun-Iw2DWNyO",
+      "en-ọra-yo-intj-5OTYgF~w",
+      "en-ọra-yo-noun-EuGcpI1R"
     ],
     "aro": [
       "en-aro-yo-noun-oX82Fjdb",
@@ -7129,7 +7695,19 @@
       "en-aro-yo-noun-7GcNt5zv",
       "en-Aro-yo-name-G-N5tX-2"
     ],
-    "gan": [
+    "mii": [
+      "en-mii-yo-det-CNz0pVGx",
+      "en-miiran-yo-det-CNz0pVGx"
+    ],
+    "mirin": [
+      "en-mii-yo-det-CNz0pVGx",
+      "en-miiran-yo-det-CNz0pVGx"
+    ],
+    "muẹn": [
+      "en-mii-yo-det-CNz0pVGx",
+      "en-miiran-yo-det-CNz0pVGx"
+    ],
+    "gẹn": [
       "en-gan-yo-verb-C-J5wmHJ",
       "en-gan-yo-verb-2mj8308z",
       "en-gan-yo-verb-EaW2Y~-0",
@@ -7162,10 +7740,35 @@
       "en-horo-yo-noun-jQPbKh~M",
       "en-horo-yo-noun-DU~Ep403"
     ],
+    "woro": [
+      "en-horo-yo-noun-IGfU-i3O",
+      "en-horo-yo-noun-OjYe0x9F"
+    ],
+    "kolo": [
+      "en-kolo-yo-noun-wij5t0kP",
+      "en-ekolo-yo-noun-Aw8khzM0"
+    ],
+    "kare": [
+      "en-kare-yo-verb-AZUxm5Cf",
+      "en-kare-yo-intj-iUtsGDg7"
+    ],
     "ete": [
       "en-ete-yo-noun-isHvU4HK",
       "en-ete-yo-noun-9-wzzR7f",
       "en-ete-yo-noun-KwFzJaBy"
+    ],
+    "eti": [
+      "en-ete-yo-noun-9-wzzR7f",
+      "en-eti-yo-noun-PGo2tkD8"
+    ],
+    "aza": [
+      "en-aza-yo-noun-VdYgvuPe",
+      "en-aja-yo-noun-zWNX792W",
+      "en-aja-yo-noun-aTIJjxWe"
+    ],
+    "isu": [
+      "en-isu-yo-noun-v1Tck6qq",
+      "en-uṣu-yo-noun-01P7el9b"
     ],
     "imi": [
       "en-imi-yo-noun-JxQgMxcd",
@@ -7181,13 +7784,62 @@
       "en-iro-yo-noun-QnbNqdfd",
       "en-iro-yo-noun-Xnq4p05P"
     ],
+    "uro": [
+      "en-iro-yo-noun-jQvaRNng",
+      "en-iro-yo-noun-dmFD7C8M",
+      "en-iro-yo-noun-qv04OZma",
+      "en-iro-yo-noun-S4R0GfE2",
+      "en-iro-yo-noun-QnbNqdfd",
+      "en-iro-yo-noun-Xnq4p05P"
+    ],
     "iwa": [
       "en-iwa-yo-noun-HH7RBIaf",
       "en-iwa-yo-noun-CvRtLk~S"
     ],
+    "ua": [
+      "en-iwa-yo-noun-HH7RBIaf",
+      "en-iwa-yo-noun-CvRtLk~S"
+    ],
+    "uwa": [
+      "en-iwa-yo-noun-HH7RBIaf",
+      "en-iwa-yo-noun-CvRtLk~S",
+      "en-uwa-yo-noun-6aWcOTy~",
+      "en-ugha-yo-noun-hWozbdSP",
+      "en-ụa-yo-noun-HF9Vw-kw"
+    ],
+    "tunba": [
+      "en-tumba-yo-verb-CYJMmS99",
+      "en-tunba-yo-verb-mZJ~ogcC"
+    ],
+    "tuuba": [
+      "en-tumba-yo-verb-CYJMmS99",
+      "en-tuuba-yo-verb-kELzpBbs"
+    ],
     "kokoro": [
       "en-kokoro-yo-noun-czW-cD52",
-      "en-kokoro-yo-noun-ttJ3LmfG"
+      "en-kokoro-yo-noun-ttJ3LmfG",
+      "en-akokoro-yo-noun-cVOoYYbd"
+    ],
+    "lisa": [
+      "en-Lisa-yo-name-jgm0biG4",
+      "en-Olisa-yo-name-6IP0O--J"
+    ],
+    "olisa": [
+      "en-Lisa-yo-name-jgm0biG4",
+      "en-Olisa-yo-name-6IP0O--J"
+    ],
+    "risa": [
+      "en-Lisa-yo-name-jgm0biG4",
+      "en-Olisa-yo-name-6IP0O--J"
+    ],
+    "ọịsa": [
+      "en-Lisa-yo-name-jgm0biG4",
+      "en-Olisa-yo-name-6IP0O--J"
+    ],
+    "orisa": [
+      "en-Lisa-yo-name-jgm0biG4",
+      "en-oriṣa-yo-noun-JduUEHxK",
+      "en-Olisa-yo-name-6IP0O--J"
     ],
     "ike": [
       "en-ike-yo-noun-xnnaCeNT",
@@ -7203,13 +7855,26 @@
       "en-iru-yo-noun-DGL4du8d",
       "en-iru-yo-noun-3-k1ozlr"
     ],
+    "uru": [
+      "en-iru-yo-noun-MN0hKNeE",
+      "en-iru-yo-noun-GbJYVuHB",
+      "en-iru-yo-noun-3NITC~S5",
+      "en-iru-yo-noun-730FERCz",
+      "en-iru-yo-noun-DGL4du8d",
+      "en-iru-yo-noun-3-k1ozlr"
+    ],
     "dara": [
       "en-dara-yo-verb-ped67Ub9",
       "en-dara-yo-verb-7d~S8Hdl"
     ],
     "pari": [
       "en-pari-yo-verb-mZzv-hm7",
-      "en-pari-yo-verb-92TeXsR4"
+      "en-pari-yo-verb-92TeXsR4",
+      "en-pai-yo-verb-o4287~~o"
+    ],
+    "pai": [
+      "en-pari-yo-verb-mZzv-hm7",
+      "en-pai-yo-verb-o4287~~o"
     ],
     "ji": [
       "en-ji-yo-noun-8WCBH3mG",
@@ -7229,28 +7894,77 @@
       "en-wa-yo-verb-3yMFEON8",
       "en-wa-yo-verb-HA4NLKj4"
     ],
+    "وَ": [
+      "en-wa-yo-det-IobTpipN",
+      "en-wa-yo-verb-mcVLJuTH",
+      "en-wa-yo-verb-nBljbd6i",
+      "en-wa-yo-verb-3yMFEON8",
+      "en-wa-yo-verb-HA4NLKj4",
+      "en-وَ-yo-verb-OZ-GTpFS",
+      "en-وَ-yo-det-K3QIjlB0"
+    ],
+    "yio": [
+      "en-yoo-yo-verb-yo:intentional",
+      "en-yio-yo-verb-3HfQl1A4"
+    ],
     "ole": [
       "en-ole-yo-noun-jdKa3ZmS",
       "en-ole-yo-noun-vvdk2LVr"
     ],
     "iku": [
       "en-iku-yo-noun-UsjgKYfM",
+      "en-uku-yo-noun-UsjgKYfM",
       "en-Iku-yo-name-EFnyb7jf"
+    ],
+    "uku": [
+      "en-iku-yo-noun-UsjgKYfM",
+      "en-uku-yo-noun-UsjgKYfM",
+      "en-uku-yo-noun-5pw-MAPJ"
+    ],
+    "iga": [
+      "en-iga-yo-noun-35Ry0C~1",
+      "en-ugha-yo-noun-hWozbdSP"
     ],
     "fura": [
       "en-fura-yo-verb-hzYRg~Ho",
       "en-fura-yo-noun--041A6q7"
     ],
+    "funra": [
+      "en-fura-yo-verb-hzYRg~Ho",
+      "en-fura-yo-noun--041A6q7"
+    ],
     "kari": [
       "en-kari-yo-particle-lU2hfiyV",
-      "en-kari-yo-adv-b0xjsvzq"
+      "en-kari-yo-adv-b0xjsvzq",
+      "en-karibi-yo-adv-tIERwQxl",
+      "en-kaibi-yo-adv-b0xjsvzq"
+    ],
+    "kaibi": [
+      "en-kari-yo-particle-lU2hfiyV",
+      "en-kari-yo-adv-b0xjsvzq",
+      "en-karibi-yo-adv-tIERwQxl",
+      "en-kaibi-yo-adv-b0xjsvzq"
+    ],
+    "kabi": [
+      "en-kari-yo-particle-lU2hfiyV",
+      "en-kari-yo-adv-b0xjsvzq",
+      "en-karibi-yo-adv-tIERwQxl",
+      "en-kaibi-yo-adv-b0xjsvzq"
+    ],
+    "oṣe": [
+      "en-ose-yo-noun-C41Pd6FQ",
+      "en-oṣe-yo-noun-PLJrSyOw",
+      "en-oṣe-yo-noun-qn3T98mM",
+      "en-oṣe-yo-noun-LZuxZIeW",
+      "en-oṣe-yo-noun-HKq8Zu4g"
     ],
     "ida": [
       "en-ida-yo-noun-pExHse4k",
       "en-ida-yo-noun-4ANyfFj2",
       "en-ida-yo-noun-zIrrbGZ6",
       "en-ida-yo-noun-H6bXKkn5",
-      "en-ida-yo-noun-m7RNTFHd"
+      "en-ida-yo-noun-m7RNTFHd",
+      "en-uda-yo-noun-NNo-Swlt"
     ],
     "apo": [
       "en-apo-yo-noun-xZQ1oelH",
@@ -7263,7 +7977,23 @@
     ],
     "i-": [
       "en-i--yo-prefix-ndqtcuc5",
-      "en-i--yo-prefix-3p1kUSMO"
+      "en-i--yo-prefix-3p1kUSMO",
+      "en-u--yo-prefix-ndqtcuc5",
+      "en-u--yo-prefix-3p1kUSMO"
+    ],
+    "u-": [
+      "en-i--yo-prefix-ndqtcuc5",
+      "en-i--yo-prefix-3p1kUSMO",
+      "en-u--yo-prefix-ndqtcuc5",
+      "en-u--yo-prefix-3p1kUSMO"
+    ],
+    "tabi": [
+      "en-abi-yo-conj-cXVRejcL",
+      "en-tabi-yo-conj-TFZD2ht6"
+    ],
+    "بُكَ": [
+      "en-buka-yo-noun-vP~bUQjv",
+      "en-بُكَ-yo-noun-kUIr5gfa"
     ],
     "ogu": [
       "en-ogu-yo-noun-otjapCgb",
@@ -7274,6 +8004,14 @@
       "en-oru-yo-noun-UqI9cYrp",
       "en-oru-yo-noun-idxaCJ2o"
     ],
+    "beru": [
+      "en-beru-yo-verb-N6T-DOvP",
+      "en-bẹru-yo-verb-N6T-DOvP"
+    ],
+    "bẹru": [
+      "en-beru-yo-verb-N6T-DOvP",
+      "en-bẹru-yo-verb-N6T-DOvP"
+    ],
     "ibu": [
       "en-ibu-yo-noun-VYo5sw0S",
       "en-ibu-yo-noun-dj0ntmUj",
@@ -7282,6 +8020,37 @@
       "en-ibu-yo-noun-GK-kMqE2",
       "en-ibu-yo-noun-XKOKtufD",
       "en-ibu-yo-noun-3T~yUpwV"
+    ],
+    "ubu": [
+      "en-ibu-yo-noun-VYo5sw0S",
+      "en-ibu-yo-noun-dj0ntmUj",
+      "en-ibu-yo-noun-j6-hfBNX",
+      "en-ibu-yo-adj-abJzoumR",
+      "en-ibu-yo-noun-GK-kMqE2",
+      "en-ibu-yo-noun-XKOKtufD",
+      "en-ibu-yo-noun-3T~yUpwV",
+      "en-ubu-yo-noun-tw88Djj0",
+      "en-ubu-yo-noun-sGYmItRM"
+    ],
+    "ẹbu": [
+      "en-ibu-yo-noun-j6-hfBNX",
+      "en-ibu-yo-adj-abJzoumR",
+      "en-ẹbu-yo-noun-1nmAUXF5"
+    ],
+    "kuro": [
+      "en-kuro-yo-verb-Hn0lbMX7",
+      "en-koo-yo-verb-Hn0lbMX7",
+      "en-koo-yo-intj-VedDvXen"
+    ],
+    "kuo": [
+      "en-kuro-yo-verb-Hn0lbMX7",
+      "en-koo-yo-verb-Hn0lbMX7",
+      "en-koo-yo-intj-VedDvXen"
+    ],
+    "koo": [
+      "en-kuro-yo-verb-Hn0lbMX7",
+      "en-koo-yo-verb-Hn0lbMX7",
+      "en-koo-yo-intj-VedDvXen"
     ],
     "ina": [
       "en-ina-yo-noun-m7cTNqC5",
@@ -7305,14 +8074,50 @@
       "en-suna-yo-noun-gqNTf~Db",
       "en-suna-yo-noun-bgRtlCFZ"
     ],
+    "airo": [
+      "en-airo-yo-noun-71jvPB4y",
+      "en-aio-yo-noun-71jvPB4y",
+      "en-ariro-yo-noun-71jvPB4y"
+    ],
+    "ariro": [
+      "en-airo-yo-noun-71jvPB4y",
+      "en-aio-yo-noun-71jvPB4y",
+      "en-adiro-yo-noun-L1UXhczz",
+      "en-ariro-yo-noun-71jvPB4y"
+    ],
+    "aio": [
+      "en-airo-yo-noun-71jvPB4y",
+      "en-aio-yo-noun-71jvPB4y",
+      "en-ariro-yo-noun-71jvPB4y",
+      "en-ariwo-yo-noun-7-KlwJ5t",
+      "en-ariwo-yo-noun-OB97iY5T"
+    ],
     "dani": [
       "en-dani-yo-verb-QPdac27g",
-      "en-dani-yo-verb-LP9A8~wn"
+      "en-dani-yo-verb-LP9A8~wn",
+      "en-da_ni-yo-verb-V2T4RWDj"
+    ],
+    "da ni": [
+      "en-dani-yo-verb-QPdac27g",
+      "en-dani-yo-verb-LP9A8~wn",
+      "en-da_ni-yo-verb-V2T4RWDj"
     ],
     "aya": [
       "en-aya-yo-noun-nVKjyOTW",
       "en-aya-yo-noun-fKDXAZFY",
-      "en-aya-yo-noun-IqYma6nq"
+      "en-aya-yo-noun-IqYma6nq",
+      "en-ọya-yo-noun-nVKjyOTW"
+    ],
+    "ọya": [
+      "en-aya-yo-noun-nVKjyOTW",
+      "en-aya-yo-noun-fKDXAZFY",
+      "en-aya-yo-noun-IqYma6nq",
+      "en-ọya-yo-noun-m0E5luUk",
+      "en-ọya-yo-noun-MjbCES2r",
+      "en-ọya-yo-noun-H~d0~DfV",
+      "en-ọya-yo-noun-8iRVgIrz",
+      "en-ọya-yo-noun-nVKjyOTW",
+      "en-Ọya-yo-name-tl6AnpEb"
     ],
     "ila": [
       "en-ila-yo-noun-rUBsY1cI",
@@ -7332,6 +8137,11 @@
       "en-olu-yo-noun-zRAZfNuq",
       "en-olu-yo-det-a20z8Gas"
     ],
+    "ṣ": [
+      "en-ش-yo-character-7jbdO9UO",
+      "en-Ṣ-yo-character-H06Lp2zu",
+      "en-ṣ-yo-character-H06Lp2zu"
+    ],
     "naa": [
       "en-naa-yo-det-IKzkcowd",
       "en-naa-yo-adv-gfFjydy1",
@@ -7345,15 +8155,49 @@
       "en-iboji-yo-noun-C~uGacTU",
       "en-iboji-yo-noun-RZ82ZnvF"
     ],
+    "ibooji": [
+      "en-iboji-yo-noun-C~uGacTU",
+      "en-iboji-yo-noun-RZ82ZnvF"
+    ],
+    "ụa": [
+      "en-uwa-yo-noun-6aWcOTy~",
+      "en-ugha-yo-noun-hWozbdSP",
+      "en-ụa-yo-noun-vmr6kK8p",
+      "en-ụa-yo-noun-~tFqRfQK",
+      "en-ụa-yo-noun-HF9Vw-kw"
+    ],
+    "ugha": [
+      "en-uwa-yo-noun-6aWcOTy~",
+      "en-ugha-yo-noun-hWozbdSP",
+      "en-ụa-yo-noun-HF9Vw-kw"
+    ],
     "ninu": [
       "en-ninu-yo-prep-HHuaO-we",
       "en-ninu-yo-verb-31l4EOs2"
+    ],
+    "nnu": [
+      "en-ninu-yo-prep-HHuaO-we",
+      "en-nnu-yo-prep-EGsIYiSk"
+    ],
+    "nunu": [
+      "en-ninu-yo-prep-HHuaO-we",
+      "en-nunu-yo-noun-I0vH72Ub"
     ],
     "tete": [
       "en-tete-yo-noun-QcwkVpNb",
       "en-tete-yo-noun-WdZsIp3B"
     ],
+    "rara": [
+      "en-arara-yo-noun-mig~0BKw",
+      "en-rara-yo-noun-W3K~Dqi~",
+      "en-rara-yo-particle-k5Apjz-w",
+      "en-rara-yo-intj-GR1kalbp"
+    ],
     "bata": [
+      "en-bata-yo-noun-79ocklKR",
+      "en-bata-yo-noun-NqmlLoEB"
+    ],
+    "ibata": [
       "en-bata-yo-noun-79ocklKR",
       "en-bata-yo-noun-NqmlLoEB"
     ],
@@ -7371,14 +8215,28 @@
       "en-emi-yo-pron-W2whwx6v",
       "en-emi-yo-pron-dJqywNBs"
     ],
-    "ju": [
-      "en-ju-yo-verb-rXsYG5fG",
-      "en-ju-yo-verb-OIvvwKGh",
-      "en-ju-yo-verb-47MSqiNf"
+    "nian": [
+      "en-nian-yo-verb--mBnzzJx",
+      "en-niran-yo-verb-bgK3vb4H",
+      "en-nirọn-yo-verb--mBnzzJx"
     ],
-    "yun": [
-      "en-yun-yo-verb-gNM9bcDR",
-      "en-yun-yo-verb-ilqldTYi"
+    "niran": [
+      "en-nian-yo-verb--mBnzzJx",
+      "en-niran-yo-verb-bgK3vb4H",
+      "en-nirọn-yo-verb--mBnzzJx"
+    ],
+    "nirọn": [
+      "en-nian-yo-verb--mBnzzJx",
+      "en-niran-yo-verb-bgK3vb4H",
+      "en-nirọn-yo-verb--mBnzzJx"
+    ],
+    "جِن": [
+      "en-jin-yo-verb-hsUYe-Of",
+      "en-جِن-yo-verb-I1X~ZWIg"
+    ],
+    "jẹn": [
+      "en-jin-yo-verb-hsUYe-Of",
+      "en-jẹn-yo-verb-hsUYe-Of"
     ],
     "wu": [
       "en-wu-yo-verb-kJpMH7qY",
@@ -7389,26 +8247,52 @@
       "en-wu-yo-verb-sH8UXsse",
       "en-wu-yo-verb-cr4863UF"
     ],
-    "rara": [
-      "en-rara-yo-noun-W3K~Dqi~",
-      "en-rara-yo-particle-k5Apjz-w",
-      "en-rara-yo-intj-GR1kalbp"
+    "urere": [
+      "en-urere-yo-noun-woHJLKIE",
+      "en-irere-yo-noun-Tw8H3n~H"
+    ],
+    "irere": [
+      "en-urere-yo-noun-woHJLKIE",
+      "en-irere-yo-noun-J-FqraeT",
+      "en-irere-yo-noun-Tw8H3n~H",
+      "en-irere-yo-noun-efOsEnUn"
     ],
     "aja": [
       "en-aja-yo-noun-zWNX792W",
       "en-aja-yo-noun-aTIJjxWe"
     ],
+    "ojiya": [
+      "en-ojia-yo-noun-1GAe06nB",
+      "en-ojiya-yo-noun-QYVbdH5q"
+    ],
     "joko": [
       "en-joko-yo-verb-K3CbZ5V1",
-      "en-joko-yo-verb-K3CbZ5V11"
+      "en-joko-yo-verb-K3CbZ5V11",
+      "en-jokoo-yo-verb-FVE8p0pb"
+    ],
+    "zokoo": [
+      "en-joko-yo-verb-K3CbZ5V1",
+      "en-joko-yo-verb-K3CbZ5V11",
+      "en-jokoo-yo-verb-FVE8p0pb",
+      "en-zokoo-yo-verb-I1decLJ4"
+    ],
+    "jokoo": [
+      "en-joko-yo-verb-K3CbZ5V1",
+      "en-joko-yo-verb-K3CbZ5V11",
+      "en-jokoo-yo-verb-FVE8p0pb",
+      "en-zokoo-yo-verb-I1decLJ4"
+    ],
+    "iyara": [
+      "en-yara-yo-noun-HxxbL613",
+      "en-iyara-yo-noun-633tID0M"
+    ],
+    "سَا": [
+      "en-saa-yo-noun-N~YJV1Uk",
+      "en-سَا-yo-noun-djuI5P95"
     ],
     "iyun": [
       "en-iyun-yo-noun-8B8dJkg3",
       "en-iyùn-yo-noun-85~ZBzRX"
-    ],
-    "orin": [
-      "en-orin-yo-noun-Y~dciQsF",
-      "en-orin-yo-noun-qD8fgHr2"
     ],
     "opo": [
       "en-opo-yo-noun-EB7uzDWL",
@@ -7416,18 +8300,34 @@
     ],
     "dede": [
       "en-dede-yo-noun-Ybzh2Sqn",
-      "en-dede-yo-verb-WO~1Y3-b"
+      "en-dede-yo-verb-WO~1Y3-b",
+      "en-dide-yo-verb-lkVXDMXd"
     ],
     "ilu": [
       "en-ilu-yo-noun-Fo3nj~iD",
       "en-ilu-yo-noun-XrWm1R7O"
+    ],
+    "ااِنَ": [
+      "en-Aina-yo-name-6kBCJMsM",
+      "en-ااِنَ-yo-name-JJgCMvXf"
     ],
     "ṣe": [
       "en-ṣe-yo-particle-FdxU0BNX",
       "en-ṣe-yo-verb-IXZV9I3e",
       "en-ṣe-yo-verb-EjIlT~ld"
     ],
+    "شعِ": [
+      "en-ṣe-yo-particle-FdxU0BNX",
+      "en-ṣe-yo-verb-IXZV9I3e",
+      "en-ṣe-yo-verb-EjIlT~ld",
+      "en-شعِ-yo-verb-OYqszOH1"
+    ],
     "osun": [
+      "en-osun-yo-noun-FuyvW6Lv",
+      "en-osun-yo-noun-shDRKUAJ",
+      "en-ụsụn-yo-noun-9cWNLYrW"
+    ],
+    "ehun": [
       "en-osun-yo-noun-FuyvW6Lv",
       "en-osun-yo-noun-shDRKUAJ"
     ],
@@ -7440,29 +8340,75 @@
       "en-iba-yo-noun-zOgUotL~",
       "en-iba-yo-noun-iKGIHwAl"
     ],
+    "ịba": [
+      "en-iba-yo-noun-HkShxFOI",
+      "en-iba-yo-noun-Vi1sjNT2",
+      "en-iba-yo-verb-zBm6~-X9",
+      "en-iba-yo-noun-goFABXwx",
+      "en-iba-yo-noun-DyGSEmL0",
+      "en-iba-yo-noun-zOgUotL~",
+      "en-iba-yo-noun-iKGIHwAl"
+    ],
     "nukan": [
       "en-nukan-yo-verb-BZR8KY2p",
       "en-nukan-yo-adv-SONraMFQ"
     ],
+    "nikan": [
+      "en-nukan-yo-verb-BZR8KY2p",
+      "en-nukan-yo-adv-SONraMFQ",
+      "en-nikan-yo-verb-BZR8KY2p",
+      "en-nikan-yo-adv-SONraMFQ"
+    ],
     "abia": [
       "en-abia-yo-noun-kdQ6WDSK",
-      "en-Abia-yo-name-fkiclKC5"
+      "en-Abia-yo-name-fkiclKC5",
+      "en-abiya-yo-noun-zR2ru7Er"
+    ],
+    "سَمَانِ": [
+      "en-samaani-yo-noun-1IMEuAbU",
+      "en-سَمَانِ-yo-noun-AqUAVJaI"
     ],
     "adiro": [
       "en-adiro-yo-noun-L1UXhczz",
       "en-adiro-yo-noun-x864pwDd"
     ],
+    "aaro": [
+      "en-adiro-yo-noun-L1UXhczz",
+      "en-aaro-yo-noun-Q47hNQQy"
+    ],
     "esi": [
       "en-esi-yo-noun-BYNoi57f",
-      "en-esi-yo-noun-YlSb0Oid"
+      "en-esi-yo-noun-YlSb0Oid",
+      "en-eṣi-yo-noun-P6OZA2Rx"
     ],
-    "koo": [
-      "en-koo-yo-verb-Hn0lbMX7",
-      "en-koo-yo-intj-VedDvXen"
+    "eṣi": [
+      "en-esi-yo-noun-YlSb0Oid",
+      "en-eṣi-yo-noun-P6OZA2Rx"
     ],
     "oke": [
       "en-oke-yo-noun-xoCPmvRC",
       "en-Oke-yo-name-37JvBB6b"
+    ],
+    "وْكعِ": [
+      "en-oke-yo-noun-xoCPmvRC",
+      "en-وْكعِ-yo-noun-pdaHpAIG"
+    ],
+    "omiran": [
+      "en-omii-yo-noun-CFGLcWF-",
+      "en-omiran-yo-noun-CxMuovbN",
+      "en-omiran-yo-noun-CFGLcWF-"
+    ],
+    "lanaa": [
+      "en-lanaa-yo-adv-lSPZ--eb",
+      "en-laanọ-yo-adv-h~xeevOc"
+    ],
+    "laanọ": [
+      "en-lanaa-yo-adv-lSPZ--eb",
+      "en-laanọ-yo-adv-h~xeevOc"
+    ],
+    "nanaa": [
+      "en-lanaa-yo-adv-lSPZ--eb",
+      "en-laanọ-yo-adv-h~xeevOc"
     ],
     "kaa": [
       "en-kaa-yo-noun-LTT93Cf3",
@@ -7472,13 +8418,38 @@
       "en-roju-yo-verb-SPlOmTNE",
       "en-roju-yo-verb-YPKkwXCs"
     ],
+    "sibi": [
+      "en-sibi-yo-noun-dTjcd-j6",
+      "en-ṣibi-yo-noun-f0gOdEp5"
+    ],
+    "esibi": [
+      "en-sibi-yo-noun-dTjcd-j6",
+      "en-esibi-yo-noun-QBqwLAo5"
+    ],
     "iya": [
       "en-iya-yo-noun-SlO7ppnL",
-      "en-iya-yo-noun-yhOgipS9"
+      "en-iya-yo-noun-yhOgipS9",
+      "en-uya-yo-noun-yhOgipS9",
+      "en-uya-yo-noun-zwYi7ypm"
+    ],
+    "uya": [
+      "en-iya-yo-noun-SlO7ppnL",
+      "en-iya-yo-noun-yhOgipS9",
+      "en-uya-yo-noun-yhOgipS9",
+      "en-uya-yo-noun-zwYi7ypm"
     ],
     "gari": [
       "en-gari-yo-noun-W04C1d-9",
       "en-gari-yo-verb-flbAXFxb"
+    ],
+    "gaari": [
+      "en-gari-yo-noun-W04C1d-9",
+      "en-gari-yo-verb-flbAXFxb",
+      "en-gaari-yo-noun-ugja0YrI"
+    ],
+    "jere": [
+      "en-yere-yo-verb-OC7Eux0Z",
+      "en-jere-yo-verb-q-a2vemb"
     ],
     "taara": [
       "en-taara-yo-noun-NrJpDd01",
@@ -7498,9 +8469,14 @@
       "en-sisi-yo-noun-7ChG6Sq6",
       "en-sisi-yo-noun-vGf4K5oE"
     ],
-    "u-": [
-      "en-u--yo-prefix-ndqtcuc5",
-      "en-u--yo-prefix-3p1kUSMO"
+    "وَهَلَ": [
+      "en-wahala-yo-noun-dsmZKfFe",
+      "en-وَهَلَ-yo-noun-RxvPEi3a"
+    ],
+    "lenii": [
+      "en-lenii-yo-adv-w9kNn4pT",
+      "en-lonii-yo-adv-4PT3Z6yI",
+      "en-looni-yo-adv-wMybk-TY"
     ],
     "igbọnwọ": [
       "en-igbọnwọ-yo-noun-boXr50WD",
@@ -7510,6 +8486,10 @@
       "en-jẹ-yo-verb-CvEgfuq9",
       "en-jẹ-yo-verb-SyGD8zoG",
       "en-jẹ-yo-verb-wIMSOui7"
+    ],
+    "zẹ": [
+      "en-jẹ-yo-verb-SyGD8zoG",
+      "en-zẹ-yo-verb-LBupXBcS"
     ],
     "ọta": [
       "en-ọta-yo-noun-ZhDMVSRp",
@@ -7545,17 +8525,36 @@
       "en-emurẹn-yo-noun-2sVjPLDN",
       "en-emurẹn-yo-noun-0ZlJw9Qi",
       "en-emurẹn-yo-noun-CFGLcWF-",
+      "en-emurẹn-yo-det-fc1ubFsl",
+      "en-emirin-yo-noun-i5ftNNBD"
+    ],
+    "emirin": [
+      "en-emurẹn-yo-noun-2sVjPLDN",
+      "en-emurẹn-yo-noun-0ZlJw9Qi",
+      "en-emirin-yo-noun-i5ftNNBD"
+    ],
+    "ọmurẹn": [
+      "en-emurẹn-yo-noun-CFGLcWF-",
       "en-emurẹn-yo-det-fc1ubFsl"
     ],
     "oyin": [
       "en-oyin-yo-noun-YsuBtZBK",
       "en-oyin-yo-noun-7ckBIgfq"
     ],
+    "ọbọnbọn": [
+      "en-ọbọnbọn-yo-noun-9zzevz3B",
+      "en-ọbọn-un-bọn-un-yo-noun-ez5839vK"
+    ],
     "agbo": [
       "en-agbo-yo-noun-pjH0SIpF",
       "en-agbo-yo-noun--8pdbPIy",
       "en-agbo-yo-noun-y5kGc7XP",
-      "en-agbo-yo-noun-UmxHe4tb"
+      "en-agbo-yo-noun-UmxHe4tb",
+      "en-igbo-yo-noun-cYqsSXGp"
+    ],
+    "انِيَن": [
+      "en-aniyan-yo-noun-tKQyXRzq",
+      "en-انِيَن-yo-noun-Dg8YCjgT"
     ],
     "ekeji": [
       "en-ekeji-yo-adj-FjZ6rLZ6",
@@ -7570,30 +8569,123 @@
       "en-funfun-yo-noun-~I~OsOqL",
       "en-funfun-yo-adj-yo:white"
     ],
+    "فُنفُن": [
+      "en-funfun-yo-verb-yo:to_be_white",
+      "en-funfun-yo-noun-~I~OsOqL",
+      "en-funfun-yo-adj-yo:white",
+      "en-فُنفُن-yo-noun-0NsUSonT",
+      "en-فُنفُن-yo-verb-0NsUSonT",
+      "en-فُنفُن-yo-adj-0NsUSonT"
+    ],
     "gbigba": [
       "en-gbigba-yo-noun-B9hECJhk",
       "en-gbigba-yo-noun-o3SdD0hd"
     ],
-    "ọya": [
-      "en-ọya-yo-noun-m0E5luUk",
-      "en-ọya-yo-noun-MjbCES2r",
-      "en-ọya-yo-noun-H~d0~DfV",
-      "en-ọya-yo-noun-8iRVgIrz",
-      "en-ọya-yo-noun-nVKjyOTW",
-      "en-Ọya-yo-name-tl6AnpEb"
+    "agbamurere": [
+      "en-agbanrere-yo-noun-p7eVL7O9",
+      "en-agbamurere-yo-verb-AglVi8q1"
     ],
     "ọpọlọ": [
       "en-ọpọlọ-yo-noun-Vao1OFFP",
       "en-ọpọlọ-yo-noun-u796ZBLW"
     ],
+    "ikoko": [
+      "en-ikoko-yo-noun-Hxs6CjF8",
+      "en-koriko-yo-noun-exKKfCS0",
+      "en-koriko-yo-noun-Ps5yhUdg"
+    ],
+    "ukoko": [
+      "en-ikoko-yo-noun-Hxs6CjF8",
+      "en-ukoko-yo-noun-4RoHB5OD",
+      "en-ukoko-yo-noun-kvFlBVz0"
+    ],
+    "ologbo": [
+      "en-ologbo-yo-noun-d693i1Gr",
+      "en-logbo-yo-noun-V7gmQmoC",
+      "en-olongbo-yo-noun-V7gmQmoC"
+    ],
+    "olongbo": [
+      "en-ologbo-yo-noun-d693i1Gr",
+      "en-logbo-yo-noun-V7gmQmoC",
+      "en-olongbo-yo-noun-V7gmQmoC"
+    ],
+    "logbo": [
+      "en-ologbo-yo-noun-d693i1Gr",
+      "en-logbo-yo-noun-V7gmQmoC",
+      "en-olongbo-yo-noun-V7gmQmoC"
+    ],
     "kọlọkọlọ": [
       "en-kọlọkọlọ-yo-noun-d2yzJqsM",
       "en-kọlọkọlọ-yo-noun-Vwkhwsuw"
+    ],
+    "ikoriko": [
+      "en-ikoriko-yo-noun-uofgzDav",
+      "en-koriko-yo-noun-exKKfCS0",
+      "en-koriko-yo-noun-Ps5yhUdg",
+      "en-ikariko-yo-noun-mEjy3cvT"
+    ],
+    "koriko": [
+      "en-ikoriko-yo-noun-uofgzDav",
+      "en-kooko-yo-noun-HH36IaWr",
+      "en-koriko-yo-noun-exKKfCS0",
+      "en-koriko-yo-noun-Ps5yhUdg",
+      "en-ikariko-yo-noun-mEjy3cvT"
+    ],
+    "ikooko": [
+      "en-ikoriko-yo-noun-uofgzDav",
+      "en-ikooko-yo-noun-mEjy3cvT",
+      "en-koriko-yo-noun-exKKfCS0",
+      "en-koriko-yo-noun-Ps5yhUdg",
+      "en-ikariko-yo-noun-mEjy3cvT"
+    ],
+    "ikariko": [
+      "en-ikoriko-yo-noun-uofgzDav",
+      "en-ikariko-yo-noun-mEjy3cvT"
+    ],
+    "olokoṣẹ": [
+      "en-ologoṣẹ-yo-noun-BFTVJ6f6",
+      "en-olokoṣẹ-yo-noun-NjZPG65~"
+    ],
+    "owiwi": [
+      "en-owiwi-yo-noun-bxSHZ1Ai",
+      "en-ogwigwi-yo-noun-2wUqdebz"
+    ],
+    "ogwigwi": [
+      "en-owiwi-yo-noun-bxSHZ1Ai",
+      "en-ogwigwi-yo-noun-2wUqdebz"
     ],
     "akẹ": [
       "en-akẹ-yo-noun-xgql7K7w",
       "en-akẹ-yo-noun-PlsenDKC",
       "en-akẹ-yo-noun-LXZMrfqK"
+    ],
+    "odidẹrẹ": [
+      "en-odidẹrẹ-yo-noun-CriOC1N3",
+      "en-ọdịdẹrẹ-yo-noun-oyCCzzpN"
+    ],
+    "odidẹ": [
+      "en-odidẹrẹ-yo-noun-CriOC1N3",
+      "en-ọdịdẹrẹ-yo-noun-oyCCzzpN"
+    ],
+    "oodẹ": [
+      "en-odidẹrẹ-yo-noun-CriOC1N3",
+      "en-ọdịdẹrẹ-yo-noun-oyCCzzpN"
+    ],
+    "ọdịdẹrẹ": [
+      "en-odidẹrẹ-yo-noun-CriOC1N3",
+      "en-ọdịdẹrẹ-yo-noun-oyCCzzpN"
+    ],
+    "ọdịdẹ": [
+      "en-odidẹrẹ-yo-noun-CriOC1N3",
+      "en-ọdịdẹrẹ-yo-noun-oyCCzzpN"
+    ],
+    "aparo": [
+      "en-aparo-yo-noun-UzjDf-CH",
+      "en-uparo-yo-noun-Hn2E4xUC"
+    ],
+    "uparo": [
+      "en-aparo-yo-noun-UzjDf-CH",
+      "en-uparo-yo-noun-Hn2E4xUC"
     ],
     "ọbọ": [
       "en-ọbọ-yo-noun-uIATPkES",
@@ -7604,10 +8696,31 @@
       "en-ibaaka-yo-noun-1~rfnzwl",
       "en-ibaaka-yo-noun-rAKEtXTN"
     ],
+    "agbọrin": [
+      "en-agbọnrin-yo-noun-PzhQep~O",
+      "en-agbọrin-yo-noun-6RyrhpVC"
+    ],
+    "agbinrin": [
+      "en-agbọnrin-yo-noun-PzhQep~O",
+      "en-agbinrin-yo-noun-6RyrhpVC"
+    ],
+    "inọki": [
+      "en-inọki-yo-noun-DkIsmKk2",
+      "en-inaki-yo-noun-w~ssVzk7"
+    ],
     "ọṣa": [
       "en-ọṣa-yo-noun-WjGOk~Wk",
       "en-ọṣa-yo-noun-40jCx5iy",
       "en-ọṣa-yo-noun-1jWmCCNN"
+    ],
+    "ewurẹ": [
+      "en-ewurẹ-yo-noun-VIDwjzWW",
+      "en-eurẹ-yo-noun-VIDwjzWW",
+      "en-ẹurẹ-yo-noun-VIDwjzWW"
+    ],
+    "agutan": [
+      "en-agutan-yo-noun-XFmWFqxQ",
+      "en-agụtọn-yo-noun-XFmWFqxQ"
     ],
     "ẹfọn": [
       "en-ẹfọn-yo-noun-GYvsr5xF",
@@ -7619,12 +8732,21 @@
     ],
     "ọni": [
       "en-ọni-yo-noun-dpWz1iPq",
-      "en-ọni-yo-noun-wP0gMknm"
+      "en-ọni-yo-noun-wP0gMknm",
+      "en-ọnị-yo-noun-6Er2dDEg"
+    ],
+    "ọkunmẹ": [
+      "en-ọkun-yo-noun-JUlNpXs5",
+      "en-ọkunmẹ-yo-noun-LX4aEOD8"
     ],
     "akọ": [
       "en-akọ-yo-noun-L-mWbdae",
       "en-akọ-yo-noun-XgkZ-Wr~",
       "en-akọ-yo-noun-oSyQmL6Q"
+    ],
+    "alabasta": [
+      "en-alabasta-yo-noun-oDUYZtTO",
+      "en-alabasita-yo-noun-xZZnWRSH"
     ],
     "ọkẹrẹ": [
       "en-ọkẹrẹ-yo-noun-6erN8rCe",
@@ -7634,6 +8756,11 @@
       "en-tobi-yo-verb-yCvSbi9o",
       "en-tobi-yo-noun-hsdQVDLe"
     ],
+    "توْبِ": [
+      "en-tobi-yo-verb-yCvSbi9o",
+      "en-tobi-yo-noun-hsdQVDLe",
+      "en-توْبِ-yo-verb-88m7AG3h"
+    ],
     "ejo": [
       "en-ejo-yo-noun-U419n-eO",
       "en-ejo-yo-noun-cowagmel"
@@ -7641,11 +8768,34 @@
     "agogo": [
       "en-agogo-yo-noun-BAvOrnUc",
       "en-agogo-yo-noun-BGHPotaG",
-      "en-agogo-yo-noun-XyyYeml3"
+      "en-agogo-yo-noun-XyyYeml3",
+      "en-aago-yo-noun-~FnZkH0D"
+    ],
+    "aago": [
+      "en-agogo-yo-noun-BAvOrnUc",
+      "en-agogo-yo-noun-BGHPotaG",
+      "en-agogo-yo-noun-XyyYeml3",
+      "en-aago-yo-noun-~FnZkH0D"
+    ],
+    "aogo": [
+      "en-agogo-yo-noun-BAvOrnUc",
+      "en-agogo-yo-noun-BGHPotaG",
+      "en-agogo-yo-noun-XyyYeml3",
+      "en-aago-yo-noun-~FnZkH0D",
+      "en-aogo-yo-noun-z0ol3dbw"
+    ],
+    "ادُن": [
+      "en-adun-yo-noun-~b6MwB3e",
+      "en-ادُن-yo-noun-4WiEd98B"
     ],
     "iroko": [
       "en-iroko-yo-noun-TnUWUBrS",
+      "en-uroko-yo-noun-kgWXy7Y~",
       "en-Iroko-yo-name-JF2VeYLj"
+    ],
+    "uroko": [
+      "en-iroko-yo-noun-TnUWUBrS",
+      "en-uroko-yo-noun-kgWXy7Y~"
     ],
     "agba": [
       "en-agba-yo-noun-MZqi52Y-",
@@ -7655,13 +8805,50 @@
       "en-agba-yo-noun-j9QMi3eN",
       "en-agba-yo-noun-cJEjmulX"
     ],
+    "momi": [
+      "en-momi-yo-verb-khcOoOKe",
+      "en-mumi-yo-verb-khcOoOKe"
+    ],
+    "mumi": [
+      "en-momi-yo-verb-khcOoOKe",
+      "en-mumi-yo-verb-khcOoOKe"
+    ],
     "soke": [
       "en-soke-yo-adv-daKIwNaJ",
       "en-soke-yo-prep-daKIwNaJ"
     ],
+    "سوْكعِ": [
+      "en-soke-yo-adv-daKIwNaJ",
+      "en-soke-yo-prep-daKIwNaJ",
+      "en-سوْكعِ-yo-adv-79Hg3~sV"
+    ],
     "fitina": [
       "en-fitina-yo-noun-WKg7tI7E",
       "en-fitina-yo-verb-nNSFIXGu"
+    ],
+    "kin-in-ni": [
+      "en-kiini-yo-adj-p5N7ZLjK",
+      "en-kin-in-ni-yo-adj-h0emr9BY"
+    ],
+    "talika": [
+      "en-talaka-yo-noun-ffOUgG4j",
+      "en-talika-yo-noun-1APZF0Tj"
+    ],
+    "هَرَمُ": [
+      "en-haramu-yo-noun-8CuV7QsA",
+      "en-هَرَمُ-yo-noun-LhjX0IK0"
+    ],
+    "iyi": [
+      "en-eyi-yo-pron-LDYLkmvg",
+      "en-uyi-yo-noun-6PP6xCPX"
+    ],
+    "oriri": [
+      "en-oriri-yo-noun-GISpO164",
+      "en-oii-yo-noun-TfbyKK2g"
+    ],
+    "oii": [
+      "en-oriri-yo-noun-GISpO164",
+      "en-oii-yo-noun-TfbyKK2g"
     ],
     "ẹ": [
       "en-Ẹ-yo-character-3~PjHnnM",
@@ -7676,6 +8863,9 @@
       "en-ẹ-yo-pron-gEfFSfdh",
       "en-ẹ-yo-pron-NLA6kjgc",
       "en-ẹ-yo-det-YQl~NXIB",
+      "en-rẹ-yo-det-8myUeo8-",
+      "en-rẹ-yo-det-dHZ~lsv3",
+      "en-عَِ-yo-character-JPZuzeNB",
       "en-Ẹ́-yo-character-h5sSlp9D",
       "en-ẹ́-yo-character-GUfSAbx7",
       "en-ẹ̀-yo-character-qD~hwN7m",
@@ -7693,16 +8883,13 @@
       "en-ọ-yo-pron-vDcjjG8M",
       "en-Ộ-yo-character-NpQIY0L1",
       "en-ộ-yo-character-ebnV0kYA",
+      "en-وَْ-yo-character-A4B5dnho",
       "en-ọ́-yo-character-KreSN0z~",
       "en-Ọ́-yo-character-jHl69jyL",
       "en-ọ̀-yo-character-P5-t6zwe",
       "en-Ọ̀-yo-character-mq~0cxoa",
       "en-ọ̄-yo-character-vePzwVUu",
       "en-Ọ̄-yo-character-f3Zh7zJS"
-    ],
-    "ṣ": [
-      "en-Ṣ-yo-character-H06Lp2zu",
-      "en-ṣ-yo-character-H06Lp2zu"
     ],
     "ifa": [
       "en-ifa-yo-noun-ePmsAY5V",
@@ -7721,7 +8908,17 @@
       "en-ija-yo-noun-CHkbEVVB",
       "en-ija-yo-noun-8hBaJwCo",
       "en-ija-yo-noun-vgf1E5ph",
-      "en-Ija-yo-name-GTopVyTr"
+      "en-Ija-yo-name-GTopVyTr",
+      "en-Ịja-yo-name-BhmDxx2S",
+      "en-Ụja-yo-name-a7-1HnU7"
+    ],
+    "ụja": [
+      "en-ija-yo-noun-CHkbEVVB",
+      "en-ija-yo-noun-vgf1E5ph",
+      "en-Ija-yo-name-GTopVyTr",
+      "en-Ịja-yo-name-BhmDxx2S",
+      "en-Ụja-yo-name-a7-1HnU7",
+      "en-ụja-yo-noun-EuGcpI1R"
     ],
     "iju": [
       "en-iju-yo-noun-m3G61tJk",
@@ -7735,15 +8932,44 @@
       "en-bọ-yo-verb-yh3FeAWn",
       "en-bọ-yo-verb-kHTgF-hh"
     ],
+    "بوَْ": [
+      "en-bọ-yo-verb-x9c2Uw7S",
+      "en-bọ-yo-verb-yG~NxbN7",
+      "en-bọ-yo-verb-tQtsdnoO",
+      "en-bọ-yo-verb-VGd4Qe1o",
+      "en-bọ-yo-verb-yh3FeAWn",
+      "en-bọ-yo-verb-kHTgF-hh",
+      "en-بوَْ-yo-verb-kJfhTb-k"
+    ],
     "họ": [
       "en-họ-yo-verb-PYVNhVDe",
       "en-họ-yo-verb-VeRMyz3C",
       "en-họ-yo-verb-DggLfg53",
-      "en-họ-yo-verb-xqBK93YU"
+      "en-họ-yo-verb-xqBK93YU",
+      "en-wọ-yo-verb-VDNwoM8b"
     ],
-    "gọn": [
-      "en-gọn-yo-verb-lfyLYT4c",
-      "en-gọn-yo-verb-1M9vpHcE"
+    "wọ": [
+      "en-họ-yo-verb-PYVNhVDe",
+      "en-họ-yo-verb-VeRMyz3C",
+      "en-họ-yo-verb-DggLfg53",
+      "en-họ-yo-verb-xqBK93YU",
+      "en-wọ-yo-verb-lDELpvOE",
+      "en-wọ-yo-verb-Ynd6TzKK",
+      "en-wọ-yo-verb-K4opAeCO",
+      "en-wọ-yo-verb-VDNwoM8b",
+      "en-wọ-yo-verb-OBR1uYRE",
+      "en-wọ-yo-verb-eNcyudAk",
+      "en-wọ-yo-verb-VR-~Dfz3",
+      "en-wọ-yo-verb-KJ3cYH~H",
+      "en-wọ-yo-verb-JfR-Ge2t"
+    ],
+    "ntori": [
+      "en-nitori-yo-prep-54C0NpmI",
+      "en-ntori-yo-prep-nVFkd9aQ"
+    ],
+    "iṣa": [
+      "en-uza-yo-noun-8i5udj71",
+      "en-iṣa-yo-noun-zYCHyOjJ"
     ],
     "roro": [
       "en-roro-yo-verb-FaBPHkis",
@@ -7754,40 +8980,74 @@
       "en-alapa-yo-noun-A~TZDwGv",
       "en-alapa-yo-noun-Kmg7Vbv4"
     ],
-    "uku": [
-      "en-uku-yo-noun-UsjgKYfM",
-      "en-uku-yo-noun-5pw-MAPJ"
+    "nta": [
+      "en-nita-yo-adv-w1QaLIjL",
+      "en-nta-yo-adv-Rpc4bbe~"
+    ],
+    "aniani": [
+      "en-aniani-yo-noun-~IJmQHc5",
+      "en-ani-ani-yo-noun-Pt2UjaWU"
     ],
     "ororo": [
       "en-ororo-yo-noun--hx~~Z0b",
       "en-ororo-yo-noun-MEn05RWS"
     ],
-    "udi": [
-      "en-udi-yo-noun-0Uiu4lol",
-      "en-udi-yo-noun-i~6z6j8K"
+    "سَنمَ": [
+      "en-sanma-yo-noun-IAK~~hqK",
+      "en-سَنمَ-yo-noun-E4CIS0nf"
+    ],
+    "ogunro": [
+      "en-ogio-yo-noun-znjQiqTJ",
+      "en-orogun-yo-noun-WLBjgvfY"
+    ],
+    "oji": [
+      "en-oji-yo-noun-7FMszkbs",
+      "en-Odi-yo-name-GZGwYUwW"
     ],
     "itan": [
       "en-itan-yo-noun-0oc8p00b",
       "en-itan-yo-noun-iYGn1Q1V",
       "en-itan-yo-noun-~I-7SKOh"
     ],
-    "awo": [
-      "en-awo-yo-noun-dkFDPqbU",
-      "en-awo-yo-noun-h3gSsLz8",
-      "en-awo-yo-noun-eB-Q491K",
-      "en-Awo-yo-name-EpUTN6T7"
+    "itọn": [
+      "en-itan-yo-noun-iYGn1Q1V",
+      "en-popotọn-yo-noun-iYGn1Q1V"
     ],
     "afara": [
       "en-afara-yo-noun-qXaylPLE",
       "en-afara-yo-noun-F~KbBzFD"
     ],
+    "بَرِكَ": [
+      "en-barika-yo-intj-CSxxqWX3",
+      "en-بَرِكَ-yo-noun-Cp9RiiHT"
+    ],
+    "akisa": [
+      "en-akisa-yo-noun-DGZCTwd2",
+      "en-ịjakịsa-yo-noun-ROPFGqMo"
+    ],
+    "ekisa": [
+      "en-akisa-yo-noun-DGZCTwd2",
+      "en-ekisa-yo-noun-2gVLjeMi"
+    ],
     "kankere": [
       "en-kankere-yo-noun-~ymOTE-X",
       "en-kankere-yo-verb-jOe4wjcm"
     ],
+    "kọnkere": [
+      "en-kankere-yo-noun-~ymOTE-X",
+      "en-kankere-yo-verb-jOe4wjcm",
+      "en-kọnkere-yo-noun-lRZ3A68f"
+    ],
+    "kannkere": [
+      "en-kankere-yo-noun-~ymOTE-X",
+      "en-kankere-yo-verb-jOe4wjcm",
+      "en-kannkere-yo-noun-lRZ3A68f",
+      "en-kannkere-yo-verb-iRLrg9Xi"
+    ],
     "aanu": [
       "en-aanu-yo-noun-L8ZyhVWV",
-      "en-aanu-yo-noun-sHY4x8ou"
+      "en-aanu-yo-noun-sHY4x8ou",
+      "en-ẹnịnụ-yo-noun-TVH9mY~T"
     ],
     "jiyan": [
       "en-jiyan-yo-verb-rzpvbSoP",
@@ -7796,6 +9056,20 @@
     "oriṣa": [
       "en-oriṣa-yo-noun-JduUEHxK",
       "en-Oriṣa-yo-name-YadiJnQj"
+    ],
+    "ọrịṣa": [
+      "en-oriṣa-yo-noun-JduUEHxK",
+      "en-ọrịṣa-yo-noun-4re4qnXf",
+      "en-Oriṣa-yo-name-YadiJnQj"
+    ],
+    "ọọṣa": [
+      "en-oriṣa-yo-noun-JduUEHxK",
+      "en-ọrịṣa-yo-noun-4re4qnXf",
+      "en-ọọṣa-yo-noun-4re4qnXf"
+    ],
+    "ooṣa": [
+      "en-oriṣa-yo-noun-JduUEHxK",
+      "en-ooṣa-yo-noun-jA6Wojpk"
     ],
     "ogun": [
       "en-Ogun-yo-name-EL846R5-",
@@ -7818,18 +9092,29 @@
       "en-igbo-yo-noun-rQpE~6IK",
       "en-igbo-yo-noun-smnAtCq6"
     ],
-    "eni": [
+    "eeni": [
       "en-eni-yo-noun-LL0ZUCli",
       "en-eni-yo-noun-ROxTYXXi",
-      "en-eni-yo-num-dpLDrTVA"
+      "en-eni-yo-num-dpLDrTVA",
+      "en-enini-yo-noun-zD6IbWsG",
+      "en-enini-yo-noun-hvgOHOD5"
     ],
     "agbada": [
       "en-agbada-yo-noun-Lp5PGJsy",
       "en-agbada-yo-noun-kppzgutr"
     ],
+    "adagba": [
+      "en-agbada-yo-noun-kppzgutr",
+      "en-adagba-yo-noun-fClGJsfe"
+    ],
     "ewi": [
       "en-ewi-yo-noun-HS6j1TQl",
+      "en-ẹwiri-yo-noun-BOpIuDuW",
       "en-Ewi-yo-name-akA49pYJ"
+    ],
+    "عِوِ": [
+      "en-ewi-yo-noun-HS6j1TQl",
+      "en-عِوِ-yo-noun-KqaC7qAH"
     ],
     "odu": [
       "en-odu-yo-noun-5jDjk4pL",
@@ -7841,30 +9126,93 @@
       "en-aje-yo-noun-OBRec7pm",
       "en-Aje-yo-name-8hntAKgq"
     ],
+    "nle": [
+      "en-nile-yo-prep_phrase-U9bLMOf8",
+      "en-nle-yo-prep_phrase-U9bLMOf8"
+    ],
     "dudu": [
       "en-dudu-yo-adj-HnT030uy",
       "en-dudu-yo-noun-Sv0EDibT",
       "en-dudu-yo-verb-V8-lGX1D"
     ],
+    "didu": [
+      "en-dudu-yo-adj-HnT030uy",
+      "en-dudu-yo-noun-Sv0EDibT",
+      "en-dudu-yo-verb-V8-lGX1D"
+    ],
+    "didun": [
+      "en-dudu-yo-adj-HnT030uy",
+      "en-dudu-yo-noun-Sv0EDibT",
+      "en-dudu-yo-verb-V8-lGX1D"
+    ],
+    "غَفَرَ": [
+      "en-gafara-yo-verb-NFm~pET5",
+      "en-غَفَرَ-yo-verb-gVNmSnl0"
+    ],
     "aala": [
       "en-aala-yo-noun-7kxmML7i",
       "en-Aala-yo-name--aGw0O0j"
     ],
-    "iye": [
-      "en-iye-yo-noun-IImldv3w",
-      "en-iye-yo-noun-HTzYj0CI",
-      "en-iye-yo-noun-lU1eE5J-",
-      "en-iye-yo-noun-Y71wZe8e"
+    "sokoto": [
+      "en-Sokoto-yo-name-Jx7lu6Ke",
+      "en-ṣokoto-yo-noun-Uc9kwK6S"
+    ],
+    "ja pa": [
+      "en-japa-yo-verb-M3zBx8E8",
+      "en-ja_pa-yo-verb-4byDqWxv"
+    ],
+    "فِتِلَ": [
+      "en-fitila-yo-noun-yY6F8kkA",
+      "en-فِتِلَ-yo-noun-YrmEX0Uq"
+    ],
+    "oroka": [
+      "en-oroka-yo-noun-yH1F~fA-",
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ooka-yo-noun-yH1F~fA-"
+    ],
+    "iroka": [
+      "en-oroka-yo-noun-yH1F~fA-",
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ooka-yo-noun-yH1F~fA-"
+    ],
+    "ironka": [
+      "en-oroka-yo-noun-yH1F~fA-",
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ooka-yo-noun-yH1F~fA-"
+    ],
+    "ooka": [
+      "en-oroka-yo-noun-yH1F~fA-",
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ooka-yo-noun-yH1F~fA-"
+    ],
+    "ọruka": [
+      "en-oroka-yo-noun-yH1F~fA-",
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ọruka-yo-noun-Frl0WDFV",
+      "en-ooka-yo-noun-yH1F~fA-",
+      "en-ọrụka-yo-noun-Frl0WDFV"
     ],
     "daju": [
       "en-daju-yo-verb-YTrRalDM",
       "en-daju-yo-verb-9f0E74Qb",
       "en-daju-yo-adv-1LroUsi5"
     ],
-    "ogo": [
-      "en-ogo-yo-noun-l8VAm-hl",
-      "en-ogo-yo-noun-mEhCinst",
-      "en-ogo-yo-noun-BQimNERd"
+    "akara": [
+      "en-akara-yo-noun-Lucd7BR~",
+      "en-ikara-yo-noun-yfWY48fn",
+      "en-akaa-yo-noun-OTi3c~SZ"
+    ],
+    "oni-": [
+      "en-oni--yo-prefix-nTGMUeCG",
+      "en-oli--yo-prefix-ula4OjM~"
+    ],
+    "oli-": [
+      "en-oni--yo-prefix-nTGMUeCG",
+      "en-oli--yo-prefix-ula4OjM~"
+    ],
+    "akekee": [
+      "en-akekee-yo-noun-sghyiopj",
+      "en-akeekee-yo-noun-Yx~6ULWa"
     ],
     "ọkọ": [
       "en-ọkọ-yo-noun-MsKqrVXk",
@@ -7872,6 +9220,10 @@
       "en-ọkọ-yo-noun-tATtPDcM",
       "en-ọkọ-yo-noun-yqpb0uVJ",
       "en-ọkọ-yo-noun-AiRhEePw"
+    ],
+    "ubo": [
+      "en-ubo-yo-noun-gd9jWAzJ",
+      "en-ubo-yo-prefix-LqMTUbZI"
     ],
     "ọkan": [
       "en-ọkan-yo-num-dpLDrTVA",
@@ -7881,16 +9233,19 @@
       "en-ọkan-yo-noun-jdh8F0gl",
       "en-ọkan-yo-noun-NG7wA5-8"
     ],
-    "uya": [
-      "en-uya-yo-noun-yhOgipS9",
-      "en-uya-yo-noun-zwYi7ypm"
+    "kooko": [
+      "en-kooko-yo-noun-HH36IaWr",
+      "en-koriko-yo-noun-Ps5yhUdg"
     ],
     "beere": [
       "en-beere-yo-verb-WciER2mL",
       "en-beere-yo-noun-yf3e00LX"
     ],
-    "yeye": [
-      "en-yeye-yo-noun-jlU0phM~",
+    "bi leere": [
+      "en-beere-yo-verb-WciER2mL",
+      "en-beere-yo-noun-yf3e00LX"
+    ],
+    "yiye": [
       "en-yeye-yo-noun-Lp3mf7lX",
       "en-yeye-yo-adv-lzAcG~yq",
       "en-yeye-yo-det-VDscS9T2"
@@ -7900,62 +9255,108 @@
       "en-iyan-yo-noun-t0-DyTU7",
       "en-iyan-yo-noun-G8Dp3y8i"
     ],
+    "iyẹn": [
+      "en-iyan-yo-noun-t0-DyTU7",
+      "en-iyan-yo-noun-G8Dp3y8i",
+      "en-iyẹn-yo-pron-aV3C1uOP",
+      "en-iyẹn-yo-pron-aV3C1uOP1"
+    ],
     "iwe": [
       "en-iwe-yo-noun-OCY1yTJb",
       "en-iwe-yo-noun-v4xH689P",
       "en-iwe-yo-pron-HreWAkEe"
     ],
+    "eghe": [
+      "en-iwe-yo-noun-OCY1yTJb",
+      "en-iwe-yo-noun-v4xH689P",
+      "en-iwe-yo-pron-HreWAkEe",
+      "en-eghe-yo-noun-NUmyogXm",
+      "en-eghe-yo-noun-n5EWH0ND"
+    ],
     "apala": [
       "en-apala-yo-noun-3YMkBOju",
       "en-apala-yo-noun-YlSb0Oid"
+    ],
+    "abobo": [
+      "en-abobo-yo-noun-oYi-qXL-",
+      "en-arobo-yo-noun-oYi-qXL-"
+    ],
+    "arobo": [
+      "en-abobo-yo-noun-oYi-qXL-",
+      "en-arobo-yo-noun-oYi-qXL-"
     ],
     "timi": [
       "en-Timi-yo-name-hiUmJ00j",
       "en-Timi-yo-name-h8YdwBAs"
     ],
-    "wowo": [
+    "wiwo": [
       "en-wowo-yo-verb-Gu0Wcb-L",
-      "en-wowo-yo-noun-eEF7sg~5"
+      "en-wowo-yo-noun-eEF7sg~5",
+      "en-wuwo-yo-verb-3PUI1q-k"
     ],
     "waja": [
       "en-waja-yo-verb-nxObzfuR",
       "en-waja-yo-verb-9Y9qxqys"
     ],
-    "ghan": [
-      "en-ghan-yo-pron-5d0ivQen",
-      "en-ghan-yo-pron--8yPAGd~",
-      "en-ghan-yo-verb-LfCJgSGD"
+    "aaya": [
+      "en-aaya-yo-noun-y8mBqA4v",
+      "en-ahaya-yo-noun-zD3xPLet"
+    ],
+    "wọn": [
+      "en-ghan-yo-verb-LfCJgSGD",
+      "en-wọn-yo-pron-Mkk4gLeO",
+      "en-wọn-yo-det-idz4c62x",
+      "en-wọn-yo-verb-xWzpz9h6",
+      "en-wọn-yo-verb-Tz6u76wz",
+      "en-ghọn-yo-verb-bw~dPneS"
     ],
     "uga": [
       "en-uga-yo-noun-4d~gT0Zg",
       "en-uga-yo-noun-FeYos0R-"
     ],
-    "ubu": [
-      "en-ubu-yo-noun-tw88Djj0",
-      "en-ubu-yo-noun-sGYmItRM"
-    ],
     "baaluu": [
       "en-baaluu-yo-noun-AEd62KRD",
       "en-baaluu-yo-noun-M1uOvVji"
+    ],
+    "baluu": [
+      "en-baaluu-yo-noun-AEd62KRD",
+      "en-baaluu-yo-noun-M1uOvVji",
+      "en-baluu-yo-noun-6pJHhP0k"
+    ],
+    "agbayunkun": [
+      "en-agbayun-yo-noun-WZc5pxUH",
+      "en-agbayunkun-yo-noun-7tXgc4F4"
     ],
     "eji": [
       "en-eji-yo-num-P8TM~nRY",
       "en-eji-yo-noun-DSKdCqD8",
       "en-eji-yo-noun-~kNr-9ao"
     ],
-    "ukoko": [
-      "en-ukoko-yo-noun-4RoHB5OD",
-      "en-ukoko-yo-noun-kvFlBVz0"
+    "caps gb": [
+      "en-Gb-yo-character-rOSN0-RM",
+      "en-gb-yo-character-rOSN0-RM"
     ],
-    "owo": [
-      "en-owo-yo-noun-R6UWTbwf",
-      "en-owo-yo-noun-Jx5UC9-4"
+    "وَكَ": [
+      "en-Waka-yo-noun-dcmuvxxU",
+      "en-وَكَ-yo-noun-6nc86Q8B"
+    ],
+    "aafirika": [
+      "en-Afirika-yo-name-Oq80NWGp",
+      "en-Aafirika-yo-name-Je3XGzcT"
+    ],
+    "ajari": [
+      "en-Ajayi-yo-name-2AtOtBF-",
+      "en-Ajari-yo-name-64~JHZr-"
     ],
     "alade": [
       "en-alade-yo-noun-KIlxZxaF",
       "en-alade-yo-noun-d5onTMTI",
       "en-alade-yo-noun-0QsVoC6t",
       "en-alade-yo-noun-47kIngTD"
+    ],
+    "كَكَكِ": [
+      "en-kakaki-yo-noun-CGaEdVpq",
+      "en-كَكَكِ-yo-noun--Vci4D5u"
     ],
     "lẹ": [
       "en-lẹ-yo-verb-K5XGaUkD",
@@ -7966,7 +9367,30 @@
     ],
     "egungun": [
       "en-Egungun-yo-noun-rKrAO-D1",
-      "en-egungun-yo-noun-yNrPZX~p"
+      "en-egungun-yo-noun-yNrPZX~p",
+      "en-Egigun-yo-noun-UjqLZS3d",
+      "en-egigun-yo-noun-yNrPZX~p",
+      "en-egigun-yo-noun-xuckVcg0"
+    ],
+    "egigun": [
+      "en-Egungun-yo-noun-rKrAO-D1",
+      "en-egungun-yo-noun-yNrPZX~p",
+      "en-Egigun-yo-noun-UjqLZS3d",
+      "en-egigun-yo-noun-yNrPZX~p",
+      "en-egigun-yo-noun-xuckVcg0",
+      "en-ogungun-yo-noun-SqAL-jG-",
+      "en-ogungun-yo-noun-xuckVcg0"
+    ],
+    "eegun": [
+      "en-Egungun-yo-noun-rKrAO-D1",
+      "en-egungun-yo-noun-yNrPZX~p",
+      "en-Egigun-yo-noun-UjqLZS3d",
+      "en-egigun-yo-noun-yNrPZX~p",
+      "en-egigun-yo-noun-xuckVcg0",
+      "en-ogungun-yo-noun-SqAL-jG-",
+      "en-ogungun-yo-noun-xuckVcg0",
+      "en-eegun-yo-noun-yNrPZX~p",
+      "en-eegun-yo-noun-MBxSRaGK"
     ],
     "ikun": [
       "en-ikun-yo-noun-9VuSn-I2",
@@ -7986,7 +9410,34 @@
     "ahun": [
       "en-ahun-yo-noun-RAWIAkZj",
       "en-ahun-yo-noun-VNgQV1vo",
-      "en-ahun-yo-noun-OG-5pkh-"
+      "en-ahun-yo-noun-OG-5pkh-",
+      "en-awun-yo-noun-EhuYZfGD"
+    ],
+    "awun": [
+      "en-ahun-yo-noun-VNgQV1vo",
+      "en-awun-yo-noun-EhuYZfGD"
+    ],
+    "aụn": [
+      "en-ahun-yo-noun-VNgQV1vo",
+      "en-awun-yo-noun-EhuYZfGD"
+    ],
+    "aghọn": [
+      "en-ahun-yo-noun-VNgQV1vo",
+      "en-awun-yo-noun-EhuYZfGD"
+    ],
+    "ọmọ": [
+      "en-ọmọ-yo-noun-3cnmaRlC",
+      "en-ọmọ-yo-intj-TeEZQyXX",
+      "en-ọmu-yo-noun-FBbRXXfs"
+    ],
+    "ọma": [
+      "en-ọmọ-yo-noun-3cnmaRlC",
+      "en-ọmọ-yo-intj-TeEZQyXX",
+      "en-ọma-yo-noun-GY2m1bKb"
+    ],
+    "ikara": [
+      "en-ikara-yo-noun-yfWY48fn",
+      "en-akaa-yo-noun-OTi3c~SZ"
     ],
     "rọ": [
       "en-rọ-yo-verb-IinP9aRt",
@@ -7995,22 +9446,43 @@
       "en-rọ-yo-verb-yfTxpyUJ",
       "en-rọ-yo-verb-4zDxaWpy"
     ],
+    "odidi": [
+      "en-odidi-yo-noun-SdH2AzwK",
+      "en-odindi-yo-noun-3mC326OV"
+    ],
+    "odindi": [
+      "en-odidi-yo-noun-SdH2AzwK",
+      "en-odindi-yo-noun-3mC326OV"
+    ],
     "alaye": [
       "en-alaye-yo-noun-94~K5n1K",
       "en-alaye-yo-noun-sQQFm-bo",
       "en-Alaye-yo-name-A778JP7A"
     ],
-    "bẹ": [
-      "en-bẹ-yo-verb-XQ31nnU1",
-      "en-bẹ-yo-verb-hEcG2l2N",
-      "en-bẹ-yo-verb-9spnkTOg",
-      "en-bẹ-yo-verb-dKc~LFwp",
-      "en-bẹ-yo-verb-xVpO2Q~h",
-      "en-bẹ-yo-verb-OjWcMC7x",
-      "en-bẹ-yo-verb-q4mG3dKb",
-      "en-bẹ-yo-verb-Lo2k5Y0m",
-      "en-bẹ-yo-verb-YLTVB5L2",
-      "en-bẹ-yo-verb-lvCUO4a5"
+    "الَيعِ": [
+      "en-alaye-yo-noun-94~K5n1K",
+      "en-alaye-yo-noun-sQQFm-bo",
+      "en-الَيعِ-yo-noun-iNwGJDaR"
+    ],
+    "muwe": [
+      "en-muwe-yo-verb-g~~pF-Th",
+      "en-mọwe-yo-verb-oSp3kpQB"
+    ],
+    "taye": [
+      "en-Taye-yo-name-W40I9SSH",
+      "en-Taiwo-yo-name-jyZUPAqP"
+    ],
+    "taiwo": [
+      "en-Taye-yo-name-W40I9SSH",
+      "en-Taiwo-yo-name-jyZUPAqP"
+    ],
+    "taiye": [
+      "en-Taye-yo-name-W40I9SSH",
+      "en-Taiwo-yo-name-jyZUPAqP"
+    ],
+    "tayewo": [
+      "en-Taye-yo-name-W40I9SSH",
+      "en-Taiwo-yo-name-jyZUPAqP"
     ],
     "sẹ": [
       "en-sẹ-yo-verb-a3FlIi6x",
@@ -8018,7 +9490,46 @@
     ],
     "oore": [
       "en-oore-yo-noun-3mqUPkS3",
-      "en-Oore-yo-name-NpgXK2~j"
+      "en-Oore-yo-name-NpgXK2~j",
+      "en-oorẹ-yo-noun-C4B4FuUP",
+      "en-ụụrẹ-yo-noun-Ua4LE6t3"
+    ],
+    "atupa": [
+      "en-atupa-yo-noun-wm7qnVRb",
+      "en-otupa-yo-noun-OMscruVO",
+      "en-ọtụpa-yo-noun-wm7qnVRb"
+    ],
+    "otupa": [
+      "en-atupa-yo-noun-wm7qnVRb",
+      "en-otupa-yo-noun-OMscruVO",
+      "en-ọtụpa-yo-noun-wm7qnVRb"
+    ],
+    "ọtụpa": [
+      "en-atupa-yo-noun-wm7qnVRb",
+      "en-ọtụpa-yo-noun-wm7qnVRb"
+    ],
+    "ewua": [
+      "en-ewua-yo-noun-krA0ozDX",
+      "en-ewura-yo-noun-9YP8WgJC",
+      "en-ẹụra-yo-noun-krA0ozDX"
+    ],
+    "ẹụra": [
+      "en-ewua-yo-noun-krA0ozDX",
+      "en-ewura-yo-noun-9YP8WgJC",
+      "en-ẹụra-yo-noun-krA0ozDX"
+    ],
+    "ewura": [
+      "en-ewua-yo-noun-krA0ozDX",
+      "en-ewura-yo-noun-9YP8WgJC",
+      "en-ẹụra-yo-noun-krA0ozDX"
+    ],
+    "ai-": [
+      "en-ai--yo-prefix-SUo4~tqj",
+      "en-ari--yo-prefix-SUo4~tqj"
+    ],
+    "ari-": [
+      "en-ai--yo-prefix-SUo4~tqj",
+      "en-ari--yo-prefix-SUo4~tqj"
     ],
     "ọrẹ": [
       "en-ọrẹ-yo-noun-zeSFN8os",
@@ -8044,12 +9555,56 @@
       "en-Okun-yo-name-TxXBmsB~",
       "en-okun-yo-noun-Auh9veD3",
       "en-okun-yo-noun-IVoQzM7D",
+      "en-okun-yo-intj-0rzx1T6b",
       "en-okun-yo-noun-mZhKsCJ-",
       "en-okun-yo-noun-9~iFvwXM"
+    ],
+    "okuta": [
+      "en-okuta-yo-noun-lQ7V6m41",
+      "en-ọkuta-yo-noun-lQ7V6m41",
+      "en-ọkụta-yo-noun-lQ7V6m41"
+    ],
+    "ọkuta": [
+      "en-okuta-yo-noun-lQ7V6m41",
+      "en-ọkuta-yo-noun-lQ7V6m41",
+      "en-ọkụta-yo-noun-lQ7V6m41"
+    ],
+    "ọkụta": [
+      "en-okuta-yo-noun-lQ7V6m41",
+      "en-ọkuta-yo-noun-lQ7V6m41",
+      "en-ọkụta-yo-noun-lQ7V6m41"
+    ],
+    "eledumare": [
+      "en-Olodumare-yo-name-oPqF4e70",
+      "en-Eledumare-yo-name-AL1mVaFp"
+    ],
+    "ledumae": [
+      "en-Olodumare-yo-name-oPqF4e70",
+      "en-Ledumae-yo-name-ZWa8O6Pl"
+    ],
+    "kaakiri": [
+      "en-kakiri-yo-verb-Vsqrypaq",
+      "en-kaakiri-yo-verb-TLT5SPJR"
     ],
     "kurukuru": [
       "en-kurukuru-yo-noun-aVrPfBzr",
       "en-kurukuru-yo-noun-Vcw8mNWg"
+    ],
+    "kuukuu": [
+      "en-kurukuru-yo-noun-aVrPfBzr",
+      "en-kurukuru-yo-noun-Vcw8mNWg"
+    ],
+    "aworo": [
+      "en-aworo-yo-noun-NTskYE9v",
+      "en-aoro-yo-noun-M8v~tPRB"
+    ],
+    "aoro": [
+      "en-aworo-yo-noun-NTskYE9v",
+      "en-aoro-yo-noun-M8v~tPRB"
+    ],
+    "aghoro": [
+      "en-aworo-yo-noun-NTskYE9v",
+      "en-aoro-yo-noun-M8v~tPRB"
     ],
     "iwin": [
       "en-iwin-yo-noun-04d5gJCR",
@@ -8075,6 +9630,21 @@
       "en-fọ-yo-verb-Wc0gp-Lx",
       "en-fọ-yo-verb-cLbaoolj"
     ],
+    "ogungun": [
+      "en-egungun-yo-noun-yNrPZX~p",
+      "en-egigun-yo-noun-yNrPZX~p",
+      "en-egigun-yo-noun-xuckVcg0",
+      "en-ogungun-yo-noun-SqAL-jG-",
+      "en-ogungun-yo-noun-xuckVcg0"
+    ],
+    "اِمَلعِ": [
+      "en-imale-yo-noun-iZLvnQ3c",
+      "en-اِمَلعِ-yo-noun-mEZ483IA"
+    ],
+    "imọle": [
+      "en-imale-yo-noun-iZLvnQ3c",
+      "en-imọle-yo-noun-QSzCITCn"
+    ],
     "akata": [
       "en-akata-yo-noun-HoPBKZKz",
       "en-akata-yo-noun-RsCdleeZ",
@@ -8085,26 +9655,91 @@
       "en-Oluwa-yo-name-A89RVgFn",
       "en-oluwa-yo-noun-c~gGOOw3"
     ],
+    "ọlụa": [
+      "en-Oluwa-yo-name-A89RVgFn",
+      "en-Ọlụa-yo-name-Q56MvqxG"
+    ],
     "aghan": [
       "en-aghan-yo-particle--7pL~mlv",
       "en-aghan-yo-pron-Lvq2uu65"
+    ],
+    "dunbu": [
+      "en-dumbu-yo-verb-hyLvNls8",
+      "en-dunbu-yo-verb-1gsugO1x"
+    ],
+    "سَرَكِ": [
+      "en-saraki-yo-noun-CWEUC~Jc",
+      "en-سَرَكِ-yo-noun-lHxi3Z2Z"
+    ],
+    "alubọsa": [
+      "en-alubọsa-yo-noun-KIlxZxaF",
+      "en-alubasa-yo-noun-AZ5rgVBr"
+    ],
+    "الُبَرِكَ": [
+      "en-alubarika-yo-noun-WI08~zEW",
+      "en-الُبَرِكَ-yo-noun-83zDwU3~"
+    ],
+    "الُجوَْننُ": [
+      "en-alujọnnu-yo-noun-HjQ6Nyl4",
+      "en-الُجوَْننُ-yo-noun-QmpNd6rM"
+    ],
+    "اشِرِ": [
+      "en-aṣiri-yo-noun-K7gNU3sd",
+      "en-اشِرِ-yo-noun-39Cv1wzZ"
     ],
     "awusa": [
       "en-Awusa-yo-noun-3NjAwbHe",
       "en-awusa-yo-noun-iwqAybaP"
     ],
+    "اوُسَ": [
+      "en-Awusa-yo-noun-3NjAwbHe",
+      "en-اوُسَ-yo-noun-odv86TRa"
+    ],
+    "eghoro": [
+      "en-ehoro-yo-noun-Lb0L6wOW",
+      "en-eghoro-yo-noun-MGeHMJjD"
+    ],
+    "maluu": [
+      "en-maluu-yo-noun-AOE4MQIf",
+      "en-malughu-yo-noun-wmNmP71T"
+    ],
     "ogbe": [
       "en-Ogbe-yo-name-If2QLR04",
       "en-ogbe-yo-noun-S~ovpIYC"
+    ],
+    "ọwọrin": [
+      "en-Ọwọnrin-yo-name-9RFr7zfh",
+      "en-Ọwọrin-yo-name-pj~k9tba"
+    ],
+    "ẹka": [
+      "en-Ika-yo-name-t5yxKJ-2",
+      "en-ọka-yo-noun-ZgmENsRz",
+      "en-ẹka-yo-noun-FMAmtLDX",
+      "en-ẹka-yo-noun-dV-FDcaZ",
+      "en-ẹka-yo-noun-q3O0i5U0"
+    ],
+    "otua": [
+      "en-Otua-yo-name-Q-7yU3lY",
+      "en-Otura-yo-name-9oANgoSp"
     ],
     "ọsẹ": [
       "en-Ọsẹ-yo-name-nzn-a69d",
       "en-ọsẹ-yo-noun-bfN9qqRs",
       "en-ọsẹ-yo-noun-Xac9Gpm4"
     ],
+    "ọṣẹ": [
+      "en-Ọsẹ-yo-name-nzn-a69d",
+      "en-ọṣẹ-yo-noun-c2vC1OCU"
+    ],
     "ọṣun": [
       "en-Ọṣun-yo-name-HJMj--3Y",
       "en-Ọṣun-yo-name-6vLqwBxe"
+    ],
+    "ọsun": [
+      "en-Ọṣun-yo-name-HJMj--3Y",
+      "en-Ọṣun-yo-name-6vLqwBxe",
+      "en-Ọsun-yo-name-Im3kl1n2",
+      "en-Ọsun-yo-name-6vLqwBxe"
     ],
     "ifẹ": [
       "en-Ifẹ-yo-name-DVhPPzys",
@@ -8112,15 +9747,46 @@
     ],
     "ọwọ": [
       "en-Ọwọ-yo-name-GEPbBKkF",
+      "en-ọọ-yo-noun-EAoH0eQ2",
       "en-ọwọ-yo-noun-EAoH0eQ2",
       "en-ọwọ-yo-noun-50YCYSBl",
       "en-ọwọ-yo-noun-EAnDV0AO",
       "en-ọwọ-yo-noun-GwAXBqQY",
       "en-ọwọ-yo-noun-gKsZu6EH"
     ],
+    "ọghọ": [
+      "en-Ọwọ-yo-name-GEPbBKkF",
+      "en-ọọ-yo-noun-EAoH0eQ2",
+      "en-ọwọ-yo-noun-50YCYSBl",
+      "en-ọwọ-yo-noun-EAnDV0AO"
+    ],
+    "afaa": [
+      "en-alufaa-yo-noun-2~VYS-tt",
+      "en-afaa-yo-noun-hwutbXyz"
+    ],
+    "الُفَا": [
+      "en-alufaa-yo-noun-2~VYS-tt",
+      "en-الُفَا-yo-noun-6rEMaMti"
+    ],
+    "mọsalasi": [
+      "en-mọsalasi-yo-noun-~MfXUmp3",
+      "en-mọṣalaṣi-yo-noun-JTIhy9oC"
+    ],
+    "موَْسَلَسِ": [
+      "en-mọsalasi-yo-noun-~MfXUmp3",
+      "en-موَْسَلَسِ-yo-noun-OjZtdSUy"
+    ],
+    "موَْشَلَشِ": [
+      "en-mọṣalaṣi-yo-noun-JTIhy9oC",
+      "en-موَْشَلَشِ-yo-noun--t0Twthg"
+    ],
     "ọba": [
       "en-ọba-yo-noun-lzwbK3Rk",
       "en-Ọba-yo-name-OZnU1zg-"
+    ],
+    "دَنشِكِ": [
+      "en-danṣiki-yo-noun-trjzgfIH",
+      "en-دَنشِكِ-yo-noun-kbNU-cAc"
     ],
     "ẹgba": [
       "en-Ẹgba-yo-noun-V7lEagtT",
@@ -8128,36 +9794,102 @@
       "en-ẹgba-yo-noun-Y4pTqDxD",
       "en-ẹgba-yo-noun-6u7vAXDs"
     ],
+    "لَرُبَوَ": [
+      "en-Larubawa-yo-noun-s9VRgCme",
+      "en-لَرُبَوَ-yo-noun-ebCcXUHX"
+    ],
     "ṣile": [
       "en-ṣile-yo-noun-s4B~dY26",
       "en-Ṣile-yo-name-bGx1Jcac"
+    ],
+    "agbado": [
+      "en-agbado-yo-noun-vzRBO-yw",
+      "en-igbado-yo-noun-Z8bCQgvm"
+    ],
+    "igbado": [
+      "en-agbado-yo-noun-vzRBO-yw",
+      "en-igbado-yo-noun-Z8bCQgvm"
     ],
     "amọ": [
       "en-amọ-yo-conj-zcKZN4hx",
       "en-amọ-yo-noun-Yh11WzRd",
       "en-amọ-yo-noun-BjY1VQVN"
     ],
+    "اموَْ": [
+      "en-amọ-yo-conj-zcKZN4hx",
+      "en-amọ-yo-noun-Yh11WzRd",
+      "en-amọ-yo-noun-BjY1VQVN",
+      "en-اموَْ-yo-noun-4Vkm7Yln"
+    ],
+    "ajeji": [
+      "en-ajeji-yo-noun-A48rYL34",
+      "en-ajoji-yo-noun-A48rYL34"
+    ],
+    "ajoji": [
+      "en-ajeji-yo-noun-A48rYL34",
+      "en-ajoji-yo-noun-A48rYL34"
+    ],
     "ẹbi": [
       "en-ẹbi-yo-noun-00pWmreq",
       "en-ẹbi-yo-noun-NSN0UPIq",
       "en-ẹbi-yo-noun-bKQ0yx6x"
     ],
+    "ebi": [
+      "en-ẹbi-yo-noun-00pWmreq",
+      "en-ẹbi-yo-noun-NSN0UPIq",
+      "en-ẹbi-yo-noun-bKQ0yx6x"
+    ],
+    "eebo": [
+      "en-Oyinbo-yo-noun-nYEOQk7R",
+      "en-Eebo-yo-noun-NcCBiqfp"
+    ],
     "aṣẹ": [
       "en-aṣẹ-yo-noun-smLVcxSD",
       "en-aṣẹ-yo-noun-O66mEZld",
       "en-aṣẹ-yo-noun-G5VkZD8~",
+      "en-aṣẹ-yo-intj-XhRKyaNb",
       "en-aṣẹ-yo-noun-3E~PTEXr"
     ],
-    "wọn": [
+    "ịṣẹ": [
+      "en-aṣẹ-yo-noun-G5VkZD8~",
+      "en-aṣẹ-yo-intj-XhRKyaNb"
+    ],
+    "rin-ọn": [
       "en-wọn-yo-pron-Mkk4gLeO",
       "en-wọn-yo-det-idz4c62x",
-      "en-wọn-yo-verb-xWzpz9h6",
-      "en-wọn-yo-verb-Tz6u76wz"
+      "en-rọn-yo-det-VmUDHxSS",
+      "en-rin-ọn-yo-det-tICH6qzv"
+    ],
+    "rọn": [
+      "en-wọn-yo-pron-Mkk4gLeO",
+      "en-wọn-yo-det-idz4c62x",
+      "en-rọn-yo-det-VmUDHxSS",
+      "en-rin-ọn-yo-det-tICH6qzv"
     ],
     "ọja": [
       "en-ọja-yo-noun-pAHd0HzV",
       "en-ọja-yo-noun-SCWciskg",
       "en-ọja-yo-noun-vSTDXJcg"
+    ],
+    "owurọ": [
+      "en-owurọ-yo-noun-9VpwYpN2",
+      "en-awurọ-yo-noun-4h73R~IW"
+    ],
+    "owuọ": [
+      "en-owurọ-yo-noun-9VpwYpN2",
+      "en-owuọ-yo-noun-nvG4pIuh"
+    ],
+    "oorọ": [
+      "en-owurọ-yo-noun-9VpwYpN2",
+      "en-oorọ-yo-noun-4h73R~IW"
+    ],
+    "ọọrọ": [
+      "en-owurọ-yo-noun-9VpwYpN2",
+      "en-ọọrọ-yo-noun-4h73R~IW"
+    ],
+    "ọwụrọ": [
+      "en-owurọ-yo-noun-9VpwYpN2",
+      "en-ọwụrọ-yo-noun-nvG4pIuh"
     ],
     "aarọ": [
       "en-aarọ-yo-noun-wjsxoBeb",
@@ -8171,7 +9903,22 @@
     ],
     "alẹ": [
       "en-alẹ-yo-noun-IueUTUNa",
-      "en-alẹ-yo-noun-3j-~5Sdn"
+      "en-alẹ-yo-noun-3j-~5Sdn",
+      "en-ilẹ-yo-noun-3j-~5Sdn"
+    ],
+    "ilẹ": [
+      "en-alẹ-yo-noun-3j-~5Sdn",
+      "en-ilẹ-yo-noun-3j-~5Sdn"
+    ],
+    "ulẹ": [
+      "en-alẹ-yo-noun-3j-~5Sdn",
+      "en-ilẹ-yo-noun-3j-~5Sdn",
+      "en-ulẹ-yo-noun-iJEF0aMd",
+      "en-ulẹ-yo-noun-BjiFKgsX"
+    ],
+    "عَِڠوَْن": [
+      "en-ẹgbọn-yo-noun-TDDlk926",
+      "en-عَِڠوَْن-yo-noun--2hF7mgr"
     ],
     "rẹ": [
       "en-rẹ-yo-det-8myUeo8-",
@@ -8189,7 +9936,16 @@
     "iṣẹ": [
       "en-iṣẹ-yo-noun-AOE-169V",
       "en-iṣẹ-yo-noun-o2wS5fw~",
-      "en-iṣẹ-yo-noun-sH~fZ0bF"
+      "en-iṣẹ-yo-noun-sH~fZ0bF",
+      "en-usẹ-yo-noun-mU~j68rK",
+      "en-uṣẹ-yo-noun-j6wYQ-W2"
+    ],
+    "uṣẹ": [
+      "en-iṣẹ-yo-noun-AOE-169V",
+      "en-iṣẹ-yo-noun-o2wS5fw~",
+      "en-iṣẹ-yo-noun-sH~fZ0bF",
+      "en-usẹ-yo-noun-mU~j68rK",
+      "en-uṣẹ-yo-noun-j6wYQ-W2"
     ],
     "awọn": [
       "en-awọn-yo-noun-snFSEtk5",
@@ -8198,13 +9954,44 @@
       "en-awọn-yo-pron-Lvq2uu65",
       "en-awọn-yo-noun-oIoPy96v"
     ],
+    "ahọn": [
+      "en-awọn-yo-noun-snFSEtk5",
+      "en-ahọn-yo-noun-snFSEtk5"
+    ],
     "orukọ": [
       "en-orukọ-yo-noun-gqNTf~Db",
-      "en-orukọ-yo-noun-~57vePBr"
+      "en-orukọ-yo-noun-~57vePBr",
+      "en-ọrụkọ-yo-noun-gqNTf~Db",
+      "en-erikọ-yo-noun-gqNTf~Db",
+      "en-oukọ-yo-noun-nAOkG2JW",
+      "en-obukọ-yo-noun-VcTLY2Gy",
+      "en-ọrukọ-yo-noun-gqNTf~Db"
+    ],
+    "fasiti": [
+      "en-yunifasiti-yo-noun-rbpsDsio",
+      "en-fasiti-yo-noun-rroJVr0N"
+    ],
+    "ifasiti": [
+      "en-yunifasiti-yo-noun-rbpsDsio",
+      "en-ifasiti-yo-noun-rroJVr0N"
+    ],
+    "eyin": [
+      "en-eyin-yo-noun-eb4zFyuh",
+      "en-ẹyin-yo-noun-PEgjRvN1",
+      "en-ẹyin-yo-adv-sbiGzl9X",
+      "en-ẹyin-yo-noun-jZ~-fFwq"
+    ],
+    "ekiti": [
+      "en-Ekiti-yo-name-ZPSkpHIs",
+      "en-okiti-yo-noun-93~Lsh3e"
     ],
     "ẹba": [
       "en-ẹba-yo-noun-Bwe4pjOR",
       "en-ẹba-yo-noun-T~4dAuF~"
+    ],
+    "اتَلَاتَ": [
+      "en-Atalaata-yo-noun-fYrx3hJi",
+      "en-اتَلَاتَ-yo-noun-fCYrVYDN"
     ],
     "ẹta": [
       "en-ẹta-yo-num-i1udsME9",
@@ -8219,7 +10006,19 @@
     "arun": [
       "en-arun-yo-noun-6S~Npepc",
       "en-arun-yo-num-IisL1R~O",
-      "en-arun-yo-noun-TPNc-HQ1"
+      "en-arun-yo-noun-TPNc-HQ1",
+      "en-ẹun-yo-noun-TPNc-HQ1",
+      "en-aọn-yo-noun-2oCFUJl7"
+    ],
+    "ẹrụn": [
+      "en-arun-yo-num-IisL1R~O",
+      "en-ẹrụn-yo-noun-TPNc-HQ1"
+    ],
+    "ẹrun": [
+      "en-arun-yo-num-IisL1R~O",
+      "en-ẹrun-yo-noun-TPNc-HQ1",
+      "en-ẹun-yo-noun-TPNc-HQ1",
+      "en-ẹrụn-yo-noun-TPNc-HQ1"
     ],
     "ẹjọ": [
       "en-ẹjọ-yo-num-wZXS2HVi",
@@ -8272,7 +10071,24 @@
     ],
     "maraarun": [
       "en-maraarun-yo-adj-URakxgbW",
-      "en-maraarun-yo-noun-URakxgbW"
+      "en-maraarun-yo-noun-URakxgbW",
+      "en-maraarun-un-yo-noun-J24s5lwi"
+    ],
+    "marun-un": [
+      "en-marun-un-yo-adj-IisL1R~O",
+      "en-mẹrụn-ụn-yo-adj-IisL1R~O"
+    ],
+    "mẹrụn-ụn": [
+      "en-marun-un-yo-adj-IisL1R~O",
+      "en-mẹrụn-ụn-yo-adj-IisL1R~O"
+    ],
+    "olila": [
+      "en-olila-yo-noun-iQYj2jBR",
+      "en-onila-yo-noun-A3WyEz-Q"
+    ],
+    "onila": [
+      "en-olila-yo-noun-iQYj2jBR",
+      "en-onila-yo-noun-A3WyEz-Q"
     ],
     "mẹfa mẹfa": [
       "en-mẹfa_mẹfa-yo-adv-JVSjVhkG",
@@ -8302,10 +10118,6 @@
       "en-mẹjẹẹjọ-yo-adj-akyvSnoi",
       "en-mẹjẹẹjọ-yo-noun-akyvSnoi"
     ],
-    "nikan": [
-      "en-nikan-yo-verb-BZR8KY2p",
-      "en-nikan-yo-adv-SONraMFQ"
-    ],
     "mẹsan-an mẹsan-an": [
       "en-mẹsan-an_mẹsan-an-yo-adv-QtYSSum3",
       "en-mẹsan-an_mẹsan-an-yo-adj-XOlP9XMb"
@@ -8313,6 +10125,14 @@
     "mẹsẹẹsan-an": [
       "en-mẹsẹẹsan-an-yo-adj-HrO~y~NO",
       "en-mẹsẹẹsan-an-yo-noun-HrO~y~NO"
+    ],
+    "iyawo": [
+      "en-iyawo-yo-noun-RfsmVPAG",
+      "en-ịyawo-yo-noun-nVKjyOTW"
+    ],
+    "ịyawo": [
+      "en-iyawo-yo-noun-RfsmVPAG",
+      "en-ịyawo-yo-noun-nVKjyOTW"
     ],
     "mẹwaa mẹwaa": [
       "en-mẹwaa_mẹwaa-yo-adv-2~o-J9n9",
@@ -8335,6 +10155,31 @@
       "en-atọ-yo-noun-wIvZjgot",
       "en-atọ-yo-noun-dOPW9NYQ"
     ],
+    "ẹgunsi": [
+      "en-ẹgusi-yo-noun-nFxhuDmE",
+      "en-ẹgunsi-yo-noun-B09ulpfK"
+    ],
+    "ihooho": [
+      "en-ihoho-yo-noun-VCUlLFn-",
+      "en-iorio-yo-noun-TO-pg664"
+    ],
+    "ihoriho": [
+      "en-ihoho-yo-noun-VCUlLFn-",
+      "en-iorio-yo-noun-TO-pg664"
+    ],
+    "iorio": [
+      "en-ihoho-yo-noun-VCUlLFn-",
+      "en-iorio-yo-noun-TO-pg664"
+    ],
+    "iworiwo": [
+      "en-ihoho-yo-noun-VCUlLFn-",
+      "en-iorio-yo-noun-TO-pg664",
+      "en-iworiwo-yo-noun-TO-pg664"
+    ],
+    "ẹrinla": [
+      "en-ẹrinla-yo-num-~vj0HNzS",
+      "en-ẹlịla-yo-noun-RQBSPQT7"
+    ],
     "pẹtẹpẹtẹ": [
       "en-pẹtẹpẹtẹ-yo-noun-KrRpbxZM",
       "en-pẹtẹpẹtẹ-yo-noun-PvUnHtAt",
@@ -8346,7 +10191,8 @@
       "en-ẹkun-yo-noun-NZ93k8vW",
       "en-ẹkun-yo-noun-ovhnP92X",
       "en-ẹkun-yo-noun-x3Z9QKin",
-      "en-ẹkun-yo-noun-y7~U4edk"
+      "en-ẹkun-yo-noun-y7~U4edk",
+      "en-ẹkurẹ-yo-noun-zv7TazRF"
     ],
     "oṣumare": [
       "en-oṣumare-yo-noun-j87QC2zi",
@@ -8360,24 +10206,66 @@
       "en-agbọn-yo-noun-I-vOcsRC",
       "en-agbọn-yo-noun-S-63LeWL"
     ],
-    "irere": [
-      "en-irere-yo-noun-J-FqraeT",
-      "en-irere-yo-noun-Tw8H3n~H",
-      "en-irere-yo-noun-efOsEnUn"
+    "agban": [
+      "en-agbọn-yo-noun--nbZmtlX",
+      "en-agban-yo-noun-QFyvyPgN",
+      "en-agban-yo-noun-Lt-O~TDC"
+    ],
+    "ajola": [
+      "en-ojola-yo-noun-Oo5c-Gse",
+      "en-ajola-yo-noun-pA8~OQyb"
+    ],
+    "eniyan": [
+      "en-eniyan-yo-noun-LzHubUMc",
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
+    ],
+    "عِنِيَن": [
+      "en-eniyan-yo-noun-LzHubUMc",
+      "en-عِنِيَن-yo-noun-IgPN9IR8"
+    ],
+    "enia": [
+      "en-eniyan-yo-noun-LzHubUMc",
+      "en-enia-yo-noun-3uDugzEI"
+    ],
+    "lonii": [
+      "en-lonii-yo-adv-4PT3Z6yI",
+      "en-looni-yo-adv-wMybk-TY"
+    ],
+    "looni": [
+      "en-lonii-yo-adv-4PT3Z6yI",
+      "en-looni-yo-adv-wMybk-TY"
     ],
     "orita": [
       "en-orita-yo-noun-47MH9zXX",
       "en-orita-yo-noun-pbnA3GN2"
     ],
-    "ọn": [
-      "en-ọn-yo-pron-EZNn0uDU",
-      "en-ọn-yo-pron-7s060eCI"
+    "kọmputa": [
+      "en-kọmputa-yo-noun-DZEuWDXh",
+      "en-kọnputa-yo-noun-qpcwIVD8"
+    ],
+    "kọnputa": [
+      "en-kọmputa-yo-noun-DZEuWDXh",
+      "en-kọnputa-yo-noun-qpcwIVD8"
     ],
     "ewu": [
       "en-ewu-yo-noun-OLvORTUL",
       "en-ewu-yo-noun-Ej~WZqo5",
       "en-ewu-yo-noun-BuGZP~~F",
-      "en-ewu-yo-noun-ByxkY0-O"
+      "en-ewu-yo-noun-ByxkY0-O",
+      "en-iwu-yo-noun-OLvORTUL",
+      "en-ẹwu-yo-noun-BiZSZF~v"
+    ],
+    "iwu": [
+      "en-ewu-yo-noun-OLvORTUL",
+      "en-ewu-yo-noun-Ej~WZqo5",
+      "en-ewu-yo-noun-BuGZP~~F",
+      "en-ewu-yo-noun-ByxkY0-O",
+      "en-iwu-yo-noun-OLvORTUL"
+    ],
+    "ẹwu": [
+      "en-ewu-yo-noun-BuGZP~~F",
+      "en-ẹwu-yo-noun-BiZSZF~v"
     ],
     "ẹrindinlogun": [
       "en-ẹrindinlogun-yo-num-8s40H9qm",
@@ -8393,21 +10281,66 @@
       "en-igba-yo-noun-rLnucAOj",
       "en-igba-yo-noun-X5e1ESLu",
       "en-igba-yo-noun-0XZGKVJc",
-      "en-igba-yo-noun-s4mxjECd"
+      "en-igba-yo-noun-s4mxjECd",
+      "en-ugba-yo-noun-hM0UoDdM",
+      "en-ugba-yo-noun--dQ5W7RU"
+    ],
+    "ugba": [
+      "en-igba-yo-noun-XZnCLZAH",
+      "en-igba-yo-noun-s4mxjECd",
+      "en-ugba-yo-noun-hM0UoDdM",
+      "en-ugba-yo-noun--dQ5W7RU",
+      "en-ịgbẹ-yo-noun-s4mxjECd"
+    ],
+    "ụgbẹ": [
+      "en-igba-yo-noun-s4mxjECd",
+      "en-ụgbẹ-yo-noun-n46oLSTW",
+      "en-ugba-yo-noun-hM0UoDdM",
+      "en-ugba-yo-noun--dQ5W7RU",
+      "en-ịgbị-yo-noun-s4mxjECd"
+    ],
+    "ịgbị": [
+      "en-igba-yo-noun-s4mxjECd",
+      "en-ụgbẹ-yo-noun-n46oLSTW",
+      "en-ugba-yo-noun-hM0UoDdM",
+      "en-ugba-yo-noun--dQ5W7RU",
+      "en-ịgbẹ-yo-noun-s4mxjECd",
+      "en-ịgbị-yo-noun-s4mxjECd"
+    ],
+    "ịgbẹ": [
+      "en-igba-yo-noun-s4mxjECd",
+      "en-ụgbẹ-yo-noun-n46oLSTW",
+      "en-ugba-yo-noun-hM0UoDdM",
+      "en-ugba-yo-noun--dQ5W7RU",
+      "en-ịgbẹ-yo-noun-s4mxjECd",
+      "en-ịgbị-yo-noun-s4mxjECd"
     ],
     "ẹdun": [
       "en-ẹdun-yo-noun-26kpxT3c",
       "en-ẹdun-yo-noun-af52Ut5e",
       "en-ẹdun-yo-noun-AlQS09-A"
     ],
+    "ẹdọn": [
+      "en-ẹdun-yo-noun-26kpxT3c",
+      "en-ẹdun-yo-noun-AlQS09-A",
+      "en-ẹdọn-yo-noun-yqBA3-3j",
+      "en-ẹdọn-yo-noun-Nk1dR798"
+    ],
+    "ẹdụn": [
+      "en-ẹdun-yo-noun-26kpxT3c",
+      "en-ẹdun-yo-noun-AlQS09-A"
+    ],
     "ẹja": [
       "en-ẹja-yo-noun-tHSpmicF",
       "en-ẹja-yo-noun-3NZQuIsR"
     ],
-    "ẹtu": [
-      "en-ẹtu-yo-noun-wf6jMTht",
-      "en-ẹtu-yo-noun-h3gSsLz8",
-      "en-ẹtu-yo-noun-X~PX2I-v"
+    "ẹza": [
+      "en-ẹja-yo-noun-tHSpmicF",
+      "en-ẹja-yo-noun-3NZQuIsR"
+    ],
+    "ọkẹn": [
+      "en-ọkin-yo-noun-0UbX-QtR",
+      "en-ọkẹn-yo-noun-~2We8MR5"
     ],
     "ogboni": [
       "en-Ogboni-yo-name-gdaJoQtv",
@@ -8429,9 +10362,36 @@
       "en-ọrọ-yo-noun-58xIWIFn",
       "en-ọrọ-yo-noun-KhDgdpvE"
     ],
+    "egure": [
+      "en-egure-yo-noun-8i-giIty",
+      "en-egue-yo-noun-s~j-~r4F"
+    ],
+    "egue": [
+      "en-egure-yo-noun-8i-giIty",
+      "en-egue-yo-noun-s~j-~r4F"
+    ],
+    "lokili": [
+      "en-olokili-yo-noun-zWNX792W",
+      "en-lokili-yo-noun-zWNX792W"
+    ],
     "iṣẹṣe": [
       "en-Iṣẹṣe-yo-name-rCALW7L5",
       "en-iṣẹṣe-yo-noun-LJh-ptot"
+    ],
+    "aṣẹṣe": [
+      "en-Iṣẹṣe-yo-name-rCALW7L5",
+      "en-Aṣẹṣe-yo-name-3pf8ohdk",
+      "en-iṣẹṣe-yo-noun-LJh-ptot"
+    ],
+    "uṣẹṣe": [
+      "en-Iṣẹṣe-yo-name-rCALW7L5",
+      "en-Uṣẹṣe-yo-name-3pf8ohdk",
+      "en-iṣẹṣe-yo-noun-LJh-ptot"
+    ],
+    "isẹse": [
+      "en-Iṣẹṣe-yo-name-rCALW7L5",
+      "en-iṣẹṣe-yo-noun-LJh-ptot",
+      "en-Isẹse-yo-name-3pf8ohdk"
     ],
     "aṣa": [
       "en-aṣa-yo-noun-VJEre0Jg",
@@ -8441,9 +10401,22 @@
       "en-hanturu-yo-verb-~sDdhoEU",
       "en-hanturu-yo-noun-WHzJXtW3"
     ],
+    "hanntu": [
+      "en-hanturu-yo-verb-~sDdhoEU",
+      "en-hanturu-yo-noun-WHzJXtW3"
+    ],
+    "hannturu": [
+      "en-hanturu-yo-verb-~sDdhoEU",
+      "en-hanturu-yo-noun-WHzJXtW3"
+    ],
     "orupo": [
       "en-orupo-yo-noun-8z-KvtiP",
-      "en-orupo-yo-noun-7u7JDP7e"
+      "en-orupo-yo-noun-7u7JDP7e",
+      "en-oupo-yo-noun-7u7JDP7e"
+    ],
+    "oupo": [
+      "en-orupo-yo-noun-7u7JDP7e",
+      "en-oupo-yo-noun-7u7JDP7e"
     ],
     "epo": [
       "en-epo-yo-noun-y5uq7gSm",
@@ -8451,6 +10424,10 @@
       "en-epo-yo-noun-YHNnLSQD",
       "en-epo-yo-noun-5YHhMN4s",
       "en-Epo-yo-name-6oFahIHX"
+    ],
+    "ọgbẹni": [
+      "en-Ọgbẹni-yo-noun-NLLVGgkK",
+      "en-ogboni-yo-noun-MJ0Y9tJ4"
     ],
     "nọmba": [
       "en-nọmba-yo-noun-lJ7v7MOL",
@@ -8467,34 +10444,243 @@
       "en-jomijoke-yo-noun-MqyjUXIa",
       "en-jomijoke-yo-adj-gzRX6hee"
     ],
-    "owu": [
-      "en-owu-yo-noun-ULxm2Krl",
-      "en-owu-yo-noun-aeOZhRyE",
-      "en-owu-yo-noun-PzY0WmFJ",
-      "en-Owu-yo-name-cZ~mIlau",
-      "en-Owu-yo-name-IMoh6fFC"
+    "oruka": [
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ọruka-yo-noun-Frl0WDFV",
+      "en-ọrụka-yo-noun-Frl0WDFV"
+    ],
+    "ọrụka": [
+      "en-oruka-yo-noun-Frl0WDFV",
+      "en-ọruka-yo-noun-Frl0WDFV",
+      "en-ọrụka-yo-noun-Frl0WDFV"
+    ],
+    "ile ikawe": [
+      "en-ile-ikawe-yo-noun-txjxNU9y",
+      "en-ile_ikawe-yo-noun-R8~s74RQ"
+    ],
+    "ẹfun": [
+      "en-ẹfun-yo-noun-yIb~Efal",
+      "en-efun-yo-noun-h-ZvnHKC"
+    ],
+    "efun": [
+      "en-ẹfun-yo-noun-yIb~Efal",
+      "en-efun-yo-noun-h-ZvnHKC"
+    ],
+    "ọmọba": [
+      "en-ọmọba-yo-noun-T3jPeFbG",
+      "en-ọmiba-yo-noun-QQYF-bjQ"
+    ],
+    "oṣupa": [
+      "en-oṣupa-yo-noun-nni0PqAO",
+      "en-ọṣụpa-yo-noun-SamDXaZg"
+    ],
+    "اووَْسَنمَ": [
+      "en-awọsanma-yo-noun-VmgQELdT",
+      "en-اووَْسَنمَ-yo-noun-FEugKGu1"
+    ],
+    "aasikiriimu": [
+      "en-aasikiriimu-yo-noun-6XHDMKq4",
+      "en-aisikiriimu-yo-noun-6XHDMKq4"
+    ],
+    "aisikiriimu": [
+      "en-aasikiriimu-yo-noun-6XHDMKq4",
+      "en-aisikiriimu-yo-noun-6XHDMKq4"
     ],
     "ẹwiri": [
       "en-ẹwiri-yo-noun-dickTIqY",
       "en-ẹwiri-yo-noun-BOpIuDuW"
     ],
+    "ewiri": [
+      "en-ẹwiri-yo-noun-dickTIqY",
+      "en-ẹwiri-yo-noun-BOpIuDuW"
+    ],
+    "ulaa": [
+      "en-Ilara-Mọkin-yo-name-JUaICeVc",
+      "en-Ulaa-yo-name-m~hVQ2R0",
+      "en-Ilara-yo-name-O2crHFFp"
+    ],
+    "ilara": [
+      "en-Ilara-Mọkin-yo-name-JUaICeVc",
+      "en-Ilara-yo-name-O2crHFFp"
+    ],
     "pẹẹni": [
       "en-pẹẹni-yo-noun-4hprDLGT",
       "en-pẹẹni-yo-noun-SyBSXsoM"
     ],
+    "ẹmu": [
+      "en-ẹmu-yo-noun-CMZfCHuY",
+      "en-ẹmọ-yo-noun-RNhTzwLl",
+      "en-ẹmọ-yo-noun-4BzqYVwK"
+    ],
+    "ẹmụ": [
+      "en-ẹmu-yo-noun-CMZfCHuY",
+      "en-ẹmọ-yo-noun-RNhTzwLl",
+      "en-ẹmọ-yo-noun-4BzqYVwK"
+    ],
+    "ẹmọ": [
+      "en-ẹmu-yo-noun-CMZfCHuY",
+      "en-ẹmọ-yo-noun-RNhTzwLl",
+      "en-ẹmọ-yo-noun-4BzqYVwK"
+    ],
+    "دُنِيَن": [
+      "en-duniyan-yo-noun-Rqzf0fOn",
+      "en-دُنِيَن-yo-noun-1afOzF9u"
+    ],
+    "kannafuru": [
+      "en-kanafuru-yo-noun-pAtdZaSF",
+      "en-kannafuru-yo-noun-rEu11VLu"
+    ],
     "gọgọ": [
       "en-gọgọ-yo-noun-D3f9r~or",
-      "en-gọgọ-yo-noun-1hipFvKY"
+      "en-gọgọ-yo-noun-1hipFvKY",
+      "en-ụgọgọ-yo-noun-W0QpO0ZQ"
+    ],
+    "igọgọ": [
+      "en-gọgọ-yo-noun-D3f9r~or",
+      "en-gọgọ-yo-noun-1hipFvKY",
+      "en-ụgọgọ-yo-noun-W0QpO0ZQ"
+    ],
+    "ụgọgọ": [
+      "en-gọgọ-yo-noun-D3f9r~or",
+      "en-gọgọ-yo-noun-1hipFvKY",
+      "en-ụgọgọ-yo-noun-W0QpO0ZQ"
+    ],
+    "وْرِكِ": [
+      "en-oriki-yo-noun-mRkw3bh-",
+      "en-وْرِكِ-yo-noun-gwxO2Bcu"
+    ],
+    "ooya": [
+      "en-ooya-yo-noun-704~UHmD",
+      "en-oyiya-yo-noun-704~UHmD"
+    ],
+    "ọniyan": [
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
+    ],
+    "ọọyọn": [
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
+    ],
+    "ọniyọn": [
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
+    ],
+    "eeyan": [
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-eeyan-yo-noun-LzHubUMc",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
+    ],
+    "ọnịyọn": [
+      "en-ọniyan-yo-noun-OKgeh-eW",
+      "en-ọnịyọn-yo-noun-OKgeh-eW"
     ],
     "kolekole": [
       "en-kolekole-yo-noun-6YY4niUY",
       "en-kolekole-yo-noun-ES9bIt-T"
     ],
+    "kolikoli": [
+      "en-kolekole-yo-noun-6YY4niUY",
+      "en-kolekole-yo-noun-ES9bIt-T"
+    ],
+    "ideregbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "ekeregbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "ikeregbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "ideegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "uderegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "udeegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "oderegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "odeegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "edegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-uderegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "ekeegbe": [
+      "en-ideregbe-yo-noun-VIDwjzWW",
+      "en-ideegbe-yo-noun-YZDRrVXi",
+      "en-ekeegbe-yo-noun-YZDRrVXi"
+    ],
+    "عَِروَْ اموْهُنمَووْرَن": [
+      "en-ẹrọ_amohunmaworan-yo-noun-zPUAZNiF",
+      "en-عَِروَْ_اموْهُنمَووْرَن-yo-noun-yvdYKUvZ"
+    ],
+    "olulu": [
+      "en-olulu-yo-noun-oNY6xNFq",
+      "en-ẹlulu-yo-noun-Zs5bjO-z"
+    ],
+    "oluulu": [
+      "en-ẹlulu-yo-noun-Zs5bjO-z",
+      "en-olu-ilu-yo-noun-NuofxvEr"
+    ],
+    "aloko": [
+      "en-aluko-yo-noun-ihIJOtZQ",
+      "en-aloko-yo-noun-e6BrOoXD"
+    ],
     "obeje": [
       "en-obeje-yo-noun-Uy8BHsif",
       "en-obeje-yo-noun-2MjsB0Wp"
     ],
+    "mẹkunu": [
+      "en-mẹkunu-yo-noun-O6LOiYYl",
+      "en-mẹkunnu-yo-noun-VUZWR9kY"
+    ],
+    "mẹkunnu": [
+      "en-mẹkunu-yo-noun-O6LOiYYl",
+      "en-mẹkunnu-yo-noun-VUZWR9kY"
+    ],
+    "dafa": [
+      "en-dafa-yo-verb-VDXTlcD6",
+      "en-difa-yo-verb-VDXTlcD6"
+    ],
+    "difa": [
+      "en-dafa-yo-verb-VDXTlcD6",
+      "en-difa-yo-verb-VDXTlcD6"
+    ],
     "kewu": [
+      "en-kewu-yo-noun-6fNKQiB7",
+      "en-kewu-yo-verb-sStGxC0E"
+    ],
+    "keu": [
       "en-kewu-yo-noun-6fNKQiB7",
       "en-kewu-yo-verb-sStGxC0E"
     ],
@@ -8502,25 +10688,79 @@
       "en-ẹkọ-yo-noun-t45YdQ1P",
       "en-ẹkọ-yo-noun-qJOPlXbG"
     ],
+    "jẹlesinmi": [
+      "en-jẹleosinmi-yo-noun--l2mqf5G",
+      "en-jẹlesinmi-yo-noun--OpyiozP"
+    ],
+    "arun rọmọlaparọmọlẹsẹ": [
+      "en-arun_rọmọlaparọmọlẹsẹ-yo-noun-KgLkdQhz",
+      "en-rọparọsẹ-yo-noun-xAcGPHKK"
+    ],
+    "rọparọsẹ": [
+      "en-arun_rọmọlaparọmọlẹsẹ-yo-noun-KgLkdQhz",
+      "en-rọparọsẹ-yo-noun-xAcGPHKK"
+    ],
     "ọlẹ": [
       "en-ọlẹ-yo-noun-gD2Ti2or",
       "en-ọlẹ-yo-noun-ffUryXRH"
+    ],
+    "timitimi": [
+      "en-timitimi-yo-noun-tj78nWYQ",
+      "en-timutimu-yo-noun-CYIjtj73"
+    ],
+    "timutimu": [
+      "en-timitimi-yo-noun-tj78nWYQ",
+      "en-timutimu-yo-noun-CYIjtj73"
+    ],
+    "ọwara": [
+      "en-ọwaara-yo-noun-9Da8KuAD",
+      "en-Ọwara-yo-name-4UpQ5GpF"
     ],
     "ayinrin": [
       "en-ayinrin-yo-noun-XYuNYpJz",
       "en-ayinrin-yo-noun-7Tf4nuj6"
     ],
+    "ẹnu": [
+      "en-ẹnu-yo-noun-TPNc-HQ1",
+      "en-ẹun-yo-noun-TPNc-HQ1",
+      "en-ẹrụn-yo-noun-TPNc-HQ1"
+    ],
     "ọda": [
       "en-ọda-yo-noun-wv7cNmwT",
       "en-ọda-yo-noun-SE78HSLy"
+    ],
+    "ارِوَ": [
+      "en-ariwa-yo-noun-3DZeedQc",
+      "en-ارِوَ-yo-noun-aeYeTuwP"
     ],
     "ọdun": [
       "en-ọdun-yo-noun-Y6SETEDP",
       "en-ọdun-yo-noun-TLTqJVg8"
     ],
+    "سَرَا": [
+      "en-saraa-yo-noun-KH1Klp71",
+      "en-سَرَا-yo-noun--08BvEcf"
+    ],
     "ọlọfin": [
       "en-Ọlọfin-yo-noun-sOZ~QTVi",
-      "en-Ọlọfin-yo-name-Z1-LqG3n"
+      "en-Ọlọfin-yo-name-Z1-LqG3n",
+      "en-ọlọfịn-yo-noun-OvtjhX2V",
+      "en-Ọlọfịn-yo-name-QMOqpU7T"
+    ],
+    "ọlọfịn": [
+      "en-Ọlọfin-yo-noun-sOZ~QTVi",
+      "en-Ọlọfin-yo-name-Z1-LqG3n",
+      "en-ọlọfịn-yo-noun-OvtjhX2V",
+      "en-Ọlọfịn-yo-name-QMOqpU7T"
+    ],
+    "atampako": [
+      "en-atanpako-yo-noun-ioj8xLcl",
+      "en-atampako-yo-noun-LQtS6RYr"
+    ],
+    "ogbere": [
+      "en-ọgbẹri-yo-noun-i6cNzSl0",
+      "en-ogbere-yo-noun-zHSy~jyI",
+      "en-ogbere-yo-noun-cXiv48vl"
     ],
     "ọgba": [
       "en-ọgba-yo-noun-hzRusoI1",
@@ -8529,22 +10769,80 @@
       "en-ọgba-yo-noun-gozq2poC",
       "en-ọgba-yo-noun-oU1X-Gct"
     ],
+    "ụgba": [
+      "en-ọgba-yo-noun-oU1X-Gct",
+      "en-ụgbẹ-yo-noun-n46oLSTW",
+      "en-ịgbị-yo-noun-s4mxjECd"
+    ],
     "ikin": [
       "en-ikin-yo-noun-5UqzBwVv",
       "en-ikin-yo-noun-v7wQGpSk"
     ],
-    "ulẹ": [
-      "en-ulẹ-yo-noun-iJEF0aMd",
-      "en-ulẹ-yo-noun-BjiFKgsX"
+    "alupipi": [
+      "en-alupupu-yo-noun-SKOaMxFx",
+      "en-alupipi-yo-noun-YOhfj~aw"
+    ],
+    "ifalọọrọ": [
+      "en-Ifalọọrọ-yo-name-m6AtIbN9",
+      "en-Ịfalọụrọ-yo-name-AFAZmyLJ"
+    ],
+    "دُكِا": [
+      "en-dukia-yo-noun-FRBmWeM5",
+      "en-دُكِا-yo-noun-O98DOJhA"
+    ],
+    "ọhẹ": [
+      "en-ọsẹ-yo-noun-bfN9qqRs",
+      "en-ọsẹ-yo-noun-Xac9Gpm4",
+      "en-ọhẹ-yo-noun-fJUF8fr-"
+    ],
+    "ẹsẹ": [
+      "en-ọsẹ-yo-noun-Xac9Gpm4",
+      "en-ẹsẹ-yo-noun-Xac9Gpm4",
+      "en-ẹsẹ-yo-noun-jCqmvD87"
     ],
     "oogun": [
       "en-oogun-yo-noun-RPNFWV3z",
       "en-oogun-yo-noun-zarX4Jbd"
     ],
+    "ogigun": [
+      "en-oogun-yo-noun-RPNFWV3z",
+      "en-oogun-yo-noun-zarX4Jbd"
+    ],
+    "irun": [
+      "en-irinwo-yo-num-gq8xCA4i",
+      "en-irun-yo-noun-TcIVm7oF",
+      "en-irun-yo-noun-qc8ULXDo",
+      "en-urun-yo-noun-XelNaRrj",
+      "en-urun-yo-noun-TcIVm7oF"
+    ],
+    "urun": [
+      "en-irinwo-yo-num-gq8xCA4i",
+      "en-urun-yo-noun-XelNaRrj",
+      "en-urun-yo-noun-TcIVm7oF"
+    ],
     "ọgbọn": [
       "en-ọgbọn-yo-num-rKX7Wdtp",
       "en-ọgbọn-yo-noun-5t4dEO1d",
-      "en-ọgbọn-yo-noun-bllo4PkD"
+      "en-ọgbọn-yo-noun-bllo4PkD",
+      "en-ọgban-yo-noun-bllo4PkD"
+    ],
+    "ọgban": [
+      "en-ọgbọn-yo-noun-bllo4PkD",
+      "en-ọgban-yo-noun-bllo4PkD"
+    ],
+    "ọwọn": [
+      "en-ọwun-yo-noun-6EAn4afy",
+      "en-ẹni-yo-pron-ReVQWFyq",
+      "en-ọwọn-yo-particle--7pL~mlv",
+      "en-ọwọn-yo-pron-Lvq2uu65"
+    ],
+    "irẹsi": [
+      "en-irẹsi-yo-noun-IJ92QY7O",
+      "en-iẹsi-yo-noun-IJ92QY7O"
+    ],
+    "iẹsi": [
+      "en-irẹsi-yo-noun-IJ92QY7O",
+      "en-iẹsi-yo-noun-IJ92QY7O"
     ],
     "gbe": [
       "en-gbe-yo-verb-VvBDcrKw",
@@ -8555,21 +10853,124 @@
       "en-gbe-yo-verb-mATMgAz~",
       "en-gbe-yo-particle-47DEQpj8"
     ],
+    "ڠعِ": [
+      "en-gbe-yo-verb-VvBDcrKw",
+      "en-gbe-yo-verb-uk9kzF44",
+      "en-gbe-yo-verb-mEOwIPH6",
+      "en-gbe-yo-verb-zPDPmj82",
+      "en-gbe-yo-verb-FspTCS6W",
+      "en-gbe-yo-verb-mATMgAz~",
+      "en-gbe-yo-particle-47DEQpj8",
+      "en-ڠعِ-yo-verb-N1dCXo3y"
+    ],
+    "انفَانِ": [
+      "en-anfaani-yo-noun-Nn8WcGCu",
+      "en-انفَانِ-yo-noun-HNZYMj-4"
+    ],
+    "ọbaala": [
+      "en-Ọbaala-yo-name-gCuNJj0K",
+      "en-Ọbanla-yo-name--assbesd"
+    ],
     "hilahilo": [
       "en-hilahilo-yo-noun-TVu9uIEW",
       "en-hilahilo-yo-adj-a6JzBcBo"
+    ],
+    "ڠَغُُدا": [
+      "en-gbaguuda-yo-noun-Xcx2VdZz",
+      "en-ڠَغُُدا-yo-noun-0s4enCcf"
     ],
     "lọya": [
       "en-lọya-yo-noun-QYHZgfAW",
       "en-lọya-yo-verb-HT4qqcmr"
     ],
+    "kabiyesi": [
+      "en-Kabiyesi-yo-noun-tCD6r8aJ",
+      "en-Kabiyesi-yo-intj-aYSrT63I"
+    ],
+    "kabiesi": [
+      "en-Kabiyesi-yo-noun-tCD6r8aJ",
+      "en-Kabiyesi-yo-intj-aYSrT63I"
+    ],
+    "aakaragba": [
+      "en-akikaragba-yo-noun-a3Mo3L12",
+      "en-aakaragba-yo-noun-XeUeGelY"
+    ],
+    "aikaragba": [
+      "en-akikaragba-yo-noun-a3Mo3L12",
+      "en-aikaragba-yo-noun-nkm2SHSQ"
+    ],
+    "ẹkurẹ": [
+      "en-ẹkurẹ-yo-noun-zv7TazRF",
+      "en-ẹkuẹ-yo-noun-JTTi3h3s",
+      "en-ẹkụrẹ-yo-noun-wf5S09V~"
+    ],
+    "ẹkuẹ": [
+      "en-ẹkurẹ-yo-noun-zv7TazRF",
+      "en-ẹkuẹ-yo-noun-JTTi3h3s",
+      "en-ẹkụrẹ-yo-noun-wf5S09V~"
+    ],
+    "ẹkụrẹ": [
+      "en-ẹkurẹ-yo-noun-zv7TazRF",
+      "en-ẹkụrẹ-yo-noun-wf5S09V~"
+    ],
+    "isobo": [
+      "en-Isobo-yo-name-eYB7KPPD",
+      "en-Usobo-yo-noun-eYB7KPPD"
+    ],
+    "usobo": [
+      "en-Isobo-yo-name-eYB7KPPD",
+      "en-Usobo-yo-noun-eYB7KPPD"
+    ],
+    "ekikanna": [
+      "en-ekikanna-yo-noun-q3eLa0WN",
+      "en-eekanna-yo-noun--i6-cGwP"
+    ],
+    "eekanna": [
+      "en-ekikanna-yo-noun-q3eLa0WN",
+      "en-eekanna-yo-noun--i6-cGwP"
+    ],
+    "ẹkịkọnnọ": [
+      "en-ekikanna-yo-noun-q3eLa0WN",
+      "en-eekanna-yo-noun--i6-cGwP",
+      "en-ẹkịkọnnọ-yo-noun-UcEi0fdG"
+    ],
+    "eedu": [
+      "en-eedu-yo-noun-zr1~mCkh",
+      "en-edidu-yo-noun-4jhxpH2N"
+    ],
+    "edidu": [
+      "en-eedu-yo-noun-zr1~mCkh",
+      "en-edidu-yo-noun-4jhxpH2N",
+      "en-edidun-yo-noun-YtYJo5li"
+    ],
     "ọọ": [
       "en-ọọ-yo-noun-0dDm12eV",
-      "en-ọọ-yo-noun-EAoH0eQ2"
+      "en-ọọ-yo-noun-EAoH0eQ2",
+      "en-ọwọ-yo-noun-EAoH0eQ2",
+      "en-ọwọ-yo-noun-50YCYSBl",
+      "en-ọwọ-yo-noun-EAnDV0AO",
+      "en-ọwọ-yo-noun-GwAXBqQY",
+      "en-ọwọ-yo-noun-gKsZu6EH"
+    ],
+    "atẹlẹọ": [
+      "en-atẹlẹọ-yo-noun-nCHkA2I1",
+      "en-atẹlẹwọ-yo-noun-xciVRhxc"
     ],
     "ogiri": [
       "en-ogiri-yo-noun-ogvSLVsM",
       "en-ogiri-yo-noun-067aaq9A"
+    ],
+    "ọrọ-orukọ": [
+      "en-ọrọ-orukọ-yo-noun-E1HVLO5s",
+      "en-ọrọ_orukọ-yo-noun-Rh~4PshW"
+    ],
+    "or": [
+      "en-ọrọ-orukọ-yo-noun-E1HVLO5s",
+      "en-ọrọ_orukọ-yo-noun-Rh~4PshW"
+    ],
+    "ọrọ orukọ": [
+      "en-ọrọ-orukọ-yo-noun-E1HVLO5s",
+      "en-ọrọ_orukọ-yo-noun-Rh~4PshW"
     ],
     "ọla": [
       "en-ọla-yo-noun-R7G0VWe2",
@@ -8581,14 +10982,46 @@
       "en-ọna-yo-noun-6TtuJIQI",
       "en-ọna-yo-noun-NEaJ757L"
     ],
+    "mariwo": [
+      "en-mariwo-yo-noun-XWuRyueb",
+      "en-maigho-yo-noun-aoi1He-4"
+    ],
+    "mọriwo": [
+      "en-mariwo-yo-noun-XWuRyueb",
+      "en-mọriwo-yo-noun-KywP9~-D"
+    ],
+    "mọrio": [
+      "en-mariwo-yo-noun-XWuRyueb",
+      "en-mọriọ-yo-noun-KywP9~-D"
+    ],
+    "maigho": [
+      "en-mariwo-yo-noun-XWuRyueb",
+      "en-maigho-yo-noun-aoi1He-4"
+    ],
     "ọpẹ": [
       "en-ọpẹ-yo-noun-xBnpiV46",
       "en-ọpẹ-yo-noun-PHqiB~x9",
       "en-Ọpẹ-yo-name-6ukclr3A"
     ],
-    "ọka": [
-      "en-ọka-yo-noun-ZgmENsRz",
-      "en-ọka-yo-noun-alOXtDjA"
+    "oloo": [
+      "en-oloo-yo-noun-mpMxks7l",
+      "en-olowo-yo-noun-cYCLhL-0"
+    ],
+    "ileya": [
+      "en-Ileya-yo-noun-gwovgrXy",
+      "en-Uleya-yo-noun-BjYXtjuQ"
+    ],
+    "اِلعِيَ": [
+      "en-Ileya-yo-noun-gwovgrXy",
+      "en-اِلعِيَ-yo-noun-17fXxLKo"
+    ],
+    "uleya": [
+      "en-Ileya-yo-noun-gwovgrXy",
+      "en-Uleya-yo-noun-BjYXtjuQ"
+    ],
+    "kanwun": [
+      "en-kanwun-yo-noun-uQ5-edlA",
+      "en-kan-un-yo-noun-jUULwKMC"
     ],
     "ojiji": [
       "en-ojiji-yo-noun-SWG7D2EE",
@@ -8608,20 +11041,21 @@
       "en-ọkẹ-yo-noun-6zT6V4xq",
       "en-Ọkẹ-yo-name-GOHaJ-Wg"
     ],
-    "egigun": [
-      "en-Egigun-yo-noun-UjqLZS3d",
-      "en-egigun-yo-noun-yNrPZX~p",
-      "en-egigun-yo-noun-xuckVcg0"
+    "ẹgungun": [
+      "en-egigun-yo-noun-xuckVcg0",
+      "en-ogungun-yo-noun-xuckVcg0"
+    ],
+    "aigbe": [
+      "en-aigbe-yo-noun-NBo8UY7c",
+      "en-aṣigbe-yo-noun-G5215tXU"
+    ],
+    "ayigbe": [
+      "en-aigbe-yo-noun-NBo8UY7c",
+      "en-aṣigbe-yo-noun-G5215tXU"
     ],
     "darandaran": [
       "en-darandaran-yo-noun-37h5sYon",
       "en-darandaran-yo-noun-iTrwtEB7"
-    ],
-    "oṣe": [
-      "en-oṣe-yo-noun-PLJrSyOw",
-      "en-oṣe-yo-noun-qn3T98mM",
-      "en-oṣe-yo-noun-LZuxZIeW",
-      "en-oṣe-yo-noun-HKq8Zu4g"
     ],
     "eṣu": [
       "en-Eṣu-yo-name-9GrTWOeR",
@@ -8629,7 +11063,25 @@
     ],
     "imọlẹ": [
       "en-imọlẹ-yo-noun-SHgTPyKb",
-      "en-imọlẹ-yo-noun-YFXAmLpP"
+      "en-imọlẹ-yo-noun-YFXAmLpP",
+      "en-ụmọlẹ-yo-noun-RdU-WiJt"
+    ],
+    "ụmọlẹ": [
+      "en-imọlẹ-yo-noun-SHgTPyKb",
+      "en-imọlẹ-yo-noun-YFXAmLpP",
+      "en-ụmọlẹ-yo-noun-RdU-WiJt"
+    ],
+    "apaadi": [
+      "en-apaadi-yo-noun-B36MM~Vp",
+      "en-apadidi-yo-noun-poithO4G"
+    ],
+    "apadidi": [
+      "en-apaadi-yo-noun-B36MM~Vp",
+      "en-apadidi-yo-noun-poithO4G"
+    ],
+    "apaidi": [
+      "en-apaadi-yo-noun-B36MM~Vp",
+      "en-apadidi-yo-noun-poithO4G"
     ],
     "afinju": [
       "en-afinju-yo-noun-mVzpfNoj",
@@ -8645,7 +11097,8 @@
     ],
     "irawọ": [
       "en-irawọ-yo-noun-KH5NgPyW",
-      "en-irawọ-yo-noun-eg87OWeq"
+      "en-irawọ-yo-noun-eg87OWeq",
+      "en-ịraọ-yo-noun-Ul7KHVCJ"
     ],
     "pataki": [
       "en-pataki-yo-noun-0exJ3zv0",
@@ -8654,7 +11107,16 @@
     ],
     "iyọ": [
       "en-iyọ-yo-noun-Y0ea1poJ",
-      "en-iyọ-yo-noun-M9NFllaa"
+      "en-iyọ-yo-noun-M9NFllaa",
+      "en-ịyọ-yo-noun-Y0ea1poJ"
+    ],
+    "iṣu": [
+      "en-uṣu-yo-noun-01P7el9b",
+      "en-iṣu-yo-noun-ArOn-fVY"
+    ],
+    "ounjẹ": [
+      "en-ounjẹ-yo-noun-wfAmWC~m",
+      "en-eijẹ-yo-noun-wfAmWC~m"
     ],
     "re kọja": [
       "en-re_kọja-yo-verb-VWCaqofO",
@@ -8664,14 +11126,45 @@
       "en-ipẹta-yo-noun-Zk~BjQpS",
       "en-ipẹta-yo-noun--jQtG0r8"
     ],
+    "kọlikọli": [
+      "en-kọlekọle-yo-noun-32sHF2qb",
+      "en-kọlikọli-yo-noun-ho8Feado"
+    ],
+    "idẹ": [
+      "en-idẹ-yo-noun-M6KLxPWC",
+      "en-udẹ-yo-noun-M6KLxPWC",
+      "en-ụdẹ-yo-noun-YC03qTVu"
+    ],
+    "ụdẹ": [
+      "en-idẹ-yo-noun-M6KLxPWC",
+      "en-udẹ-yo-noun-M6KLxPWC",
+      "en-udẹ-yo-noun-fe-ceeW-",
+      "en-ụdẹ-yo-noun-fe-ceeW-",
+      "en-ụdẹ-yo-noun-YC03qTVu"
+    ],
+    "udẹ": [
+      "en-idẹ-yo-noun-M6KLxPWC",
+      "en-udẹ-yo-noun-M6KLxPWC",
+      "en-udẹ-yo-noun-fe-ceeW-",
+      "en-ụdẹ-yo-noun-fe-ceeW-",
+      "en-ụdẹ-yo-noun-YC03qTVu"
+    ],
+    "ogunbiyi": [
+      "en-Ogunbiyi-yo-name-nQiboELM",
+      "en-Ogunbiyii-yo-name-pyco6qjK"
+    ],
+    "ogunbiyii": [
+      "en-Ogunbiyi-yo-name-nQiboELM",
+      "en-Ogunbiyii-yo-name-pyco6qjK"
+    ],
     "iwọ": [
       "en-iwọ-yo-noun-V0Or3d36",
       "en-iwọ-yo-pron-7bXPrtOL",
-      "en-iwọ-yo-noun-3le~lYjb"
-    ],
-    "ẹsẹ": [
-      "en-ẹsẹ-yo-noun-Xac9Gpm4",
-      "en-ẹsẹ-yo-noun-jCqmvD87"
+      "en-iwọ-yo-noun-3le~lYjb",
+      "en-uwọ-yo-pron-7bXPrtOL",
+      "en-uwẹ-yo-pron-7bXPrtOL",
+      "en-ụọ-yo-noun-3le~lYjb",
+      "en-ughọ-yo-noun-3le~lYjb"
     ],
     "ẹyin": [
       "en-ẹyin-yo-noun-NHB8P0Df",
@@ -8679,6 +11172,17 @@
       "en-ẹyin-yo-noun-PEgjRvN1",
       "en-ẹyin-yo-adv-sbiGzl9X",
       "en-ẹyin-yo-noun-jZ~-fFwq"
+    ],
+    "ẹhin": [
+      "en-ẹyin-yo-noun-PEgjRvN1",
+      "en-ẹyin-yo-adv-sbiGzl9X",
+      "en-ẹhin-yo-noun-sfKjeKfR",
+      "en-ẹhin-yo-noun-aTrOEAaX"
+    ],
+    "oun": [
+      "en-oun-yo-pron-2kZhZxpa",
+      "en-ohun-yo-noun-Pzzsq-yP",
+      "en-owun-yo-pron-CXxDM60o"
     ],
     "pọn": [
       "en-pọn-yo-verb-ox15gTIC",
@@ -8690,25 +11194,133 @@
       "en-pọn-yo-verb-YLdkC6II",
       "en-pọn-yo-verb-QR5GHJrb"
     ],
+    "okoto": [
+      "en-okoto-yo-noun-mKJpGlTA",
+      "en-ukoto-yo-noun-QadMt6Fe"
+    ],
     "igbalẹ": [
       "en-igbalẹ-yo-noun-EAoH0eQ2",
-      "en-igbalẹ-yo-noun-c6xIGgwR"
+      "en-igbalẹ-yo-noun-c6xIGgwR",
+      "en-ụgbalẹ-yo-noun-EAoH0eQ2"
+    ],
+    "agbọnmiregun": [
+      "en-Agbọnniregun-yo-name-fLRaNwo9",
+      "en-Agbọnmiregun-yo-name-hg5GUvNq"
+    ],
+    "lukaluka": [
+      "en-lukaluka-yo-adj-N2ecJUjj",
+      "en-lụkalụka-yo-adj-N2ecJUjj"
+    ],
+    "lụkalụka": [
+      "en-lukaluka-yo-adj-N2ecJUjj",
+      "en-lụkalụka-yo-adj-N2ecJUjj"
+    ],
+    "ọrụkọ": [
+      "en-ọrụkọ-yo-noun-gqNTf~Db",
+      "en-erikọ-yo-noun-gqNTf~Db",
+      "en-oukọ-yo-noun-nAOkG2JW",
+      "en-ọrukọ-yo-noun-gqNTf~Db"
+    ],
+    "erikọ": [
+      "en-ọrụkọ-yo-noun-gqNTf~Db",
+      "en-erikọ-yo-noun-gqNTf~Db",
+      "en-oukọ-yo-noun-nAOkG2JW",
+      "en-ọrukọ-yo-noun-gqNTf~Db"
+    ],
+    "ọrukọ": [
+      "en-ọrụkọ-yo-noun-gqNTf~Db",
+      "en-erikọ-yo-noun-gqNTf~Db",
+      "en-oukọ-yo-noun-nAOkG2JW",
+      "en-ọrukọ-yo-noun-gqNTf~Db"
+    ],
+    "oukọ": [
+      "en-ọrụkọ-yo-noun-gqNTf~Db",
+      "en-erikọ-yo-noun-gqNTf~Db",
+      "en-oukọ-yo-noun-nAOkG2JW",
+      "en-ọrukọ-yo-noun-gqNTf~Db"
+    ],
+    "apopona": [
+      "en-apopona-yo-noun-4QHLhfim",
+      "en-opopona-yo-noun-s0-5ZYQ8"
+    ],
+    "opopona": [
+      "en-apopona-yo-noun-4QHLhfim",
+      "en-opopona-yo-noun-s0-5ZYQ8"
     ],
     "ajọ": [
       "en-ajọ-yo-noun-es42NhN2",
       "en-ajọ-yo-noun-TU5SA6eO"
     ],
+    "iranlọwọ": [
+      "en-uranlọọ-yo-noun-sR-e1Zbp",
+      "en-iranlọwọ-yo-noun-ElTOuJQz"
+    ],
+    "pẹpẹ": [
+      "en-pẹpẹ-yo-noun-Pu-kLVIG",
+      "en-apẹpẹ-yo-noun-QKptnd8j"
+    ],
+    "apẹpẹ": [
+      "en-pẹpẹ-yo-noun-Pu-kLVIG",
+      "en-apẹpẹ-yo-noun-QKptnd8j"
+    ],
+    "agabangebe": [
+      "en-agabagebe-yo-noun-DhADPlh9",
+      "en-agabangebe-yo-noun-fYVhiztw"
+    ],
+    "afoopina": [
+      "en-afopina-yo-noun-GcPW5PXI",
+      "en-afoopina-yo-noun-EPFim0sa"
+    ],
     "gadagbagadagba": [
       "en-gadagbagadagba-yo-noun-77tJl8Za",
       "en-gadagbagadagba-yo-noun-aoq-5cgj"
     ],
-    "ọra": [
-      "en-ọra-yo-noun-Iw2DWNyO",
-      "en-ọra-yo-noun-EuGcpI1R"
+    "gadagba-gadagba": [
+      "en-gadagbagadagba-yo-noun-77tJl8Za",
+      "en-gadagbagadagba-yo-noun-aoq-5cgj"
+    ],
+    "gadagba gadagba": [
+      "en-gadagbagadagba-yo-noun-77tJl8Za",
+      "en-gadagbagadagba-yo-noun-aoq-5cgj"
     ],
     "ayanfẹ": [
       "en-Ayanfẹ-yo-name-renb7Qd1",
       "en-ayanfẹ-yo-noun-Y7ZGIak7"
+    ],
+    "kẹhinde": [
+      "en-Kẹhinde-yo-name-EjSWmPzQ",
+      "en-Kẹyinde-yo-name-EjSWmPzQ"
+    ],
+    "ọmọkẹyinde": [
+      "en-Kẹhinde-yo-name-EjSWmPzQ",
+      "en-Kẹyinde-yo-name-EjSWmPzQ"
+    ],
+    "kẹyinde": [
+      "en-Kẹhinde-yo-name-EjSWmPzQ",
+      "en-Kẹyinde-yo-name-EjSWmPzQ"
+    ],
+    "ọjọ-ubi": [
+      "en-ọjọ-ibi-yo-noun-BCLULGib",
+      "en-ọjọ-ubi-yo-noun-lV~OvAWn"
+    ],
+    "ọjọọbi": [
+      "en-ọjọ-ibi-yo-noun-BCLULGib",
+      "en-ọjọọbi-yo-noun-lV~OvAWn"
+    ],
+    "yinyin": [
+      "en-yinyin-yo-noun-H2Y5qKUc",
+      "en-ẹghẹnghẹn-yo-noun-H2Y5qKUc",
+      "en-ẹyịnyịn-yo-noun-H2Y5qKUc"
+    ],
+    "ẹghẹnghẹn": [
+      "en-yinyin-yo-noun-H2Y5qKUc",
+      "en-ẹghẹnghẹn-yo-noun-H2Y5qKUc",
+      "en-ẹyịnyịn-yo-noun-H2Y5qKUc"
+    ],
+    "ẹyịnyịn": [
+      "en-yinyin-yo-noun-H2Y5qKUc",
+      "en-ẹghẹnghẹn-yo-noun-H2Y5qKUc",
+      "en-ẹyịnyịn-yo-noun-H2Y5qKUc"
     ],
     "ijẹbu": [
       "en-ijẹbu-yo-noun-Onrl1RMb",
@@ -8724,6 +11336,27 @@
     "bilisi": [
       "en-bilisi-yo-noun-NifLMxYK",
       "en-Bilisi-yo-name-pI2A15O4"
+    ],
+    "بِلِسِ": [
+      "en-bilisi-yo-noun-NifLMxYK",
+      "en-Bilisi-yo-name-pI2A15O4",
+      "en-بِلِسِ-yo-noun-NYf-btXM"
+    ],
+    "iwẹfa": [
+      "en-iwẹfa-yo-noun-YcdHhbzP",
+      "en-Iwarẹfa-yo-name-AUiKDgM2"
+    ],
+    "kololo": [
+      "en-kololo-yo-verb-Y~MU04f7",
+      "en-kalolo-yo-verb-5a5jrRY0"
+    ],
+    "kalolo": [
+      "en-kololo-yo-verb-Y~MU04f7",
+      "en-kalolo-yo-verb-5a5jrRY0"
+    ],
+    "kọlolo": [
+      "en-kololo-yo-verb-Y~MU04f7",
+      "en-kalolo-yo-verb-5a5jrRY0"
     ],
     "ijọ": [
       "en-ijọ-yo-noun-utuPEn4D",
@@ -8743,19 +11376,64 @@
     ],
     "ọwa": [
       "en-Ọwa-yo-name-Jb3x-Tkg",
-      "en-ọwa-yo-noun--n2YWMPl"
+      "en-ọwa-yo-noun--n2YWMPl",
+      "en-ụa-yo-noun-HF9Vw-kw"
     ],
     "orogun": [
       "en-orogun-yo-noun-xzma-HMW",
       "en-orogun-yo-noun-WLBjgvfY"
     ],
+    "makaruru": [
+      "en-makaruru-yo-noun-Mde06ncu",
+      "en-makaruku-yo-noun-Uox6mcWz"
+    ],
+    "makaruku": [
+      "en-makaruru-yo-noun-Mde06ncu",
+      "en-makaruku-yo-noun-Uox6mcWz"
+    ],
+    "girimọkayi": [
+      "en-girimọkai-yo-noun-A5ExigOj",
+      "en-girimọkayi-yo-noun-0pNKl3Lq"
+    ],
+    "اِفَارَ": [
+      "en-ifaara-yo-noun-SMbvt187",
+      "en-اِفَارَ-yo-noun-aAiRfLGz"
+    ],
     "imọ": [
       "en-imọ-yo-noun-4PiVhy1l",
       "en-imọ-yo-noun-lwt~p0fy"
     ],
+    "اِموَْ": [
+      "en-imọ-yo-noun-4PiVhy1l",
+      "en-imọ-yo-noun-lwt~p0fy",
+      "en-اِموَْ-yo-noun-z2cFfnEy"
+    ],
     "iṣe": [
       "en-iṣe-yo-noun-vZOMaI9J",
       "en-Iṣe-yo-name-jhLiLaJV"
+    ],
+    "aọfịn": [
+      "en-aọfịn-yo-noun-7iqkSAW1",
+      "en-aghọfẹn-yo-noun-7iqkSAW1",
+      "en-aafin-yo-noun-7iqkSAW1"
+    ],
+    "aafin": [
+      "en-aọfịn-yo-noun-7iqkSAW1",
+      "en-aghọfẹn-yo-noun-7iqkSAW1",
+      "en-aafin-yo-noun-7iqkSAW1"
+    ],
+    "aghọfẹn": [
+      "en-aọfịn-yo-noun-7iqkSAW1",
+      "en-aghọfẹn-yo-noun-7iqkSAW1",
+      "en-aafin-yo-noun-7iqkSAW1"
+    ],
+    "iwarẹfa": [
+      "en-Iwarẹfa-yo-name-AUiKDgM2",
+      "en-Ịarẹfa-yo-name-qeK2rell"
+    ],
+    "ekoidẹ": [
+      "en-ikoidẹ-yo-noun-GM4eun0-",
+      "en-ekoidẹ-yo-noun-q4zIot7O"
     ],
     "mọ": [
       "en-mọ-yo-verb-Vk7G5aRj",
@@ -8763,29 +11441,35 @@
       "en-mọ-yo-verb-dIB2EYOw",
       "en-mọ-yo-verb-23VEjFas"
     ],
-    "ogungun": [
-      "en-ogungun-yo-noun-SqAL-jG-",
-      "en-ogungun-yo-noun-xuckVcg0"
-    ],
     "ogbugbu": [
       "en-ogbugbu-yo-noun-MMVxv6GY",
       "en-ogbugbu-yo-noun-jE6l-fDi"
-    ],
-    "irun": [
-      "en-irun-yo-noun-TcIVm7oF",
-      "en-irun-yo-noun-qc8ULXDo"
     ],
     "ẹdọ": [
       "en-ẹdọ-yo-noun-SbwMyDuV",
       "en-ẹdọ-yo-noun-xEGUuF~A"
     ],
-    "ogbere": [
-      "en-ogbere-yo-noun-zHSy~jyI",
-      "en-ogbere-yo-noun-cXiv48vl"
+    "ẹdọki": [
+      "en-ẹdọ-yo-noun-SbwMyDuV",
+      "en-ẹdọ-yo-noun-xEGUuF~A"
+    ],
+    "yẹri": [
+      "en-yẹri-yo-noun-E-F9d25K",
+      "en-yẹi-yo-noun-pzj-yGuo"
+    ],
+    "yẹi": [
+      "en-yẹri-yo-noun-E-F9d25K",
+      "en-yẹi-yo-noun-pzj-yGuo"
     ],
     "ṣanpọnna": [
       "en-Ṣanpọnna-yo-name-KgUfyPVX",
-      "en-ṣanpọnna-yo-noun-jvgQi6tN"
+      "en-ṣanpọnna-yo-noun-jvgQi6tN",
+      "en-Ṣọnpọnnọ-yo-name-of~qSxct"
+    ],
+    "ṣọnpọnnọ": [
+      "en-Ṣanpọnna-yo-name-KgUfyPVX",
+      "en-ṣanpọnna-yo-noun-jvgQi6tN",
+      "en-Ṣọnpọnnọ-yo-name-of~qSxct"
     ],
     "ifo": [
       "en-ifo-yo-noun-otqhN1-v",
@@ -8796,15 +11480,32 @@
       "en-ẹtẹ-yo-noun-p6I9MhVs",
       "en-ẹtẹ-yo-noun-Ef7S8C-9"
     ],
+    "waapa": [
+      "en-warapa-yo-noun-D2R4Ib6B",
+      "en-waapa-yo-noun-mHXnXv9x"
+    ],
     "eekan": [
+      "en-eekanna-yo-noun--i6-cGwP",
       "en-eekan-yo-noun-SaUGtsyf",
       "en-eekan-yo-noun-XKG3sQRD",
       "en-eekan-yo-noun-PQ6S7lk6"
+    ],
+    "eekẹnna": [
+      "en-eekanna-yo-noun--i6-cGwP",
+      "en-eekẹnna-yo-noun-GgCI~Hza"
+    ],
+    "onikondo": [
+      "en-olukondo-yo-noun-q-434~rK",
+      "en-onikondo-yo-noun-6oUk7PSl"
     ],
     "ṣaworo": [
       "en-ṣaworo-yo-verb-BiZRCpZc",
       "en-ṣaworo-yo-noun-Q1YRfwvF",
       "en-ṣaworo-yo-noun-ycswjqG8"
+    ],
+    "kannago": [
+      "en-kannago-yo-noun-u-pCss1F",
+      "en-kannango-yo-noun-LghjO6L~"
     ],
     "arẹmọ": [
       "en-arẹmọ-yo-noun-VMXcONe1",
@@ -8819,7 +11520,17 @@
       "en-ododo-yo-noun-QbSBko5r",
       "en-ododo-yo-noun-WDFsInzL"
     ],
+    "adodo": [
+      "en-ododo-yo-noun-wGsM~gzF",
+      "en-ododo-yo-noun-QbSBko5r",
+      "en-ododo-yo-noun-WDFsInzL",
+      "en-adodo-yo-noun-1cae85QX"
+    ],
     "tulasi": [
+      "en-tulasi-yo-noun-jP7LTHFA",
+      "en-tulasi-yo-verb-W81jLYxT"
+    ],
+    "tulaasi": [
       "en-tulasi-yo-noun-jP7LTHFA",
       "en-tulasi-yo-verb-W81jLYxT"
     ],
@@ -8827,11 +11538,74 @@
       "en-Jimọ-yo-noun-4h8~NypG",
       "en-Jimọ-yo-name-jb-yxZZ-"
     ],
+    "جِموَْ": [
+      "en-Jimọ-yo-noun-4h8~NypG",
+      "en-Jimọ-yo-name-jb-yxZZ-"
+    ],
+    "jimọh": [
+      "en-Jimọ-yo-name-jb-yxZZ-",
+      "en-Jimọh-yo-name-nj5zSMXo"
+    ],
+    "bantẹ": [
+      "en-ibantẹ-yo-noun-9BvOX4nB",
+      "en-bantẹ-yo-noun-OopZ0UV7"
+    ],
+    "agiliti": [
+      "en-agilinti-yo-noun-WhyF0rKM",
+      "en-agiliti-yo-noun-b3tSPBVB"
+    ],
+    "alepa": [
+      "en-alegba-yo-noun-QVQaoh8~",
+      "en-alepa-yo-noun-u~~UrgwS"
+    ],
+    "ijakariwọ": [
+      "en-ijakariwọ-yo-noun-YbOX~jnn",
+      "en-ịjakariọ-yo-noun-YbOX~jnn",
+      "en-jankariwọ-yo-noun-0-MPvHIo"
+    ],
+    "ịjakariọ": [
+      "en-ijakariwọ-yo-noun-YbOX~jnn",
+      "en-ịjakariọ-yo-noun-YbOX~jnn"
+    ],
+    "jankariwọ": [
+      "en-ijakariwọ-yo-noun-YbOX~jnn",
+      "en-jankariwọ-yo-noun-0-MPvHIo"
+    ],
+    "jankaawọ": [
+      "en-ijakariwọ-yo-noun-YbOX~jnn",
+      "en-jankariwọ-yo-noun-0-MPvHIo"
+    ],
+    "ijakaighọ": [
+      "en-ijakariwọ-yo-noun-YbOX~jnn",
+      "en-ịjakariọ-yo-noun-YbOX~jnn"
+    ],
     "eeku": [
       "en-eeku-yo-noun-P3GjHxJb",
       "en-eeku-yo-noun-L3zCx7iB",
       "en-eeku-yo-noun-J46EUaOe",
       "en-eeku-yo-noun-0L-cU3Xj"
+    ],
+    "eruku": [
+      "en-eeku-yo-noun-P3GjHxJb",
+      "en-eeku-yo-noun-L3zCx7iB",
+      "en-eeku-yo-noun-J46EUaOe",
+      "en-eeku-yo-noun-0L-cU3Xj"
+    ],
+    "ekuru": [
+      "en-eeku-yo-noun-P3GjHxJb",
+      "en-eeku-yo-noun-L3zCx7iB",
+      "en-eeku-yo-noun-J46EUaOe",
+      "en-eeku-yo-noun-0L-cU3Xj",
+      "en-ekuru-yo-noun-QPc7M45g",
+      "en-ekuru-yo-noun-4pTohIGm"
+    ],
+    "ejide": [
+      "en-ejirẹ-yo-noun-l1kKhOJX",
+      "en-ejide-yo-noun-6SCJq43R"
+    ],
+    "ọṣọsi": [
+      "en-Ọṣọọsi-yo-name-U82YZgai",
+      "en-Ọṣọsi-yo-name-nka3R1TR"
     ],
     "ọgọrun-un": [
       "en-ọgọrun-un-yo-num-qGpqAXWG",
@@ -8850,7 +11624,34 @@
       "en-egbin-yo-noun-k8hl3IXl",
       "en-egbin-yo-noun-gELvzWfO",
       "en-egbin-yo-noun-4~oI29nO",
-      "en-egbin-yo-noun-3ufo3~U7"
+      "en-egbin-yo-noun-3ufo3~U7",
+      "en-ẹgbin-yo-noun-AK~PUo25",
+      "en-ẹgbin-yo-noun-5dnLP~t2"
+    ],
+    "egbi": [
+      "en-egbin-yo-noun-k8hl3IXl",
+      "en-egbin-yo-noun-gELvzWfO",
+      "en-egbin-yo-noun-4~oI29nO",
+      "en-egbin-yo-noun-3ufo3~U7",
+      "en-egbi-yo-noun-rsHgoVa6"
+    ],
+    "ẹgbin": [
+      "en-egbin-yo-noun-4~oI29nO",
+      "en-egbin-yo-noun-3ufo3~U7",
+      "en-ẹgbin-yo-noun-AK~PUo25",
+      "en-ẹgbin-yo-noun-5dnLP~t2"
+    ],
+    "yagba": [
+      "en-Yagba-yo-name-g7aLeGtb",
+      "en-Iyagba-yo-name-x3KahAon"
+    ],
+    "orio": [
+      "en-mọriọ-yo-noun-KywP9~-D",
+      "en-eewo-yo-noun-ZlV109VZ"
+    ],
+    "ọmọ-ewi": [
+      "en-Ọmọewi-yo-name-IAFMc45r",
+      "en-Ọmọ-ewi-yo-name-KLK8YG~g"
     ],
     "gba": [
       "en-gba-yo-verb-DCZgzqX2",
@@ -8862,13 +11663,45 @@
       "en-gba-yo-verb-1~3jsoLN",
       "en-gba-yo-verb-r65cwzFX"
     ],
+    "ڠَ": [
+      "en-gba-yo-verb-DCZgzqX2",
+      "en-gba-yo-verb-SbVU0W9v",
+      "en-gba-yo-verb-2UxEUhjM",
+      "en-gba-yo-verb-~hEWKNsI",
+      "en-gba-yo-verb-VAsl51P3",
+      "en-gba-yo-verb-Qts6y22F",
+      "en-gba-yo-verb-1~3jsoLN",
+      "en-gba-yo-verb-r65cwzFX",
+      "en-ڠَ-yo-verb-5ZeYnZ6H"
+    ],
     "tọrọ": [
       "en-tọrọ-yo-noun-V~Db3RwI",
       "en-tọrọ-yo-verb-XQ31nnU1"
     ],
+    "tọọrọ": [
+      "en-tọrọ-yo-noun-V~Db3RwI",
+      "en-tọrọ-yo-verb-XQ31nnU1",
+      "en-tọọrọ-yo-noun-fxE6GCwC"
+    ],
+    "igbio": [
+      "en-igbiwo-yo-noun-nlLfQHov",
+      "en-igbio-yo-noun-b2QTSpHg"
+    ],
     "akamara": [
       "en-akamara-yo-noun-SjWHigcu",
       "en-Akamara-yo-name-pa0Denq2"
+    ],
+    "شَلَيعِ": [
+      "en-ṣalaye-yo-verb-cgQ~Nwbp",
+      "en-شَلَيعِ-yo-verb-X1C1IECK"
+    ],
+    "شعِرعِ": [
+      "en-ṣere-yo-verb-XRkwPSrc",
+      "en-شعِرعِ-yo-verb-SZWXzyqT"
+    ],
+    "iṣikinrin": [
+      "en-iṣikanrin-yo-noun-t1tmsx7l",
+      "en-iṣikinrin-yo-noun-gm1RzoJY"
     ],
     "apatamaja": [
       "en-apatamaja-yo-noun-~CLvHgMw",
@@ -8877,6 +11710,21 @@
     "ṣẹda": [
       "en-ṣẹda-yo-verb-l9pKhrin",
       "en-ṣẹda-yo-verb-VOp-AAHq"
+    ],
+    "ẹnikẹni": [
+      "en-ẹnikẹni-yo-noun-Eu2NFKVf",
+      "en-ọnikọni-yo-noun-Eu2NFKVf",
+      "en-ọnịkọnị-yo-noun-Eu2NFKVf"
+    ],
+    "ọnikọni": [
+      "en-ẹnikẹni-yo-noun-Eu2NFKVf",
+      "en-ọnikọni-yo-noun-Eu2NFKVf",
+      "en-ọnịkọnị-yo-noun-Eu2NFKVf"
+    ],
+    "ọnịkọnị": [
+      "en-ẹnikẹni-yo-noun-Eu2NFKVf",
+      "en-ọnikọni-yo-noun-Eu2NFKVf",
+      "en-ọnịkọnị-yo-noun-Eu2NFKVf"
     ],
     "ẹgbẹ": [
       "en-ẹgbẹ-yo-noun-djSfvzpD",
@@ -8887,9 +11735,62 @@
       "en-ojukoju-yo-noun-ZT6YcVme",
       "en-ojukoju-yo-adj-KLRqs73J"
     ],
+    "usẹ": [
+      "en-usẹ-yo-noun-mU~j68rK",
+      "en-uṣẹ-yo-noun-j6wYQ-W2"
+    ],
+    "ologho": [
+      "en-ologho-yo-noun-9RgahL0n",
+      "en-olowo-yo-noun-cYCLhL-0"
+    ],
+    "ejijẹ": [
+      "en-ejijẹ-yo-noun-E3lEtqQl",
+      "en-eijẹ-yo-noun-wfAmWC~m"
+    ],
+    "eijẹ": [
+      "en-ejijẹ-yo-noun-E3lEtqQl",
+      "en-eijẹ-yo-noun-wfAmWC~m"
+    ],
+    "eriru": [
+      "en-eriru-yo-noun-OWAWhFqI",
+      "en-eeru-yo-noun-A305DNTv",
+      "en-eeru-yo-noun-U31Y0JSe",
+      "en-eeru-yo-noun-DSvGJEB1",
+      "en-eeru-yo-noun-cMKfyTGD"
+    ],
+    "epipa": [
+      "en-epipa-yo-noun-4SOy3sCW",
+      "en-eepa-yo-noun-j5PQkSOj"
+    ],
+    "jijẹ": [
+      "en-eijẹ-yo-noun-wfAmWC~m",
+      "en-jijẹ-yo-noun-w9aEvSCL"
+    ],
+    "uwọ": [
+      "en-uwọ-yo-pron-7bXPrtOL",
+      "en-uwẹ-yo-pron-7bXPrtOL",
+      "en-ụọ-yo-noun-3le~lYjb",
+      "en-ughọ-yo-noun-3le~lYjb"
+    ],
+    "ụọ": [
+      "en-uwọ-yo-pron-7bXPrtOL",
+      "en-ụọ-yo-noun-3le~lYjb",
+      "en-ughọ-yo-noun-3le~lYjb"
+    ],
+    "ugwọ": [
+      "en-uwọ-yo-pron-7bXPrtOL",
+      "en-ugwọ-yo-pron-~RyrbY-I"
+    ],
     "oghun": [
       "en-oghun-yo-pron-CN9mZr9z",
       "en-oghun-yo-noun-Y0ea1poJ"
+    ],
+    "gwẹ": [
+      "en-gwẹ-yo-verb-Df5oq~Cy",
+      "en-wẹ-yo-verb-MQVJfyr6",
+      "en-wẹ-yo-verb-sqRZ2xAV",
+      "en-wẹ-yo-verb-pqF1GoRt",
+      "en-wẹ-yo-verb-cXzGunx4"
     ],
     "wẹ": [
       "en-wẹ-yo-verb-MQVJfyr6",
@@ -8910,21 +11811,37 @@
       "en-ọlọrọ-yo-noun-QBBfqW5H",
       "en-ọlọrọ-yo-adj-CToWkYan"
     ],
+    "ọrọ-akanlo": [
+      "en-ọrọ_akanlo-yo-noun-yQvi~RX0",
+      "en-ọrọ-akanlo-yo-noun-uoW2zOwJ"
+    ],
     "ẹni": [
       "en-ẹni-yo-noun-ZF2nIsjQ",
       "en-ẹni-yo-noun-wA6~xM7u",
-      "en-ẹni-yo-det-IobTpipN"
-    ],
-    "ọwọn": [
+      "en-ẹni-yo-det-IobTpipN",
       "en-ẹni-yo-pron-ReVQWFyq",
-      "en-ọwọn-yo-particle--7pL~mlv",
-      "en-ọwọn-yo-pron-Lvq2uu65"
+      "en-ọnị-yo-noun-6Er2dDEg"
+    ],
+    "ẹrọ-ayaworan": [
+      "en-ẹrọ_ayaworan-yo-noun-iei5UY2S",
+      "en-ẹrọ-ayaworan-yo-noun-j1KOTNhw"
+    ],
+    "اووْرَن": [
+      "en-aworan-yo-noun-2jwuX7ID",
+      "en-اووْرَن-yo-noun-UnbvVIQS"
     ],
     "fẹ": [
       "en-fẹ-yo-verb-DxcqCuGQ",
       "en-fẹ-yo-verb-rHj~HNDI",
       "en-fẹ-yo-verb-G1zD3wCl",
       "en-fẹ-yo-verb-WyJDNnJp"
+    ],
+    "فعَِ": [
+      "en-fẹ-yo-verb-DxcqCuGQ",
+      "en-fẹ-yo-verb-rHj~HNDI",
+      "en-fẹ-yo-verb-G1zD3wCl",
+      "en-fẹ-yo-verb-WyJDNnJp",
+      "en-فعَِ-yo-verb-HG55gab1"
     ],
     "alailowaya": [
       "en-alailowaya-yo-adj-eA0G06Kv",
@@ -8936,34 +11853,46 @@
     ],
     "ọbun": [
       "en-ọbun-yo-noun-j-9iI3Qq",
-      "en-ọbun-yo-noun-5NaT0k5k"
+      "en-ọbun-yo-noun-5NaT0k5k",
+      "en-ọbọn-yo-noun-5NaT0k5k"
+    ],
+    "ọbu": [
+      "en-ọbun-yo-noun-5NaT0k5k",
+      "en-ọbu-yo-noun-5NaT0k5k",
+      "en-ọbọn-yo-noun-5NaT0k5k"
+    ],
+    "ọbọn": [
+      "en-ọbun-yo-noun-5NaT0k5k",
+      "en-ọbọn-yo-noun-5NaT0k5k"
     ],
     "oorun": [
       "en-oorun-yo-noun-SzzhFC1V",
       "en-oorun-yo-noun--Z-Zba9F",
       "en-oorun-yo-noun-CvpbtdXx"
     ],
+    "orirun": [
+      "en-oorun-yo-noun-SzzhFC1V",
+      "en-oorun-yo-noun--Z-Zba9F",
+      "en-orirun-yo-noun-RgkIfcjX",
+      "en-orirun-yo-noun-o2wS5fw~"
+    ],
     "olooorun": [
       "en-olooorun-yo-noun-xPTR2lgx",
       "en-olooorun-yo-adj--fhrx5lx"
     ],
-    "orirun": [
-      "en-orirun-yo-noun-RgkIfcjX",
-      "en-orirun-yo-noun-o2wS5fw~"
-    ],
-    "agban": [
-      "en-agban-yo-noun-QFyvyPgN",
-      "en-agban-yo-noun-Lt-O~TDC"
-    ],
-    "ghọn": [
+    "họn": [
       "en-ghọn-yo-verb-8LZiJGA8",
       "en-ghọn-yo-verb-bw~dPneS",
       "en-ghọn-yo-verb-JaKgizuj",
       "en-ghọn-yo-verb-MIs93Vz2"
     ],
-    "ẹdọn": [
-      "en-ẹdọn-yo-noun-yqBA3-3j",
-      "en-ẹdọn-yo-noun-Nk1dR798"
+    "eewọ": [
+      "en-eewọ-yo-noun-n2ev8gT0",
+      "en-eewọ-yo-intj-m~VORYaq"
+    ],
+    "eighọ": [
+      "en-eighọ-yo-noun-rX1mmeT8",
+      "en-ẹẹyọ-yo-noun-BNWIy0G4"
     ],
     "ẹgwa": [
       "en-ẹgwa-yo-num--Hoz2wj8",
@@ -8974,6 +11903,10 @@
       "en-aboyun-yo-noun-yuGitJiq",
       "en-aboyun-yo-adj-N2vnLji7"
     ],
+    "sẹngwa": [
+      "en-sẹngwa-yo-verb-rk9XLoZ0",
+      "en-ghẹngwa-yo-verb-rk9XLoZ0"
+    ],
     "ẹghẹn": [
       "en-ẹghẹn-yo-pron-9Qs~~4xC",
       "en-ẹghẹn-yo-noun-NHB8P0Df"
@@ -8981,6 +11914,14 @@
     "yewa": [
       "en-Yewa-yo-name-rliUL-Gl",
       "en-Yewa-yo-name-ZoHtrMrW"
+    ],
+    "ere oṣupa": [
+      "en-ere_oṣupa-yo-noun-fTt9nuhM",
+      "en-ereṣupa-yo-noun-q7fgzyWb"
+    ],
+    "ereṣupa": [
+      "en-ere_oṣupa-yo-noun-fTt9nuhM",
+      "en-ereṣupa-yo-noun-q7fgzyWb"
     ],
     "abuke": [
       "en-abuke-yo-noun-tQeY-FZ5",
@@ -8994,18 +11935,31 @@
       "en-kayeefi-yo-noun-trEh5Afe",
       "en-kayeefi-yo-adj-6zEvNe7e"
     ],
+    "alagabagebe": [
+      "en-alagabagebe-yo-noun-hXu1klNY",
+      "en-alagabangebe-yo-noun-hXu1klNY"
+    ],
+    "alagabangebe": [
+      "en-alagabagebe-yo-noun-hXu1klNY",
+      "en-alagabangebe-yo-noun-hXu1klNY"
+    ],
     "igbin": [
+      "en-ugbẹn-yo-noun-6BWnkpYL",
       "en-igbin-yo-noun-H6vAhfMP",
       "en-igbin-yo-noun-YhVqe0lK"
+    ],
+    "ugbin": [
+      "en-ugbẹn-yo-noun-6BWnkpYL",
+      "en-ugbin-yo-noun-YhVqe0lK"
     ],
     "ogede": [
       "en-ogede-yo-noun-W37aSvBT",
       "en-ogede-yo-noun-h7sXAe50",
       "en-ogede-yo-noun-jP6djZIn"
     ],
-    "udẹ": [
-      "en-udẹ-yo-noun-M6KLxPWC",
-      "en-udẹ-yo-noun-fe-ceeW-"
+    "ata tataṣe": [
+      "en-ata_tataṣe-yo-noun-mjoZ7bEI",
+      "en-tatase-yo-noun-mjoZ7bEI"
     ],
     "ibọn": [
       "en-ibọn-yo-noun-VGLFgaR6",
@@ -9018,9 +11972,78 @@
       "en-agbara-yo-noun-dY7CPXXW",
       "en-agbara-yo-noun-V3NAwq~J"
     ],
-    "iwẹ": [
+    "ọgbara": [
+      "en-agbara-yo-noun-V3NAwq~J",
+      "en-ọgbara-yo-noun-xzAh25vr"
+    ],
+    "ọbọn-unbọn-un": [
+      "en-ọbọn-un-bọn-un-yo-noun-ez5839vK",
+      "en-ọbọn-unbọn-un-yo-noun-9zzevz3B"
+    ],
+    "ẹu": [
+      "en-ẹu-yo-noun-XzBqrHPZ",
+      "en-ẹru-yo-noun-WNVOfHVT",
+      "en-ẹru-yo-noun-u0AfiXbO",
+      "en-ẹru-yo-noun-1HkfAa4u",
+      "en-ẹru-yo-noun-GDk2sBDG",
+      "en-ẹru-yo-noun-ii-JfrGo",
+      "en-ẹru-yo-noun-e2tKSeK3",
+      "en-ẹru-yo-noun-F0WljwZ0"
+    ],
+    "pẹna": [
+      "en-pẹna-yo-noun-swtlL72A",
+      "en-pẹnariti-yo-noun-swtlL72A",
+      "en-pẹnaiti-yo-noun-swtlL72A"
+    ],
+    "pẹnariti": [
+      "en-pẹnariti-yo-noun-swtlL72A",
+      "en-pẹnaiti-yo-noun-swtlL72A"
+    ],
+    "pẹnaiti": [
+      "en-pẹnariti-yo-noun-swtlL72A",
+      "en-pẹnaiti-yo-noun-swtlL72A"
+    ],
+    "omuwẹ": [
+      "en-omuwẹ-yo-noun-gjvD4BVc",
+      "en-omugwẹ-yo-noun-h4G~~cph"
+    ],
+    "omugwẹ": [
+      "en-omuwẹ-yo-noun-gjvD4BVc",
+      "en-omugwẹ-yo-noun-h4G~~cph"
+    ],
+    "ugwẹ": [
+      "en-ugwẹ-yo-noun-B1yBC7Av",
       "en-iwẹ-yo-noun-uCYuhuC8",
       "en-iwẹ-yo-noun-ukAojISt"
+    ],
+    "iwẹ": [
+      "en-ugwẹ-yo-noun-B1yBC7Av",
+      "en-iwẹ-yo-noun-uCYuhuC8",
+      "en-iwẹ-yo-noun-ukAojISt"
+    ],
+    "hẹngwa": [
+      "en-hẹngwa-yo-verb-rk9XLoZ0",
+      "en-ghẹngwa-yo-verb-rk9XLoZ0"
+    ],
+    "ghẹngwa": [
+      "en-hẹngwa-yo-verb-rk9XLoZ0",
+      "en-ghẹngwa-yo-verb-rk9XLoZ0"
+    ],
+    "ṣaanu": [
+      "en-ṣainọn-yo-verb-CJjlOJ2n",
+      "en-ṣaanu-yo-verb-x4EfKOgk"
+    ],
+    "ẹun": [
+      "en-ẹun-yo-noun-TPNc-HQ1",
+      "en-ẹrụn-yo-noun-TPNc-HQ1"
+    ],
+    "gbẹn": [
+      "en-gbẹn-yo-verb-6L5ZLbvI",
+      "en-gbin-yo-verb-6L5ZLbvI"
+    ],
+    "ṣọọn": [
+      "en-ṣọwọn-yo-verb-4Y5lbmT0",
+      "en-ṣọọn-yo-verb-YVxwE3up"
     ],
     "ẹlu": [
       "en-ẹlu-yo-noun-wPPmTslV",
@@ -9034,14 +12057,106 @@
       "en-ojulowo-yo-noun-V3D8KPVk",
       "en-ojulowo-yo-adj-OQmEApAc"
     ],
+    "ọbalufọn": [
+      "en-Ọbalufọn-yo-name-szZEE~YB",
+      "en-Ọbanịfọn-yo-name-QTioA~Ct",
+      "en-Ọnịfọn-yo-name-sLdR8HrW"
+    ],
+    "ọbanịfọn": [
+      "en-Ọbalufọn-yo-name-szZEE~YB",
+      "en-Ọbanịfọn-yo-name-QTioA~Ct",
+      "en-Ọnịfọn-yo-name-sLdR8HrW"
+    ],
+    "balufọn": [
+      "en-Ọbalufọn-yo-name-szZEE~YB",
+      "en-Ọbanịfọn-yo-name-QTioA~Ct"
+    ],
+    "اكعِوِ": [
+      "en-akewi-yo-noun-nP2zCwrU",
+      "en-اكعِوِ-yo-noun-vFqOUsSi"
+    ],
+    "yọn": [
+      "en-yọn-yo-verb-TCKFiOo6",
+      "en-yụn-yo-verb-TCKFiOo6"
+    ],
+    "yụn": [
+      "en-yọn-yo-verb-TCKFiOo6",
+      "en-yụn-yo-verb-TCKFiOo6"
+    ],
+    "aghọ": [
+      "en-aghọ-yo-noun-gD0Fs0sx",
+      "en-awọ-yo-noun-KgBw0BS8",
+      "en-awọ-yo-noun-1oOMNXRE",
+      "en-awọ-yo-noun-h7p3rRA4"
+    ],
+    "awọ": [
+      "en-aghọ-yo-noun-gD0Fs0sx",
+      "en-awọ-yo-noun-KgBw0BS8",
+      "en-awọ-yo-noun-1oOMNXRE",
+      "en-awọ-yo-noun-h7p3rRA4"
+    ],
+    "ajijẹn": [
+      "en-aajin-yo-noun-CXcchHwh",
+      "en-ajinjin-yo-noun-bqGDkXv8",
+      "en-ajijẹn-yo-noun-bqGDkXv8"
+    ],
+    "ajinjin": [
+      "en-aajin-yo-noun-CXcchHwh",
+      "en-ajinjin-yo-noun-bqGDkXv8"
+    ],
+    "etitu": [
+      "en-etitu-yo-noun-0XRy0wXM",
+      "en-eetu-yo-noun-jTn3KwcT"
+    ],
     "eetu": [
       "en-eetu-yo-noun-ZOue045Z",
       "en-eetu-yo-noun-oCqEwQRH",
       "en-eetu-yo-noun-jTn3KwcT"
     ],
+    "hunwa": [
+      "en-hunwa-yo-verb-rk9XLoZ0",
+      "en-ghẹngwa-yo-verb-rk9XLoZ0"
+    ],
+    "erun": [
+      "en-erun-yo-noun-oZPtdmU4",
+      "en-ẹru-yo-noun-e2tKSeK3"
+    ],
+    "ẹru": [
+      "en-erun-yo-noun-oZPtdmU4",
+      "en-ẹru-yo-noun-WNVOfHVT",
+      "en-ẹru-yo-noun-u0AfiXbO",
+      "en-ẹru-yo-noun-1HkfAa4u",
+      "en-ẹru-yo-noun-GDk2sBDG",
+      "en-ẹru-yo-noun-ii-JfrGo",
+      "en-ẹru-yo-noun-e2tKSeK3",
+      "en-ẹru-yo-noun-F0WljwZ0"
+    ],
+    "eru": [
+      "en-erun-yo-noun-oZPtdmU4",
+      "en-ẹru-yo-noun-WNVOfHVT",
+      "en-ẹru-yo-noun-u0AfiXbO",
+      "en-ẹru-yo-noun-1HkfAa4u",
+      "en-ẹru-yo-noun-GDk2sBDG",
+      "en-ẹru-yo-noun-ii-JfrGo",
+      "en-ẹru-yo-noun-e2tKSeK3",
+      "en-ẹru-yo-noun-F0WljwZ0",
+      "en-eeru-yo-noun-DSvGJEB1"
+    ],
+    "atọsin": [
+      "en-atọsi-yo-noun-EYmsIj5g",
+      "en-atọsin-yo-noun-6edAtHUh"
+    ],
     "afayafa": [
       "en-afayafa-yo-noun-amRVHBkw",
       "en-afayafa-yo-adj-PcKwGDs2"
+    ],
+    "orogbo": [
+      "en-orogbo-yo-noun-W4vDBnF2",
+      "en-uogbo-yo-noun-H71aW~ip"
+    ],
+    "uogbo": [
+      "en-orogbo-yo-noun-W4vDBnF2",
+      "en-uogbo-yo-noun-H71aW~ip"
     ],
     "apọn": [
       "en-apọn-yo-noun-St91MUQ0",
@@ -9065,26 +12180,108 @@
     ],
     "ẹrin kk": [
       "en-ẹrin_kk-yo-intj-GmBHJvM5",
+      "en-ẹrin_kk-yo-noun-ODNWxjUa",
+      "en-ẹrin_keekee-yo-intj-g1G686lP",
+      "en-ẹrin_keekee-yo-noun-~2aFTdJB",
+      "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
+      "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "ẹrin kkk": [
+      "en-ẹrin_kk-yo-intj-GmBHJvM5",
       "en-ẹrin_kk-yo-noun-ODNWxjUa"
     ],
     "ẹrin keekee": [
+      "en-ẹrin_kk-yo-intj-GmBHJvM5",
+      "en-ẹrin_kk-yo-noun-ODNWxjUa",
+      "en-ẹrin_keekee-yo-intj-g1G686lP",
+      "en-ẹrin_keekee-yo-noun-~2aFTdJB",
+      "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
+      "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "ẹrin kẹẹkẹẹ": [
+      "en-ẹrin_kk-yo-intj-GmBHJvM5",
+      "en-ẹrin_kk-yo-noun-ODNWxjUa",
+      "en-ẹrin_keekee-yo-intj-g1G686lP",
+      "en-ẹrin_keekee-yo-noun-~2aFTdJB",
+      "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
+      "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "erin kkk": [
+      "en-ẹrin_kk-yo-intj-GmBHJvM5",
+      "en-ẹrin_kk-yo-noun-ODNWxjUa",
+      "en-ẹrin_keekee-yo-intj-g1G686lP",
+      "en-ẹrin_keekee-yo-noun-~2aFTdJB",
+      "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
+      "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "kk": [
+      "en-ẹrin_kk-yo-intj-GmBHJvM5",
+      "en-ẹrin_kk-yo-noun-ODNWxjUa",
+      "en-ẹrin_keekee-yo-intj-g1G686lP",
+      "en-ẹrin_keekee-yo-noun-~2aFTdJB",
+      "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
+      "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "ẹrin keekeekee": [
       "en-ẹrin_keekee-yo-intj-g1G686lP",
       "en-ẹrin_keekee-yo-noun-~2aFTdJB"
     ],
-    "ẹrin kẹẹkẹẹ": [
+    "ẹrin kẹẹkẹẹkẹẹ": [
       "en-ẹrin_kẹẹkẹẹ-yo-intj-snwTbqL9",
       "en-ẹrin_kẹẹkẹẹ-yo-noun-KAX1pWnu"
+    ],
+    "esuru": [
+      "en-esuru-yo-noun-oRLtP50E",
+      "en-esuu-yo-noun-e-RsIFdB"
+    ],
+    "ehuru": [
+      "en-esuru-yo-noun-oRLtP50E",
+      "en-esuu-yo-noun-e-RsIFdB"
+    ],
+    "eṣuru": [
+      "en-esuru-yo-noun-oRLtP50E",
+      "en-esuu-yo-noun-e-RsIFdB"
+    ],
+    "esuu": [
+      "en-esuru-yo-noun-oRLtP50E",
+      "en-esuu-yo-noun-e-RsIFdB"
+    ],
+    "atọọka": [
+      "en-atọka-yo-noun-mj0r0jUj",
+      "en-atọọka-yo-noun-KKgGaGov"
+    ],
+    "ọbịtụn": [
+      "en-ọbịtụn-yo-noun-EmH9u7IL",
+      "en-ọbụtụn-yo-noun-u796ZBLW",
+      "en-obitọn-yo-noun-ZxwIGKZc"
+    ],
+    "ọbuntun": [
+      "en-ọbịtụn-yo-noun-EmH9u7IL",
+      "en-ọbuntun-yo-noun-ZxwIGKZc",
+      "en-obitọn-yo-noun-ZxwIGKZc"
+    ],
+    "ọbụntụn": [
+      "en-ọbịtụn-yo-noun-EmH9u7IL",
+      "en-obitọn-yo-noun-ZxwIGKZc"
+    ],
+    "obutọn": [
+      "en-ọbịtụn-yo-noun-EmH9u7IL",
+      "en-obitọn-yo-noun-ZxwIGKZc",
+      "en-atabutọn-yo-noun-u796ZBLW"
     ],
     "gọlọmiṣọ": [
       "en-gọlọmiṣọ-yo-noun-Omx-GUFt",
       "en-gọlọmiṣọ-yo-noun-1T1HMFdH",
-      "en-gọlọmiṣọ-yo-noun-Omx-GUFt1",
       "en-gọlọmiṣọ-yo-noun-Omx-GUFt1"
     ],
-    "awọ": [
+    "aọ": [
       "en-awọ-yo-noun-KgBw0BS8",
       "en-awọ-yo-noun-1oOMNXRE",
       "en-awọ-yo-noun-h7p3rRA4"
+    ],
+    "ojibata": [
+      "en-ojibata-yo-noun-F2NwdtU-",
+      "en-oṣibata-yo-noun-Q8-qy4Oe"
     ],
     "agidi": [
       "en-agidi-yo-noun-DizRGY3D",
@@ -9106,26 +12303,122 @@
       "en-ẹkẹ-yo-noun-2o5d0qtK",
       "en-ẹkẹ-yo-noun-Gdo0Iq6H"
     ],
+    "akika": [
+      "en-akika-yo-noun-8arUCuWB",
+      "en-akịka-yo-noun-daCxxBTk"
+    ],
+    "aaka": [
+      "en-akika-yo-noun-8arUCuWB",
+      "en-akịka-yo-noun-daCxxBTk"
+    ],
+    "akịka": [
+      "en-akika-yo-noun-8arUCuWB",
+      "en-akịka-yo-noun-daCxxBTk"
+    ],
     "ọsin": [
       "en-ọsin-yo-noun-aArPzbMU",
       "en-ọsin-yo-noun-C9GqcQSF"
     ],
+    "ọsẹn": [
+      "en-ọsin-yo-noun-aArPzbMU",
+      "en-ọsin-yo-noun-C9GqcQSF"
+    ],
+    "ọsịn": [
+      "en-ọsin-yo-noun-aArPzbMU",
+      "en-ọsin-yo-noun-C9GqcQSF"
+    ],
     "ọtin": [
+      "en-ọti-yo-noun--ixw5org",
       "en-ọtin-yo-noun-vwrjfxnx",
       "en-Ọtin-yo-name-tT4dKUci"
     ],
-    "ẹka": [
-      "en-ẹka-yo-noun-FMAmtLDX",
-      "en-ẹka-yo-noun-dV-FDcaZ",
-      "en-ẹka-yo-noun-q3O0i5U0"
+    "ọtịn": [
+      "en-ọti-yo-noun--ixw5org",
+      "en-ọtin-yo-noun-vwrjfxnx"
+    ],
+    "oriṣa-nla": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "oriṣanla": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "ooṣanla": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "ooṣaala": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "oriṣaala": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "ooṣa-nla": [
+      "en-Oriṣa-nla-yo-name-Ftjg1quP",
+      "en-Oriṣanla-yo-name-aj56TXj9",
+      "en-Oriṣaala-yo-name-aj56TXj9",
+      "en-Ooṣanla-yo-name-aj56TXj9",
+      "en-Ooṣaala-yo-name-aj56TXj9",
+      "en-Ooṣa-nla-yo-name-aj56TXj9"
+    ],
+    "oriṣa-oko": [
+      "en-Oriṣaoko-yo-name-SvrVCzo~",
+      "en-Oriṣa-oko-yo-name-2dp42la1"
+    ],
+    "oorẹ": [
+      "en-oorẹ-yo-noun-C4B4FuUP",
+      "en-ụụrẹ-yo-noun-Ua4LE6t3"
+    ],
+    "urẹ": [
+      "en-oorẹ-yo-noun-C4B4FuUP",
+      "en-ụụrẹ-yo-noun-Ua4LE6t3"
+    ],
+    "uruẹ": [
+      "en-oorẹ-yo-noun-C4B4FuUP",
+      "en-ụụrẹ-yo-noun-Ua4LE6t3"
+    ],
+    "iyalooṣa": [
+      "en-iyaloriṣa-yo-noun-m50iR~OI",
+      "en-iyalooṣa-yo-noun-m50iR~OI"
     ],
     "korikoto": [
       "en-Korikoto-yo-name-wmBePJ7f",
       "en-korikoto-yo-noun-2txLbFVa"
     ],
-    "ọsun": [
-      "en-Ọsun-yo-name-Im3kl1n2",
-      "en-Ọsun-yo-name-6vLqwBxe"
+    "konkoto": [
+      "en-korikoto-yo-noun-2txLbFVa",
+      "en-konkoto-yo-noun-66Eig-lR"
+    ],
+    "ọpalaba": [
+      "en-ọpalaba-yo-noun-qraOQDDS",
+      "en-ọpalanba-yo-noun-pXbDYrk4"
+    ],
+    "ọpalamba": [
+      "en-ọpalanba-yo-noun-pXbDYrk4",
+      "en-ọpalamba-yo-noun-qraOQDDS"
     ],
     "gbo": [
       "en-gbo-yo-verb-mlRr0qBb",
@@ -9133,23 +12426,89 @@
       "en-gbo-yo-verb-oIfZBs3D",
       "en-gbo-yo-verb-p8R9n899"
     ],
+    "ڠوْ": [
+      "en-gbo-yo-verb-mlRr0qBb",
+      "en-gbo-yo-verb-xFuq9GTP",
+      "en-gbo-yo-verb-oIfZBs3D",
+      "en-gbo-yo-verb-p8R9n899",
+      "en-ڠوْ-yo-verb-Io4-7YpR"
+    ],
+    "ọrọnpọtọ": [
+      "en-Ọrọmpọtọ-yo-name-7gNTnimR",
+      "en-Ọrọnpọtọ-yo-name-bPLmNAKt"
+    ],
+    "لعَِسعَِكعَِسعَِ": [
+      "en-lẹsẹkẹsẹ-yo-adv-fSZUkaQ-",
+      "en-لعَِسعَِكعَِسعَِ-yo-adv-AqaN9MBP"
+    ],
     "ohun": [
       "en-ohun-yo-noun-XelNaRrj",
       "en-ohun-yo-pron-PMKDBemI",
       "en-ohun-yo-noun-Pzzsq-yP"
     ],
+    "وْهُن": [
+      "en-ohun-yo-noun-XelNaRrj",
+      "en-ohun-yo-pron-PMKDBemI",
+      "en-ohun-yo-noun-Pzzsq-yP",
+      "en-وْهُن-yo-noun-Z1cU8kZB"
+    ],
+    "owun": [
+      "en-ohun-yo-noun-Pzzsq-yP",
+      "en-owun-yo-pron-CXxDM60o"
+    ],
+    "erewun": [
+      "en-ohun-yo-noun-Pzzsq-yP",
+      "en-erewun-yo-noun-pO8wS6Qq"
+    ],
+    "ereun": [
+      "en-ohun-yo-noun-Pzzsq-yP",
+      "en-erewun-yo-noun-pO8wS6Qq"
+    ],
+    "ننكَن": [
+      "en-nnkan-yo-noun-taJcXP6A",
+      "en-ننكَن-yo-noun-vtQ5fhZ5"
+    ],
     "وْهُنكوْهُن": [
+      "en-ohunkohun-yo-noun-bOKf8vfX",
       "en-وْهُنكوْهُن-yo-noun-dkfHa5-s",
       "en-اووَْسَنمَ-yo-noun-FEugKGu1"
+    ],
+    "irunkirun": [
+      "en-irunkirun-yo-noun-7gh0Fwt~",
+      "en-urunkurun-yo-noun-7gh0Fwt~"
+    ],
+    "urunkurun": [
+      "en-irunkirun-yo-noun-7gh0Fwt~",
+      "en-urunkurun-yo-noun-7gh0Fwt~"
+    ],
+    "لوْجِجِ": [
+      "en-lojiji-yo-adv-GCBJdJl-",
+      "en-لوْجِجِ-yo-adv-4AUhsoEe"
     ],
     "ẹsin": [
       "en-ẹsin-yo-noun-RrMhUYAu",
       "en-ẹsin-yo-noun-jn6eXmkL",
       "en-ẹsin-yo-noun-MiXoR8Y6"
     ],
+    "agalamọsa": [
+      "en-agalamọsa-yo-noun-DuViCHQT",
+      "en-agalamaṣa-yo-noun-O16IVB~Q"
+    ],
+    "akalamọsa": [
+      "en-agalamaṣa-yo-noun-O16IVB~Q",
+      "en-akalamọsa-yo-noun-DuViCHQT"
+    ],
     "agẹmọ": [
       "en-agẹmọ-yo-noun-71jvPB4y",
       "en-Agẹmọ-yo-name-otnp27-O"
+    ],
+    "اِڠعِرَغَ": [
+      "en-igberaga-yo-noun-OYZdRCcI",
+      "en-اِڠعِرَغَ-yo-noun-bZ4x~d~x"
+    ],
+    "نلَ": [
+      "en-nla-yo-adj-zS7rhlBR",
+      "en-نلَ-yo-adj-MB~ZTZ-I"
     ],
     "mọremi": [
       "en-Mọremi-yo-name-HnGhqfJR",
@@ -9159,7 +12518,20 @@
       "en-ẹyọ-yo-noun-my4kFZ1X",
       "en-Ẹyọ-yo-name-k61uQ3rS"
     ],
+    "عَِيوَْ": [
+      "en-ẹyọ-yo-noun-my4kFZ1X",
+      "en-عَِيوَْ-yo-noun-1e~iwISk",
+      "en-Ẹyọ-yo-name-k61uQ3rS"
+    ],
+    "ajẹbọ": [
+      "en-ajẹbọta-yo-noun-Fv69L3~c",
+      "en-ajẹbọ-yo-noun-0p1LkweI"
+    ],
     "akiika!": [
+      "en-akiika-yo-intj-NL0IWZSh",
+      "en-اكِاِكَ-yo-intj-4jUiso8H"
+    ],
+    "اكِاِكَ": [
       "en-akiika-yo-intj-NL0IWZSh",
       "en-اكِاِكَ-yo-intj-4jUiso8H"
     ],
@@ -9181,37 +12553,50 @@
       "en-ọpọn-yo-noun-fiXSlo2c",
       "en-ọpọn-yo-noun-z39qfGJh"
     ],
+    "وْرُكوَْ امُتوَْرُنوَ": [
+      "en-orukọ_amutọrunwa-yo-noun-Kc19m6oj",
+      "en-وْرُكوَْ_امُتوَْرُنوَ-yo-noun-e7QLe1Su"
+    ],
     "gbẹ": [
       "en-gbẹ-yo-verb-smm6y2ok",
       "en-gbẹ-yo-verb-QGgbGZpz",
       "en-gbẹ-yo-verb-X9gQhP-U",
       "en-gbẹ-yo-verb-9IDWFOGH",
       "en-gbẹ-yo-verb-GZs1ZXrQ",
-      "en-gbẹ-yo-verb-68cf9tSu"
+      "en-gbẹ-yo-verb-68cf9tSu",
+      "en-gbin-yo-verb-6L5ZLbvI"
     ],
-    "وَ": [
-      "en-وَ-yo-verb-OZ-GTpFS",
-      "en-وَ-yo-det-K3QIjlB0"
+    "ڠعَِ": [
+      "en-gbẹ-yo-verb-QGgbGZpz",
+      "en-gbẹ-yo-verb-X9gQhP-U",
+      "en-gbẹ-yo-verb-9IDWFOGH",
+      "en-ڠعَِ-yo-verb-wwPCGtEf"
     ],
-    "rẹn": [
-      "en-rẹn-yo-verb-UBmQtsa~",
-      "en-rẹn-yo-verb-icLBTR14",
-      "en-rẹn-yo-verb-Hyc2f7HP"
-    ],
-    "nẹ": [
-      "en-nẹ-yo-verb-11K4IPdV",
-      "en-nẹ-yo-verb-Fy64VqG8",
-      "en-nẹ-yo-verb-vArdDnKM"
-    ],
-    "omiran": [
-      "en-omiran-yo-noun-CxMuovbN",
-      "en-omiran-yo-noun-CFGLcWF-"
+    "rẹwa": [
+      "en-rẹwa-yo-verb-DPUnMxF6",
+      "en-ghẹngwa-yo-verb-rk9XLoZ0"
     ],
     "gbin": [
       "en-gbin-yo-verb-vQqTAZ5A",
       "en-gbin-yo-verb-6L5ZLbvI"
     ],
     "iṣẹnbaye": [
+      "en-iṣẹnbaye-yo-noun-RIsmmae~",
+      "en-iṣẹnbaye-yo-adj-~svCS-Ki"
+    ],
+    "isẹnbaye": [
+      "en-iṣẹnbaye-yo-noun-RIsmmae~",
+      "en-iṣẹnbaye-yo-adj-~svCS-Ki"
+    ],
+    "iṣẹnbalaye": [
+      "en-iṣẹnbaye-yo-noun-RIsmmae~",
+      "en-iṣẹnbaye-yo-adj-~svCS-Ki"
+    ],
+    "iṣẹnmbalaye": [
+      "en-iṣẹnbaye-yo-noun-RIsmmae~",
+      "en-iṣẹnbaye-yo-adj-~svCS-Ki"
+    ],
+    "iṣẹmbaye": [
       "en-iṣẹnbaye-yo-noun-RIsmmae~",
       "en-iṣẹnbaye-yo-adj-~svCS-Ki"
     ],
@@ -9223,24 +12608,71 @@
       "en-ẹn-yo-intj-OLEtangq",
       "en-ẹn-yo-intj-yElzojl0"
     ],
+    "akoro": [
+      "en-akoro-yo-noun-x-NRDCd2",
+      "en-akoo-yo-noun-Nw7IIZY3"
+    ],
+    "akoo": [
+      "en-akoro-yo-noun-x-NRDCd2",
+      "en-akoo-yo-noun-Nw7IIZY3"
+    ],
     "ẹpọn": [
       "en-ẹpọn-yo-noun-POX3OhFc",
       "en-ẹpọn-yo-noun-Po5AwK9f",
       "en-ẹpọn-yo-noun-xwYQJiSv"
     ],
+    "ẹpan": [
+      "en-ẹpọn-yo-noun-POX3OhFc",
+      "en-ẹpọn-yo-noun-Po5AwK9f",
+      "en-ẹpọn-yo-noun-xwYQJiSv"
+    ],
+    "ipọn": [
+      "en-ẹpọn-yo-noun-Po5AwK9f",
+      "en-ipọn-yo-noun-MjGk9uzD"
+    ],
+    "وْلوْلُفعَِ": [
+      "en-ololufẹ-yo-noun-RkZgp5AQ",
+      "en-وْلوْلُفعَِ-yo-noun-b7k3kYrO"
+    ],
+    "ايَنفعَِ": [
+      "en-ayanfẹ-yo-noun-Y7ZGIak7",
+      "en-ايَنفعَِ-yo-noun-Nqed5dZR"
+    ],
+    "ارِدُاُنُ": [
+      "en-aridunnu-yo-noun-FqLdOocl",
+      "en-ارِدُاُنُ-yo-noun-frcvQT3L"
+    ],
+    "عَِنِ تِ وَْكَن مِ يَن": [
+      "en-ẹni_ti_ọkan_mi_yan-yo-noun-7ANUzcPm",
+      "en-عَِنِ_تِ_وَْكَن_مِ_يَن-yo-phrase--gimaCi5"
+    ],
     "gbongbo": [
       "en-gbongbo-yo-noun-tVrWCgsG",
       "en-gbongbo-yo-noun-WTBBZBQd"
     ],
-    "ekuru": [
-      "en-ekuru-yo-noun-QPc7M45g",
-      "en-ekuru-yo-noun-4pTohIGm"
+    "ẹẹọ": [
+      "en-ẹẹọ-yo-noun-MHIAWtkR",
+      "en-ẹẹọ-yo-intj-56Kbjghc"
     ],
-    "ẹmọ": [
-      "en-ẹmọ-yo-noun-RNhTzwLl",
-      "en-ẹmọ-yo-noun-4BzqYVwK"
+    "ẹịọ": [
+      "en-ẹẹọ-yo-noun-MHIAWtkR",
+      "en-ẹẹọ-yo-intj-56Kbjghc"
+    ],
+    "ọmiwe": [
+      "en-ọmọwe-yo-noun-7jf32qR3",
+      "en-ọmiwe-yo-noun-w6yyb4Mn",
+      "en-ọmuwe-yo-noun-w6yyb4Mn"
+    ],
+    "ọmuwe": [
+      "en-ọmọwe-yo-noun-7jf32qR3",
+      "en-ọmiwe-yo-noun-w6yyb4Mn",
+      "en-ọmuwe-yo-noun-w6yyb4Mn"
     ],
     "ẹri": [
+      "en-ẹri-yo-noun-ZOzr5S-O",
+      "en-ẹri-yo-noun-gyP2qSLV"
+    ],
+    "eri": [
       "en-ẹri-yo-noun-ZOzr5S-O",
       "en-ẹri-yo-noun-gyP2qSLV"
     ],
@@ -9248,7 +12680,23 @@
       "en-pẹkirẹki-yo-noun--9MqJdCR",
       "en-pẹkirẹki-yo-adv-~GyUHtcp"
     ],
+    "pẹkinrẹki": [
+      "en-pẹkirẹki-yo-noun--9MqJdCR",
+      "en-pẹkirẹki-yo-adv-~GyUHtcp"
+    ],
+    "pẹki-rẹki": [
+      "en-pẹkirẹki-yo-noun--9MqJdCR",
+      "en-pẹkirẹki-yo-adv-~GyUHtcp"
+    ],
     "mọnamọna": [
+      "en-mọnamọna-yo-noun-Adtxq4BI",
+      "en-mọnamọna-yo-noun-BIaXCCLD"
+    ],
+    "mọna-mọna": [
+      "en-mọnamọna-yo-noun-Adtxq4BI",
+      "en-mọnamọna-yo-noun-BIaXCCLD"
+    ],
+    "manamana": [
       "en-mọnamọna-yo-noun-Adtxq4BI",
       "en-mọnamọna-yo-noun-BIaXCCLD"
     ],
@@ -9256,13 +12704,122 @@
       "en-eebu-yo-noun-5QkLu4DP",
       "en-eebu-yo-noun-e43tYZd8"
     ],
+    "ebibu": [
+      "en-eebu-yo-noun-5QkLu4DP",
+      "en-eebu-yo-noun-e43tYZd8"
+    ],
     "ṣugbọn": [
       "en-ṣugbọn-yo-conj-hLMJpaam",
       "en-ṣugbọn-yo-adv-cy0kS-Rk"
     ],
-    "ugba": [
-      "en-ugba-yo-noun-hM0UoDdM",
-      "en-ugba-yo-noun--dQ5W7RU"
+    "sugbọn": [
+      "en-ṣugbọn-yo-conj-hLMJpaam",
+      "en-ṣugbọn-yo-adv-cy0kS-Rk"
+    ],
+    "ṣụgbọn": [
+      "en-ṣugbọn-yo-conj-hLMJpaam",
+      "en-ṣugbọn-yo-adv-cy0kS-Rk"
+    ],
+    "eurẹ": [
+      "en-eurẹ-yo-noun-VIDwjzWW",
+      "en-ẹurẹ-yo-noun-VIDwjzWW"
+    ],
+    "ẹurẹ": [
+      "en-eurẹ-yo-noun-VIDwjzWW",
+      "en-ẹurẹ-yo-noun-VIDwjzWW"
+    ],
+    "وَْجوَْڠوَْن": [
+      "en-ọjọgbọn-yo-noun-DI4vSz4f",
+      "en-وَْجوَْڠوَْن-yo-noun-6IgFkYGu"
+    ],
+    "onikaluku": [
+      "en-onikaluku-yo-noun-O5DWkVHk",
+      "en-olikaluku-yo-noun-O5DWkVHk"
+    ],
+    "وْنِكَلُكُ": [
+      "en-onikaluku-yo-noun-O5DWkVHk",
+      "en-وْنِكَلُكُ-yo-noun-xrKidVY1"
+    ],
+    "olikaluku": [
+      "en-onikaluku-yo-noun-O5DWkVHk",
+      "en-olikaluku-yo-noun-O5DWkVHk"
+    ],
+    "وْلُفعَِ": [
+      "en-olufẹ-yo-noun-RkZgp5AQ",
+      "en-وْلُفعَِ-yo-noun-JaK1UVho"
+    ],
+    "اوَدَ": [
+      "en-awada-yo-noun-YsolVpuR",
+      "en-اوَدَ-yo-noun-4YfmeS5e"
+    ],
+    "شَوَدَ": [
+      "en-ṣawada-yo-verb-kQAaTrZK",
+      "en-شَوَدَ-yo-verb-E~9o4~Cg"
+    ],
+    "الَوَدَ": [
+      "en-alawada-yo-noun-~4PmbBph",
+      "en-الَوَدَ-yo-noun-xFZP~2mF"
+    ],
+    "سُدَانِ": [
+      "en-Sudaani-yo-name-yJDreXll",
+      "en-سُدَانِ-yo-noun-6dVozJor"
+    ],
+    "اشوَْ وْكعِ": [
+      "en-aṣọ_oke-yo-noun-6XvEfVHD",
+      "en-اشوَْ_وْكعِ-yo-noun-rMT~Yxez"
+    ],
+    "اشوَْ وْفِ": [
+      "en-aṣọ_ofi-yo-noun-dlw3p0~i",
+      "en-اشوَْ_وْفِ-yo-noun-p4asgP7H"
+    ],
+    "سوَْروَْ سوْكعِ": [
+      "en-sọrọ_soke-yo-verb-zjLiM20R",
+      "en-سوَْروَْ_سوْكعِ-yo-verb-2CgN3CHr"
+    ],
+    "اِڠَدُن": [
+      "en-igbadun-yo-noun-3m-BLxlh",
+      "en-اِڠَدُن-yo-noun-lFnGr76V"
+    ],
+    "اِڠَفعَِ": [
+      "en-igbafẹ-yo-noun-3m-BLxlh",
+      "en-اِڠَفعَِ-yo-noun-kKSz0Y0w"
+    ],
+    "ugbafẹ": [
+      "en-igbafẹ-yo-noun-3m-BLxlh",
+      "en-ugbafẹ-yo-noun-pNIA8M-S"
+    ],
+    "فَاجِ": [
+      "en-faaji-yo-noun-xuOea1Dg",
+      "en-فَاجِ-yo-noun-mbbQMtB4"
+    ],
+    "ڠَدُن": [
+      "en-gbadun-yo-verb-6UtvX9tY",
+      "en-ڠَدُن-yo-verb-v3edMPg3"
+    ],
+    "ọdẹdẹ": [
+      "en-ọdẹdẹ-yo-noun-N8l5i8Zj",
+      "en-ọọdẹ-yo-noun-LwKimh~Z"
+    ],
+    "ọọdẹ": [
+      "en-ọdẹdẹ-yo-noun-N8l5i8Zj",
+      "en-ọọdẹ-yo-noun-LwKimh~Z"
+    ],
+    "ẹẹdẹ": [
+      "en-ọdẹdẹ-yo-noun-N8l5i8Zj",
+      "en-ọọdẹ-yo-noun-LwKimh~Z"
+    ],
+    "جِننَ": [
+      "en-jinna-yo-verb-hsUYe-Of",
+      "en-جِننَ-yo-verb-jpOTiRuM"
+    ],
+    "jẹnna": [
+      "en-jinna-yo-verb-hsUYe-Of",
+      "en-jẹnna-yo-verb-kCgaEuu7",
+      "en-jẹnnọ-yo-verb-hsUYe-Of"
+    ],
+    "جَنكَرِووَْ": [
+      "en-jankariwọ-yo-noun-0-MPvHIo",
+      "en-جَنكَرِووَْ-yo-noun-ZUqfIcjQ"
     ],
     "apejẹ": [
       "en-apejẹ-yo-noun-FuObJjnU",
@@ -9272,15 +12829,23 @@
       "en-awiṣẹ-yo-noun-wny-CQop",
       "en-awiṣẹ-yo-noun-HNkyNHMI"
     ],
+    "alọ": [
+      "en-alọ-yo-noun-hsxrGSKi",
+      "en-alọ-yo-intj-NnLHmm9x"
+    ],
     "ogidigbo": [
       "en-ogidigbo-yo-noun-te0w0Vpl",
       "en-ogidigbo-yo-noun-W0U1vdef"
     ],
-    "ẹgbin": [
-      "en-ẹgbin-yo-noun-AK~PUo25",
-      "en-ẹgbin-yo-noun-5dnLP~t2"
+    "ogidimgbo": [
+      "en-ogidigbo-yo-noun-te0w0Vpl",
+      "en-ogidigbo-yo-noun-W0U1vdef"
     ],
     "kọngọ": [
+      "en-kọngọ-yo-noun-DoAbamTW",
+      "en-kọngọ-yo-noun-~re1~lJ1"
+    ],
+    "gọngọ": [
       "en-kọngọ-yo-noun-DoAbamTW",
       "en-kọngọ-yo-noun-~re1~lJ1"
     ],
@@ -9291,6 +12856,14 @@
     "igbẹ": [
       "en-igbẹ-yo-noun-OsrRmpXK",
       "en-igbẹ-yo-noun-2zSxieF7"
+    ],
+    "otita": [
+      "en-otita-yo-noun-sEywn6v-",
+      "en-ọtịta-yo-noun-sEywn6v-"
+    ],
+    "ọtịta": [
+      "en-otita-yo-noun-sEywn6v-",
+      "en-ọtịta-yo-noun-sEywn6v-"
     ],
     "apoti": [
       "en-apoti-yo-noun-sEywn6v-",
@@ -9318,9 +12891,59 @@
       "en-dọ-yo-verb-Ttowlhxh",
       "en-dọ-yo-verb-H2jBgJHn"
     ],
+    "توَْجُ": [
+      "en-tọju-yo-verb-RbahsVZH",
+      "en-توَْجُ-yo-verb-nyVMzaGs"
+    ],
     "alamọ": [
       "en-alamọ-yo-noun-pRONT6jI",
       "en-alamọ-yo-noun-ARRgrQ-O"
+    ],
+    "orunkun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-ookun-yo-noun-yJj2DX-D",
+      "en-eekun-yo-noun-ae9aiLAn",
+      "en-ekikun-yo-noun-t0u9r9n-"
+    ],
+    "eekun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-orukun-yo-noun-~ay0xbG9",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-ookun-yo-noun-yJj2DX-D",
+      "en-eekun-yo-noun-ae9aiLAn",
+      "en-ekikun-yo-noun-t0u9r9n-"
+    ],
+    "ookun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-okunkun-yo-noun-FCcr02HJ",
+      "en-okunkun-yo-noun-WxN-wRCz",
+      "en-orukun-yo-noun-~ay0xbG9",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-ookun-yo-noun-yJj2DX-D"
+    ],
+    "ekikun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-orukun-yo-noun-~ay0xbG9",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-ookun-yo-noun-yJj2DX-D",
+      "en-eekun-yo-noun-ae9aiLAn",
+      "en-ekikun-yo-noun-t0u9r9n-"
+    ],
+    "orukun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-orukun-yo-noun-~ay0xbG9",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-ookun-yo-noun-yJj2DX-D",
+      "en-eekun-yo-noun-ae9aiLAn",
+      "en-ekikun-yo-noun-t0u9r9n-"
+    ],
+    "orokun": [
+      "en-orunkun-yo-noun-ae9aiLAn",
+      "en-orukun-yo-noun-~ay0xbG9",
+      "en-orokun-yo-noun-ae9aiLAn",
+      "en-eekun-yo-noun-ae9aiLAn",
+      "en-ekikun-yo-noun-t0u9r9n-"
     ],
     "nipasẹ": [
       "en-nipasẹ-yo-verb-xBAcpdaT",
@@ -9334,21 +12957,13 @@
       "en-bayii-yo-adv--hsj0SJo",
       "en-bayii-yo-noun-AKx9LCjK"
     ],
-    "ẹru": [
-      "en-ẹru-yo-noun-WNVOfHVT",
-      "en-ẹru-yo-noun-u0AfiXbO",
-      "en-ẹru-yo-noun-1HkfAa4u",
-      "en-ẹru-yo-noun-GDk2sBDG",
-      "en-ẹru-yo-noun-ii-JfrGo",
-      "en-ẹru-yo-noun-e2tKSeK3",
-      "en-ẹru-yo-noun-F0WljwZ0"
-    ],
     "ẹọn": [
       "en-ẹọn-yo-noun-57pL2PfL",
       "en-ẹọn-yo-noun-8LQ1Z7Nn",
-      "en-ẹọn-yo-noun-3UtrDcNr"
+      "en-ẹọn-yo-noun-3UtrDcNr",
+      "en-ẹwọn-yo-noun-TVkbdrcX"
     ],
-    "wọ": [
+    "ووَْ": [
       "en-wọ-yo-verb-lDELpvOE",
       "en-wọ-yo-verb-Ynd6TzKK",
       "en-wọ-yo-verb-K4opAeCO",
@@ -9357,16 +12972,24 @@
       "en-wọ-yo-verb-eNcyudAk",
       "en-wọ-yo-verb-VR-~Dfz3",
       "en-wọ-yo-verb-KJ3cYH~H",
-      "en-wọ-yo-verb-JfR-Ge2t"
+      "en-wọ-yo-verb-JfR-Ge2t",
+      "en-ووَْ-yo-verb-KEvtwuZk"
+    ],
+    "اِڠَلَ": [
+      "en-igbala-yo-noun-kM92U3lC",
+      "en-اِڠَلَ-yo-noun-Mvr6X8Dk"
+    ],
+    "اِپَتعَِووَْ": [
+      "en-ipatẹwọ-yo-noun-dvr6Iya~",
+      "en-اِپَتعَِووَْ-yo-noun-0waif9rv"
+    ],
+    "پَتعَِووَْ": [
+      "en-patẹwọ-yo-verb-zB2tggWA",
+      "en-پَتعَِووَْ-yo-verb-mJ5yR~ER"
     ],
     "اِبَ": [
       "en-اِبَ-yo-noun-YQIVAVUe",
       "en-اِبَ-yo-verb-WV0xd3xW"
-    ],
-    "فُنفُن": [
-      "en-فُنفُن-yo-noun-0NsUSonT",
-      "en-فُنفُن-yo-verb-0NsUSonT",
-      "en-فُنفُن-yo-adj-0NsUSonT"
     ],
     "gbajumọ": [
       "en-gbajumọ-yo-noun-bR4SZgi0",
@@ -9384,6 +13007,10 @@
       "en-aṣalẹ-yo-noun-~87oa4qr",
       "en-aṣalẹ-yo-noun-fbdhqOfT"
     ],
+    "اِرعِتِ": [
+      "en-ireti-yo-noun-ejfR8BRA",
+      "en-اِرعِتِ-yo-noun-3uqjj7As"
+    ],
     "ijinlẹ": [
       "en-ijinlẹ-yo-noun-XyQGRnB1",
       "en-ijinlẹ-yo-noun-WMmDLVdl"
@@ -9400,6 +13027,18 @@
       "en-igake-yo-noun-oxIgVwdv",
       "en-igake-yo-noun-IPdZoWJS"
     ],
+    "egake": [
+      "en-igake-yo-noun-oxIgVwdv",
+      "en-igake-yo-noun-IPdZoWJS"
+    ],
+    "mọgaa": [
+      "en-mọgaa-yo-noun-n~4J7vSs",
+      "en-mọgala-yo-noun-n~4J7vSs"
+    ],
+    "mọgala": [
+      "en-mọgaa-yo-noun-n~4J7vSs",
+      "en-mọgala-yo-noun-n~4J7vSs"
+    ],
     "ọdọ": [
       "en-ọdọ-yo-noun-xYVT5kFs",
       "en-ọdọ-yo-noun-nh52yVyc",
@@ -9408,6 +13047,21 @@
     "tuubu": [
       "en-tuubu-yo-noun-6QcC1esD",
       "en-tuubu-yo-noun-BcxsZQ-m"
+    ],
+    "ọfafa": [
+      "en-ọfafa-yo-noun-u4UMIbVx",
+      "en-ọhaha-yo-noun-vczQtLlt",
+      "en-ọwawa-yo-noun-vczQtLlt"
+    ],
+    "ọwawa": [
+      "en-ọfafa-yo-noun-u4UMIbVx",
+      "en-ọhaha-yo-noun-vczQtLlt",
+      "en-ọwawa-yo-noun-vczQtLlt"
+    ],
+    "ọhaha": [
+      "en-ọfafa-yo-noun-u4UMIbVx",
+      "en-ọhaha-yo-noun-vczQtLlt",
+      "en-ọwawa-yo-noun-vczQtLlt"
     ],
     "abọde": [
       "en-abọde-yo-noun-0P1Iddlk",
@@ -9426,7 +13080,21 @@
       "en-ogurọ-yo-noun-1RBy2DkO",
       "en-ogurọ-yo-noun-hqLEy8ik"
     ],
-    "koriko": [
+    "ọgurọ": [
+      "en-ogurọ-yo-noun-qnGnhz6-",
+      "en-ogurọ-yo-noun-1RBy2DkO",
+      "en-ogurọ-yo-noun-hqLEy8ik"
+    ],
+    "ọgọrọ": [
+      "en-ogurọ-yo-noun-qnGnhz6-",
+      "en-ogurọ-yo-noun-1RBy2DkO",
+      "en-ogurọ-yo-noun-hqLEy8ik"
+    ],
+    "اِبُكُن": [
+      "en-ibukun-yo-noun-ZTiGKQ-j",
+      "en-اِبُكُن-yo-noun-a2N4oOOR"
+    ],
+    "ukooko": [
       "en-koriko-yo-noun-exKKfCS0",
       "en-koriko-yo-noun-Ps5yhUdg"
     ],
@@ -9446,13 +13114,26 @@
     ],
     "okunkun": [
       "en-okunkun-yo-noun-FCcr02HJ",
-      "en-okunkun-yo-noun-WxN-wRCz"
+      "en-okunkun-yo-noun-WxN-wRCz",
+      "en-okuku-yo-noun-XhyC8Sec"
+    ],
+    "okuku": [
+      "en-okunkun-yo-noun-FCcr02HJ",
+      "en-okunkun-yo-noun-WxN-wRCz",
+      "en-okuku-yo-noun-XhyC8Sec"
     ],
     "gbọ": [
       "en-gbọ-yo-verb-jqEb34OJ",
       "en-gbọ-yo-verb-lQiZ8pHT",
       "en-gbọ-yo-verb-5BlmEUmd",
       "en-gbọ-yo-verb-WZ0yuw2c"
+    ],
+    "ڠوَْ": [
+      "en-gbọ-yo-verb-jqEb34OJ",
+      "en-gbọ-yo-verb-lQiZ8pHT",
+      "en-gbọ-yo-verb-5BlmEUmd",
+      "en-gbọ-yo-verb-WZ0yuw2c",
+      "en-ڠوَْ-yo-verb-imDwSyoS"
     ],
     "dẹ": [
       "en-dẹ-yo-verb-DP8ug5mf",
@@ -9480,9 +13161,30 @@
     ],
     "eepa": [
       "en-eepa-yo-noun-kPyHjrcs",
-      "en-eepa-yo-noun-j5PQkSOj"
+      "en-eepa-yo-noun-j5PQkSOj",
+      "en-eepa-yo-intj-jl9Lurxt"
+    ],
+    "igbe": [
+      "en-Igbe-yo-name-2V2V5FbO",
+      "en-ogbe-yo-noun-S~ovpIYC"
     ],
     "ariwo": [
+      "en-ariwo-yo-noun-7-KlwJ5t",
+      "en-ariwo-yo-noun-OB97iY5T"
+    ],
+    "ario": [
+      "en-ariwo-yo-noun-7-KlwJ5t",
+      "en-ariwo-yo-noun-OB97iY5T"
+    ],
+    "aruwo": [
+      "en-ariwo-yo-noun-7-KlwJ5t",
+      "en-ariwo-yo-noun-OB97iY5T"
+    ],
+    "aiwo": [
+      "en-ariwo-yo-noun-7-KlwJ5t",
+      "en-ariwo-yo-noun-OB97iY5T"
+    ],
+    "aiyo": [
       "en-ariwo-yo-noun-7-KlwJ5t",
       "en-ariwo-yo-noun-OB97iY5T"
     ],
@@ -9493,6 +13195,14 @@
       "en-bẹrẹ-yo-noun-lqyGflnz",
       "en-bẹrẹ-yo-noun-E0nsxjh5"
     ],
+    "bẹẹrẹ": [
+      "en-bẹrẹ-yo-verb-rLw5Ub4u",
+      "en-bẹẹrẹ-yo-noun-Mi0-c4UG"
+    ],
+    "idagbasoke": [
+      "en-idagbasoke-yo-noun-LeNVAIP~",
+      "en-idagbaroke-yo-noun-GcZBleuP"
+    ],
     "gbọn": [
       "en-gbọn-yo-verb-p8R9n899",
       "en-gbọn-yo-verb-5HOdD6xf",
@@ -9500,11 +13210,48 @@
       "en-gbọn-yo-verb-edtzuQ~4",
       "en-gbọn-yo-verb-RVDnoqc2"
     ],
+    "sẹlẹru": [
+      "en-sẹlẹru-yo-noun-HcZeNl98",
+      "en-ṣẹlẹru-yo-noun-Wp9uUzDP"
+    ],
+    "ịja": [
+      "en-Ija-yo-name-GTopVyTr",
+      "en-Ịja-yo-name-BhmDxx2S",
+      "en-Ụja-yo-name-a7-1HnU7"
+    ],
     "pọnmọ": [
       "en-pọnmọ-yo-noun-uh9UXSOT",
       "en-pọnmọ-yo-verb-ApKtaBMQ"
     ],
+    "afeimojo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
+    "aferemọjo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
+    "afe-imojo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
+    "afemojo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
+    "afebojo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
+    "afeebojo": [
+      "en-afeimojo-yo-noun-z5wcuJWE",
+      "en-aferemọjo-yo-noun-c-GYgNNL"
+    ],
     "gbeegun": [
+      "en-gbeegun-yo-verb-0VPrBT8j",
+      "en-gbeegun-yo-verb-2AWt38JU"
+    ],
+    "gbe-egungun": [
       "en-gbeegun-yo-verb-0VPrBT8j",
       "en-gbeegun-yo-verb-2AWt38JU"
     ],
@@ -9524,6 +13271,10 @@
       "en-pupọ-yo-noun-Lp3mf7lX",
       "en-pupọ-yo-adv-lzAcG~yq"
     ],
+    "pipọ": [
+      "en-pupọ-yo-noun-Lp3mf7lX",
+      "en-pupọ-yo-adv-lzAcG~yq"
+    ],
     "ọyẹyẹ": [
       "en-ọyẹyẹ-yo-noun-Y11qYkR9",
       "en-ọyẹyẹ-yo-noun-5Ddj4yXf"
@@ -9532,9 +13283,50 @@
       "en-gidi-gidi-yo-noun-wuSaQVwp",
       "en-gidi-gidi-yo-noun-5PbZzKOp"
     ],
+    "gidigidi": [
+      "en-gidi-gidi-yo-noun-wuSaQVwp",
+      "en-gidi-gidi-yo-noun-5PbZzKOp"
+    ],
+    "uwowo": [
+      "en-uwowo-yo-noun-FzFiyUwN",
+      "en-ughogho-yo-noun-FzFiyUwN"
+    ],
+    "ughogho": [
+      "en-uwowo-yo-noun-FzFiyUwN",
+      "en-ughogho-yo-noun-FzFiyUwN"
+    ],
+    "yanana": [
+      "en-yannana-yo-verb-qTSbkndp",
+      "en-yanana-yo-verb-jNSpQ-6z"
+    ],
+    "اِدِمُ": [
+      "en-idimu-yo-noun-Vy3qGcPP",
+      "en-اِدِمُ-yo-noun-Jj8~FaU-"
+    ],
+    "اِدِمُلعَِ": [
+      "en-idimulẹ-yo-noun-gi~jZ5yd",
+      "en-اِدِمُلعَِ-yo-noun-UKriiJDQ"
+    ],
+    "كوَْسعَِ": [
+      "en-kọsẹ-yo-verb-ycc2DCXg",
+      "en-كوَْسعَِ-yo-verb-CNMsuXRZ"
+    ],
     "pẹ": [
       "en-pẹ-yo-verb-6KD0W-lG",
       "en-pẹ-yo-verb-vBIgBisN"
+    ],
+    "پعَِ": [
+      "en-pẹ-yo-verb-6KD0W-lG",
+      "en-pẹ-yo-verb-vBIgBisN",
+      "en-پعَِ-yo-verb-LQW2PTlK"
+    ],
+    "njẹta": [
+      "en-nijẹta-yo-adv-eHJGrALe",
+      "en-njẹta-yo-adv-BABHNAFC"
+    ],
+    "عَِفوَْ": [
+      "en-ẹfọ-yo-noun-bUfjOiE~",
+      "en-عَِفوَْ-yo-noun-ebqVLoCU"
     ],
     "yẹn": [
       "en-yẹn-yo-det-jn~AI2r0",
@@ -9542,9 +13334,9 @@
       "en-yẹn-yo-verb-WKtEIt06",
       "en-yẹn-yo-verb-n01FtMIS"
     ],
-    "iyẹn": [
-      "en-iyẹn-yo-pron-aV3C1uOP",
-      "en-iyẹn-yo-pron-aV3C1uOP1"
+    "اڠَجوَْ": [
+      "en-agbajọ-yo-noun--F5BbyIz",
+      "en-اڠَجوَْ-yo-noun-DE5GLE8Y"
     ],
     "jọ": [
       "en-jọ-yo-verb-Cd7~7HT0",
@@ -9552,9 +13344,25 @@
       "en-jọ-yo-verb-wgj46ObO",
       "en-jọ-yo-verb-k8zeiSWJ"
     ],
+    "جوَْ": [
+      "en-jọ-yo-verb-wgj46ObO",
+      "en-جوَْ-yo-verb-KceK7h81"
+    ],
+    "bi ina ba jo loko, majala a fo wa sile": [
+      "en-bi_ina_ba_jo_loko,_majala_a_fo_wa_sile-yo-proverb-qa4XuGoy",
+      "en-bi_ina_ba_jo_loko,_majala_a_ṣofofo-yo-proverb-qa4XuGoy"
+    ],
     "bi ina ba jo loko": [
       "en-bi_ina_ba_jo_loko,_majala_a_fo_wa_sile-yo-proverb-qa4XuGoy",
       "en-bi_ina_ba_jo_loko,_majala_a_ṣofofo-yo-proverb-qa4XuGoy"
+    ],
+    "bi ina ba jo loko, majala a ṣofofo": [
+      "en-bi_ina_ba_jo_loko,_majala_a_fo_wa_sile-yo-proverb-qa4XuGoy",
+      "en-bi_ina_ba_jo_loko,_majala_a_ṣofofo-yo-proverb-qa4XuGoy"
+    ],
+    "adiyẹ": [
+      "en-adiyẹ-yo-noun-Zd8lucAx",
+      "en-ẹdiyẹ-yo-noun-Zd8lucAx"
     ],
     "fọn": [
       "en-fọn-yo-verb-PfXh8wSg",
@@ -9575,9 +13383,18 @@
       "en-pọ-yo-verb-N0j59QXJ",
       "en-pọ-yo-verb-ev-KzTQq"
     ],
+    "اِبَنُجعَِ": [
+      "en-ibanujẹ-yo-noun-tLZwBwIa",
+      "en-اِبَنُجعَِ-yo-noun-~yQeI4Ly"
+    ],
     "itọ": [
       "en-itọ-yo-noun-g1O-oXKf",
       "en-itọ-yo-noun-iAYZWH~J"
+    ],
+    "اِتوَْ": [
+      "en-itọ-yo-noun-g1O-oXKf",
+      "en-itọ-yo-noun-iAYZWH~J",
+      "en-اِتوَْ-yo-noun-jyK3oIP5"
     ],
     "pẹlu": [
       "en-pẹlu-yo-conj-b9iIfinG",
@@ -9587,9 +13404,17 @@
       "en-Ẹsinmirin-yo-noun-MRi1qeuv",
       "en-Ẹsinmirin-yo-name-~xEe17c7"
     ],
-    "urun": [
-      "en-urun-yo-noun-XelNaRrj",
-      "en-urun-yo-noun-TcIVm7oF"
+    "ẹsimirin": [
+      "en-Ẹsinmirin-yo-noun-MRi1qeuv",
+      "en-Ẹsinmirin-yo-name-~xEe17c7"
+    ],
+    "arugbo": [
+      "en-arugbo-yo-noun-fyglhJg9",
+      "en-arigbo-yo-noun-C4CAh3xr"
+    ],
+    "arigbo": [
+      "en-arugbo-yo-noun-fyglhJg9",
+      "en-arigbo-yo-noun-C4CAh3xr"
     ],
     "fẹlifẹli": [
       "en-fẹlifẹli-yo-noun-XuGfBQmM",
@@ -9599,9 +13424,21 @@
       "en-olowo-yo-noun-cYCLhL-0",
       "en-olowo-yo-noun-gn-5tvbH"
     ],
+    "ẹdiyẹ": [
+      "en-ẹdiyẹ-yo-noun-Zd8lucAx",
+      "en-ẹduwẹ-yo-noun-gR64G50R"
+    ],
+    "ẹduwẹ": [
+      "en-ẹdiyẹ-yo-noun-Zd8lucAx",
+      "en-ẹduwẹ-yo-noun-gR64G50R"
+    ],
     "gborigbo": [
       "en-gborigbo-yo-noun-aPRtFAUk",
       "en-gborigbo-yo-noun-3gSZfOQi"
+    ],
+    "ewọriwọ": [
+      "en-ewọriwọ-yo-noun-BNWIy0G4",
+      "en-iwọriwọ-yo-noun-MNcAHGpo"
     ],
     "sẹn": [
       "en-sẹn-yo-verb-ffaUr9QS",
@@ -9612,7 +13449,8 @@
     ],
     "ọnẹ": [
       "en-ọnẹ-yo-noun-dpWz1iPq",
-      "en-ọnẹ-yo-noun-wP0gMknm"
+      "en-ọnẹ-yo-noun-wP0gMknm",
+      "en-ọnị-yo-noun-6Er2dDEg"
     ],
     "wọnyẹn": [
       "en-wọnyẹn-yo-det-YSDX~wCs",
@@ -9631,7 +13469,27 @@
       "en-Iwarẹ-yo-name-LrwCuqKQ",
       "en-Iwarẹ-yo-noun-Xg3JCDJ4"
     ],
-    "eghe": [
+    "ịarẹ": [
+      "en-Iwarẹ-yo-name-LrwCuqKQ",
+      "en-Iwarẹ-yo-noun-Xg3JCDJ4"
+    ],
+    "ụarẹ": [
+      "en-Iwarẹ-yo-name-LrwCuqKQ",
+      "en-Iwarẹ-yo-noun-Xg3JCDJ4"
+    ],
+    "uwarẹ": [
+      "en-Iwarẹ-yo-name-LrwCuqKQ",
+      "en-Iwarẹ-yo-noun-Xg3JCDJ4"
+    ],
+    "egharẹ": [
+      "en-Iwarẹ-yo-name-LrwCuqKQ",
+      "en-Iwarẹ-yo-noun-Xg3JCDJ4"
+    ],
+    "ewarẹ": [
+      "en-Iwarẹ-yo-name-LrwCuqKQ",
+      "en-Iwarẹ-yo-noun-Xg3JCDJ4"
+    ],
+    "ie": [
       "en-eghe-yo-noun-NUmyogXm",
       "en-eghe-yo-noun-n5EWH0ND"
     ],
@@ -9646,6 +13504,10 @@
       "en-gbingbin-yo-noun-jMKXnWOi",
       "en-gbingbin-yo-noun-lDh1JFgx"
     ],
+    "karibi": [
+      "en-karibi-yo-adv-tIERwQxl",
+      "en-kaibi-yo-adv-b0xjsvzq"
+    ],
     "nẹẹ": [
       "en-nẹẹ-yo-det-IKzkcowd",
       "en-nẹẹ-yo-adv-gfFjydy1",
@@ -9655,54 +13517,99 @@
       "en-ṣakaṣaka-yo-noun-5oUC9csu",
       "en-ṣakaṣaka-yo-noun-P4wGYHzD"
     ],
+    "ọgbufọ": [
+      "en-ọgbufọ-yo-noun-Lsql3URt",
+      "en-ogbufọ-yo-noun-G~PCn4mJ"
+    ],
+    "ogbufọ": [
+      "en-ọgbufọ-yo-noun-Lsql3URt",
+      "en-ogbufọ-yo-noun-G~PCn4mJ"
+    ],
+    "ogbifọ": [
+      "en-ọgbufọ-yo-noun-Lsql3URt",
+      "en-ogbufọ-yo-noun-G~PCn4mJ"
+    ],
     "fifu": [
       "en-fifu-yo-verb-RGyUpFLp",
       "en-fifu-yo-noun-~I~OsOqL",
       "en-fifu-yo-adj-AY-pakRx"
     ],
+    "ahere": [
+      "en-ahere-yo-noun-T9LsOhht",
+      "en-aghere-yo-noun-T9LsOhht"
+    ],
+    "aere": [
+      "en-ahere-yo-noun-T9LsOhht",
+      "en-aghere-yo-noun-T9LsOhht"
+    ],
+    "aghere": [
+      "en-ahere-yo-noun-T9LsOhht",
+      "en-aghere-yo-noun-T9LsOhht"
+    ],
     "ikọ": [
       "en-ikọ-yo-noun-hmqzO4Rj",
       "en-ikọ-yo-noun-4od8U9FY"
     ],
-    "ụa": [
-      "en-ụa-yo-noun-vmr6kK8p",
-      "en-ụa-yo-noun-~tFqRfQK",
-      "en-ụa-yo-noun-HF9Vw-kw"
+    "ukọ": [
+      "en-ikọ-yo-noun-hmqzO4Rj",
+      "en-ikọ-yo-noun-4od8U9FY",
+      "en-ukọ-yo-noun-G0cqCSOH",
+      "en-ụkọ-yo-noun-0uN-wfyP",
+      "en-ụkọ-yo-noun-hmqzO4Rj"
+    ],
+    "ụkọ": [
+      "en-ikọ-yo-noun-hmqzO4Rj",
+      "en-ikọ-yo-noun-4od8U9FY",
+      "en-ukọ-yo-noun-G0cqCSOH",
+      "en-ụkọ-yo-noun-0uN-wfyP",
+      "en-ụkọ-yo-noun-hmqzO4Rj"
+    ],
+    "ẹtụpa": [
+      "en-ẹtụpa-yo-noun-nFneAwVv",
+      "en-ẹtịpa-yo-noun-bBcU7rei"
+    ],
+    "ẹtụnpa": [
+      "en-ẹtụpa-yo-noun-nFneAwVv",
+      "en-ẹtịpa-yo-noun-bBcU7rei"
+    ],
+    "ẹtịpa": [
+      "en-ẹtụpa-yo-noun-nFneAwVv",
+      "en-ẹtịpa-yo-noun-bBcU7rei"
     ],
     "ṣoro": [
       "en-ṣoro-yo-verb-Bpi8vrbE",
       "en-ṣoro-yo-verb-7KG33E1E"
     ],
-    "ẹhin": [
-      "en-ẹhin-yo-noun-sfKjeKfR",
-      "en-ẹhin-yo-noun-aTrOEAaX"
-    ],
-    "ụja": [
-      "en-Ụja-yo-name-a7-1HnU7",
-      "en-ụja-yo-noun-EuGcpI1R"
+    "muraina": [
+      "en-Murainọ-yo-name-p~VMMhnn",
+      "en-Muraina-yo-name-W1ISXULE"
     ],
     "oṣo": [
       "en-oṣo-yo-noun-M3uNt4DX",
       "en-oṣo-yo-noun-Hw5-h2xC",
       "en-oṣo-yo-noun-XgiSC5td"
     ],
-    "ụdẹ": [
-      "en-ụdẹ-yo-noun-fe-ceeW-",
-      "en-ụdẹ-yo-noun-YC03qTVu"
-    ],
-    "ụkọ": [
-      "en-ụkọ-yo-noun-0uN-wfyP",
-      "en-ụkọ-yo-noun-hmqzO4Rj"
+    "ọbụtụn": [
+      "en-ọbụtụn-yo-noun-u796ZBLW",
+      "en-atabutọn-yo-noun-u796ZBLW"
     ],
     "upẹn": [
       "en-upẹn-yo-noun-IzJxZc-9",
       "en-upẹn-yo-noun-UOFyax~C"
+    ],
+    "apapa": [
+      "en-Apapa-yo-name-k9vbVpAh",
+      "en-ọpapa-yo-noun-zB0sLT~j"
     ],
     "bọdi": [
       "en-bọdi-yo-verb-vUaAZui6",
       "en-bọdi-yo-noun-Iw2DWNyO"
     ],
     "pabanbari": [
+      "en-pabanbari-yo-verb-2Myyrtrx",
+      "en-pabanbari-yo-noun-oCp2Y6TL"
+    ],
+    "pabambari": [
       "en-pabanbari-yo-verb-2Myyrtrx",
       "en-pabanbari-yo-noun-oCp2Y6TL"
     ],
@@ -9714,7 +13621,23 @@
       "en-ibọwọ-yo-noun-mF-~gkel",
       "en-ibọwọ-yo-noun-DjdsE8Jr"
     ],
+    "sunwọn": [
+      "en-sunwọn-yo-verb-GVANi9AJ",
+      "en-sụọn-yo-verb-mcGSE0Gq"
+    ],
+    "sụọn": [
+      "en-sunwọn-yo-verb-GVANi9AJ",
+      "en-sụọn-yo-verb-mcGSE0Gq"
+    ],
+    "oṣie": [
+      "en-oṣere-yo-noun-UMnErrQL",
+      "en-oṣie-yo-noun-um-wGpPt"
+    ],
     "panyan-an": [
+      "en-Panyan-an-yo-name-bWZegqKG",
+      "en-panyan-an-yo-noun-95yeY9Xm"
+    ],
+    "پَنيَن": [
       "en-Panyan-an-yo-name-bWZegqKG",
       "en-panyan-an-yo-noun-95yeY9Xm"
     ],
@@ -9722,6 +13645,41 @@
       "en-ẹda-yo-noun-C0JLU3nj",
       "en-ẹda-yo-noun-llq7JUsQ",
       "en-ẹda-yo-noun-b1pgNOdw"
+    ],
+    "عَِدَ": [
+      "en-ẹda-yo-noun-llq7JUsQ",
+      "en-ẹda-yo-noun-b1pgNOdw"
+    ],
+    "atọn": [
+      "en-Atọn-yo-name-npP2Jilv",
+      "en-Atan-yo-name-B3UV3WWn"
+    ],
+    "atan": [
+      "en-Atọn-yo-name-npP2Jilv",
+      "en-Atan-yo-name-B3UV3WWn"
+    ],
+    "ụpịnṣa": [
+      "en-Ụpịnṣa-yo-name-AaR6OA9J",
+      "en-Ipinṣa-yo-name-0d1mRDCG"
+    ],
+    "ipinṣa": [
+      "en-Ụpịnṣa-yo-name-AaR6OA9J",
+      "en-Ipinṣa-yo-name-0d1mRDCG"
+    ],
+    "urunmu": [
+      "en-urunmu-yo-noun-qUbiziqJ",
+      "en-urumu-yo-noun-qUbiziqJ",
+      "en-ununmu-yo-noun-qUbiziqJ"
+    ],
+    "urumu": [
+      "en-urunmu-yo-noun-qUbiziqJ",
+      "en-urumu-yo-noun-qUbiziqJ",
+      "en-ununmu-yo-noun-qUbiziqJ"
+    ],
+    "ununmu": [
+      "en-urunmu-yo-noun-qUbiziqJ",
+      "en-urumu-yo-noun-qUbiziqJ",
+      "en-ununmu-yo-noun-qUbiziqJ"
     ],
     "ṣẹ": [
       "en-ṣẹ-yo-verb-y95WTzfx",
@@ -9755,6 +13713,22 @@
       "en-ɔ̌-yo-character-ZRJRZCCx",
       "en-Ɔ̌-yo-character--dmThToo"
     ],
+    "ughaghe": [
+      "en-ighaghe-yo-noun-BXomfmym",
+      "en-ughaghe-yo-noun-dpsoThuZ"
+    ],
+    "ịgbae": [
+      "en-ụgbae-yo-noun-BXomfmym",
+      "en-ịgbae-yo-noun-OrxecXxy"
+    ],
+    "ịgbaye": [
+      "en-ụgbae-yo-noun-BXomfmym",
+      "en-ịgbae-yo-noun-OrxecXxy"
+    ],
+    "ịgbare": [
+      "en-ụgbae-yo-noun-BXomfmym",
+      "en-ịgbae-yo-noun-OrxecXxy"
+    ],
     "ọ̌": [
       "en-ọ̌-yo-character--sdXZn~t",
       "en-Ọ̌-yo-character-SKhhl8G0"
@@ -9762,6 +13736,26 @@
     "ẹ̌": [
       "en-ẹ̌-yo-character-WqTbmyci",
       "en-Ẹ̌-yo-character-INz89szY"
+    ],
+    "araye": [
+      "en-iaye-yo-noun-xZscovSM",
+      "en-araye-yo-noun-B2pn10Xd"
+    ],
+    "idodo": [
+      "en-idodo-yo-noun-QHPHOT38",
+      "en-udodo-yo-noun-QHPHOT38"
+    ],
+    "ọnịfọn": [
+      "en-Ọbanịfọn-yo-name-QTioA~Ct",
+      "en-Ọnịfọn-yo-name-sLdR8HrW"
+    ],
+    "ologboṣẹrẹ": [
+      "en-Ologboṣẹrẹ-yo-name-G5aRO5NU",
+      "en-Logboṣẹẹ-yo-name-pnyzbmVE"
+    ],
+    "logboṣẹẹ": [
+      "en-Ologboṣẹrẹ-yo-name-G5aRO5NU",
+      "en-Logboṣẹẹ-yo-name-pnyzbmVE"
     ],
     "kekere": [
       "en-kekere-yo-noun-orrEocZ1",
@@ -9771,10 +13765,40 @@
       "en-okeere-yo-noun-3PU6xh5p",
       "en-okeere-yo-adv-WdwMZ12h"
     ],
+    "idalẹ": [
+      "en-idalẹ-yo-noun-mH-LW13q",
+      "en-ụdalẹ-yo-noun-NDE0nyM8"
+    ],
+    "ụdalẹ": [
+      "en-idalẹ-yo-noun-mH-LW13q",
+      "en-ụdalẹ-yo-noun-NDE0nyM8"
+    ],
     "tuntun": [
       "en-tuntun-yo-noun-0XFhEvGK",
       "en-tuntun-yo-verb-Iwez~1wC",
       "en-tuntun-yo-adj-EVB6Di9e"
+    ],
+    "titọn": [
+      "en-tuntun-yo-noun-0XFhEvGK",
+      "en-tuntun-yo-verb-Iwez~1wC",
+      "en-tuntun-yo-adj-EVB6Di9e"
+    ],
+    "tịtụn": [
+      "en-tuntun-yo-noun-0XFhEvGK",
+      "en-tuntun-yo-verb-Iwez~1wC",
+      "en-tuntun-yo-adj-EVB6Di9e"
+    ],
+    "oowo": [
+      "en-oowo-yo-noun-ELAtET61",
+      "en-eewo-yo-noun-ZlV109VZ"
+    ],
+    "oio": [
+      "en-oowo-yo-noun-ELAtET61",
+      "en-eewo-yo-noun-ZlV109VZ"
+    ],
+    "oghigho": [
+      "en-oowo-yo-noun-ELAtET61",
+      "en-eewo-yo-noun-ZlV109VZ"
     ],
     "arọ": [
       "en-arọ-yo-noun-nBiA-SKf",
@@ -9786,6 +13810,14 @@
       "en-akọni-yo-noun-IeuHAl31",
       "en-akọni-yo-noun-EFepYE4E"
     ],
+    "ughọ": [
+      "en-ụọ-yo-noun-3le~lYjb",
+      "en-ughọ-yo-noun-3le~lYjb"
+    ],
+    "ofurufu": [
+      "en-ofurufu-yo-noun-C4iVdXwc",
+      "en-ofuurufu-yo-noun-niUEG4-K"
+    ],
     "atẹgun": [
       "en-atẹgun-yo-noun-kHbP55Zf",
       "en-atẹgun-yo-noun-k1PBZ8mG"
@@ -9794,7 +13826,31 @@
       "en-enini-yo-noun-zD6IbWsG",
       "en-enini-yo-noun-hvgOHOD5"
     ],
+    "ẹnịnị": [
+      "en-enini-yo-noun-zD6IbWsG",
+      "en-enini-yo-noun-hvgOHOD5"
+    ],
+    "igbese": [
+      "en-igbese-yo-noun-wMGErvmj",
+      "en-gbese-yo-noun-ZS11-br7"
+    ],
+    "gbese": [
+      "en-igbese-yo-noun-wMGErvmj",
+      "en-gbese-yo-noun-ZS11-br7"
+    ],
+    "ugbese": [
+      "en-igbese-yo-noun-wMGErvmj",
+      "en-gbese-yo-noun-ZS11-br7"
+    ],
+    "nwaju": [
+      "en-niwaju-yo-prep_phrase-sxQgeT7h",
+      "en-nwaju-yo-prep_phrase-oEaNAZx4"
+    ],
     "kari-aye": [
+      "en-kari-aye-yo-verb-Z9oPY2UB",
+      "en-kari-aye-yo-adj-0LXcIOBt"
+    ],
+    "kariaye": [
       "en-kari-aye-yo-verb-Z9oPY2UB",
       "en-kari-aye-yo-adj-0LXcIOBt"
     ],
@@ -9807,12 +13863,22 @@
       "en-lẹyin-yo-prep-sbiGzl9X"
     ],
     "lẹhin": [
+      "en-lẹyin-yo-verb-Nz7CWfbQ",
+      "en-lẹyin-yo-prep-sbiGzl9X",
       "en-lẹhin-yo-verb-AQy3zCFb",
       "en-lẹhin-yo-prep-DfnsEGgJ"
     ],
-    "ọlọfịn": [
-      "en-ọlọfịn-yo-noun-OvtjhX2V",
-      "en-Ọlọfịn-yo-name-QMOqpU7T"
+    "leyin": [
+      "en-lẹyin-yo-verb-Nz7CWfbQ",
+      "en-lẹyin-yo-prep-sbiGzl9X",
+      "en-lẹhin-yo-verb-AQy3zCFb",
+      "en-lẹhin-yo-prep-DfnsEGgJ"
+    ],
+    "nẹyin": [
+      "en-lẹyin-yo-verb-Nz7CWfbQ",
+      "en-lẹyin-yo-prep-sbiGzl9X",
+      "en-lẹhin-yo-verb-AQy3zCFb",
+      "en-lẹhin-yo-prep-DfnsEGgJ"
     ],
     "awijare": [
       "en-awijare-yo-noun-dtJ6c2gV",
@@ -9835,15 +13901,94 @@
       "en-ọmu-yo-noun-FBbRXXfs",
       "en-ọmu-yo-noun-LflbfloU"
     ],
+    "ọmụ": [
+      "en-ọmu-yo-noun-OBNtbjQ4",
+      "en-ọmu-yo-noun-FBbRXXfs",
+      "en-ọmu-yo-noun-LflbfloU"
+    ],
+    "ọmọlangi": [
+      "en-ọmọlangi-yo-noun-FFS0tmqk",
+      "en-ọmọlangidi-yo-noun-mq-CHv33"
+    ],
+    "ọmọlangidi": [
+      "en-ọmọlangi-yo-noun-FFS0tmqk",
+      "en-ọmọlangidi-yo-noun-mq-CHv33"
+    ],
+    "ẹrọ ayelujara": [
+      "en-ẹrọ_ayelujara-yo-noun-KedzmbYx",
+      "en-ayelujara-yo-noun-BQVNADN8"
+    ],
+    "ẹrọ-ayelujara": [
+      "en-ẹrọ_ayelujara-yo-noun-KedzmbYx",
+      "en-ayelujara-yo-noun-BQVNADN8"
+    ],
+    "ayelujara": [
+      "en-ẹrọ_ayelujara-yo-noun-KedzmbYx",
+      "en-ayelujara-yo-noun-BQVNADN8"
+    ],
+    "ayelukara-bi-ajere": [
+      "en-ẹrọ_ayelujara-yo-noun-KedzmbYx",
+      "en-ayelujara-yo-noun-BQVNADN8"
+    ],
     "atijọ": [
       "en-atijọ-yo-noun-Wx3zMZRU",
       "en-atijọ-yo-adj-xgZ2hMbF"
+    ],
+    "atịjọ": [
+      "en-atijọ-yo-noun-Wx3zMZRU",
+      "en-atijọ-yo-adj-xgZ2hMbF"
+    ],
+    "egbodo": [
+      "en-egbodo-yo-noun-b6zEpUdh",
+      "en-egbojo-yo-noun-SriaPgKr"
+    ],
+    "egbojo": [
+      "en-egbodo-yo-noun-b6zEpUdh",
+      "en-egbojo-yo-noun-SriaPgKr"
+    ],
+    "igisanrin": [
+      "en-Igisanrin-yo-name-yi3r3m6X",
+      "en-Gisanrin-yo-name-GWM4JXV8"
+    ],
+    "gisanrin": [
+      "en-Igisanrin-yo-name-yi3r3m6X",
+      "en-Gisanrin-yo-name-GWM4JXV8"
     ],
     "eeru": [
       "en-eeru-yo-noun-A305DNTv",
       "en-eeru-yo-noun-U31Y0JSe",
       "en-eeru-yo-noun-DSvGJEB1",
       "en-eeru-yo-noun-cMKfyTGD"
+    ],
+    "ẽru": [
+      "en-eeru-yo-noun-A305DNTv",
+      "en-ẽru-yo-noun-JwCVoFAu"
+    ],
+    "eruru": [
+      "en-eeru-yo-noun-A305DNTv",
+      "en-eeru-yo-noun-U31Y0JSe",
+      "en-eeru-yo-noun-DSvGJEB1",
+      "en-eeru-yo-noun-cMKfyTGD"
+    ],
+    "ikarahun": [
+      "en-ikarahun-yo-noun-tnXDnLRi",
+      "en-ikarawun-yo-noun-FoQAd6vC"
+    ],
+    "ikarawun": [
+      "en-ikarahun-yo-noun-tnXDnLRi",
+      "en-ikarawun-yo-noun-FoQAd6vC"
+    ],
+    "ikaraun": [
+      "en-ikarahun-yo-noun-tnXDnLRi",
+      "en-ikarawun-yo-noun-FoQAd6vC"
+    ],
+    "karahun": [
+      "en-ikarahun-yo-noun-tnXDnLRi",
+      "en-ikarawun-yo-noun-FoQAd6vC"
+    ],
+    "ịkaraun": [
+      "en-ikarahun-yo-noun-tnXDnLRi",
+      "en-ikarawun-yo-noun-FoQAd6vC"
     ],
     "agọ": [
       "en-agọ-yo-noun-fY3quCoL",
@@ -9857,11 +14002,35 @@
       "en-iṣẹda-yo-noun-llq7JUsQ",
       "en-iṣẹda-yo-noun-xNIz~eMD"
     ],
+    "iyoku": [
+      "en-yooku-yo-noun-tEy0wW9o",
+      "en-iyooku-yo-noun-6STccBGk"
+    ],
+    "iyooku": [
+      "en-yooku-yo-noun-tEy0wW9o",
+      "en-iyooku-yo-noun-6STccBGk"
+    ],
     "ukoto": [
       "en-ukoto-yo-noun-WksONmVb",
       "en-ukoto-yo-noun-QadMt6Fe"
     ],
+    "adenikẹ": [
+      "en-Adenikẹ-yo-noun-eO~melG1",
+      "en-Adenikẹẹ-yo-noun-O-hotF3x"
+    ],
+    "adenikẹẹ": [
+      "en-Adenikẹ-yo-noun-eO~melG1",
+      "en-Adenikẹẹ-yo-noun-O-hotF3x"
+    ],
+    "adenikẹẹn": [
+      "en-Adenikẹ-yo-noun-eO~melG1",
+      "en-Adenikẹẹ-yo-noun-O-hotF3x"
+    ],
     "bẹẹ": [
+      "en-bẹẹ-yo-adv-6wEgmNWO",
+      "en-bẹẹ-yo-conj-YgERG4Og"
+    ],
+    "بعَِعَِ": [
       "en-bẹẹ-yo-adv-6wEgmNWO",
       "en-bẹẹ-yo-conj-YgERG4Og"
     ],
@@ -9869,21 +14038,49 @@
       "en-bẹẹ_ni-yo-particle-inmIkP6T",
       "en-bẹẹ_ni-yo-intj-inmIkP6T"
     ],
+    "بعَِعَِ نِ": [
+      "en-bẹẹ_ni-yo-particle-inmIkP6T",
+      "en-bẹẹ_ni-yo-intj-inmIkP6T"
+    ],
     "diẹ": [
       "en-diẹ-yo-noun-sabuQSGO",
       "en-diẹ-yo-adj-x6hR1Y3M"
     ],
-    "kannkere": [
-      "en-kannkere-yo-noun-lRZ3A68f",
-      "en-kannkere-yo-verb-iRLrg9Xi"
+    "dẹẹ": [
+      "en-diẹ-yo-noun-sabuQSGO",
+      "en-diẹ-yo-adj-x6hR1Y3M"
+    ],
+    "دِعَِ": [
+      "en-diẹ-yo-noun-sabuQSGO",
+      "en-diẹ-yo-adj-x6hR1Y3M"
+    ],
+    "egii": [
+      "en-egii-yo-noun-BrZUSnqz",
+      "en-egiri-yo-noun-8KVvTZEK"
+    ],
+    "egiri": [
+      "en-egii-yo-noun-BrZUSnqz",
+      "en-egiri-yo-noun-8KVvTZEK"
+    ],
+    "iboorun": [
+      "en-iborun-yo-noun-LTvJSiAj",
+      "en-iboorun-yo-noun-7WX2EROq"
+    ],
+    "babalooṣa": [
+      "en-babaloriṣa-yo-noun-JK0rCst9",
+      "en-babalooṣa-yo-noun-JK0rCst9"
     ],
     "mọ-ọnkọ-mọ-ọnka": [
       "en-mọ-ọnkọ-mọ-ọnka-yo-verb-kLatID88",
       "en-mọ-ọnkọ-mọ-ọnka-yo-noun-V4dWykqh"
     ],
-    "eegun": [
-      "en-eegun-yo-noun-yNrPZX~p",
-      "en-eegun-yo-noun-MBxSRaGK"
+    "mọọkọ-mọọka": [
+      "en-mọ-ọnkọ-mọ-ọnka-yo-verb-kLatID88",
+      "en-mọ-ọnkọ-mọ-ọnka-yo-noun-V4dWykqh"
+    ],
+    "mọọnkọ-mọọnka": [
+      "en-mọ-ọnkọ-mọ-ọnka-yo-verb-kLatID88",
+      "en-mọ-ọnkọ-mọ-ọnka-yo-noun-V4dWykqh"
     ]
   },
   "unknownReferencedWords": [

@@ -520,13 +520,23 @@ a { color: inherit; }
   width: min(480px, 92vw);
   height: 100%;
   background: var(--surface);
-  padding: 28px 30px;
+  padding: 0 30px 28px;
   overflow-y: auto;
 }
 .quality-panel-inner h2 {
   font-family: var(--font-display);
   color: var(--brand-indigo);
   margin-top: 14px;
+}
+#quality-close {
+  position: sticky;
+  top: 0;
+  display: block;
+  margin: 0 0 0 auto;
+  padding-top: 14px;
+  padding-bottom: 10px;
+  background: var(--surface);
+  z-index: 1;
 }
 .quality-stat {
   display: flex;
@@ -604,6 +614,16 @@ a { color: inherit; }
 }
 .footer-links a { font-weight: 600; text-decoration: none; }
 .footer-links a:hover { color: var(--brand-accent-deep); }
+
+/* Narrow viewports: the full "who we are" blurb is the same content
+   already on the About page - on a small phone screen it's a
+   disproportionately large chunk of an otherwise tightly viewport-
+   constrained tool, so it's dropped here in favor of a single link. */
+@media (max-width: 700px) {
+  .site-footer { padding: 14px 14px; }
+  .footer-inner { gap: 6px; }
+  .footer-inner p { display: none; }
+}
 
 /* ---------- Focus visibility (accessibility floor) ---------- */
 

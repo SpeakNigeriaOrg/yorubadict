@@ -66,10 +66,13 @@ To rebuild the real dictionary from the committed Kaikki extract:
 npm run build -- data/dictionary-Yoruba.jsonl
 ```
 
-**Careful:** `npm run build` with no arguments (and `npm start`, which calls
-it) defaults to `data/sample.jsonl` — a 16-record smoke-test fixture, not the
-real dictionary. Running it with no argument will silently overwrite
-`public/data/*.json` with that 16-entry sample. `build:custom` in
+`npm run build` with no arguments (and `npm start`, which calls it) defaults
+to `data/dictionary-Yoruba.jsonl` — the real dictionary. Pass
+`-- data/sample.jsonl` explicitly if you want the 16-record smoke-test
+fixture instead. (This wasn't always true: earlier, the no-argument default
+was the sample file, and it was easy to silently overwrite
+`public/data/*.json` with 16 entries by running a bare `npm start`. The
+default was flipped for exactly that reason.) `build:custom` in
 `package.json` is not actually a different code path — it runs the exact
 same command as `build`; the only way to target a different file is the
 `-- path/to/file.jsonl` argument shown above.
@@ -145,6 +148,13 @@ normalizer prefers an explicit `canonical` tag when Kaikki provides one
 value is always kept alongside the inferred one — normalization supplements
 the data, it never discards anything.
 
+The fallback case shows up in the UI as a "no canonical tag" badge on the
+entry header and a "No explicit canonical tag" row in the Data Quality
+panel — deliberately not called "inferred spelling," since in most cases
+nothing was actually guessed: Wiktionary simply never tagged an alternative,
+so there was nothing to disambiguate (falling back to the headword is the
+only possible answer, not a guess among competing options).
+
 Etymology is handled the same way: we don't re-derive or re-parse it. Kaikki
 already splits a word into separate records when Wiktionary documents
 multiple, unrelated etymologies for the same spelling (via `etymology_number`
@@ -198,6 +208,57 @@ etymology prose, with no `derived`/`related`/`synonyms`/`antonyms` list on
 synthesized in either direction. That's a real limit of the current
 pipeline, not a design choice.
 
+### Etymology decomposition: Component words
+
+Yorùbá habitually builds larger words out of smaller ones — `àmọ̀tẹ́kùn`
+("leopard") decomposes to `à-` (nominalizing prefix) + `mọ̀` ("to know") +
+`tó` ("that") + `tó` ("is equal to, similar to") + `ẹkùn` ("leopard"),
+literally "the one that we know is similar to a leopard." Kaikki's own
+etymology templates already capture this — `normalizer.mjs`'s
+`extractEtymologyMorphemes` reads `record.etymology_templates` for template
+names that decompose a word into same-language morphemes
+(`compound`/`com`/`compound+`/`reduplication`/`blend`, plus `af`/`affix`/
+`prefix` — these three were initially excluded on the wrong assumption they
+only ever mark a single bound prefix; real data disproves that, with many
+`af`/`affix` templates mixing a bound prefix with several free-standing real
+words, `àmọ̀tẹ́kùn` being one). Each morpheme is tagged `bound` (a
+grammatical prefix/suffix like `à-`, never an independent word — displayed
+as plain unlinked text with its gloss) or free (a real word, potentially
+already in this dictionary — filtering is per-morpheme, not per-template, so
+one bound prefix in a template no longer discards the rest of that
+template's genuine words).
+
+Free morphemes are resolved against the same alias index described above,
+with two refinements specific to this feature:
+
+- **Tonal-exact match always wins.** A morpheme's spelling frequently
+  coincides with another entry's raw, untoned Wiktionary headword (the page
+  titled "mọ" is also indexed under that spelling even though its real
+  canonical form is "mọ̀" or "mọ́") — an entry whose *own* canonical spelling
+  exactly matches the morpheme always wins over one that only matched via
+  that looser headword/alt-form alias.
+- **Gloss-overlap tiebreak among true homographs.** When several entries
+  share the exact same spelling and tone (e.g. `gbà` has real senses "to
+  rescue"/"to accept"/"to combust"), the one whose own sense glosses share
+  the most words with the morpheme's own gloss is preferred — a `gbà`
+  morpheme glossed "accept" prefers the "to accept" sense.
+
+Neither refinement is exhaustive: cross-language mismatches in Wiktionary's
+own template data (a real, if rare, case: one word's etymology glosses a
+morpheme "I" using a spelling that's actually a different, unrelated word)
+can't be fixed algorithmically, and gloss-overlap is a lexical heuristic, not
+true semantic matching. For exactly this reason, clicking a resolved
+"Component words" pill both navigates to the ranked-best entry *and*
+populates the search box with that spelling, so every homograph is one look
+away if the default guess is wrong.
+
+The reverse direction is synthesized too: if one entry's etymology decomposes
+to include another as a free-standing component, the component's own page
+gets a "Used in" section listing every word built from it — derived purely
+from etymology templates, so (unlike the `derived`/`related`/etc. synthesis
+above) it doesn't depend on Wiktionary's editors having also filled in a
+"derived terms" list on the component's own page.
+
 ### Orthographic normalization
 
 Yorùbá orthography has three independent dimensions, and `build/lib/orthography.mjs`
@@ -222,6 +283,19 @@ tone-insensitive → orthography-insensitive → prefix → English BM25, dedupe
 by id, first-seen tier wins. This is what makes "search both directions at
 once" work without a special-cased merge step — it's just running the
 Yorùbá tiers and the English index and keeping first-seen order.
+
+Every Yorùbá tier indexes each entry's alt forms as well as its canonical
+spelling (`build/lib/search-index.mjs`'s `searchableForms`) — an alt form is
+real, displayed data (e.g. `iná` "fire" lists `uná` as an alternative form),
+and without this it was findable on the page but not by searching for it.
+
+The English index deliberately does *not* apply stopword-filtering to
+glosses (only to example-sentence translations, genuine prose where
+"the"/"and" are just connective noise). A gloss is a short, curated
+definition, and for a real Yorùbá conjunction or demonstrative the entire
+correct gloss can legitimately just be "that"/"this"/"and"/"or" — filtering
+those out as noise words meant the word was defined correctly on the page
+but could never be found by searching for its own definition.
 
 ### Entry IDs and routing
 
