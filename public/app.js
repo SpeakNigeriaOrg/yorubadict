@@ -492,7 +492,11 @@
   function renderQualityPanel() {
     const v = state.validation;
     if (!v) return;
+    const sourceNote = v.kaikkiSourceDate
+      ? `<div class="quality-note">Data last refreshed from <a href="https://github.com/SpeakNigeriaOrg/kaikki-yoruba/releases/tag/${encodeURIComponent(v.kaikkiReleaseTag)}" target="_blank" rel="noopener noreferrer">kaikki-yoruba release ${escapeHtml(v.kaikkiReleaseTag)}</a>, sourced ${escapeHtml(v.kaikkiSourceDate)}.</div>`
+      : '';
     els.qualityContent.innerHTML = `
+      ${sourceNote}
       <div class="quality-stat"><span>Total entries</span><strong>${v.totalEntries}</strong></div>
       <div class="quality-stat"><span>No explicit canonical tag</span><strong>${v.inferredCanonicalForms.length}</strong></div>
       <div class="quality-stat"><span>Entries missing IPA</span><strong>${v.missingIpa.length}</strong></div>

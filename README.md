@@ -60,26 +60,30 @@ contributing, auditing data quality, or just curious how it works.
 npm run serve     # serves public/ at http://localhost:8080, using the data already built
 ```
 
-To rebuild the real dictionary from the committed Kaikki extract:
+To rebuild from [`kaikki-yoruba`](https://github.com/SpeakNigeriaOrg/kaikki-yoruba)'s
+latest published data:
 
 ```
-npm run build -- data/dictionary-Yoruba.jsonl
+npm run build
 ```
 
-`npm run build` with no arguments (and `npm start`, which calls it) defaults
-to `data/dictionary-Yoruba.jsonl` — the real dictionary. Pass
-`-- data/sample.jsonl` explicitly if you want the 16-record smoke-test
-fixture instead. (This wasn't always true: earlier, the no-argument default
-was the sample file, and it was easy to silently overwrite
-`public/data/*.json` with 16 entries by running a bare `npm start`. The
-default was flipped for exactly that reason.) `build:custom` in
-`package.json` is not actually a different code path — it runs the exact
-same command as `build`; the only way to target a different file is the
-`-- path/to/file.jsonl` argument shown above.
+`npm run build` with no arguments (and `npm start`, which calls it) fetches
+kaikki-yoruba's latest GitHub Release and rebuilds from that. Pass a local
+file instead for offline dev or to pin to a specific snapshot:
 
-You need Node 18+ — no dependencies are installed; everything here is
-vanilla Node/JS/HTML/CSS on purpose, so there's nothing to `npm install` and
-nothing that can go out of date.
+```
+npm run build -- data/sample.entries.json   # 16-entry smoke-test fixture
+npm run build -- path/to/entries.json       # any other local snapshot
+```
+
+`build:custom` in `package.json` is not actually a different code path - it
+runs the exact same command as `build`; the only way to target a local file
+is the `-- path/to/entries.json` argument shown above.
+
+You need Node 18+ (for its built-in `fetch`) — no npm dependencies are
+installed; everything here is vanilla Node/JS/HTML/CSS on purpose, so
+there's nothing that can go out of date except the one real dependency this
+now has: network access to GitHub, to fetch kaikki-yoruba's latest release.
 
 **Why a dev server at all, if it's static?** Browsers block `fetch()`
 against `file://` URLs (CORS), so `public/` needs to be served over
@@ -107,32 +111,43 @@ thing is an outright inefficiency worth fixing: `validation-report.json` is
 fetched on *every* visit just so the "Data quality" panel can render if
 someone clicks it — it should be lazy-loaded on demand instead, not on boot.
 
-## The pipeline: Kaikki JSONL → browser-ready JSON
+## The pipeline: kaikki-yoruba's artifact → browser-ready JSON
 
 ```
-Kaikki JSONL (data/dictionary-Yoruba.jsonl)
-  -> build/lib/parser.mjs         Stage 1: parse JSONL, collect line-level errors
-  -> build/lib/normalizer.mjs     Stage 2: canonical form inference, per-field
-                                    extraction, garbled-table detection
-  -> build/lib/relationships.mjs  Stage 3: alias resolution + reciprocal
-                                    relationship synthesis, with provenance
-  -> build/lib/validator.mjs      Stage 4: diagnostic report (never mutates data)
-  -> build/lib/search-index.mjs   Stage 5: sorted Yorùbá tiers + English BM25 index
+kaikki-yoruba's entries.json (already-normalized entries, incl. resolved
+  etymologyMorphemes/usedInCompounds - see that repo's README)
+  -> build/lib/loadEntries.mjs    Stage 1: load a local file, or fetch
+                                    kaikki-yoruba's latest GitHub Release
+  -> build/lib/relationships.mjs  Stage 2: alias resolution + reciprocal
+                                    synthesis for derivedTerms/relatedTerms/
+                                    synonyms/antonyms/descendants (the *other*
+                                    relation types - not etymology morphemes,
+                                    which arrive already resolved)
+  -> build/lib/validator.mjs      Stage 3: diagnostic report (never mutates data)
+  -> build/lib/search-index.mjs   Stage 4: sorted Yorùbá tiers + English BM25 index
   -> public/data/*.json           Static browser assets
 ```
 
-`build/normalize.mjs` orchestrates all five stages. Run against the current
-`data/dictionary-Yoruba.jsonl` (6,273 raw Kaikki records, already filtered
-to Yorùbá), it produces:
+Parsing raw Kaikki JSONL and normalizing it into canonical entries (canonical-
+form inference, garbled-table detection, per-field extraction, and etymology-
+morpheme extraction/resolution) used to happen here - that's now
+kaikki-yoruba's job, shared with `yoruba_student_dict_platform`. See its
+README for what it owns and why.
 
-- **0 parse errors** — the extract is clean JSONL.
-- **778 entries** with an inferred rather than explicitly-tagged canonical
+`build/normalize.mjs` orchestrates all four stages. Run against
+kaikki-yoruba's current published data (6,272 entries - Kaikki assigns the
+same sense id to two structurally different records for one rare spelling,
+`gọlọmiṣọ`, so one silently overwrites the other; a known, upstream data
+quirk, not a bug in this pipeline), it produces:
+
+- **777 entries** with an inferred rather than explicitly-tagged canonical
   spelling (see below).
 - **374 entries** with no IPA in the source data.
 - **2,760 unresolved relationship references** — a derived/related/synonym
   points to a spelling that isn't in this extract.
-- **724 spellings** shared by more than one homograph once tone marks and
-  underdots are stripped.
+- **1,579 spellings** shared by more than one homograph once tone marks and
+  underdots are stripped (checked across each entry's headword, canonical
+  form, *and* alt forms - not just its canonical form alone).
 - **1 circular derivation chain.**
 
 All of these are visible live in the app via the "Data quality" button, not
@@ -141,12 +156,12 @@ just in this file — nothing about data quality is hidden from users.
 ### Canonical forms and homographs
 
 Kaikki records don't always tag which form of a word is canonical (this is
-common for single-letter "character" entries and some function words). The
-normalizer prefers an explicit `canonical` tag when Kaikki provides one
-(confidence `1.0`); otherwise it falls back to the raw headword itself
-(confidence `0.5`, and logged to the validation report). The original source
-value is always kept alongside the inferred one — normalization supplements
-the data, it never discards anything.
+common for single-letter "character" entries and some function words).
+kaikki-yoruba's normalizer prefers an explicit `canonical` tag when Kaikki
+provides one (confidence `1.0`); otherwise it falls back to the raw
+headword itself (confidence `0.5`, logged to this repo's own validation
+report). The original source value is always kept alongside the inferred
+one — normalization supplements the data, it never discards anything.
 
 The fallback case shows up in the UI as a "no canonical tag" badge on the
 entry header and a "No explicit canonical tag" row in the Data Quality
@@ -173,7 +188,8 @@ marker character), an oddly long "word" (anything over 50 characters is
 almost never an actual term), or a full sentence (anything containing `. `).
 
 Rather than render garbage or silently drop the whole relationship, the
-normalizer (`extractRelationList` in `build/lib/normalizer.mjs`) detects
+normalizer (`extractRelationList` in kaikki-yoruba's `src/lib/normalizer.mjs`
+- normalization itself now happens there, see "The pipeline" above) detects
 these cases and replaces them with a single fallback pill that links directly
 to that word's own Yorùbá section on Wiktionary ("View complex dialect data
 on Wiktionary"). Nothing is lost — it's just deferred to the source, which
@@ -214,22 +230,25 @@ Yorùbá habitually builds larger words out of smaller ones — `àmọ̀tẹ́k
 ("leopard") decomposes to `à-` (nominalizing prefix) + `mọ̀` ("to know") +
 `tó` ("that") + `tó` ("is equal to, similar to") + `ẹkùn` ("leopard"),
 literally "the one that we know is similar to a leopard." Kaikki's own
-etymology templates already capture this — `normalizer.mjs`'s
-`extractEtymologyMorphemes` reads `record.etymology_templates` for template
-names that decompose a word into same-language morphemes
-(`compound`/`com`/`compound+`/`reduplication`/`blend`, plus `af`/`affix`/
+etymology templates already capture this — extraction and resolution both
+happen upstream now, in kaikki-yoruba's `src/lib/normalizer.mjs`
+(`extractEtymologyMorphemes`, reading `record.etymology_templates` for
+template names that decompose a word into same-language morphemes:
+`compound`/`com`/`compound+`/`reduplication`/`blend`, plus `af`/`affix`/
 `prefix` — these three were initially excluded on the wrong assumption they
 only ever mark a single bound prefix; real data disproves that, with many
 `af`/`affix` templates mixing a bound prefix with several free-standing real
-words, `àmọ̀tẹ́kùn` being one). Each morpheme is tagged `bound` (a
+words, `àmọ̀tẹ́kùn` being one) and `src/lib/morphemeResolution.mjs` (see that
+repo's README for the full rationale). Each morpheme is tagged `bound` (a
 grammatical prefix/suffix like `à-`, never an independent word — displayed
 as plain unlinked text with its gloss) or free (a real word, potentially
 already in this dictionary — filtering is per-morpheme, not per-template, so
 one bound prefix in a template no longer discards the rest of that
-template's genuine words).
+template's genuine words). This entry's `etymologyMorphemes` field already
+arrives with each free morpheme's `entryIds` resolved by the time it reaches
+this repo - nothing left to compute here, just render.
 
-Free morphemes are resolved against the same alias index described above,
-with two refinements specific to this feature:
+Two refinements went into that upstream resolution:
 
 - **Tonal-exact match always wins.** A morpheme's spelling frequently
   coincides with another entry's raw, untoned Wiktionary headword (the page
@@ -252,12 +271,14 @@ true semantic matching. For exactly this reason, clicking a resolved
 populates the search box with that spelling, so every homograph is one look
 away if the default guess is wrong.
 
-The reverse direction is synthesized too: if one entry's etymology decomposes
-to include another as a free-standing component, the component's own page
-gets a "Used in" section listing every word built from it — derived purely
-from etymology templates, so (unlike the `derived`/`related`/etc. synthesis
-above) it doesn't depend on Wiktionary's editors having also filled in a
-"derived terms" list on the component's own page.
+The reverse direction is synthesized too (also upstream, in kaikki-yoruba):
+if one entry's etymology decomposes to include another as a free-standing
+component, the component's own `usedInCompounds` field lists every word
+built from it, rendered here as a "Used in" section — derived purely from
+etymology templates, so (unlike the `derived`/`related`/etc. synthesis
+below, which *is* still this repo's own job) it doesn't depend on
+Wiktionary's editors having also filled in a "derived terms" list on the
+component's own page.
 
 ### Orthographic normalization
 
@@ -311,23 +332,33 @@ routes need zero server-side rewrite configuration on any static host,
 keeping the "fully static, zero backend" property airtight. Deep links,
 bookmarks, and the back button all work.
 
-## Staying fresh: the build is *not* automated
+## Staying fresh: this build is not automated (kaikki-yoruba's is)
 
-There is no scheduled job pulling new data. `data/dictionary-Yoruba.jsonl` is
-a manually-downloaded snapshot of Kaikki's Yorùbá extract, committed as-is.
-Refreshing it is a manual, three-step process:
+There is no scheduled job in *this* repo pulling new data - but there is one
+in kaikki-yoruba, which fetches a current Kaikki extract and republishes a
+new release weekly. Refreshing here is a two-step process:
 
-1. Download a current extract from [kaikki.org](https://kaikki.org).
-2. `npm run build -- path/to/new-extract.jsonl`
-3. Commit and redeploy the regenerated `public/data/*.json`.
+1. Wait for (or manually trigger) kaikki-yoruba's own scheduled refresh.
+2. `npm run build` (fetches its latest release automatically), then commit
+   and redeploy the regenerated `public/data/*.json`.
 
-There's currently no automated way to know how stale the shipped data is
-short of downloading a fresh extract and diffing entry counts. A scheduled
-rebuild (a periodic GitHub Action, say) plus a visible "data last refreshed"
-date is the obvious next step, but neither exists yet.
+This is simpler than the old manual-download step, but the "how stale is
+the shipped data" gap is now partly closed too: `npm run build`'s console
+output prints the source release's tag and date, and the same two fields
+(`kaikkiSourceDate`, `kaikkiReleaseTag`) are written into
+`validation-report.json` and surfaced in the "Data quality" panel - so
+there's a visible "data last refreshed" date now, at least when building
+from the live release path (a local-file build has no such date, since
+there's no release to attribute it to).
 
-`data/sample.jsonl` (16 records) is a separate, tiny fixture kept around for
-fast pipeline smoke-testing — it's not related to the real dictionary build.
+`data/dictionary-Yoruba.jsonl` and `data/sample.jsonl` (raw Kaikki JSONL)
+are no longer valid input to this repo's own build - kaikki-yoruba now owns
+parsing that format. They're kept as reference/legacy fixtures (kaikki-yoruba's
+own test suite reads the real one as a convenience "sibling checkout"
+fixture). `data/sample.entries.json` (16 entries, already in the
+already-normalized shape this build now expects) is the real smoke-test
+fixture going forward - generated by running kaikki-yoruba's own
+`npm run build:sample` and copying its output here.
 
 ## Deployment: built for Cloudflare Pages (or any static host)
 
@@ -343,7 +374,12 @@ Two ways to run this in CI:
   does) and set the host's build command to none, output directory `public/`.
   What's in the repo is exactly what ships.
 - **Or** set the build command to `npm run build` so the host regenerates
-  `public/data` on every deploy from whatever `data/*.jsonl` is committed.
+  `public/data` on every deploy by fetching kaikki-yoruba's latest release.
+  Unlike before this repo's build was retargeted, this now requires the
+  build environment to have outbound network access to GitHub - true of
+  virtually every static-host CI environment, but a real new dependency
+  where there wasn't one (the old build only ever read a locally committed
+  file).
 
 If you ever want path-based URLs instead of hash routes, that mainly means
 adding a rewrite rule on your host (e.g. `/* /index.html 200` on Cloudflare
@@ -354,17 +390,22 @@ the entry-rendering code itself doesn't change.
 
 ```
 data/
-  dictionary-Yoruba.jsonl        the real, committed Kaikki Yorùbá extract (6,273 records)
-  sample.jsonl                   16-record fixture for pipeline smoke-testing
+  dictionary-Yoruba.jsonl        legacy/reference: raw Kaikki extract (no
+                                    longer a valid build input - see kaikki-yoruba)
+  sample.jsonl                   legacy/reference: raw JSONL, same reason
+  sample.entries.json             16-entry smoke-test fixture, already in
+                                    kaikki-yoruba's normalized shape
 build/
   normalize.mjs                  pipeline orchestrator (entry point)
   lib/
-    orthography.mjs              tone/underdot stripping
-    parser.mjs                   Stage 1
-    normalizer.mjs                Stage 2 (canonical forms, garbled-table detection)
-    relationships.mjs             Stage 3 (alias resolution, reciprocal synthesis)
-    validator.mjs                  Stage 4 (diagnostic report)
-    search-index.mjs               Stage 5 (Yorùbá tiers + English BM25 index)
+    orthography.mjs              tone/underdot stripping, spellingsForEntry
+    loadEntries.mjs                Stage 1 (load a local file, or fetch
+                                     kaikki-yoruba's latest release)
+    relationships.mjs             Stage 2 (alias resolution + reciprocal
+                                     synthesis for the relation types this
+                                     repo still owns)
+    validator.mjs                  Stage 3 (diagnostic report)
+    search-index.mjs               Stage 4 (Yorùbá tiers + English BM25 index)
   validation-report.json          (generated, pretty-printed copy for local inspection)
 public/                            <- deploy this directory as-is
   index.html

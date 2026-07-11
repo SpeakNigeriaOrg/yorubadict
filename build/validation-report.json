@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-11T17:54:40.126Z",
-  "totalEntries": 6273,
+  "generatedAt": "2026-07-11T18:24:14.158Z",
+  "totalEntries": 6272,
   "parseErrors": [],
   "inferredCanonicalForms": [
     {
@@ -2808,12 +2808,6 @@
     {
       "entryId": "en-garawa-yo-noun-zCI4NaQg",
       "headword": "garawa",
-      "method": "fallback_headword",
-      "confidence": 0.5
-    },
-    {
-      "entryId": "en-gọlọmiṣọ-yo-noun-Omx-GUFt1",
-      "headword": "gọlọmiṣọ",
       "method": "fallback_headword",
       "confidence": 0.5
     },
@@ -27890,5 +27884,8 @@
       "en-ẹdọ-yo-noun-SbwMyDuV",
       "en-ẹdọ-yo-noun-SbwMyDuV"
     ]
-  ]
+  ],
+  "kaikkiSourceDate": null,
+  "kaikkiReleaseTag": null,
+  "kaikkiParseErrorCount": null
 }
