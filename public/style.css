@@ -537,7 +537,14 @@ a { color: inherit; }
   padding-bottom: 10px;
   background: var(--surface);
   z-index: 1;
+  /* .ghost-btn's default color/border (near-white) is meant for use on
+     the dark indigo header, where it's normally used - reused here on a
+     light panel background, that's white-on-white: invisible, not just
+     low-contrast. Override both for a light background specifically. */
+  color: var(--brand-indigo);
+  border-color: var(--border-subtle);
 }
+#quality-close:hover { border-color: var(--brand-accent); color: var(--brand-accent-deep); }
 .quality-stat {
   display: flex;
   justify-content: space-between;
