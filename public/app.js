@@ -262,6 +262,37 @@
     return elements.join('');
   }
 
+  function morphemesHtml(morphemes) {
+    if (!morphemes || !morphemes.length) return '';
+    // Exactly one element per morpheme in the etymology, regardless of how
+    // many dictionary entries share that spelling - unlike relationPillsHtml
+    // (where each entryId is a genuinely different target word worth its
+    // own pill, labeled with THAT target's own canonical form/pos), every
+    // entryId here refers to the SAME morpheme text from the SAME etymology
+    // template, so rendering one pill per entryId would just repeat
+    // identical text (confirmed bug: "tó"/"ẹkùn" - common spellings shared
+    // by several homographs - rendered 2-3x each with no distinguishing
+    // information). When more than one entry shares the spelling, this
+    // links to the first and notes the ambiguity in the tooltip, since
+    // Kaikki's etymology template doesn't say which specific sense is meant.
+    return morphemes.map((m) => {
+      const glossHtml = m.gloss ? ` <span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
+      if (m.bound) {
+        return `<span class="relation-pill unresolved" title="Bound morpheme - not an independent word">${escapeHtml(m.form)}${glossHtml}</span>`;
+      }
+      if (m.resolved && m.entryIds && m.entryIds.length > 0) {
+        const target = state.entries[m.entryIds[0]];
+        if (target) {
+          const title = m.entryIds.length > 1
+            ? ` title="${m.entryIds.length} entries share this spelling - linking to the first"`
+            : '';
+          return `<a class="relation-pill" href="#/entry/${encodeURIComponent(m.entryIds[0])}"${title} data-search-form="${escapeHtml(m.form)}">${escapeHtml(m.form)}${glossHtml}</a>`;
+        }
+      }
+      return `<span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span>`;
+    }).join('');
+  }
+
   function section(title, innerHtml) {
     if (!innerHtml) return '';
     return `<div class="entry-section">
@@ -276,7 +307,7 @@
       : '';
 
     const inferredBadge = entry.canonicalForm.inferenceMethod !== 'explicit_canonical_tag'
-      ? `<span class="entry-inferred-badge" title="Canonical form inferred (method: ${escapeHtml(entry.canonicalForm.inferenceMethod)}, confidence ${entry.canonicalForm.confidence}). Original Wiktionary headword: “${escapeHtml(entry.canonicalForm.originalValue)}”.">inferred spelling</span>`
+      ? `<span class="entry-inferred-badge" title="No explicit canonical-form tag in the source data - showing Wiktionary's own headword as-is (“${escapeHtml(entry.canonicalForm.originalValue)}”).">no canonical tag</span>`
       : '';
 
     const sensesHtml = entry.senses.length
@@ -301,6 +332,7 @@
     const etymologyHtml = entry.etymologyText
       ? `<div class="etymology-text">${escapeHtml(entry.etymologyText)}</div>`
       : '';
+    const morphemesHtmlStr = morphemesHtml(entry.etymologyMorphemes);
 
     const derivedHtml = relationPillsHtml(entry.derivedTerms);
     const relatedHtml = relationPillsHtml(entry.relatedTerms);
@@ -311,6 +343,7 @@
       [],
       (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom')
     );
+    const usedInHtml = relationPillsHtml([], entry.usedInCompounds || []);
 
     els.entryContent.innerHTML = `
       <div class="entry-header">
@@ -324,6 +357,8 @@
 
       ${section('Definitions', sensesHtml)}
       ${section('Etymology', etymologyHtml)}
+      ${section('Component words', morphemesHtmlStr)}
+      ${section('Used in', usedInHtml)}
       ${section('Derived terms', derivedHtml)}
       ${section('Derived from', derivedFromHtml)}
       ${section('Related terms', relatedHtml)}
@@ -459,13 +494,13 @@
     if (!v) return;
     els.qualityContent.innerHTML = `
       <div class="quality-stat"><span>Total entries</span><strong>${v.totalEntries}</strong></div>
-      <div class="quality-stat"><span>Inferred canonical forms</span><strong>${v.inferredCanonicalForms.length}</strong></div>
+      <div class="quality-stat"><span>No explicit canonical tag</span><strong>${v.inferredCanonicalForms.length}</strong></div>
       <div class="quality-stat"><span>Entries missing IPA</span><strong>${v.missingIpa.length}</strong></div>
       <div class="quality-stat"><span>Unresolved relationship references</span><strong>${v.unknownReferencedWords.length}</strong></div>
       <div class="quality-stat"><span>Homograph spellings</span><strong>${Object.keys(v.duplicateNormalizedSpellings).length}</strong></div>
       <div class="quality-stat"><span>Circular derivation chains</span><strong>${v.circularDerivations.length}</strong></div>
       <div class="quality-note">
-        These are gaps in the underlying Wiktionary data — inferred spellings, missing pronunciations, cross-references that don't resolve to an entry in this extract, homographs, and so on — not bugs in this site. Fixing one means editing the source entry on Wiktionary itself; we'll pick up the fix automatically next time we rebuild from a fresh extract.
+        These describe the underlying Wiktionary data, not bugs in this site — missing pronunciations, cross-references that don't resolve to an entry in this extract, homographs, and so on. "No explicit canonical tag" entries aren't necessarily wrong — most simply have no alternative spelling for Wiktionary to disambiguate from, so we show its headword as-is. Fixing a genuine data gap means editing the source entry on Wiktionary itself; we'll pick up the fix automatically next time we rebuild from a fresh extract.
       </div>
       <a class="quality-download" href="data/validation-report.json" download="yorubadict-quality-report.json">
         Download the full report (JSON) — every affected entry ID, for fixing on Wiktionary
@@ -496,6 +531,18 @@
     });
     els.qualityClose.addEventListener('click', () => {
       els.qualityPanel.classList.add('hidden');
+    });
+
+    // Component-word pills link to one ranked-best homograph, but several
+    // real entries can share the exact same spelling - clicking a pill also
+    // populates and runs the search pane for that spelling, so every
+    // homograph is one click away if the default pick is wrong. Delegated
+    // on entryContent since it's rebuilt via innerHTML on every render.
+    els.entryContent.addEventListener('click', (e) => {
+      const pill = e.target.closest('[data-search-form]');
+      if (!pill) return;
+      els.searchInput.value = pill.getAttribute('data-search-form');
+      renderResults(search(els.searchInput.value));
     });
 
     window.addEventListener('hashchange', handleRoute);

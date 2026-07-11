@@ -8,7 +8,8 @@
 // Usage:
 //   node build/normalize.mjs [path-to-jsonl]
 //
-// Defaults to data/sample.jsonl. Writes:
+// Defaults to the real dictionary, data/dictionary-Yoruba.jsonl (pass
+// data/sample.jsonl explicitly for the tiny smoke-test fixture). Writes:
 //   public/data/entries.json
 //   public/data/search-index.json
 //   build/validation-report.json
@@ -28,7 +29,7 @@ const rootDir = path.resolve(__dirname, '..');
 
 const inputPath = process.argv[2]
   ? path.resolve(process.cwd(), process.argv[2])
-  : path.join(rootDir, 'data', 'sample.jsonl');
+  : path.join(rootDir, 'data', 'dictionary-Yoruba.jsonl');
 
 const outEntriesPath = path.join(rootDir, 'public', 'data', 'entries.json');
 const outIndexPath = path.join(rootDir, 'public', 'data', 'search-index.json');

@@ -9,37 +9,62 @@
 //     document lengths) so the browser can score BM25 itself with no
 //     server round-trip.
 
+import { allForms } from './orthography.mjs';
+
 const STOPWORDS = new Set([
   'a', 'an', 'the', 'to', 'of', 'or', 'and', 'in', 'on', 'as', 'is', 'be',
   'by', 'with', 'for', 'that', 'this',
 ]);
 
-function tokenize(text) {
+function tokenize(text, { keepStopwords = false } = {}) {
   return (text || '')
     .toLowerCase()
     .split(/[^a-z0-9']+/)
-    .filter((t) => t && t.length > 1 && !STOPWORDS.has(t));
+    .filter((t) => t && t.length > 1 && (keepStopwords || !STOPWORDS.has(t)));
 }
 
+// Glosses are short, curated definitions, not free prose - for a real
+// Yoruba conjunction/demonstrative, the entire correct gloss can just be
+// "that"/"this"/"and"/"or" (confirmed: 10 real entries corpus-wide), so
+// stopword-filtering must not apply there or those words become
+// permanently unsearchable by their own definition. It's still correct for
+// example-sentence translations, genuine natural-language prose where
+// stopwords really are just noise.
 function englishTextForEntry(entry) {
-  const parts = [];
+  const glossParts = [];
+  const exampleParts = [];
   for (const sense of entry.senses) {
-    parts.push(...(sense.glosses || []));
-    parts.push(...(sense.rawGlosses || []));
+    glossParts.push(...(sense.glosses || []));
+    glossParts.push(...(sense.rawGlosses || []));
     for (const ex of sense.examples) {
-      if (ex.translation) parts.push(ex.translation);
+      if (ex.translation) exampleParts.push(ex.translation);
     }
   }
-  return parts.join(' ');
+  return { glossText: glossParts.join(' '), exampleText: exampleParts.join(' ') };
 }
 
-function buildSortedTierIndex(entries, tierKey) {
+// Every searchable spelling for an entry - its canonical form plus each
+// alt form Wiktionary lists (e.g. iná's alt form uná) - each with its own
+// exact/toneInsensitive/orthographyInsensitive tiers, all pointing back at
+// the same entry. Without this, alt forms are real, displayed data that's
+// simply never findable by search.
+function searchableForms(entry) {
+  const forms = [entry.forms];
+  for (const alt of entry.altForms || []) {
+    if (alt.form) forms.push(allForms(alt.form));
+  }
+  return forms;
+}
+
+function buildSortedTierIndex(entries, tierKey, formsByEntry) {
   const map = new Map(); // spelling -> Set(entryId)
   for (const entry of entries) {
-    const spelling = entry.forms[tierKey];
-    if (!spelling) continue;
-    if (!map.has(spelling)) map.set(spelling, new Set());
-    map.get(spelling).add(entry.id);
+    for (const formsObj of formsByEntry.get(entry.id)) {
+      const spelling = formsObj[tierKey];
+      if (!spelling) continue;
+      if (!map.has(spelling)) map.set(spelling, new Set());
+      map.get(spelling).add(entry.id);
+    }
   }
   const sortedSpellings = [...map.keys()].sort();
   return {
@@ -53,7 +78,11 @@ function buildEnglishIndex(entries) {
   const docLengths = {};
 
   for (const entry of entries) {
-    const tokens = tokenize(englishTextForEntry(entry));
+    const { glossText, exampleText } = englishTextForEntry(entry);
+    const tokens = [
+      ...tokenize(glossText, { keepStopwords: true }),
+      ...tokenize(exampleText),
+    ];
     docLengths[entry.id] = tokens.length;
     const tf = new Map();
     for (const tok of tokens) tf.set(tok, (tf.get(tok) || 0) + 1);
@@ -78,11 +107,12 @@ function buildEnglishIndex(entries) {
 }
 
 export function buildSearchIndex(entries) {
+  const formsByEntry = new Map(entries.map((e) => [e.id, searchableForms(e)]));
   return {
     yoruba: {
-      exact: buildSortedTierIndex(entries, 'exact'),
-      tone: buildSortedTierIndex(entries, 'toneInsensitive'),
-      ortho: buildSortedTierIndex(entries, 'orthographyInsensitive'),
+      exact: buildSortedTierIndex(entries, 'exact', formsByEntry),
+      tone: buildSortedTierIndex(entries, 'toneInsensitive', formsByEntry),
+      ortho: buildSortedTierIndex(entries, 'orthographyInsensitive', formsByEntry),
     },
     english: buildEnglishIndex(entries),
   };
