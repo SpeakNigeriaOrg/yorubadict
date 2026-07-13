@@ -391,13 +391,13 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>About this dictionary</h1>
-        <p class="about-lede">Wiktionary's raw data is one of the best resources anywhere for learning Yorùbá. The Wiktionary website itself, though, is close to unusable for that purpose. This project keeps the data and rebuilds the experience.</p>
+        <p class="about-lede">Wiktionary's raw data is one of the best resources online for learning Yorùbá, with extensive crowdsourced definitions and etymologies. The Wiktionary website itself, though, is poorly matched to language learners, whether in terms of quick single-word lookups or language exploration. This project keeps the data and rebuilds the experience around learning.</p>
 
         <h2>Why start from Wiktionary?</h2>
-        <p>Yorùbá is fundamentally different from English in how habitually it builds larger words out of smaller building-block words. That's not etymology in the sense of historical trivia — Yorùbá is a living language, and understanding those building blocks is fundamental to using it as one. It's one of the things students in our own classes love most about the language, and it's fundamental to real fluency. Wiktionary is not comprehensive in these breakdowns, but it's a better source for them than anywhere else online.</p>
+        <p>Yorùbá is fundamentally different from English in how it builds larger words out of smaller building-block words. People often think of etymology as an academic curiosity, but in languages like Yorùbá it is part of fluency. Understanding those building blocks is fundamental to using it as one. It's also fun. One of the things students in our own classes love most about the language. Wiktionary is not comprehensive in these breakdowns, but it's a better source for them than anywhere else online. We make it easier to find and explore these links.</p>
 
         <h2>Where Wiktionary falls short</h2>
-        <p>Wiktionary's own site, though, is genuinely difficult to use. To find a word, you have to type it a very specific way — without tone marks, but with underdots. No other combination works. Any search also surfaces results in every language Wiktionary covers, not just Yorùbá, burying what you came for. And because it's crowdsourced, its etymology links are inconsistent — sometimes a parent word documents the words derived from it, sometimes only the derived word documents where it came from, sometimes both, sometimes neither, depending entirely on which page a contributor happened to edit. Tracing a family of related words means guessing which page has the link and searching for it by hand.</p>
+        <p>Wiktionary's own site is difficult to use. To reliably find a word in Yorùbá, you generally want to type it without tone marks, but with underdots. Other combinations generally don't work. Wiktionary will then search every one of its languages for words with that spelling, and present every single result, with definitions, etymology, informative tables, etc., for every matching word in every language. Yorùbá will be down at the bottom of that page. Furthermore, because Wiktionary is crowdsourced, key details like etymology links between words are incredibly valuable to language learners but inconsistent in their entry and presentation. Sometimes a parent word documents the words derived from it, sometimes only the derived word documents where it came from, sometimes both, sometimes neither, depending entirely on which page a contributor happened to edit. Tracing a family of related words means guessing which page has the link and searching for it by hand.</p>
 
         <h2>What we changed</h2>
         <ul>
@@ -408,7 +408,7 @@
         </ul>
 
         <h2>Part of Speak Nigeria</h2>
-        <p>This dictionary is a project of <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Speak Nigeria</a>, a nonprofit building free courses, games, and resources so children can learn and keep Nigerian heritage languages. If you're learning Yorùbá, our structured courses might be a good next step.</p>
+        <p>This dictionary is a project of <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Speak Nigeria</a>, a nonprofit building free games and resources so children can learn and keep Nigerian heritage languages. If you're learning Yorùbá, our structured courses might also be a good fit.</p>
 
         <div class="about-actions">
           <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
