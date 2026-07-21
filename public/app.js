@@ -177,7 +177,7 @@
     if (results.length === 0) {
       const msg = els.searchInput.value.trim()
         ? '<div class="results-empty">No entries found. Try a spelling without tone marks.</div>'
-        : '<div class="results-hint">Start typing a Yorùbá word (with or without tone marks) or an English gloss.</div>';
+        : '<div class="results-hint">Start typing a Yorùbá word (with or without tone marks) or an English word.</div>';
       els.resultsList.innerHTML = msg;
       return;
     }
@@ -380,7 +380,7 @@
     els.entryContent.innerHTML = `
       <div class="entry-welcome">
         <h1>Ẹ káàbọ̀.</h1>
-        <p>Search for a Yorùbá headword — with or without tone marks and underdots — or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
+        <p>Search for a Yorùbá wordwith or without tone marks and underdots. Or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
         <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
       </div>
     `;
@@ -391,9 +391,9 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>About this dictionary</h1>
-        <p class="about-lede">Wiktionary's raw data is one of the best resources online for learning Yorùbá, with extensive crowdsourced definitions and etymologies. The Wiktionary website itself, though, is poorly matched to language learners, whether in terms of quick single-word lookups or language exploration. This project keeps the data and rebuilds the experience around learning.</p>
+        <p class="about-lede">Wiktionary's crowdsourced Yorùbá dictionary is one of the best resources online for learning Yorùbá. Not only does it have more defined words than most Yorùbá dictionaries, but it also includes details of how longer words are constructed from shorter words. Learning to recognize these compound words is a core part of learning the language. The Wiktionary website itself, though, is poorly matched to language learners, whether in terms of quick single-word lookups or language exploration. This project keeps the data and rebuilds the user experience.</p>
 
-        <h2>Why start from Wiktionary?</h2>
+        <h2>Why care about etymology?</h2>
         <p>Yorùbá is fundamentally different from English in how it builds larger words out of smaller building-block words. People often think of etymology as an academic curiosity, but in languages like Yorùbá it is part of fluency. Understanding those building blocks is fundamental to using it as one. It's also fun. One of the things students in our own classes love most about the language. Wiktionary is not comprehensive in these breakdowns, but it's a better source for them than anywhere else online. We make it easier to find and explore these links.</p>
 
         <h2>Where Wiktionary falls short</h2>
@@ -401,10 +401,9 @@
 
         <h2>What we changed</h2>
         <ul>
-          <li><strong>Cleaned data, twice over.</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing.</li>
-          <li><strong>Search it the way you'd write it.</strong> With or without tone marks, with or without underdots — every spelling of a Yorùbá word finds the same entry.</li>
-          <li><strong>Search both directions at once.</strong> Most dictionaries make you choose Yorùbá-to-English or English-to-Yorùbá. Here you can search both together, or lock to either direction.</li>
-          <li><strong>Links that go both ways.</strong> Whichever side of a relationship Wiktionary happens to document — parent or derived word — we automatically synthesize the missing reverse link, turning its inconsistent, crowdsourced etymology links into a real, two-way, navigable path through the language.</li>
+          <li><strong>Cleaned and reorganized</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing. With crowdsourced data, this will always be a work in progress, so let us know if you spot any quirks.</li>
+          <li><strong>Searchable.</strong> With or without tone marks, with or without underdots, in English or Yorùbá</li>
+          <li><strong>Restructured relationships.</strong> Whichever side of a relationship Wiktionary happens to document — parent or derived word — we automatically synthesize the missing reverse link, turning its inconsistent, crowdsourced etymology links into a real, two-way, navigable path through the language.</li>
         </ul>
 
         <h2>Part of Speak Nigeria</h2>
