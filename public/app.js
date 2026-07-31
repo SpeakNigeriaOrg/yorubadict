@@ -20,6 +20,13 @@
     searchInput: document.getElementById('search-input'),
     resultsList: document.getElementById('results-list'),
     entryContent: document.getElementById('entry-content'),
+    entryPane: document.getElementById('entry-pane'),
+    sheetHandle: document.getElementById('sheet-handle'),
+    header: document.querySelector('.site-header'),
+    menuToggle: document.getElementById('menu-toggle'),
+    headerMenu: document.getElementById('header-menu'),
+    modeYo: document.getElementById('mode-yo'),
+    modeEn: document.getElementById('mode-en'),
     qualityToggle: document.getElementById('data-quality-toggle'),
     qualityPanel: document.getElementById('quality-panel'),
     qualityClose: document.getElementById('quality-close'),
@@ -175,10 +182,11 @@
     els.resultsList.innerHTML = '';
 
     if (results.length === 0) {
-      const msg = els.searchInput.value.trim()
-        ? '<div class="results-empty">No entries found. Try a spelling without tone marks.</div>'
-        : '<div class="results-hint">Start typing a Yorùbá word (with or without tone marks) or an English word.</div>';
-      els.resultsList.innerHTML = msg;
+      // Both messages are scope-specific — see MODE_UI.
+      const ui = MODE_UI[state.searchMode];
+      els.resultsList.innerHTML = els.searchInput.value.trim()
+        ? `<div class="results-empty">${escapeHtml(ui.empty)}</div>`
+        : `<div class="results-hint">${escapeHtml(ui.hint)}</div>`;
       return;
     }
 
@@ -373,7 +381,7 @@
       </div>
     `;
 
-    document.title = `${entry.canonicalForm.value} — Ọ̀rọ̀ | The Yoruba Dictionary`;
+    document.title = `${entry.canonicalForm.value} — Sọ̀rọ̀ Sókè`;
   }
 
   function renderWelcome() {
@@ -384,7 +392,7 @@
         <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
       </div>
     `;
-    document.title = 'Ọ̀rọ̀ | The Yoruba Dictionary · Speak Nigeria';
+    document.title = 'Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary · Speak Nigeria';
   }
 
   function renderAbout() {
@@ -415,7 +423,7 @@
         </div>
       </div>
     `;
-    document.title = 'About — Ọ̀rọ̀ | The Yoruba Dictionary';
+    document.title = 'About — Sọ̀rọ̀ Sókè';
   }
 
   // ---------------------------------------------------------------
@@ -433,6 +441,7 @@
 
     if (hash === '#/about') {
       renderAbout();
+      onEntryRendered();
       return;
     }
 
@@ -442,10 +451,20 @@
       const entry = state.entries[id];
       if (entry) {
         renderEntry(entry);
+        onEntryRendered();
         return;
       }
     }
     renderWelcome();
+    if (mobileQuery.matches) window.scrollTo({ top: 0 });
+  }
+
+  // On mobile, opening an entry scrolls it up under the header so the
+  // definition is what you're looking at; the results stay one scroll away.
+  function onEntryRendered() {
+    if (!mobileQuery.matches) return;
+    els.entryPane.scrollTop = 0;
+    requestAnimationFrame(scrollToEntry);
   }
 
   // ---------------------------------------------------------------
@@ -512,6 +531,97 @@
   }
 
   // ---------------------------------------------------------------
+  // Header height
+  //
+  // Both panes size themselves with calc(100dvh - var(--header-h)).
+  // The header's real height varies: it wraps to two rows on narrow
+  // viewports and shrinks again when the mobile sheet is pulled full up,
+  // so it's measured rather than hardcoded.
+  // ---------------------------------------------------------------
+
+  function syncChromeHeights() {
+    const root = document.documentElement.style;
+    // Measured with the header in its full (uncollapsed) state only, and only
+    // on load/resize. Deliberately NOT re-measured per sheet state: the
+    // sheet's resting offsets are static so a state change can never move
+    // the transform target out from under a running transition.
+    if (els.header && !document.body.classList.contains('sheet-full')) {
+      root.setProperty('--header-h', `${els.header.offsetHeight}px`);
+    }
+    const footer = document.querySelector('.site-footer');
+    if (footer) root.setProperty('--footer-h', `${footer.offsetHeight}px`);
+  }
+
+  // ---------------------------------------------------------------
+  // Mobile: scroll shortcut
+  //
+  // Below 800px the layout is one ordinary document scroll (see the
+  // "one native scroll" block in style.css): the results list is capped at
+  // 56dvh and the entry follows it, so scrolling carries the definition up
+  // over the results and under the fixed header. There is deliberately no
+  // gesture code here — the browser's own scrolling is the interaction, which
+  // is the only way it feels smooth and stays interruptible.
+  //
+  // All this adds is a shortcut: the grip at the top of the entry jumps to
+  // the definition, or back to the top if you're already there.
+  // ---------------------------------------------------------------
+
+  const mobileQuery = window.matchMedia('(max-width: 800px)');
+
+  function entryScrollTop() {
+    const headerH = els.header ? els.header.offsetHeight : 0;
+    return Math.max(0, els.entryPane.getBoundingClientRect().top + window.scrollY - headerH);
+  }
+
+  function scrollToEntry() {
+    window.scrollTo({ top: entryScrollTop(), behavior: 'smooth' });
+  }
+
+  function initSheet() {
+    if (!els.sheetHandle || !els.entryPane) return;
+
+    els.sheetHandle.addEventListener('click', () => {
+      if (!mobileQuery.matches) return;
+      const target = entryScrollTop();
+      const atEntry = window.scrollY >= target - 8;
+      window.scrollTo({ top: atEntry ? 0 : target, behavior: 'smooth' });
+    });
+  }
+
+
+  // ---------------------------------------------------------------
+  // Header menu (narrow viewports only — on desktop the two actions are
+  // always visible and this dropdown is just their inline container)
+  // ---------------------------------------------------------------
+
+  function closeMenu() {
+    if (!els.headerMenu) return;
+    els.headerMenu.classList.remove('open');
+    els.menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function initMenu() {
+    if (!els.menuToggle || !els.headerMenu) return;
+
+    els.menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = els.headerMenu.classList.toggle('open');
+      els.menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Activating anything inside the menu dismisses it.
+    els.headerMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) closeMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!els.headerMenu.classList.contains('open')) return;
+      if (e.target.closest('.header-actions')) return;
+      closeMenu();
+    });
+  }
+
+  // ---------------------------------------------------------------
   // Boot
   // ---------------------------------------------------------------
 
@@ -544,8 +654,12 @@
       if (e.target === els.qualityPanel) closeQualityPanel();
     });
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !els.qualityPanel.classList.contains('hidden')) {
+      if (e.key !== 'Escape') return;
+      if (!els.qualityPanel.classList.contains('hidden')) {
         closeQualityPanel();
+      } else if (els.headerMenu && els.headerMenu.classList.contains('open')) {
+        closeMenu();
+        els.menuToggle.focus();
       }
     });
 
@@ -561,36 +675,130 @@
       renderResults(search(els.searchInput.value));
     });
 
+    initMenu();
+    initSheet();
+    syncChromeHeights();
+    window.addEventListener('resize', syncChromeHeights);
+    // Web fonts land after first paint and change both bars' heights.
+    if (document.fonts) document.fonts.ready.then(syncChromeHeights);
+
     window.addEventListener('hashchange', handleRoute);
     handleRoute();
 
-    // Hook up the search mode toggles (inside boot function)
-    const modeRadios = document.querySelectorAll('input[name="search_mode"]');
-    
-    // Map modes to context-specific placeholders
-    const placeholders = {
-      both: 'Search Yorùbá or English… (ile, fa, pull…)',
-      yoruba: 'Search Yorùbá headwords… (ile, fa, bàbá…)',
-      english: 'Search English gloss… (house, pull, father…)'
-    };
+    initSearchMode();
+    // Paint the scope-specific hint on first load: without this the results
+    // pane started out blank and only picked up its hint once a query had been
+    // typed and cleared.
+    renderResults([]);
+  }
 
-    modeRadios.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        // 1. Update the state
-        state.searchMode = e.target.value;
-        
-        // 2. Update the visual placeholder
-        els.searchInput.placeholder = placeholders[state.searchMode];
-        
-        // 3. Re-run search with the current input (if the user has already typed something)
-        if (els.searchInput.value.trim()) {
-          renderResults(search(els.searchInput.value));
-        } else {
-          // If the input is empty, reset the results view to update the "hint" text
-          renderResults([]); 
-        }
-      });
+  // ---------------------------------------------------------------
+  // Search scope
+  //
+  // Two independent toggles (YO, EN) inside the search field, mapping onto the
+  // three search modes, instead of three radios on a line of their own. At
+  // least one has to stay on, so tapping the only lit pill is a no-op — tap
+  // the other one to widen the scope instead.
+  //
+  // Every piece of copy that describes what a search will match lives here, so
+  // the placeholder, the empty-results hint and the no-matches advice all
+  // change together with the pills. (Telling someone to drop their tone marks
+  // is useless advice when only EN is lit.)
+  // ---------------------------------------------------------------
+
+  const MODE_UI = {
+    both: {
+      placeholder: 'Search Yorùbá or English…  (ile, fa, pull…)',
+      short: 'Search…',
+      hint: 'Start typing a Yorùbá word (with or without tone marks) or an English word.',
+      empty: 'No entries found. Try a spelling without tone marks, or an English word from the definition.',
+    },
+    yoruba: {
+      placeholder: 'Search Yorùbá headwords…  (ile, fa, bàbá…)',
+      short: 'Yorùbá…',
+      hint: 'Searching Yorùbá headwords only. Start typing, with or without tone marks and underdots.',
+      empty: 'No Yorùbá headword found. Try a spelling without tone marks, or switch EN on to search definitions.',
+    },
+    english: {
+      placeholder: 'Search English gloss…  (house, pull, father…)',
+      short: 'English…',
+      hint: 'Searching English definitions only. Start typing an English word.',
+      empty: 'No definition found containing that word. Try another word, or switch YO on to search Yorùbá headwords.',
+    },
+  };
+
+  function applySearchMode() {
+    const mode = state.searchMode;
+    const yoOn = mode !== 'english';
+    const enOn = mode !== 'yoruba';
+    if (els.modeYo) {
+      els.modeYo.setAttribute('aria-pressed', String(yoOn));
+      els.modeYo.title = yoOn
+        ? 'Searching Yorùbá headwords' + (enOn ? ' — tap to exclude them' : '')
+        : 'Not searching Yorùbá headwords — tap to include them';
+    }
+    if (els.modeEn) {
+      els.modeEn.setAttribute('aria-pressed', String(enOn));
+      els.modeEn.title = enOn
+        ? 'Searching English definitions' + (yoOn ? ' — tap to exclude them' : '')
+        : 'Not searching English definitions — tap to include them';
+    }
+    // The mobile field shares its row with the wordmark, so the long
+    // placeholders would just be clipped mid-word.
+    const ui = MODE_UI[mode];
+    els.searchInput.placeholder = mobileQuery.matches ? ui.short : ui.placeholder;
+  }
+
+  function toggleScope(which) {
+    const mode = state.searchMode;
+    if (which === 'yoruba') {
+      // On + other on -> drop this side. Off -> turn it back on (both).
+      state.searchMode = mode === 'both' ? 'english' : 'both';
+    } else {
+      state.searchMode = mode === 'both' ? 'yoruba' : 'both';
+    }
+    applySearchMode();
+    renderResults(search(els.searchInput.value));
+  }
+
+  function initSearchMode() {
+    applySearchMode();
+    mobileQuery.addEventListener('change', applySearchMode);
+
+    // The pills sit inside the search field, and on mobile the wordmark hides
+    // itself while that field has focus. Letting a pill take focus therefore
+    // shunted the wordmark in and out of the header on every tap, and pulled
+    // the caret out of a query mid-edit. Suppressing the default mousedown
+    // behaviour leaves focus exactly where the user put it. (Keyboard
+    // activation is unaffected — it moves focus deliberately.)
+    [els.modeYo, els.modeEn].forEach((pill) => {
+      if (pill) pill.addEventListener('mousedown', (e) => e.preventDefault());
     });
+
+    // The pills overlay the right end of the field, which on a narrow screen
+    // leaves the input a smallish target. Any tap in the field that isn't on
+    // a pill focuses it — and once focused it expands to the full row.
+    const field = els.searchInput.closest('.search-field');
+    if (field) {
+      field.addEventListener('click', (e) => {
+        if (e.target.closest('.mode-pill')) return;
+        els.searchInput.focus();
+      });
+    }
+    // Tapping the lit pill when it's the only one lit would leave nothing to
+    // search, so those clicks are dropped rather than emptying the scope.
+    if (els.modeYo) {
+      els.modeYo.addEventListener('click', () => {
+        if (state.searchMode === 'yoruba') return;
+        toggleScope('yoruba');
+      });
+    }
+    if (els.modeEn) {
+      els.modeEn.addEventListener('click', () => {
+        if (state.searchMode === 'english') return;
+        toggleScope('english');
+      });
+    }
   }
 
   boot().catch((err) => {

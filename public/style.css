@@ -71,21 +71,34 @@ a { color: inherit; }
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  position: relative;
 }
 
-.parent-link {
-  display: inline-flex;
+/* The hamburger only ever appears at narrow widths (see the header
+   narrow-viewport block at the bottom of this file); on desktop the two
+   actions sit inline exactly as before. */
+.menu-toggle { display: none; }
+
+.header-menu {
+  display: flex;
   align-items: center;
-  gap: 5px;
-  text-decoration: none;
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.62);
+  gap: 10px;
 }
-.parent-link img { display: block; border-radius: 3px; }
-.parent-link:hover { color: var(--brand-accent); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The "A Speak Nigeria project" line that used to sit under the wordmark now
+   lives permanently in the footer bar, so the header keeps that row back. */
 
 .wordmark-yo {
   font-family: var(--font-yoruba);
@@ -95,6 +108,9 @@ a { color: inherit; }
   letter-spacing: 0.01em;
   text-rendering: optimizeLegibility;
 }
+
+/* The tagline is one line on desktop, two beside the wordmark on mobile. */
+.wordmark-break { display: none; }
 
 .wordmark-en {
   font-family: var(--font-body);
@@ -112,11 +128,19 @@ a { color: inherit; }
   position: relative;
 }
 
+/* The field and its in-box mode button. */
+.search-field {
+  position: relative;
+  display: block;
+}
+
 #search-input {
   width: 100%;
   font-family: var(--font-yoruba); /* Changed from --font-body */
   font-size: 1rem;
   padding: 10px 16px;
+  /* Room for the mode button. */
+  padding-right: 74px;
   border-radius: 3px;
   border: none;
   background: var(--surface);
@@ -129,32 +153,48 @@ a { color: inherit; }
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 55%, transparent);
 }
 
-.search-mode-toggle {
+/* Search scope, as two independent toggles inside the field. Two pills rather
+   than one YO⇄EN badge on purpose: an arrow between them reads as translating
+   from one language to the other, when what these actually control is which
+   side(s) of the dictionary the query is matched against. Either or both.
+   This replaces the row of three radio labels that used to sit under the
+   search box and cost a whole line of header. */
+.mode-pills {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
   display: flex;
-  gap: 16px;
-  margin-top: 10px;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.75);
+  gap: 3px;
 }
 
-.search-mode-toggle label {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.15s;
-}
-
-.search-mode-toggle label:hover,
-.search-mode-toggle label:has(input:checked) {
+.mode-pill {
+  padding: 4px 6px;
+  border: 1px solid var(--brand-indigo);
+  border-radius: 3px;
+  background: var(--brand-indigo);
   color: var(--surface);
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.search-mode-toggle input[type="radio"] {
-  accent-color: var(--brand-accent);
-  margin: 0;
-  cursor: pointer;
+/* Off: outlined and muted, so on/off is legible without reading the letters. */
+.mode-pill[aria-pressed="false"] {
+  background: transparent;
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.mode-pill:hover {
+  border-color: var(--brand-accent-deep);
+  background: var(--brand-accent-deep);
+  color: var(--surface);
+  opacity: 1;
 }
 
 /* Signature motif: three tone marks, quietly reused as dividers */
@@ -206,15 +246,19 @@ a { color: inherit; }
   .app-shell { grid-template-columns: 1fr; }
 }
 
+/* --header-h is measured and written by app.js (initHeaderHeight) because
+   the header's real height changes with wrapping and with the mobile
+   sheet state; the 90px fallback is the desktop one-line case. */
 .results-pane {
   border-right: 1px solid var(--border-subtle);
   overflow-y: auto;
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - var(--header-h, 90px));
+  max-height: calc(100dvh - var(--header-h, 90px));
   padding: 8px 0;
 }
 
 @media (max-width: 800px) {
-  .results-pane { max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-subtle); }
+  .results-pane { border-right: none; border-bottom: 1px solid var(--border-subtle); }
 }
 
 .result-item {
@@ -268,12 +312,104 @@ a { color: inherit; }
 
 .entry-pane {
   overflow-y: auto;
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - var(--header-h, 90px));
+  max-height: calc(100dvh - var(--header-h, 90px));
   padding: 36px 40px 80px;
 }
 
+.sheet-handle { display: none; }
+
+/* ---------- Mobile: one native scroll ----------
+
+   Below 800px the header and footer are fixed and everything between them is
+   a single ordinary document scroll: a capped results list, then the entry.
+   The definition rises over the results as you scroll because it *is*
+   scrolling — no transforms, no snap states, no gesture handlers. That is
+   what makes it smooth, interruptible and momentum-aware for free; an
+   earlier version animated the pane with JS and could never feel right.
+
+   The arithmetic that makes it work: max scroll ends up equal to the results
+   list's height, so scrolling exactly far enough parks the definition's top
+   under the header, with nothing above it left to reveal.
+
+     results height  = 56dvh - header
+     entry min-height = viewport - header - footer
+     scrollable       = results + entry + padding - viewport = results  */
+
 @media (max-width: 800px) {
-  .entry-pane { max-height: none; padding: 24px 20px 60px; }
+  body {
+    display: block;
+    height: auto;
+    min-height: 0;
+    /* Room for the two fixed bars. */
+    padding-top: var(--header-h, 92px);
+    padding-bottom: var(--footer-h, 45px);
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 45;
+  }
+
+  .app-shell {
+    display: block;
+    max-width: none;
+  }
+
+  /* Permanent bar: one line, always at the bottom of the viewport. */
+  .site-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 8px 12px;
+    background: var(--background-secondary);
+  }
+  .footer-inner { flex-wrap: nowrap; gap: 16px; }
+  .parent-brand { font-size: 0.85rem; }
+
+  /* Long lists scroll inside themselves; scroll chaining is deliberately
+     left on, so a swipe that runs out of list carries on into the page and
+     brings the definition up. */
+  .results-pane {
+    max-height: calc(56dvh - var(--header-h, 92px));
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .entry-pane {
+    /* At least a screenful, so there is always enough to scroll the entry up
+       to the header even when the definition itself is short. */
+    min-height: calc(100dvh - var(--header-h, 92px) - var(--footer-h, 45px));
+    max-height: none;
+    overflow: visible;
+    padding: 0 20px 40px;
+    background: var(--surface);
+    border-radius: 14px 14px 0 0;
+  }
+
+  .sheet-handle {
+    display: block;
+    width: 100%;
+    padding: 9px 0 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .sheet-grip {
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin: 0 auto;
+    border-radius: 2px;
+    background: var(--brand-accent);
+  }
 }
 
 .entry-welcome {
@@ -586,13 +722,16 @@ a { color: inherit; }
   border-top: 1px solid var(--border-subtle);
 }
 
+/* One line, everywhere: the parent-project link and the courses link. The
+   About link and the "who we are" blurb that used to live here are already
+   reachable from the header, so they were pure duplication. */
 .footer-inner {
-  max-width: 560px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 6px 22px;
 }
 
 .parent-brand {
@@ -608,28 +747,18 @@ a { color: inherit; }
 .parent-brand img { display: block; border-radius: 5px; }
 .parent-brand:hover { color: var(--brand-accent-deep); }
 
-.footer-inner p { line-height: 1.6; }
-.footer-inner a { color: var(--brand-indigo); text-decoration: underline; text-underline-offset: 2px; }
+.footer-inner a { color: var(--brand-indigo); text-underline-offset: 2px; }
 .footer-inner a:hover { color: var(--brand-accent-deep); }
 
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px 18px;
-  margin-top: 4px;
+.footer-course {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
 }
-.footer-links a { font-weight: 600; text-decoration: none; }
-.footer-links a:hover { color: var(--brand-accent-deep); }
+.footer-course:hover { text-decoration: underline; }
 
-/* Narrow viewports: the full "who we are" blurb is the same content
-   already on the About page - on a small phone screen it's a
-   disproportionately large chunk of an otherwise tightly viewport-
-   constrained tool, so it's dropped here in favor of a single link. */
 @media (max-width: 700px) {
-  .site-footer { padding: 14px 14px; }
-  .footer-inner { gap: 6px; }
-  .footer-inner p { display: none; }
+  .site-footer { padding: 12px 14px; }
 }
 
 /* ---------- Focus visibility (accessibility floor) ---------- */
@@ -651,7 +780,85 @@ a { color: inherit; }
     row-gap: 10px;
     padding-block: 12px;
   }
-  .wordmark-group { flex: 1 0 100%; order: 1; }
-  .header-actions { order: 2; }
+  /* A single row: wordmark | search field | ≡. Nothing wraps — the search
+     scope moved into the field itself as .mode-pills, so the radio row that
+     used to occupy a second line is gone entirely. */
+  .header-inner {
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding-inline: 12px;
+  }
+  .header-search { display: contents; }
+  .search-field { order: 2; flex: 1 1 0; min-width: 0; }
+  .wordmark-group { flex: 0 0 auto; order: 1; }
+  .header-actions { flex: 0 0 auto; order: 3; }
+
+  /* Searching beats branding. The full lockup shares the row only while the
+     field is idle and empty; as soon as it has focus or a query the wordmark
+     steps aside so the field (and the mode badge inside it) get the whole
+     row — a name this long otherwise leaves ~40px of text visible.
+     Browsers without :has() simply keep the narrower field. */
+  .header-inner:has(#search-input:focus) .wordmark-group,
+  .header-inner:has(#search-input:not(:placeholder-shown)) .wordmark-group {
+    display: none;
+  }
+  .header-search .tone-rule { display: none; }
+
+  .wordmark {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+  }
+  /* The two tagline lines together are sized to occupy the same height as the
+     single line of the wordmark beside them. */
+  /* Sized so the at-rest search field keeps a clear tap area to the left of
+     the mode pills — at a larger lockup the field shrank to 118px and the
+     pills covered its middle, so tapping the centre of the search box hit a
+     pill instead of the field. */
+  .wordmark-yo { font-size: 0.95rem; white-space: nowrap; }
+  .wordmark-en {
+    font-size: 0.42rem;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    padding-left: 5px;
+  }
+  .wordmark-break { display: inline; }
+
+  #search-input { font-size: 0.95rem; padding: 8px 12px; padding-right: 62px; }
+  .menu-toggle { padding: 6px 10px; }
+  .mode-pills { right: 5px; gap: 2px; }
+  .mode-pill { font-size: 0.6rem; padding: 4px 5px; }
   .header-search { flex: 1 0 100%; order: 3; }
+
+  .menu-toggle {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: var(--surface);
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 7px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .menu-toggle[aria-expanded="true"],
+  .menu-toggle:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
+
+  .header-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px;
+    background: var(--brand-indigo);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    z-index: 60;
+  }
+  .header-menu.open { display: flex; }
+  .header-menu .ghost-btn { text-align: left; }
 }

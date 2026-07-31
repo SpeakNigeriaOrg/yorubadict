@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ọ̀rọ̀ | The Yoruba Dictionary · Speak Nigeria</title>
-<meta name="description" content="Ọ̀rọ̀ — a free Yorùbá dictionary built from Wiktionary data. Search Yorùbá or English, in either direction, with tone marks or without. A Speak Nigeria project." />
+<title>Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary · Speak Nigeria</title>
+<meta name="description" content="Sọ̀rọ̀ Sókè, The People’s Yorùbá Dictionary — a free Yorùbá dictionary built from Wiktionary data. Search Yorùbá or English, in either direction, with tone marks or without. A Speak Nigeria project." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,37 +17,38 @@
   <div class="header-inner">
     <div class="wordmark-group">
       <a href="#/" class="wordmark">
-        <span class="wordmark-yo">Ọ̀rọ̀</span><span class="wordmark-en">The Yoruba Dictionary</span>
-      </a>
-      <a href="https://speaknigeria.org" class="parent-link" target="_blank" rel="noopener noreferrer">
-        <img src="favicon.svg" alt="" width="14" height="14" />
-        A Speak Nigeria project
+        <span class="wordmark-yo">Sọ̀rọ̀ Sókè</span><span class="wordmark-en">The People’s<br class="wordmark-break" /> Yorùbá Dictionary</span>
       </a>
     </div>
 
     <div class="header-search">
-      <input
-        id="search-input"
-        type="text"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="Search Yorùbá or English…  (ile, fa, pull…)"
-        aria-label="Search the dictionary"
-      />
-      <div class="tone-rule" aria-hidden="true"><span></span><span></span><span></span></div>
-      
-      <!-- Insert the toggle here -->
-      <div class="search-mode-toggle" id="search-mode-toggle">
-        <label><input type="radio" name="search_mode" value="both" checked> Both</label>
-        <label><input type="radio" name="search_mode" value="yoruba"> Yorùbá only</label>
-        <label><input type="radio" name="search_mode" value="english"> English gloss only</label>
+      <div class="search-field">
+        <input
+          id="search-input"
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search Yorùbá or English…  (ile, fa, pull…)"
+          aria-label="Search the dictionary"
+        />
+        <!-- Search scope, as two independent toggles: which side(s) of the
+             dictionary the query is matched against. Replaces the row of
+             radio buttons that used to sit under the search box. -->
+        <div class="mode-pills" role="group" aria-label="Search scope">
+          <button id="mode-yo" class="mode-pill" type="button" aria-pressed="true">YO</button>
+          <button id="mode-en" class="mode-pill" type="button" aria-pressed="true">EN</button>
+        </div>
       </div>
-      
+      <div class="tone-rule" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>
     
     <div class="header-actions">
-      <a href="#/about" class="ghost-btn">About</a>
-      <button id="data-quality-toggle" class="ghost-btn" type="button">Data quality</button>
+      <button id="menu-toggle" class="menu-toggle" type="button"
+              aria-expanded="false" aria-controls="header-menu" aria-label="Menu">≡</button>
+      <div id="header-menu" class="header-menu">
+        <a href="#/about" class="ghost-btn">About</a>
+        <button id="data-quality-toggle" class="ghost-btn" type="button">Data quality</button>
+      </div>
     </div>
   </div>
 </header>
@@ -58,6 +59,13 @@
   </aside>
 
   <section id="entry-pane" class="entry-pane" aria-label="Entry detail">
+    <!-- Mobile only (<=800px): affordance for the scroll-up gesture, and a
+         tap shortcut for it. Lives outside #entry-content because that
+         element's innerHTML is replaced on every render. -->
+    <button id="sheet-handle" class="sheet-handle" type="button">
+      <span class="sheet-grip" aria-hidden="true"></span>
+      <span class="sr-only">Scroll to the definition</span>
+    </button>
     <div id="entry-content"></div>
   </section>
 </main>
@@ -73,19 +81,10 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <a href="https://speaknigeria.org" class="parent-brand" target="_blank" rel="noopener noreferrer">
-      <img src="favicon.svg" alt="" width="22" height="22" />
-      <span>Speak Nigeria</span>
+      <img src="favicon.svg" alt="" width="20" height="20" />
+      <span>A Speak Nigeria project</span>
     </a>
-    <p>
-      A project of <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Speak Nigeria</a>,
-      a nonprofit helping children learn Nigerian heritage languages. Built from the Kaikki Yorùbá Wiktionary
-      extract — every search runs locally in your browser, nothing is sent to a server.
-    </p>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="#/about">About this dictionary</a>
-      <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">speaknigeria.org ↗</a>
-      <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Yorùbá courses ↗</a>
-    </nav>
+    <a href="https://speaknigeria.org/courses.html" class="footer-course" target="_blank" rel="noopener noreferrer">Yorùbá courses ↗</a>
   </div>
 </footer>
 

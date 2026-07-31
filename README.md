@@ -1,4 +1,4 @@
-# Ọ̀rọ̀ | The Yoruba Dictionary
+# Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary
 
 A free, fast Yorùbá ↔ English dictionary, built from Wiktionary's data but
 designed the way a dictionary should work. It's a project of
@@ -28,7 +28,7 @@ hand. Most dictionaries also make you
 pick a direction — Yorùbá-to-English or English-to-Yorùbá — instead of
 letting you search both at once.
 
-Ọ̀rọ̀ starts from the same underlying data (via [Kaikki](https://kaikki.org),
+Sọ̀rọ̀ Sókè starts from the same underlying data (via [Kaikki](https://kaikki.org),
 which does its own cleanup pass on Wiktionary's raw wikitext) and fixes the
 rest:
 

@@ -61,5 +61,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`Ọ̀rọ̀ (The Yoruba Dictionary) running at http://localhost:${port}`);
+  console.log(`Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary — running at http://localhost:${port}`);
 });
