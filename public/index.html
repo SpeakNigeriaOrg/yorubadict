@@ -31,13 +31,10 @@
           placeholder="Search Yorùbá or English…  (ile, fa, pull…)"
           aria-label="Search the dictionary"
         />
-        <!-- Search scope, as two independent toggles: which side(s) of the
-             dictionary the query is matched against. Replaces the row of
-             radio buttons that used to sit under the search box. -->
-        <div class="mode-pills" role="group" aria-label="Search scope">
-          <button id="mode-yo" class="mode-pill" type="button" aria-pressed="true">YO</button>
-          <button id="mode-en" class="mode-pill" type="button" aria-pressed="true">EN</button>
-        </div>
+        <!-- Search scope: which side(s) of the dictionary the query is matched
+             against, cycling YO/EN → YO → EN. Replaces the row of radio
+             buttons that used to sit under the search box. -->
+        <button id="mode-cycle" class="mode-cycle" type="button"></button>
       </div>
       <div class="tone-rule" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>

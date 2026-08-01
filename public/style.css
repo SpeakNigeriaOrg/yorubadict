@@ -153,22 +153,18 @@ a { color: inherit; }
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 55%, transparent);
 }
 
-/* Search scope, as two independent toggles inside the field. Two pills rather
-   than one YO⇄EN badge on purpose: an arrow between them reads as translating
-   from one language to the other, when what these actually control is which
-   side(s) of the dictionary the query is matched against. Either or both.
-   This replaces the row of three radio labels that used to sit under the
-   search box and cost a whole line of header. */
-.mode-pills {
+/* Search scope, as one badge inside the field that cycles YO/EN -> YO -> EN.
+   Replaces the row of three radio labels that used to sit under the search box
+   and cost a whole line of header. */
+.mode-cycle {
   position: absolute;
   top: 50%;
   right: 6px;
   transform: translateY(-50%);
-  display: flex;
-  gap: 3px;
-}
-
-.mode-pill {
+  /* Fixed width: the label changes between 2 and 5 characters, and letting the
+     button resize would shift the field's text area under the caret on every
+     tap. Sized for the widest state. */
+  min-width: 3.5rem;
   padding: 4px 6px;
   border: 1px solid var(--brand-indigo);
   border-radius: 3px;
@@ -179,22 +175,13 @@ a { color: inherit; }
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
+  text-align: center;
   cursor: pointer;
 }
 
-/* Off: outlined and muted, so on/off is legible without reading the letters. */
-.mode-pill[aria-pressed="false"] {
-  background: transparent;
-  border-color: var(--border-subtle);
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-.mode-pill:hover {
+.mode-cycle:hover {
   border-color: var(--brand-accent-deep);
   background: var(--brand-accent-deep);
-  color: var(--surface);
-  opacity: 1;
 }
 
 /* Signature motif: three tone marks, quietly reused as dividers */
@@ -918,7 +905,7 @@ a { color: inherit; }
     padding-block: 12px;
   }
   /* A single row: wordmark | search field | ≡. Nothing wraps — the search
-     scope moved into the field itself as .mode-pills, so the radio row that
+     scope moved into the field itself as .mode-cycle, so the radio row that
      used to occupy a second line is gone entirely. */
   .header-inner {
     flex-wrap: nowrap;
@@ -926,8 +913,19 @@ a { color: inherit; }
     padding-inline: 12px;
   }
   .header-search { display: contents; }
-  .search-field { order: 2; flex: 1 1 0; min-width: 0; }
-  .wordmark-group { flex: 0 0 auto; order: 1; }
+  /* The search box is the tool; the wordmark is decoration. So the wordmark is
+     the item that yields (`0 1 auto`) and the field has a floor it can't be
+     squeezed below. Previously both the wordmark and the ≡ were `0 0 auto`,
+     which made the field absorb 100% of any shortfall: at 320px it collapsed
+     to 77px with 3px of readable text, and at 280px the mode badge covered it
+     completely, leaving nothing to tap to focus it. */
+  /* basis 0, not auto: with `auto` the field's basis is the input's intrinsic
+     width, which alone exceeds the row, so shrinking kicked in at every
+     viewport and the wordmark was crushed to nothing even at 430px. With
+     basis 0 the field simply grows into whatever the row has left, and only
+     when that falls under the floor does the wordmark start to yield. */
+  .search-field { order: 2; flex: 1 1 0; min-width: 9.5rem; }
+  .wordmark-group { flex: 0 1 auto; min-width: 0; order: 1; overflow: hidden; }
   .header-actions { flex: 0 0 auto; order: 3; }
 
   /* Searching beats branding. The full lockup shares the row only while the
@@ -947,11 +945,8 @@ a { color: inherit; }
     gap: 6px;
   }
   /* The two tagline lines together are sized to occupy the same height as the
-     single line of the wordmark beside them. */
-  /* Sized so the at-rest search field keeps a clear tap area to the left of
-     the mode pills — at a larger lockup the field shrank to 118px and the
-     pills covered its middle, so tapping the centre of the search box hit a
-     pill instead of the field. */
+     single line of the wordmark beside them, and sized so the at-rest field
+     keeps a clear tap area to the left of the mode badge. */
   .wordmark-yo { font-size: 0.95rem; white-space: nowrap; }
   .wordmark-en {
     font-size: 0.42rem;
@@ -963,8 +958,8 @@ a { color: inherit; }
 
   #search-input { font-size: 0.95rem; padding: 8px 12px; padding-right: 62px; }
   .menu-toggle { padding: 6px 10px; }
-  .mode-pills { right: 5px; gap: 2px; }
-  .mode-pill { font-size: 0.6rem; padding: 4px 5px; }
+  .mode-cycle { right: 5px; min-width: 3.1rem; font-size: 0.6rem; padding: 4px 5px; }
+
   .header-search { flex: 1 0 100%; order: 3; }
 
   .menu-toggle {
@@ -999,3 +994,27 @@ a { color: inherit; }
   .header-menu.open { display: flex; }
   .header-menu .ghost-btn { text-align: left; }
 }
+
+/* Small phones (iPhone SE, older Androids). The tagline is ~105px of the
+   161px lockup, and at these widths that is the difference between a usable
+   search box and a stub - so the tagline goes and the wordmark alone stands in
+   for it. The breakpoint is set where the field would otherwise start eating
+   into the wordmark (161 + 38 + gaps + padding + a 152px field ~= 395px),
+   so the lockup is always either whole or absent, never squeezed into a
+   three-line tagline. */
+@media (max-width: 400px) {
+  .wordmark-en { display: none; }
+}
+
+/* Below this even the bare wordmark (75px) and the ≡ can't share a row with a
+   workable field - 75 + 38 + gaps + padding + the 152px floor needs ~309px -
+   so the search takes a row of its own rather than clipping the wordmark.
+   Costs ~44px of header height; the alternative is a search box too small to
+   type in. */
+@media (max-width: 310px) {
+  .header-inner { flex-wrap: wrap; row-gap: 8px; }
+  .wordmark-group { order: 1; flex: 1 1 auto; }
+  .header-actions { order: 2; }
+  .search-field { order: 3; flex: 1 0 100%; }
+}
+

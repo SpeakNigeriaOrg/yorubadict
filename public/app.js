@@ -25,8 +25,7 @@
     header: document.querySelector('.site-header'),
     menuToggle: document.getElementById('menu-toggle'),
     headerMenu: document.getElementById('header-menu'),
-    modeYo: document.getElementById('mode-yo'),
-    modeEn: document.getElementById('mode-en'),
+    modeCycle: document.getElementById('mode-cycle'),
     qualityToggle: document.getElementById('data-quality-toggle'),
     qualityPanel: document.getElementById('quality-panel'),
     qualityClose: document.getElementById('quality-close'),
@@ -811,108 +810,84 @@
   // ---------------------------------------------------------------
   // Search scope
   //
-  // Two independent toggles (YO, EN) inside the search field, mapping onto the
-  // three search modes, instead of three radios on a line of their own. At
-  // least one has to stay on, so tapping the only lit pill is a no-op — tap
-  // the other one to widen the scope instead.
+  // One button inside the search field, cycling YO/EN -> YO -> EN, in place of
+  // the three radios that used to occupy a whole line of the header.
   //
   // Every piece of copy that describes what a search will match lives here, so
-  // the placeholder, the empty-results hint and the no-matches advice all
-  // change together with the pills. (Telling someone to drop their tone marks
-  // is useless advice when only EN is lit.)
+  // the badge, the placeholder, the empty-results hint and the no-matches
+  // advice all change together. (Telling someone to drop their tone marks is
+  // useless advice while the scope is English-only.)
   // ---------------------------------------------------------------
+
+  const SEARCH_MODES = ['both', 'yoruba', 'english'];
 
   const MODE_UI = {
     both: {
+      badge: 'YO/EN',
+      label: 'Searching Yorùbá words and English definitions. Tap to search Yorùbá only.',
       placeholder: 'Search Yorùbá or English…  (ile, fa, pull…)',
       short: 'Search…',
       hint: 'Start typing a Yorùbá word (with or without tone marks) or an English word.',
       empty: 'No entries found. Try a spelling without tone marks, or an English word from the definition.',
     },
     yoruba: {
+      badge: 'YO',
+      label: 'Searching Yorùbá words only. Tap to search English definitions only.',
       placeholder: 'Search Yorùbá headwords…  (ile, fa, bàbá…)',
       short: 'Yorùbá…',
       hint: 'Searching Yorùbá headwords only. Start typing, with or without tone marks and underdots.',
-      empty: 'No Yorùbá headword found. Try a spelling without tone marks, or switch EN on to search definitions.',
+      empty: 'No Yorùbá headword found. Try a spelling without tone marks, or tap YO/EN to search definitions too.',
     },
     english: {
+      badge: 'EN',
+      label: 'Searching English definitions only. Tap to search both.',
       placeholder: 'Search English gloss…  (house, pull, father…)',
       short: 'English…',
       hint: 'Searching English definitions only. Start typing an English word.',
-      empty: 'No definition found containing that word. Try another word, or switch YO on to search Yorùbá headwords.',
+      empty: 'No definition found containing that word. Try another word, or tap EN to search Yorùbá headwords too.',
     },
   };
 
   function applySearchMode() {
-    const mode = state.searchMode;
-    const yoOn = mode !== 'english';
-    const enOn = mode !== 'yoruba';
-    if (els.modeYo) {
-      els.modeYo.setAttribute('aria-pressed', String(yoOn));
-      els.modeYo.title = yoOn
-        ? 'Searching Yorùbá headwords' + (enOn ? ' — tap to exclude them' : '')
-        : 'Not searching Yorùbá headwords — tap to include them';
-    }
-    if (els.modeEn) {
-      els.modeEn.setAttribute('aria-pressed', String(enOn));
-      els.modeEn.title = enOn
-        ? 'Searching English definitions' + (yoOn ? ' — tap to exclude them' : '')
-        : 'Not searching English definitions — tap to include them';
+    const ui = MODE_UI[state.searchMode];
+    if (els.modeCycle) {
+      els.modeCycle.textContent = ui.badge;
+      els.modeCycle.setAttribute('aria-label', ui.label);
+      els.modeCycle.setAttribute('title', ui.label);
     }
     // The mobile field shares its row with the wordmark, so the long
     // placeholders would just be clipped mid-word.
-    const ui = MODE_UI[mode];
     els.searchInput.placeholder = mobileQuery.matches ? ui.short : ui.placeholder;
-  }
-
-  function toggleScope(which) {
-    const mode = state.searchMode;
-    if (which === 'yoruba') {
-      // On + other on -> drop this side. Off -> turn it back on (both).
-      state.searchMode = mode === 'both' ? 'english' : 'both';
-    } else {
-      state.searchMode = mode === 'both' ? 'yoruba' : 'both';
-    }
-    applySearchMode();
-    renderResults(search(els.searchInput.value));
   }
 
   function initSearchMode() {
     applySearchMode();
     mobileQuery.addEventListener('change', applySearchMode);
+    if (!els.modeCycle) return;
 
-    // The pills sit inside the search field, and on mobile the wordmark hides
-    // itself while that field has focus. Letting a pill take focus therefore
-    // shunted the wordmark in and out of the header on every tap, and pulled
-    // the caret out of a query mid-edit. Suppressing the default mousedown
-    // behaviour leaves focus exactly where the user put it. (Keyboard
-    // activation is unaffected — it moves focus deliberately.)
-    [els.modeYo, els.modeEn].forEach((pill) => {
-      if (pill) pill.addEventListener('mousedown', (e) => e.preventDefault());
+    // The button sits inside the search field, and on mobile the wordmark
+    // hides itself while that field has focus. Letting the button take focus
+    // therefore shunted the wordmark in and out of the header on every tap,
+    // and pulled the caret out of a query mid-edit. Suppressing the default
+    // mousedown behaviour leaves focus exactly where the user put it.
+    // (Keyboard activation is unaffected - it moves focus deliberately.)
+    els.modeCycle.addEventListener('mousedown', (e) => e.preventDefault());
+
+    els.modeCycle.addEventListener('click', () => {
+      const next = (SEARCH_MODES.indexOf(state.searchMode) + 1) % SEARCH_MODES.length;
+      state.searchMode = SEARCH_MODES[next];
+      applySearchMode();
+      renderResults(search(els.searchInput.value));
     });
 
-    // The pills overlay the right end of the field, which on a narrow screen
+    // The button overlays the right end of the field, which on a narrow screen
     // leaves the input a smallish target. Any tap in the field that isn't on
-    // a pill focuses it — and once focused it expands to the full row.
+    // the button focuses it - and once focused it expands to the full row.
     const field = els.searchInput.closest('.search-field');
     if (field) {
       field.addEventListener('click', (e) => {
-        if (e.target.closest('.mode-pill')) return;
+        if (e.target.closest('.mode-cycle')) return;
         els.searchInput.focus();
-      });
-    }
-    // Tapping the lit pill when it's the only one lit would leave nothing to
-    // search, so those clicks are dropped rather than emptying the scope.
-    if (els.modeYo) {
-      els.modeYo.addEventListener('click', () => {
-        if (state.searchMode === 'yoruba') return;
-        toggleScope('yoruba');
-      });
-    }
-    if (els.modeEn) {
-      els.modeEn.addEventListener('click', () => {
-        if (state.searchMode === 'english') return;
-        toggleScope('english');
       });
     }
   }
