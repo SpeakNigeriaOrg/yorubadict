@@ -361,7 +361,7 @@
           </a>`);
         }
       } else {
-        elements.push(`<span class="relation-pill unresolved" title="Not yet resolvable">
+        elements.push(`<span class="relation-pill unresolved" title="Not in this dictionary yet">
           ${escapeHtml(rel.text)}
         </span>`);
       }
@@ -397,13 +397,13 @@
     return morphemes.map((m) => {
       const glossHtml = m.gloss ? ` <span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
       if (m.bound) {
-        return `<span class="relation-pill unresolved" title="Bound morpheme - not an independent word">${escapeHtml(m.form)}${glossHtml}</span>`;
+        return `<span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span>`;
       }
       if (m.resolved && m.entryIds && m.entryIds.length > 0) {
         const target = state.entries[m.entryIds[0]];
         if (target) {
           const title = m.entryIds.length > 1
-            ? ` title="${m.entryIds.length} entries share this spelling - linking to the first"`
+            ? ` title="${m.entryIds.length} words share this spelling — linking to the first"`
             : '';
           return `<a class="relation-pill" href="#/entry/${encodeURIComponent(m.entryIds[0])}"${title} data-search-form="${escapeHtml(m.form)}">${escapeHtml(m.form)}${glossHtml}</a>`;
         }
@@ -426,7 +426,7 @@
       : '';
 
     const inferredBadge = entry.canonicalForm.inferenceMethod !== 'explicit_canonical_tag'
-      ? `<span class="entry-inferred-badge" title="No explicit canonical-form tag in the source data - showing Wiktionary's own headword as-is (“${escapeHtml(entry.canonicalForm.originalValue)}”).">no canonical tag</span>`
+      ? `<span class="entry-inferred-badge" title="Wiktionary didn't mark which spelling is the main one, so we show its own spelling as-is (“${escapeHtml(entry.canonicalForm.originalValue)}”).">spelling unconfirmed</span>`
       : '';
 
     const sensesHtml = entry.senses.length
@@ -490,9 +490,9 @@
       ${section('Descendants', descendantsHtml)}
 
       <div class="entry-provenance-note">
-        Source: Kaikki Wiktionary extract${entry.etymologyNumber ? ` · etymology ${escapeHtml(entry.etymologyNumber)}` : ''}.
-        Original headword spelling: “${escapeHtml(entry.headword)}”.
-        Entry id: <code>${escapeHtml(entry.id)}</code>
+        Source: Wiktionary${entry.etymologyNumber ? ` · etymology ${escapeHtml(entry.etymologyNumber)}` : ''},
+        where this word is spelled “${escapeHtml(entry.headword)}”.
+        Reference: <code>${escapeHtml(entry.id)}</code>
       </div>
     `;
 
@@ -630,17 +630,17 @@
       : '';
     els.qualityContent.innerHTML = `
       ${sourceNote}
-      <div class="quality-stat"><span>Total entries</span><strong>${v.totalEntries}</strong></div>
-      <div class="quality-stat"><span>No explicit canonical tag</span><strong>${v.inferredCanonicalForms.length}</strong></div>
-      <div class="quality-stat"><span>Entries missing IPA</span><strong>${v.missingIpa.length}</strong></div>
-      <div class="quality-stat"><span>Unresolved relationship references</span><strong>${v.unknownReferencedWords.length}</strong></div>
-      <div class="quality-stat"><span>Homograph spellings</span><strong>${Object.keys(v.duplicateNormalizedSpellings).length}</strong></div>
-      <div class="quality-stat"><span>Circular derivation chains</span><strong>${v.circularDerivations.length}</strong></div>
+      <div class="quality-stat"><span>Words in the dictionary</span><strong>${v.totalEntries}</strong></div>
+      <div class="quality-stat"><span>Main spelling not confirmed</span><strong>${v.inferredCanonicalForms.length}</strong></div>
+      <div class="quality-stat"><span>Words with no pronunciation</span><strong>${v.missingIpa.length}</strong></div>
+      <div class="quality-stat"><span>Links to words we don’t have</span><strong>${v.unknownReferencedWords.length}</strong></div>
+      <div class="quality-stat"><span>Spellings shared by several words</span><strong>${Object.keys(v.duplicateNormalizedSpellings).length}</strong></div>
+      <div class="quality-stat"><span>Words that circularly derive from each other</span><strong>${v.circularDerivations.length}</strong></div>
       <div class="quality-note">
-        These describe the underlying Wiktionary data, not bugs in this site — missing pronunciations, cross-references that don't resolve to an entry in this extract, homographs, and so on. "No explicit canonical tag" entries aren't necessarily wrong — most simply have no alternative spelling for Wiktionary to disambiguate from, so we show its headword as-is. Fixing a genuine data gap means editing the source entry on Wiktionary itself; we'll pick up the fix automatically next time we rebuild from a fresh extract.
+        These describe the Wiktionary data this dictionary is built from, not bugs in this site — missing pronunciations, links pointing at words we don't have yet, spellings shared by several different words, and so on. "Main spelling not confirmed" doesn't mean a word is wrong: usually there's simply no alternative spelling for Wiktionary to choose between, so we show the spelling it used. Fixing a real gap means editing the word on Wiktionary itself; we'll pick that up automatically the next time we refresh.
       </div>
       <a class="quality-download" href="data/validation-report.json" download="yorubadict-quality-report.json">
-        Download the full report (JSON) — every affected entry ID, for fixing on Wiktionary
+        Download the full report (JSON) — every word affected, for fixing on Wiktionary
       </a>
     `;
   }
@@ -828,23 +828,23 @@
       placeholder: 'Search Yorùbá or English…  (ile, fa, pull…)',
       short: 'Search…',
       hint: 'Start typing a Yorùbá word (with or without tone marks) or an English word.',
-      empty: 'No entries found. Try a spelling without tone marks, or an English word from the definition.',
+      empty: 'No words found. Try a spelling without tone marks, or an English word from the definition.',
     },
     yoruba: {
       badge: 'YO',
       label: 'Searching Yorùbá words only. Tap to search English definitions only.',
-      placeholder: 'Search Yorùbá headwords…  (ile, fa, bàbá…)',
+      placeholder: 'Search Yorùbá words…  (ile, fa, bàbá…)',
       short: 'Yorùbá…',
-      hint: 'Searching Yorùbá headwords only. Start typing, with or without tone marks and underdots.',
-      empty: 'No Yorùbá headword found. Try a spelling without tone marks, or tap YO/EN to search definitions too.',
+      hint: 'Searching Yorùbá words only. Start typing, with or without tone marks and underdots.',
+      empty: 'No Yorùbá word found. Try a spelling without tone marks, or tap YO/EN to search definitions too.',
     },
     english: {
       badge: 'EN',
       label: 'Searching English definitions only. Tap to search both.',
-      placeholder: 'Search English gloss…  (house, pull, father…)',
+      placeholder: 'Search English definitions…  (house, pull, father…)',
       short: 'English…',
       hint: 'Searching English definitions only. Start typing an English word.',
-      empty: 'No definition found containing that word. Try another word, or tap EN to search Yorùbá headwords too.',
+      empty: 'No definition found containing that word. Try another word, or tap EN to search Yorùbá words too.',
     },
   };
 

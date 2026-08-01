@@ -54,7 +54,10 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 3px;
-  flex-shrink: 0;
+  /* Yields before the search box does; see .header-search. */
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .wordmark {
@@ -123,10 +126,22 @@ a { color: inherit; }
   padding-left: 10px;
 }
 
+/* The search box is the tool, so it gets a floor and the wordmark is what
+   yields. Previously .wordmark-group and .header-actions were both
+   flex-shrink: 0 while this was flex: 1, so the field absorbed every
+   shortfall: at 800px it was down to 30px of readable text, and from 760px
+   to 701px it bottomed out at 90px wide with none at all. */
 .header-search {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 16rem;
   position: relative;
 }
+
+/* The tone rule under the search box used to share that band with the
+   search-mode radios. With the scope moved into the field itself, a 4px
+   decoration was left holding ~26px of header on its own - so it goes here,
+   and the same motif still divides the sections of an entry. */
+.header-search .tone-rule { display: none; }
 
 /* The field and its in-box mode button. */
 .search-field {
@@ -894,6 +909,18 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
+}
+
+/* Intermediate widths - laptop windows, tablets in landscape, a browser
+   sharing the screen. The full lockup is 402px and the two action buttons
+   182px, which together left the search box 30px of readable text at 800px
+   and none at all below 760px. The tagline is ~270px of that lockup and the
+   least load-bearing part of it, so it goes first; "Sọ̀rọ̀ Sókè" alone still
+   names the site, and the <title> and About page carry the full name.
+   1120px is where the field stops being wide enough for its own placeholder
+   with the tagline present, so the swap happens before anything is clipped. */
+@media (max-width: 1120px) {
+  .wordmark-en { display: none; }
 }
 
 /* ---------- Header: narrow viewports ---------- */
