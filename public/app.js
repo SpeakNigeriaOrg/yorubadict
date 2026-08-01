@@ -149,12 +149,19 @@
     const mode = state.searchMode;
     const y = state.index.yoruba;
 
+    // Why the dialect tier is last among the Yorùbá tiers: it matches a word
+    // that a *variety* uses and returns the standard entry it belongs to, so
+    // it must never outrank a real headword. It's Yorùbá, so it belongs to the
+    // YO scope and is skipped when only EN is lit.
+    state.dialectMatches = new Map();
+
     // 1. Yorùbá Search Path
     if (mode === 'both' || mode === 'yoruba') {
       push(exactMatch(y.exact, trimmed));
       push(exactMatch(y.tone, toneInsensitive(trimmed)));
       push(exactMatch(y.ortho, orthographyInsensitive(trimmed)));
       push(prefixMatches(y.ortho, orthographyInsensitive(trimmed), limit));
+      push(dialectMatches(y.dialect, orthographyInsensitive(trimmed), limit));
     }
 
     // 2. English Search Path
@@ -163,6 +170,26 @@
     }
 
     return ordered.slice(0, limit).map((id) => state.entries[id]);
+  }
+
+  // Exact then prefix over the dialect tier. Records which varieties produced
+  // each hit in state.dialectMatches, so a result row can say why it appeared
+  // rather than looking like an unrelated word.
+  function dialectMatches(tier, query, limit) {
+    if (!tier || !query) return [];
+    const ids = [];
+    const start = lowerBound(tier.spellings, query);
+    for (let i = start; i < tier.spellings.length; i++) {
+      const spelling = tier.spellings[i];
+      if (!spelling.startsWith(query)) break;
+      for (const posting of tier.postings[spelling]) {
+        if (!state.dialectMatches.has(posting.id)) state.dialectMatches.set(posting.id, new Set());
+        for (const v of posting.varieties) state.dialectMatches.get(posting.id).add(v);
+        ids.push(posting.id);
+      }
+      if (ids.length >= limit) break;
+    }
+    return ids;
   }
 
   // ---------------------------------------------------------------
@@ -195,10 +222,19 @@
       btn.className = 'result-item';
       btn.setAttribute('role', 'option');
       btn.dataset.index = String(i);
+      // A dialect-tier hit isn't a spelling of this headword - it's a word a
+      // variety uses for it - so the row says which varieties matched instead
+      // of leaving an apparently unrelated result unexplained.
+      const varieties = state.dialectMatches?.get(entry.id);
+      const dialectNote = varieties
+        ? `<div class="result-dialect">${escapeHtml([...varieties].slice(0, 3).join(' · '))}${varieties.size > 3 ? ` +${varieties.size - 3}` : ''}</div>`
+        : '';
+
       btn.innerHTML = `
         <div class="result-headword">${escapeHtml(entry.canonicalForm.value)}</div>
         <div class="result-meta">${escapeHtml(entry.pos || '')}${entry.etymologyNumber ? ' · etym. ' + escapeHtml(entry.etymologyNumber) : ''}</div>
         <div class="result-gloss">${escapeHtml(firstGloss(entry))}</div>
+        ${dialectNote}
       `;
       btn.addEventListener('click', () => navigateTo(entry.id));
       els.resultsList.appendChild(btn);
@@ -223,23 +259,99 @@
     }[c]));
   }
 
+  // ---------------------------------------------------------------
+  // Dialect synonyms
+  //
+  // Imported from Wiktionary's own Module:dialect synonyms/yo/<term> rather
+  // than recovered from Kaikki's flattened rendering of the same table (which
+  // is unrecoverable - see kaikki-yoruba/src/lib/relationDebris.mjs). Grouped
+  // by the variety hierarchy the source defines, and collapsed by default:
+  // some entries list well over a hundred varieties, which would otherwise
+  // bury the definition.
+  // ---------------------------------------------------------------
+
+  function dialectTermHtml(term) {
+    const label = escapeHtml(term.term);
+    const notes = [term.gloss, term.qualifier].filter(Boolean).join('; ');
+    return `<span class="dialect-term">${label}${notes ? ` <span class="dialect-term-gloss">${escapeHtml(notes)}</span>` : ''}</span>`;
+  }
+
+  function dialectSynonymsHtml(entry) {
+    const sets = entry.dialectSynonyms || [];
+    if (sets.length === 0) return '';
+
+    return sets.map((set) => {
+      const varietyCount = set.groups.reduce((n, g) => n + g.varieties.length, 0);
+      const wiktionaryUrl = `https://en.wiktionary.org/wiki/${encodeURIComponent(entry.headword)}#Yoruba`;
+
+      const groupsHtml = set.groups.map((group) => `
+        <div class="dialect-group">
+          ${group.group ? `<h4 class="dialect-group-name">${escapeHtml(group.group)}</h4>` : ''}
+          <dl class="dialect-rows">
+            ${group.varieties.map((v) => `
+              <dt>${escapeHtml(v.display || v.name)}</dt>
+              <dd>${v.terms.map(dialectTermHtml).join('<span class="dialect-sep" aria-hidden="true">·</span>')}</dd>
+            `).join('')}
+          </dl>
+        </div>
+      `).join('');
+
+      return `
+        <details class="dialect-panel">
+          <summary>
+            <span class="dialect-summary-label">Dialectal synonyms</span>
+            ${set.gloss ? `<span class="dialect-summary-gloss">“${escapeHtml(set.gloss)}”</span>` : ''}
+            <span class="dialect-summary-count">${varietyCount} varieties</span>
+          </summary>
+          <div class="dialect-body">
+            ${groupsHtml}
+            <a class="dialect-source" href="${wiktionaryUrl}" target="_blank" rel="noopener noreferrer">
+              View the dialect map on Wiktionary ↗
+            </a>
+          </div>
+        </details>
+      `;
+    }).join('');
+  }
+
+  // The reverse view, on an entry that *is* a dialect form of something else.
+  // Deliberately distinct from Wiktionary's own "alternative form of" sense:
+  // an alt form claims two spellings are the same word, a dialect synonym
+  // claims a variety uses a different word. An entry can be both, and then
+  // both are shown.
+  function dialectOfHtmlFor(entry) {
+    const rels = (entry.synthesizedRelations || []).filter((r) => r.type === 'dialectOf');
+    if (rels.length === 0) return '';
+
+    const lines = rels.map((rel) => {
+      const target = state.entries[rel.entryId];
+      if (!target) return '';
+      const varieties = (rel.varieties || []).join(', ');
+      return `
+        <div class="dialect-of-line">
+          <span class="dialect-of-varieties">${escapeHtml(varieties)}</span>
+          <span class="dialect-of-verb">dialect form of</span>
+          <a class="relation-pill" href="#/entry/${encodeURIComponent(rel.entryId)}">
+            ${escapeHtml(target.canonicalForm.value)}
+            <span class="pos-hint">${escapeHtml(target.pos || '')}</span>
+          </a>
+        </div>
+      `;
+    }).filter(Boolean).join('');
+
+    return lines ? section('Dialect', `<div class="dialect-of">${lines}</div>`) : '';
+  }
+
   function relationPillsHtml(list, extraSynthesized) {
     const elements = [];
     
     for (const rel of list || []) {
-      // 1. The Graceful Escape Hatch
-      if (rel.type === 'external_link') {
-        elements.push(`<div style="display: block; width: 100%; margin-top: 12px; padding: 12px 16px; background: var(--bg-surface, #f8fafc); border: 1px dashed #cbd5e1; border-radius: 6px; font-size: 0.9em;">
-          <span style="color: #64748b; margin-right: 8px;" aria-hidden="true">⚠️</span>
-          <span style="color: #475569; margin-right: 8px;">Some complex dialect tables couldn't be rendered here.</span>
-          <a href="${escapeHtml(rel.url)}" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: none; font-weight: 500;">
-            ${escapeHtml(rel.message)} ↗
-          </a>
-        </div>`);
-        continue;
-      }
+      // Flattened dialect tables used to arrive here as debris, with a
+      // synthetic "external_link" item standing in for whatever had been
+      // dropped. They're now imported from Wiktionary's own source modules
+      // and rendered by renderDialectSynonyms instead, so both are gone.
+      if (rel.type === 'external_link') continue;
 
-      // 2. Standard Linked Terms
       if (rel.resolved && rel.entryIds && rel.entryIds.length > 0) {
         for (const id of rel.entryIds) {
           const target = state.entries[id];
@@ -342,6 +454,8 @@
       : '';
     const morphemesHtmlStr = morphemesHtml(entry.etymologyMorphemes);
 
+    const dialectHtml = dialectSynonymsHtml(entry);
+    const dialectOfHtml = dialectOfHtmlFor(entry);
     const derivedHtml = relationPillsHtml(entry.derivedTerms);
     const relatedHtml = relationPillsHtml(entry.relatedTerms);
     const synonymsHtml = relationPillsHtml(entry.synonyms);
@@ -364,8 +478,10 @@
       <div class="tone-rule divider" aria-hidden="true"><span></span><span></span><span></span></div>
 
       ${section('Definitions', sensesHtml)}
+      ${dialectOfHtml}
       ${section('Etymology', etymologyHtml)}
       ${section('Component words', morphemesHtmlStr)}
+      ${dialectHtml}
       ${section('Used in', usedInHtml)}
       ${section('Derived terms', derivedHtml)}
       ${section('Derived from', derivedFromHtml)}

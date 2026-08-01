@@ -66,10 +66,14 @@ async function main() {
   console.log(`      ${entries.length} entries loaded`);
 
   console.log('[2/4] Synthesizing relationship graph ...');
-  const { entries: linkedEntries, unresolved } = synthesizeRelationships(entries);
+  const { entries: linkedEntries, unresolved, dialect } = synthesizeRelationships(entries);
+  console.log(
+    `      dialect data on ${dialect.entriesWithData} entries: ${dialect.terms} terms ` +
+      `(${dialect.distinctTerms} distinct, ${dialect.resolvedTerms} matching an existing entry)`
+  );
 
   console.log('[3/4] Building validation report ...');
-  const validationReport = buildValidationReport(linkedEntries, unresolved, []);
+  const validationReport = buildValidationReport(linkedEntries, unresolved, [], dialect);
   validationReport.kaikkiSourceDate = kaikkiSourceDate;
   validationReport.kaikkiReleaseTag = kaikkiReleaseTag;
   validationReport.kaikkiParseErrorCount = kaikkiParseErrorCount;

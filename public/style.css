@@ -581,6 +581,143 @@ a { color: inherit; }
   opacity: 0.6;
 }
 
+/* ---------- Dialectal synonyms ----------
+   Imported from Wiktionary's own dialect-synonym modules. Collapsed by
+   default: some entries carry well over a hundred varieties, which would
+   otherwise push the definition off the screen. */
+
+.dialect-panel {
+  margin: 0 0 30px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--background-secondary);
+}
+
+.dialect-panel > summary {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+.dialect-panel > summary::-webkit-details-marker { display: none; }
+.dialect-panel > summary::before {
+  content: '▸';
+  color: var(--brand-accent-deep);
+  font-size: 0.8rem;
+}
+.dialect-panel[open] > summary::before { content: '▾'; }
+
+.dialect-summary-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-accent-deep);
+}
+.dialect-summary-gloss {
+  font-family: var(--font-yoruba);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+.dialect-summary-count {
+  margin-left: auto;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.dialect-body {
+  padding: 0 14px 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dialect-group { margin-top: 14px; }
+.dialect-group-name {
+  margin: 0 0 6px;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Two columns on a wide pane, stacked on a phone - the variety label is often
+   longer than the term it maps to. */
+.dialect-rows {
+  display: grid;
+  grid-template-columns: minmax(9rem, 15rem) 1fr;
+  gap: 2px 14px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.dialect-rows dt {
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.dialect-rows dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  line-height: 1.5;
+}
+
+.dialect-term {
+  font-family: var(--font-yoruba);
+  color: var(--brand-indigo);
+  text-rendering: optimizeLegibility;
+}
+.dialect-term-gloss {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+/* Several varieties often share a row; without a mark the terms run together
+   when the text is copied or read by a screen reader. */
+.dialect-sep { color: var(--border-subtle); }
+
+.dialect-source {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand-indigo);
+  text-decoration: none;
+}
+.dialect-source:hover { color: var(--brand-accent-deep); text-decoration: underline; }
+
+/* The reverse view: this entry IS a dialect form of another word. Kept
+   visually apart from the alt-of tagging in Definitions, because the two make
+   different claims. */
+.dialect-of { display: flex; flex-direction: column; gap: 8px; }
+.dialect-of-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  font-size: 0.9rem;
+}
+.dialect-of-varieties { color: var(--brand-indigo); font-weight: 600; }
+.dialect-of-verb { color: var(--text-secondary); }
+
+/* Why a dialect-tier search hit appeared, on the result row itself. */
+.result-dialect {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  color: var(--brand-accent-deep);
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .dialect-rows { grid-template-columns: 1fr; gap: 0 0; }
+  .dialect-rows dt { margin-top: 8px; }
+}
+
 .alt-forms { 
   color: var(--text-secondary); 
   font-size: 0.92rem; 

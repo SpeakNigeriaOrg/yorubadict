@@ -103,13 +103,66 @@ function buildEnglishIndex(entries) {
   return { postings: postingsOut, df, docLengths, avgDocLength, totalDocs };
 }
 
+// Dialect synonyms are searchable, but on their own tier and pointing at the
+// PARENT entry: hearing "ulé" in Ijebu and searching it should find ilé.
+//
+// Two deliberate limits keep this from cluttering results:
+//
+//   - A spelling already resolvable through the ortho tier is skipped. Most
+//     dialect terms are just the standard spelling repeated across dozens of
+//     varieties (~30 varieties spell inú as "inú"), and where a dialect form
+//     does have its own entry, that entry carries a dialectOf back-link
+//     instead. Measured: 537 distinct dialect terms collapse to ~871 new keys
+//     corpus-wide rather than thousands of rows.
+//   - Each key stores one posting per parent entry, with the variety names
+//     that produced it, so a match renders as a single labelled row however
+//     many varieties agreed.
+//
+// Keyed orthography-insensitively (the most forgiving tier) since someone
+// recalling a spoken dialect word is the least likely to have tone marks.
+function buildDialectTier(entries, orthoTier) {
+  const alreadyFindable = new Set(orthoTier.spellings);
+  const map = new Map(); // spelling -> Map(parentEntryId -> Set(variety))
+
+  for (const entry of entries) {
+    for (const set of entry.dialectSynonyms || []) {
+      for (const group of set.groups || []) {
+        for (const variety of group.varieties || []) {
+          const label = variety.display || variety.name;
+          for (const { term } of variety.terms || []) {
+            const key = allForms(term).orthographyInsensitive;
+            if (!key || alreadyFindable.has(key)) continue;
+            if (!map.has(key)) map.set(key, new Map());
+            const byEntry = map.get(key);
+            if (!byEntry.has(entry.id)) byEntry.set(entry.id, new Set());
+            byEntry.get(entry.id).add(label);
+          }
+        }
+      }
+    }
+  }
+
+  const spellings = [...map.keys()].sort();
+  return {
+    spellings,
+    postings: Object.fromEntries(
+      spellings.map((s) => [
+        s,
+        [...map.get(s).entries()].map(([id, varieties]) => ({ id, varieties: [...varieties] })),
+      ])
+    ),
+  };
+}
+
 export function buildSearchIndex(entries) {
   const formsByEntry = new Map(entries.map((e) => [e.id, searchableForms(e)]));
+  const ortho = buildSortedTierIndex(entries, 'orthographyInsensitive', formsByEntry);
   return {
     yoruba: {
       exact: buildSortedTierIndex(entries, 'exact', formsByEntry),
       tone: buildSortedTierIndex(entries, 'toneInsensitive', formsByEntry),
-      ortho: buildSortedTierIndex(entries, 'orthographyInsensitive', formsByEntry),
+      ortho,
+      dialect: buildDialectTier(entries, ortho),
     },
     english: buildEnglishIndex(entries),
   };

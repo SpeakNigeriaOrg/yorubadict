@@ -5,7 +5,7 @@
 
 import { spellingsForEntry, toneInsensitiveForm } from './orthography.mjs';
 
-export function buildValidationReport(entries, unresolvedRelations, parseErrors) {
+export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null) {
   const report = {
     generatedAt: new Date().toISOString(),
     totalEntries: entries.length,
@@ -15,7 +15,20 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors)
     duplicateNormalizedSpellings: {},
     unknownReferencedWords: unresolvedRelations,
     circularDerivations: [],
+    // Positive coverage counters for the imported Wiktionary dialect tables -
+    // the rest of this report counts problems, but a silent drop in what the
+    // dialect import found is just as much a regression as a new problem.
+    dialectSynonyms: dialect,
+    suspiciousRelationText: [],
   };
+
+  // Diagnostics only. The separator wiktextract leaks into a flattened table
+  // is an arbitrary Wiktionary page title, so these patterns can't be used to
+  // drop anything (see kaikki-yoruba/src/lib/relationDebris.mjs) - but if any
+  // survive the container-level filter upstream, they should be visible here
+  // rather than only in the UI.
+  const FOREIGN_SCRIPT = /[㐀-䶿一-鿿぀-ヿ가-힯؀-ۿ]/u;
+  const LATIN_LETTER = /[A-Za-zÀ-ɏḀ-ỿ]/u;
 
   const toneIndex = new Map(); // toneInsensitive spelling -> Set(ids)
 
@@ -40,6 +53,17 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors)
       const key = toneInsensitiveForm(spelling);
       if (!toneIndex.has(key)) toneIndex.set(key, new Set());
       toneIndex.get(key).add(entry.id);
+    }
+
+    for (const field of ['synonyms', 'antonyms', 'derivedTerms', 'relatedTerms', 'descendants']) {
+      for (const rel of entry[field] || []) {
+        const text = rel.text || '';
+        // A leaked separator sits inside a token; a genuine foreign-script
+        // relation (Mandarin 阿哥哥, Japanese イロコ) is foreign all through.
+        if (FOREIGN_SCRIPT.test(text) && LATIN_LETTER.test(text.replace(FOREIGN_SCRIPT, ''))) {
+          report.suspiciousRelationText.push({ entryId: entry.id, field, text, reason: 'mixed-script' });
+        }
+      }
     }
   }
 

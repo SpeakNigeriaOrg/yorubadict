@@ -143,8 +143,11 @@ quirk, not a bug in this pipeline), it produces:
 - **777 entries** with an inferred rather than explicitly-tagged canonical
   spelling (see below).
 - **374 entries** with no IPA in the source data.
-- **2,760 unresolved relationship references** — a derived/related/synonym
-  points to a spelling that isn't in this extract.
+- **2,362 unresolved relationship references** — a derived/related/synonym
+  points to a spelling that isn't in this extract. (Was 2,762 before the
+  flattened dialect tables stopped being counted as relations.)
+- **6,426 dialect terms** across 138 entries, imported from Wiktionary's own
+  dialect-synonym modules — see "Dialect tables" below.
 - **1,579 spellings** shared by more than one homograph once tone marks and
   underdots are stripped (checked across each entry's headword, canonical
   form, *and* alt forms - not just its canonical form alone).
@@ -179,21 +182,42 @@ our entry id, so homographs stay distinct, independently searchable entries
 with their own etymology text rather than getting merged into one confusing
 entry.
 
-### Detecting broken tables and linking out to Wiktionary
+### Dialect tables: read from source, not salvaged
 
-Some Yorùbá Wiktionary entries carry complex regional-dialect comparison
-tables. Kaikki's wikitext-to-JSON conversion doesn't always survive those
-tables intact — they can come through as mangled text (a stray mojibake
-marker character), an oddly long "word" (anything over 50 characters is
-almost never an actual term), or a full sentence (anything containing `. `).
+Some Yorùbá Wiktionary entries carry regional-dialect comparison tables.
+Kaikki renders those tables and flattens them to text, emitting every text run
+— caption, footnotes, body cells — as a separate "synonym", with cells glued
+together by a separator. Measured on the corpus: of the 57 entries that had any
+synonyms, **55 were table dumps**, and exactly 2 had a real synonym.
 
-Rather than render garbage or silently drop the whole relationship, the
-normalizer (`extractRelationList` in kaikki-yoruba's `src/lib/normalizer.mjs`
-- normalization itself now happens there, see "The pipeline" above) detects
-these cases and replaces them with a single fallback pill that links directly
-to that word's own Yorùbá section on Wiktionary ("View complex dialect data
-on Wiktionary"). Nothing is lost — it's just deferred to the source, which
-can render its own tables correctly.
+That text can't be repaired, because the separator is an arbitrary Wiktionary
+page title substituted by an expansion-index desync, and it changes every
+build — `慵` and `SPACE SHUTTLE` in one build, `礀` and `啀` in the next, also
+`UNITED ARAB EMIRATES`, `IPSE DIXIT`, `VIFÖ`, `FA`, `T`. Some are Han
+ideographs and some are plain ASCII, so no character rule catches them. An
+earlier version of this project tried `length > 50` and `contains ". "`
+heuristics; on the real corpus they missed 277 table items while deleting real
+content (bibliography entries, example sentences).
+
+So the data is read from where it isn't broken. `{{dialect synonyms|yo|inú}}`
+transcludes `Module:dialect synonyms/yo/inú`, a Lua table of region → terms;
+140 such pages exist, and the variety hierarchy lives in
+`Module:dialect synonyms/yo`. kaikki-yoruba fetches them
+(`src/fetch-dialect-synonyms.mjs`, snapshot committed for reproducible builds),
+parses them (`src/lib/dialectSynonyms.mjs`), and attaches a structured
+`dialectSynonyms` field — 6,426 dialect terms across 138 entries. Recognising
+the flattened tables then needs no guesswork either: a relation list that
+contains one of the table's own marker strings (its caption, its footnote, a
+variety-group header — all read from that same metadata module) *is* that
+table's text, and is dropped whole (`src/lib/relationDebris.mjs`).
+
+Dialect synonyms are kept deliberately separate from alternative forms. An alt
+form claims two spellings are the same word and so belongs in the alias index;
+a dialect synonym claims a variety uses a *different* word, and putting those in
+the alias index would make a `derivedTerms` reference to "ulé" resolve to "ilé"
+and fabricate links. Instead they get their own lowest-priority search tier
+(searching `ababuton` finds **ọpọlọ**, labelled `Oǹdó`) and, where a dialect
+form has an entry of its own, a synthesized `dialectOf` back-link on it.
 
 ### Relationship synthesis and its honest limits
 
