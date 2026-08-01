@@ -861,43 +861,62 @@ a { color: inherit; }
   border-top: 1px solid var(--border-subtle);
 }
 
-/* One line, everywhere: the parent-project link and the courses link. The
-   About link and the "who we are" blurb that used to live here are already
-   reachable from the header, so they were pure duplication. */
+/* One line, everywhere: the parent-project link, courses and games. The About
+   link and the "who we are" blurb that used to live here are already reachable
+   from the header, so they were pure duplication. */
 .footer-inner {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  /* baseline, not center: these links are different sizes on purpose, and
+     centering each one's own box left the smaller text sitting a pixel off
+     the larger. Aligning the text baselines is what actually lines them up. */
+  align-items: baseline;
   justify-content: center;
   gap: 6px 22px;
 }
 
-.parent-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
+/* One family across all three - only the size varies. */
+.footer-inner a {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.95rem;
   color: var(--brand-indigo);
-}
-.parent-brand img { display: block; border-radius: 5px; }
-.parent-brand:hover { color: var(--brand-accent-deep); }
-
-.footer-inner a { color: var(--brand-indigo); text-underline-offset: 2px; }
-.footer-inner a:hover { color: var(--brand-accent-deep); }
-
-.footer-course {
-  font-weight: 600;
-  font-size: 0.85rem;
   text-decoration: none;
+  text-underline-offset: 2px;
+  line-height: 1.2;
 }
-.footer-course:hover { text-decoration: underline; }
+.footer-inner a:hover { color: var(--brand-accent-deep); text-decoration: underline; }
+
+.parent-brand {
+  /* inline-flex would establish its own baseline from the box rather than
+     from the text, which is what knocked it out of line with its neighbours;
+     inline-block keeps the last line box as the baseline. */
+  display: inline-block;
+  font-size: 0.95rem;
+}
+/* The icon is centred on the text it sits beside rather than on the baseline,
+   so it doesn't drag the line box down. */
+.parent-brand img {
+  display: inline-block;
+  vertical-align: -0.18em;
+  margin-right: 8px;
+  border-radius: 5px;
+}
+
+.footer-link { font-size: 0.85rem; }
 
 @media (max-width: 700px) {
   .site-footer { padding: 12px 14px; }
+  /* Three links at the desktop gap wrap onto three rows at 390px; this keeps
+     them on one down to ~430px. */
+  .footer-inner { gap: 4px 12px; }
+}
+
+/* Below ~430px all three can't share a row - the brand alone is 204px - and
+   left to itself the wrap strands "Games" on a line of its own. Give the brand
+   its own row so the two short links always pair up underneath it. */
+@media (max-width: 430px) {
+  .parent-brand { flex: 1 0 100%; }
 }
 
 /* ---------- Focus visibility (accessibility floor) ---------- */
