@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T12:13:16.425Z",
+  "generatedAt": "2026-08-01T00:41:32.826Z",
   "totalEntries": 6272,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -14084,26 +14084,6 @@
       "text": "afà"
     },
     {
-      "sourceEntryId": "en-fa-yo-verb-OFVmd8R8",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: fàview map"
-    },
-    {
-      "sourceEntryId": "en-fa-yo-verb-OFVmd8R8",
-      "relationType": "synonyms",
-      "text": "lẹ̀ghẹ̀FAÌwẹrẹfà ()FA"
-    },
-    {
-      "sourceEntryId": "en-fa-yo-verb-OFVmd8R8",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-fa-yo-verb-OFVmd8R8",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-fa-yo-verb-TQg-F1fi",
       "relationType": "derivedTerms",
       "text": "ẹ̀fá"
@@ -14179,16 +14159,6 @@
       "text": "ìdé"
     },
     {
-      "sourceEntryId": "en-sun-yo-verb-w~6onUrj",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-w~6onUrj",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-sun-yo-verb-yo:to_roast",
       "relationType": "derivedTerms",
       "text": "dáná sun"
@@ -14209,44 +14179,9 @@
       "text": "ìdánásunlé"
     },
     {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_roast",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_roast",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_roast",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: sunview map"
-    },
-    {
       "sourceEntryId": "en-sun-yo-verb-yo:to_cry",
       "relationType": "derivedTerms",
       "text": "sísun"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_cry",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_cry",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_cry",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: sunview map"
-    },
-    {
-      "sourceEntryId": "en-sun-yo-verb-yo:to_cry",
-      "relationType": "synonyms",
-      "text": "sọnPOINTÌwẹrẹsọPOINT"
     },
     {
       "sourceEntryId": "en-sun-yo-verb-dC0~X2UW",
@@ -14749,21 +14684,6 @@
       "text": "ewékewé"
     },
     {
-      "sourceEntryId": "en-ewe-yo-noun-acXdaKA6",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ewéview map"
-    },
-    {
-      "sourceEntryId": "en-ewe-yo-noun-acXdaKA6",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ewe-yo-noun-acXdaKA6",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
       "relationType": "derivedTerms",
       "text": "agbolé"
@@ -14837,21 +14757,6 @@
       "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
       "relationType": "derivedTerms",
       "text": "ìyáálé"
-    },
-    {
-      "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: iléview map"
-    },
-    {
-      "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
@@ -15034,21 +14939,6 @@
       "text": "mímu"
     },
     {
-      "sourceEntryId": "en-mu-yo-verb-5i9kA2DY",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: muview map"
-    },
-    {
-      "sourceEntryId": "en-mu-yo-verb-5i9kA2DY",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-mu-yo-verb-5i9kA2DY",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-mu-yo-verb-TuaAS407",
       "relationType": "derivedTerms",
       "text": "mú wá"
@@ -15149,66 +15039,6 @@
       "text": "ó ga!"
     },
     {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: gaview map"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "ga慵Ǹcàgù慵"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "ga慵Baàtɛgù慵"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "ga慵Ìdàácàgù慵BeninIgbó Ìdàácàgù慵Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-ÌjèỌ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́ga慵Onigbologa慵Kétu"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "ÀnàgóKétugù慵Ifɛ̀Akpáréga慵"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "gù慵Atakpamɛga慵"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "gù慵Bokoga慵Tchettiga慵"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-lfyLYT4c",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ga-yo-verb-xQmFj09V",
       "relationType": "derivedTerms",
       "text": "agá"
@@ -15237,21 +15067,6 @@
       "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
       "relationType": "derivedTerms",
       "text": "sísè"
-    },
-    {
-      "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: sèview map"
-    },
-    {
-      "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-se-yo-verb-w1pq3OKF",
@@ -15412,21 +15227,6 @@
       "sourceEntryId": "en-baba-yo-noun-iKGIHwAl",
       "relationType": "derivedTerms",
       "text": "Babátúndé"
-    },
-    {
-      "sourceEntryId": "en-idi-yo-noun-F-Y~Dgis",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìdíview map"
-    },
-    {
-      "sourceEntryId": "en-idi-yo-noun-F-Y~Dgis",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-idi-yo-noun-F-Y~Dgis",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-da-yo-verb-FsER6m5k",
@@ -15724,296 +15524,6 @@
       "text": "ìdán"
     },
     {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "∅"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ¹"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ti ¹"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò máa ¹"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "ti máa"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "ti ń"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "máa ń"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ti máa ¹"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "ti máa ń"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Unmarked"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Progressive"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Relational"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Wọ́n ò tí ì jí.They haven’t woken up."
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Anticipative"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Intentional"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Backgrounder"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Inceptive"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Manifestive"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Relevant–inceptive"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "In this sentence"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "the and"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Habitual"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Expective"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Antecedent completion"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "máa ńa máań"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "ti ³ti máa ń ⁴a ti máa ⁴"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ¹ómáaá"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "—"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò máa ¹ó máaá máa"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ti máa ¹ó ti máaá ti máa"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "yóò ti ¹ó tiá ti"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "kò ²"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "kì í ⁵kì í máa ⁵kò ń ²kò máa ń ²"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "kò níí ²kì yóò ¹kì ó"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "kì yóò máa ¹"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "kì yóò tí ì máa ¹ ⁵kò níí tí ì máa ² ⁵"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "that pronoun must be emphatic"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "ò is an alternative form of kò"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "often used after personal pronouns"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "According to Ogunbọwale (1970)"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Adebayo"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "volume 50"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "number 1"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "→DOI"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "pages 140–166"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Adéwọlé"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "volume 14"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "pages 1–20"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Timothy Temilọla (2001)"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "University of Florida dissertation"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Bamgboṣe"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Ayọ (2000)"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Cambridge University Press"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "→ISBN"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "Ogunbọwale"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "London: University of London Press"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "→ISBN"
-    },
-    {
-      "sourceEntryId": "en-maa-yo-particle-yo:anticipative",
-      "relationType": "relatedTerms",
-      "text": "→OCLC"
-    },
-    {
       "sourceEntryId": "en-gele-yo-noun-AtnXJn03",
       "relationType": "descendants",
       "text": "gelee"
@@ -16239,41 +15749,6 @@
       "text": "ìyọ́nú"
     },
     {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: inúview map"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "ịnụ́SPACE SHUTTLEÀkúrẹ́Àkúrẹ́ụnụ́SPACE SHUTTLE"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "ịnụ́SPACE SHUTTLEMọ̀bàỌ̀tùn Èkìtìụnụ́SPACE SHUTTLE"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "OkunOwéinúSPACE SHUTTLE"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "unúSPACE SHUTTLEKabbainúSPACE SHUTTLE"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-inu-yo-noun-2x75v7QG",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-lo-yo-verb-dcFBOFoE",
       "relationType": "derivedTerms",
       "text": "ìlò"
@@ -16397,26 +15872,6 @@
       "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
       "relationType": "derivedTerms",
       "text": "líle"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: leview map"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
-      "relationType": "synonyms",
-      "text": "le珍Òkìtìpupani珍"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-le-yo-verb-O03hXP68",
@@ -16562,151 +16017,6 @@
       "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
       "relationType": "derivedTerms",
       "text": "parin"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: erinview map"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "eni糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "erin糆Ìwẹrẹiyẹmẹriko糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Abẹ́òkútaerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Èkóerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Ìbàdànerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Ìlọrinerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Ọ̀yọ́erin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Ògbómọ̀ṣọ́erin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Ìwóerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Standard YorùbáNàìjíríàerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjànàkú糆Bɛ̀nɛ̀erin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjɛ̀nàkú糆BeninIgbó Ìdàácàerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjɛ̀nàkú糆Gbómìnàerin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "àjɛ̀nàkú糆Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-ÌjèỌ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́erin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "ayanakú糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "ayanakun糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "elufán糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "eñi糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "erin糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "karakundo糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "malú allanacú糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "malú糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "ayanuko糆Havanaalufán糆"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-erin-yo-noun-zQjExDFt",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-kuna-yo-verb-sQ6I0yj1",
@@ -16929,21 +16239,6 @@
       "text": "rí i pé"
     },
     {
-      "sourceEntryId": "en-ri-yo-verb-VTH1XXwJ",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ríview map"
-    },
-    {
-      "sourceEntryId": "en-ri-yo-verb-VTH1XXwJ",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ri-yo-verb-VTH1XXwJ",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-elu-yo-noun-XbAQvdzJ",
       "relationType": "derivedTerms",
       "text": "Elú"
@@ -16994,21 +16289,6 @@
       "text": "ìwòsàn"
     },
     {
-      "sourceEntryId": "en-wo-yo-verb-p2wgJpFb",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: wòview map"
-    },
-    {
-      "sourceEntryId": "en-wo-yo-verb-p2wgJpFb",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-wo-yo-verb-p2wgJpFb",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-bora-yo-verb-hyqk7e-k",
       "relationType": "derivedTerms",
       "text": "ìbóra"
@@ -17052,6 +16332,11 @@
       "sourceEntryId": "en-ka-yo-verb-sKfy-6Mm",
       "relationType": "derivedTerms",
       "text": "ìká"
+    },
+    {
+      "sourceEntryId": "en-koko-yo-noun-JR~s1ZLl",
+      "relationType": "derivedTerms",
+      "text": "a kì í mọ̀ ọ́n gún mọ̀ ọ́n tẹ̀ kí iyán ewùrà máà ní kókó"
     },
     {
       "sourceEntryId": "en-koko-yo-noun-JR~s1ZLl",
@@ -17217,76 +16502,6 @@
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "derivedTerms",
       "text": "ọjọ́ orí"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: oríview map"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "orúgho盇Mahinorígho盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "orúgho盇Oǹdóoígho盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "oí盇Oǹdóoígho盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo盇Baàtɛéwo盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo盇Ìdàácàeríwo盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "erío盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo盇BeninIgbó Ìdàácàeríwo盇"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo盇Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-Ìjèerí盇Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́erí盇Kétu"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ori-yo-noun-PKtSuPWj",
@@ -17502,21 +16717,6 @@
       "sourceEntryId": "en-igi-yo-noun-3Jxe24st",
       "relationType": "derivedTerms",
       "text": "onígi"
-    },
-    {
-      "sourceEntryId": "en-igi-yo-noun-3Jxe24st",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: igiview map"
-    },
-    {
-      "sourceEntryId": "en-igi-yo-noun-3Jxe24st",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-igi-yo-noun-3Jxe24st",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-imi-yo-noun-VSE8B4YK",
@@ -17829,21 +17029,6 @@
       "text": "rọrin"
     },
     {
-      "sourceEntryId": "en-irin-yo-noun-mNh~O4RZ",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: irinview map"
-    },
-    {
-      "sourceEntryId": "en-irin-yo-noun-mNh~O4RZ",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-irin-yo-noun-mNh~O4RZ",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-irin-yo-noun-WISt17QE",
       "relationType": "derivedTerms",
       "text": "arìnrìn àjò"
@@ -17857,21 +17042,6 @@
       "sourceEntryId": "en-irin-yo-noun-WISt17QE",
       "relationType": "derivedTerms",
       "text": "ìrìn àjò afẹ́"
-    },
-    {
-      "sourceEntryId": "en-irin-yo-noun-WISt17QE",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-irin-yo-noun-WISt17QE",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-irin-yo-noun-WISt17QE",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìrìnview map"
     },
     {
       "sourceEntryId": "en-olu-yo-noun-xRdnl~my",
@@ -18047,71 +17217,6 @@
       "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
       "relationType": "derivedTerms",
       "text": "òsì-inú"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: òsìview map"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsìn瀈Ọ̀yọ́òsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsìn瀈Ògbómọ̀ṣọ́òsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsìn瀈Standard YorùbáNàìjíríàòsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsìn瀈Bɛ̀nɛ̀òsì瀈Northeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òhì瀈Kabbaohì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òhì瀈Ọ̀wọ́rọ̀ohì瀈Lọ́kọ́jaohì瀈Ede languages"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "Southwest YorubaIfɛ̀Akpáréàwóòsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsì瀈Atakpamɛàwóòsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsì瀈Est-Monoàwóòsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "òsì瀈Tchettiàwóòsì瀈"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-osi-yo-noun-Ng-EA1lC",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-aja-yo-noun-zWNX792W",
@@ -18579,26 +17684,6 @@
       "text": "agutá"
     },
     {
-      "sourceEntryId": "en-ọni-yo-noun-dpWz1iPq",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọni-yo-noun-dpWz1iPq",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ọni-yo-noun-wP0gMknm",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọni-yo-noun-wP0gMknm",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-akọ-yo-noun-oSyQmL6Q",
       "relationType": "derivedTerms",
       "text": "akọṣu"
@@ -18939,21 +18024,6 @@
       "text": "Àánú"
     },
     {
-      "sourceEntryId": "en-aanu-yo-noun-L8ZyhVWV",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: àánúview map"
-    },
-    {
-      "sourceEntryId": "en-aanu-yo-noun-L8ZyhVWV",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-aanu-yo-noun-L8ZyhVWV",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-eti-yo-noun-PGo2tkD8",
       "relationType": "derivedTerms",
       "text": "etí erin"
@@ -19157,26 +18227,6 @@
       "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
       "relationType": "derivedTerms",
       "text": "ajẹmọ́-ìṣẹ́-ọkàn"
-    },
-    {
-      "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọkànview map"
-    },
-    {
-      "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
-      "relationType": "synonyms",
-      "text": "OkunOwéọkọ̀nUNITED ARAB EMIRATES"
-    },
-    {
-      "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọkan-yo-noun-OowwC5zp",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-dundun-yo-noun-~UMO4g6q",
@@ -19449,26 +18499,6 @@
       "text": "Adénúgà"
     },
     {
-      "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìgàview map"
-    },
-    {
-      "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
-      "relationType": "synonyms",
-      "text": "ùwà賻Oǹdóùghà賻"
-    },
-    {
-      "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-uga-yo-noun-4d~gT0Zg",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-Ayan-yo-name-w9lAWnYO",
       "relationType": "derivedTerms",
       "text": "aláyàn"
@@ -19577,26 +18607,6 @@
       "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
       "relationType": "derivedTerms",
       "text": "àìlówólọ́wọ́"
-    },
-    {
-      "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: owóview map"
-    },
-    {
-      "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
-      "relationType": "synonyms",
-      "text": "oghó瘆Ìwẹrẹeghó瘆"
-    },
-    {
-      "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-owo-yo-noun-R6UWTbwf",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-owo-yo-noun-Jx5UC9-4",
@@ -19765,21 +18775,6 @@
     },
     {
       "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọmọview map"
-    },
-    {
-      "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
       "relationType": "descendants",
       "text": "omo"
     },
@@ -19942,21 +18937,6 @@
       "sourceEntryId": "en-oju-yo-noun-R8IVtfcO",
       "relationType": "derivedTerms",
       "text": "tì lójú"
-    },
-    {
-      "sourceEntryId": "en-oju-yo-noun-R8IVtfcO",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ojúview map"
-    },
-    {
-      "sourceEntryId": "en-oju-yo-noun-R8IVtfcO",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-oju-yo-noun-R8IVtfcO",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ọmọde-yo-noun-3cnmaRlC",
@@ -20674,56 +19654,6 @@
       "text": "ìtajà"
     },
     {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọjàview map"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ìta丮Ìjẹ̀búÌjẹ̀bú Òdeọ̀bù丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ìta丮Rẹ́mọẸ̀pẹ́ọ̀bù丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ìta丮Ìkòròdúọ̀bù丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ìta丮Ṣágámùọ̀bù丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ẹrẹ́jà丮Àkúrẹ́Àkúrẹ́ọjà丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "ẹrẹ́jà丮Mọ̀bàỌ̀tùn Èkìtìọjà丮"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "OkunOwéọjà丮Kabbaọjà丮Ede languages"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọja-yo-noun-pAHd0HzV",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ọja-yo-noun-SCWciskg",
       "relationType": "derivedTerms",
       "text": "agbàjá-ọ̀pẹ̀lẹ̀"
@@ -20742,76 +19672,6 @@
       "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
       "relationType": "derivedTerms",
       "text": "ìgbà àwúrọ̀"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Proto-Itsekiri-SEY"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Southeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "-"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Usẹn"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Proto-Yoruba"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Central Yoruba"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "ọ̀wúrọ̀"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Western Àkókó"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Northwest Yoruba"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Standard Yorùbá"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Northeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "òùrọ́"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "òwùrọ́"
-    },
-    {
-      "sourceEntryId": "en-aarọ-yo-noun-wjsxoBeb",
-      "relationType": "synonyms",
-      "text": "Ọ̀wọ̀rọ̀"
     },
     {
       "sourceEntryId": "en-ọsan-yo-noun-8ADAoNmF",
@@ -20877,21 +19737,6 @@
       "sourceEntryId": "en-awọn-yo-pron-Lvq2uu65",
       "relationType": "relatedTerms",
       "text": "[preceding vowel repeated for mono­syllabic verbs]"
-    },
-    {
-      "sourceEntryId": "en-awọn-yo-pron-Lvq2uu65",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: àwọnview map"
-    },
-    {
-      "sourceEntryId": "en-awọn-yo-pron-Lvq2uu65",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-awọn-yo-pron-Lvq2uu65",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-awọn-yo-noun-oIoPy96v",
@@ -21489,31 +20334,6 @@
       "text": "ọgọ́wàá ()"
     },
     {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ńkọ́view map"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "sị́kọ́n緜Àkúrẹ́Àkúrẹ́sị́kọ́緜"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "sị́kọ́n緜Mọ̀bàỌ̀tùn Èkìtìsị́kọ́緜"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-nkọ-yo-particle-eiO-atGL1",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-o_dabọ-yo-intj-UWhMYI5X",
       "relationType": "descendants",
       "text": "adā̀bō"
@@ -21527,21 +20347,6 @@
       "sourceEntryId": "en-ọkin-yo-noun-0UbX-QtR",
       "relationType": "derivedTerms",
       "text": "Afunbíọ̀kín"
-    },
-    {
-      "sourceEntryId": "en-ọrọ-yo-noun-dCQfuIN9",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọ̀rọ̀view map"
-    },
-    {
-      "sourceEntryId": "en-ọrọ-yo-noun-dCQfuIN9",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọrọ-yo-noun-dCQfuIN9",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-epo-yo-noun-y5uq7gSm",
@@ -21597,176 +20402,6 @@
       "sourceEntryId": "en-warakaṣi-yo-noun-w-nNRRVc",
       "relationType": "descendants",
       "text": "wagasi"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìjàpáview map"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "aụn璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábaụn璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "ọlọ́baụn璕Àkúrẹ́Àkúrẹ́ìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "ọlọ́baụn璕Mọ̀bàỌ̀tùn Èkìtììjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "ọlọ́baụn璕Northwest YorubaÀwórììjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "awun璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábawun璕Èbúté Mẹ́tàìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábawun璕Èkóìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábawun璕Ìbàdànìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "ahun璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìbàdànìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìbàràpáìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Igbó Òràìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìbọ̀lọ́ìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Òṣogboìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ọ̀fàìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìlọrinìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕OǹkóÒtùìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìwéré Iléìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Òkèhòìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìsẹ́yìnìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ṣakíìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Tedéìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ìgbẹ́tììjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ọ̀yọ́ìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Ògbómọ̀ṣọ́ìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábahun璕Standard YorùbáNàìjíríàìjàpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábawun璕Bɛ̀nɛ̀ìjàkpá璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "alábawun璕Northeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "OkunOwéọbaun璕Kabbaọbaun璕Ede languages"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "áwìrì璕BeninIgbó Ìdàácàògìdán璕"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ijapa-yo-noun-Gv9zLg9w",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-okiti-yo-noun-93~Lsh3e",
@@ -21937,61 +20572,6 @@
       "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
       "relationType": "derivedTerms",
       "text": "àtọdúnmọ́dún"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Proto-Itsekiri-SEY"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Southeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Usẹn"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "-"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Proto-Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Central Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Western Àkókó"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Northwest Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Standard Yorùbá"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Northeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ọdun-yo-noun-TLTqJVg8",
-      "relationType": "synonyms",
-      "text": "Ọ̀wọ̀rọ̀"
     },
     {
       "sourceEntryId": "en-ọgba-yo-noun-hzRusoI1",
@@ -22465,31 +21045,6 @@
     },
     {
       "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìràwọ̀view map"
-    },
-    {
-      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
-      "relationType": "synonyms",
-      "text": "leleaɔ̃楹Kandilèléiàrɔ̃楹"
-    },
-    {
-      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
-      "relationType": "synonyms",
-      "text": "leleaɔ̃楹Northern NagoKamboleãràwó楹"
-    },
-    {
-      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-irawọ-yo-noun-KH5NgPyW",
       "relationType": "descendants",
       "text": "irawɔ"
     },
@@ -22510,26 +21065,6 @@
     },
     {
       "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: iṣuview map"
-    },
-    {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "synonyms",
-      "text": "isuVIFÖKabbausuVIFÖ"
-    },
-    {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
       "relationType": "descendants",
       "text": "adʒu"
     },
@@ -22542,26 +21077,6 @@
       "sourceEntryId": "en-idẹ-yo-noun-M6KLxPWC",
       "relationType": "derivedTerms",
       "text": "onídẹ"
-    },
-    {
-      "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ẹsẹ̀view map"
-    },
-    {
-      "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
-      "relationType": "synonyms",
-      "text": "àtẹlẹhin瀈Kabbaẹhìn瀈"
-    },
-    {
-      "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ẹsẹ-yo-noun-Xac9Gpm4",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ẹyin-yo-noun-NHB8P0Df",
@@ -22584,21 +21099,6 @@
       "text": "pupa ẹyin"
     },
     {
-      "sourceEntryId": "en-ẹyin-yo-noun-NHB8P0Df",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ẹyinview map"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-noun-NHB8P0Df",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-noun-NHB8P0Df",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ẹyin-yo-pron-4jC3gLKv",
       "relationType": "relatedTerms",
       "text": "[pronoun dropped]"
@@ -22607,21 +21107,6 @@
       "sourceEntryId": "en-ẹyin-yo-pron-4jC3gLKv",
       "relationType": "relatedTerms",
       "text": "[preceding vowel repeated for mono­syllabic verbs]"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-pron-4jC3gLKv",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-pron-4jC3gLKv",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-pron-4jC3gLKv",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ẹ̀yinview map"
     },
     {
       "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
@@ -22637,21 +21122,6 @@
       "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
       "relationType": "derivedTerms",
       "text": "ọ̀pá ẹ̀yìn"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ẹ̀yìnview map"
     },
     {
       "sourceEntryId": "en-pọn-yo-verb-ox15gTIC",
@@ -22687,26 +21157,6 @@
       "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
       "relationType": "derivedTerms",
       "text": "ìṣọwọ́kọ̀wé"
-    },
-    {
-      "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọwọ́view map"
-    },
-    {
-      "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
-      "relationType": "synonyms",
-      "text": "loguóTHavanalogwóT"
-    },
-    {
-      "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ọra-yo-noun-EuGcpI1R",
@@ -22947,26 +21397,6 @@
       "sourceEntryId": "en-agbẹdẹ-yo-noun-LJCvkXa2",
       "relationType": "derivedTerms",
       "text": "àgbẹ̀dẹ òjé"
-    },
-    {
-      "sourceEntryId": "en-ọbẹ-yo-noun-2YmD6aIQ",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọbẹ-yo-noun-2YmD6aIQ",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ọbẹ-yo-noun-Somv48r1",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọbẹ-yo-noun-Somv48r1",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-ejirẹ-yo-noun-l1kKhOJX",
@@ -23239,46 +21669,6 @@
       "text": "Òkè Ìdànrè"
     },
     {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: sọ̀rọ̀view map"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "wíìnyɛ̀拾Atakpamɛtsárũ拾"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "wíìnyɛ̀拾Bokotsárũ拾"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "wíìnyɛ̀拾Est-Monotsárũ拾"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "wíìnyɛ̀拾Moretantsárũ拾"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "wíìnyɛ̀拾Tchettitsárũ拾"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-sọrọ-yo-verb-SuqWjjbe",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ọrọ-aje-yo-noun-EdQEF5WW",
       "relationType": "derivedTerms",
       "text": "ẹ̀ka ọrọ̀-ajé"
@@ -23407,76 +21797,6 @@
       "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
       "relationType": "derivedTerms",
       "text": "olórígho búúkú"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: oríview map"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "orúgho泝Mahinorígho泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "orúgho泝Oǹdóoígho泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "oí泝Oǹdóoígho泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo泝Baàtɛéwo泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo泝Ìdàácàeríwo泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "erío泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo泝BeninIgbó Ìdàácàeríwo泝"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "eéwo泝Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-Ìjèerí泝Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́erí泝Kétu"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-origho-yo-noun-ny5tM6Nx",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-iyẹ-yo-noun-tSEV6lU8",
@@ -23964,81 +22284,6 @@
       "text": "ìránṣẹ́bìnrin"
     },
     {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: obìnrinview map"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "obìnrẹn忢Ìjẹ̀búÌjẹ̀bú Òdeobìrẹn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "obìnrẹn忢Rẹ́mọẸ̀pẹ́obìrẹn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "obìnrẹn忢Ìkòròdúobìrẹn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "obìnrẹn忢Ṣágámùobìrẹn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "ọbụ̀rịn忢Àkúrẹ́Àkúrẹ́ọbị̀nrịn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "ọbụ̀rịn忢Mọ̀bàỌ̀tùn Èkìtìọbị̀nrịn忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "OkunOwéóbùnrin忢Kabbaóbùnrin忢Ede languages"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-ÌjèỌ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "ÌjèÌkpòbɛ́obirɛn忢Onigboloobìnrɛn忢Kétu"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "ÀnàgóKétuobìnrin忢Ifɛ̀Akpáréɔnɔbɛ̃̀ɛ̃忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "ɔbĩrĩ忢Atakpamɛonɛbùɛ̃忢"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-obinrin-yo-noun-PuuM7Va~",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "derivedTerms",
       "text": "ọkàn ọkùnrin"
@@ -24062,56 +22307,6 @@
       "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
       "relationType": "derivedTerms",
       "text": "ìfẹ́-ọkùnrin-sọ́kùnrin"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọkùnrinview map"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "olokìrin湄BeninIgbó Ìdàácàolokìnrin湄"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "olokìrin湄Ọ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí-ÌjèỌ̀họ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "Ɔ̀hɔ̀rí"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "ÌjèOnigbolookìin湄Kétu"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "ÀnàgóKétuɔkùnrin湄Ifɛ̀Akpáréɔnɛkĩ̀rĩ湄"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "ɔnɔkɛ̃̀ɛ̃湄Atakpamɛonɛkũ̀rɛ̃湄"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọkunrin-yo-noun-6yx-fOCd",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-Koso-yo-name-vyvozy7t",
@@ -24172,61 +22367,6 @@
       "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
       "relationType": "derivedTerms",
       "text": "òhùn ààrin"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Proto-Itsekiri-SEY"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Southeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "-"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Usẹn"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Proto-Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Central Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Western Àkókó"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Northwest Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Standard Yorùbá"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Northeast Yoruba"
-    },
-    {
-      "sourceEntryId": "en-ohun-yo-noun-Pzzsq-yP",
-      "relationType": "synonyms",
-      "text": "Ọ̀wọ̀rọ̀"
     },
     {
       "sourceEntryId": "en-nnkan-yo-noun-taJcXP6A",
@@ -24884,21 +23024,6 @@
       "text": "tɔ́jú"
     },
     {
-      "sourceEntryId": "en-idanwo-yo-noun-l9~2nOWq",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìdánwòview map"
-    },
-    {
-      "sourceEntryId": "en-idanwo-yo-noun-l9~2nOWq",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-idanwo-yo-noun-l9~2nOWq",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-alamọ-yo-noun-ARRgrQ-O",
       "relationType": "derivedTerms",
       "text": "ilé alámọ̀"
@@ -25302,21 +23427,6 @@
       "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
       "relationType": "derivedTerms",
       "text": "ìgbọ́"
-    },
-    {
-      "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: gbọ́view map"
-    },
-    {
-      "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-dẹ-yo-verb-DP8ug5mf",
@@ -26069,26 +24179,6 @@
       "text": "Wiktionary’s coverage of Ede Ije terms"
     },
     {
-      "sourceEntryId": "en-ọnẹ-yo-noun-dpWz1iPq",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọnẹ-yo-noun-dpWz1iPq",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
-      "sourceEntryId": "en-ọnẹ-yo-noun-wP0gMknm",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọnẹ-yo-noun-wP0gMknm",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-ọwọn-yo-pron-Lvq2uu65",
       "relationType": "relatedTerms",
       "text": "mèé"
@@ -26292,21 +24382,6 @@
       "sourceEntryId": "en-ọtun-yo-noun-JwQvTm7K",
       "relationType": "derivedTerms",
       "text": "apá ọ̀tún"
-    },
-    {
-      "sourceEntryId": "en-ọtun-yo-noun-JwQvTm7K",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ọ̀túnview map"
-    },
-    {
-      "sourceEntryId": "en-ọtun-yo-noun-JwQvTm7K",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ọtun-yo-noun-JwQvTm7K",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
     },
     {
       "sourceEntryId": "en-oṣo-yo-noun-M3uNt4DX",
@@ -27299,76 +25374,6 @@
       "text": "ìbéèrè-ìdánwò"
     },
     {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "Yoruba varieties and languages: ìbéèrèview map"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Abẹ́òkútaìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Èkóìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìbàdànìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìlọrinìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ọ̀yọ́ìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ògbómọ̀ṣọ́ìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìkirèìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Ìwóìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Standard YorùbáNàìjíríàìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "ìbèèrè稦Bɛ̀nɛ̀ìbéèrè稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "m̀bèìn稦Baàtɛìmbèìn稦"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "now deemed dialects of Yorùbá in Nigeria"
-    },
-    {
-      "sourceEntryId": "en-ibeere-yo-noun-XehG0wLO",
-      "relationType": "synonyms",
-      "text": "nor the Èdè Languages of Benin and Togo"
-    },
-    {
       "sourceEntryId": "en-eṣiṣilọọ-yo-noun-hWZZlMUw",
       "relationType": "relatedTerms",
       "text": "òṣùṣù ọwọ̀"
@@ -27895,7 +25900,18 @@
       "en-ẹdọ-yo-noun-SbwMyDuV"
     ]
   ],
-  "kaikkiSourceDate": "2026-07-27",
-  "kaikkiReleaseTag": "build-6",
+  "dialectSynonyms": {
+    "entriesWithData": 138,
+    "sets": 138,
+    "terms": 6337,
+    "distinctTerms": 1406,
+    "resolvedTerms": 4079,
+    "reciprocals": 110,
+    "skippedHomograph": 2089,
+    "skippedUnrelatedGloss": 119
+  },
+  "suspiciousRelationText": [],
+  "kaikkiSourceDate": "2026-08-01",
+  "kaikkiReleaseTag": "build-7",
   "kaikkiParseErrorCount": 0
 }
