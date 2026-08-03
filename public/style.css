@@ -907,15 +907,20 @@ a { color: inherit; }
 
 @media (max-width: 700px) {
   .site-footer { padding: 12px 14px; }
-  /* Three links at the desktop gap wrap onto three rows at 390px; this keeps
-     them on one down to ~430px. */
-  .footer-inner { gap: 4px 12px; }
+  /* One row is the norm, not the exception: at the desktop sizes the three
+     links needed 364px against 362px available on a 390px phone, so they wrapped
+     on essentially every modern handset. Trimmed just enough to fit, keeping the
+     brand visibly larger than the two links. */
+  .footer-inner { gap: 4px 10px; }
+  .parent-brand { font-size: 0.85rem; }
+  .parent-brand img { width: 17px; height: 17px; margin-right: 6px; }
+  .footer-link { font-size: 0.78rem; }
 }
 
-/* Below ~430px all three can't share a row - the brand alone is 204px - and
-   left to itself the wrap strands "Games" on a line of its own. Give the brand
-   its own row so the two short links always pair up underneath it. */
-@media (max-width: 430px) {
+/* Only where all three genuinely cannot share a row. Left to itself the wrap
+   stranded "Games" alone on a third line, so the brand takes a full row and the
+   two short links always pair up underneath it. */
+@media (max-width: 359px) {
   .parent-brand { flex: 1 0 100%; }
 }
 
@@ -955,7 +960,7 @@ a { color: inherit; }
      used to occupy a second line is gone entirely. */
   .header-inner {
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 8px;
     padding-inline: 12px;
   }
   .header-search { display: contents; }
@@ -994,8 +999,13 @@ a { color: inherit; }
      single line of the wordmark beside them, and sized so the at-rest field
      keeps a clear tap area to the left of the mode badge. */
   .wordmark-yo { font-size: 0.95rem; white-space: nowrap; }
+  /* The <=1120px rule above hides the tagline for intermediate *desktop*
+     widths, where it is one long line competing with the search box. The
+     mobile lockup is a different shape - two short lines beside the wordmark -
+     and it fits, so it comes back here. */
   .wordmark-en {
-    font-size: 0.42rem;
+    display: block;
+    font-size: 0.4rem;
     line-height: 1.3;
     letter-spacing: 0.03em;
     padding-left: 5px;
@@ -1048,7 +1058,11 @@ a { color: inherit; }
    into the wordmark (161 + 38 + gaps + padding + a 152px field ~= 395px),
    so the lockup is always either whole or absent, never squeezed into a
    three-line tagline. */
-@media (max-width: 400px) {
+/* Below this the two-line tagline wraps to three lines and starts clipping -
+   the wordmark needs ~158px and there isn't that much left once the field has
+   its floor. 388px keeps the full lockup on every mainstream phone (390, 393,
+   412, 414, 430) and drops it only on genuinely small screens. */
+@media (max-width: 387px) {
   .wordmark-en { display: none; }
 }
 
