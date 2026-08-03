@@ -1113,6 +1113,25 @@
     window.addEventListener('hashchange', handleRoute);
     initSearchMode();
 
+    // Wait for the paint above to actually commit before asking for 2.1 MB.
+    //
+    // Painting first in source order isn't enough, because the fetches were
+    // still issued in the same task as the render. On a fast connection the
+    // dictionary then arrived BEFORE the paint was recorded - measured on
+    // production, entries.json finished at 852ms against a first paint at
+    // 2,333ms - and anything that lands before the Largest Contentful Paint
+    // is treated as something the paint waited for. Lighthouse re-times that
+    // 1.4 MB at slow-4G speed and reports LCP 14.1s for a paragraph that was
+    // on screen at 2.3s, which is why the LCP score was 0/25 while every
+    // other metric was near-perfect.
+    //
+    // rAF runs before the next paint, and a task queued from inside it runs
+    // after that paint has committed - so the fetch is now genuinely second,
+    // in the trace as well as in the source. It also stops the download
+    // competing with the render for a connection the page hasn't finished
+    // using, which is worth doing on its own merits.
+    await new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+
     // Only now the part that genuinely needs the dictionary. The quality
     // report is over half a megabyte and nothing on the reading path needs it,
     // so it waits until the panel is opened.
