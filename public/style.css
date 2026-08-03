@@ -1058,11 +1058,18 @@ a { color: inherit; }
    into the wordmark (161 + 38 + gaps + padding + a 152px field ~= 395px),
    so the lockup is always either whole or absent, never squeezed into a
    three-line tagline. */
-/* Below this the two-line tagline wraps to three lines and starts clipping -
-   the wordmark needs ~158px and there isn't that much left once the field has
-   its floor. 388px keeps the full lockup on every mainstream phone (390, 393,
-   412, 414, 430) and drops it only on genuinely small screens. */
+/* Below 388px the lockup no longer fits the tidy two-line shape, but it still
+   fits - as three lines at 375, four at 360 - without clipping and without the
+   header growing past 63px. Since 360 and 375 are as ordinary as 390, showing
+   the name ragged beats hiding it: the forced break comes out so the text wraps
+   naturally to whatever room it has, rather than breaking after "People's" and
+   then wrapping again. */
 @media (max-width: 387px) {
+  .wordmark-break { display: none; }
+}
+
+/* 356px is the first width where the lockup clips, so this is where it goes. */
+@media (max-width: 356px) {
   .wordmark-en { display: none; }
 }
 
