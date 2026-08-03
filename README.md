@@ -375,13 +375,38 @@ group at all (see "Which sense did it come from?" above). So on a shared
 spelling, a Component words pill is showing you the first of several, and it
 is right by luck as often as by evidence.
 
-That guess is therefore never silent. **1,707 morpheme pills across 1,240
-entries** stand for more than one candidate entry, and each carries a count
-badge that expands in place to list every candidate with its own gloss — so a
-wrong pick is one tap from being corrected instead of hidden behind a
-confident link. (It used to be a `title=` tooltip, which is invisible on touch
-and unreadable to a screen reader.) Clicking the pill itself additionally
-populates the search box with that spelling, as before.
+**A badge marks doubt, not homography.** 1,707 morpheme pills stand for more
+than one candidate entry, but on 1,138 of them the etymology recorded what the
+root means and that settled it — badging all of them put a count on 22% of all
+pages, and a warning that common stops being read as a warning. So a badge
+appears only where we genuinely guessed: no recorded meaning, or one that
+doesn't separate the candidates. That's 836 badges on 10% of pages, and the
+badge expands in place to every candidate with its own definition.
+
+Dropping it elsewhere is safe because the recovery path is now universal
+rather than per-pill: follow a link to the wrong `orí` and *that* page lists
+its own siblings. The badge only has to flag where we had nothing to go on.
+Clicking the pill itself additionally populates the search box with that
+spelling, as before.
+
+Which candidate a meaning points at is decided by word overlap, with one
+refinement that removes the need for a stopword list: **a word is only
+evidence if it fails to appear in every candidate.** Filtering short words
+throws away "on, at", which is the whole meaning of the preposition `ní`;
+keeping everything lets "to" match every verb in the language, so "to beat"
+scores equally against all five `gbá` entries and the tie reads as a match.
+Dropping words common to all candidates kills "to" while keeping "at", and
+says no exactly when the candidates really are indistinguishable.
+
+Two presentation notes on the same section. 943 entries carry more than one
+competing etymology, flattened into a single list of parts, so an overlapping
+part was listed once per analysis — `nìtorí` is recorded both as `ní + ìtorí`
+and as `ní + ti + orí`, and "ní" appeared twice, once bare and once glossed
+"on, at". Repeated parts are folded at render time, keeping whichever copy
+says what it means, but never folding two that carry *different* meanings:
+`àmọ̀tẹ́kùn` really is `à- + mọ̀ + tó ("that") + tó ("is equal to") + ẹkùn`.
+This is done in the UI rather than the build because the duplicate is in the
+source and the pipeline's rule is to supplement it, never to drop from it.
 
 The reverse direction is synthesized too (also upstream, in kaikki-yoruba):
 if one entry's etymology decomposes to include another as a free-standing

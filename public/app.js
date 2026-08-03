@@ -365,10 +365,16 @@
       `<a class="${cls}" href="#/entry/${encodeURIComponent(chosenId)}"${searchAttr}>${escapeHtml(label)}` +
       `${hint ? `<span class="pos-hint">${escapeHtml(hint)}</span>` : ''}</a>`;
 
+    // A badge marks doubt, not homography. Where we had evidence and it
+    // settled the question, the pill is a plain link: if it's still wrong,
+    // the entry it lands on lists its own siblings, so the way back exists on
+    // every page whether or not we flagged it here. Badging every shared
+    // spelling instead put a badge on 22% of all pages, and a warning that
+    // common stops being read as a warning.
     const all = (candidateIds && candidateIds.length ? candidateIds : [chosenId]).filter(
       (id) => state.entries[id]
     );
-    if (all.length < 2) return `<span class="pill-group">${pill}</span>`;
+    if (all.length < 2 || !o.uncertain) return `<span class="pill-group">${pill}</span>`;
 
     const panelId = `pill-alts-${++pillGroupSeq}`;
     const rows = all
@@ -415,12 +421,18 @@
     return [...groups.values()];
   }
 
-  function ambiguityNote(resolution, count, spelling) {
-    if (!resolution || count < 2) return '';
-    if (resolution.method === 'glossOverlap') {
-      return `${count} entries are spelled “${spelling}”. The etymology says what the root means, and this entry's definition matches it — open the others to check.`;
-    }
+  function ambiguityNote(count, spelling) {
     return `Wiktionary lists this word under ${count} separate “${spelling}” entries and does not say which one it comes from. Any of these could be the root.`;
+  }
+
+  // Why a component word links where it does. Only ever shown when we
+  // couldn't settle it, so it never has to explain a pick that was right.
+  function morphemeNote(morpheme, count) {
+    const spelling = morpheme.form;
+    if (morpheme.chosenBy === 'meaningTied') {
+      return `${count} entries are spelled “${spelling}”. The etymology calls it “${morpheme.gloss}”, but that isn't enough to tell them apart — we've linked to the first.`;
+    }
+    return `${count} entries are spelled “${spelling}”, and the etymology doesn't say which one this word is built from — we've linked to the first.`;
   }
 
   function relationPillsHtml(list, extraSynthesized, currentEntry) {
@@ -448,9 +460,12 @@
         const ids = rel.entryIds.filter((id) => state.entries[id] && id !== selfId);
         if (!ids.length) continue;
         const spelling = state.entries[ids[0]].forms.exact;
+        // Nothing in a declared relation list says which homograph is meant,
+        // so a multi-candidate one is always a guess.
         elements.push(
           ambiguityPillHtml(ids[0], ids, {
-            note: ambiguityNote({ method: 'spelling' }, ids.length, spelling),
+            uncertain: ids.length > 1,
+            note: `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
           })
         );
       } else {
@@ -463,10 +478,21 @@
       if (!ids.length) continue;
       const chosen = ids.includes(group.chosen) ? group.chosen : ids[0];
       const spelling = state.entries[chosen].forms.exact;
+      // Two different reasons a group holds more than one entry, and only one
+      // of them is doubt. A "Derived from" group is competing readings of a
+      // single claim, settled or not (resolution.method). A "Used in" group is
+      // several genuinely distinct compounds that happen to share a spelling —
+      // nothing is uncertain there, but collapsing them would hide real words,
+      // so the count has to stay.
+      const method = group.resolution && group.resolution.method;
+      const uncertain = ids.length > 1 && method !== 'glossOverlap' && method !== 'unique';
       elements.push(
         ambiguityPillHtml(chosen, ids, {
           synthesized: true,
-          note: ambiguityNote(group.resolution || { method: 'spelling' }, ids.length, spelling),
+          uncertain,
+          note: method
+            ? ambiguityNote(ids.length, spelling)
+            : `${ids.length} different words are spelled “${spelling}”, and this word is part of each of them.`,
         })
       );
     }
@@ -474,8 +500,35 @@
     return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
   }
 
-  function morphemesHtml(morphemes) {
-    if (!morphemes || !morphemes.length) return '';
+  // 943 entries carry more than one competing etymology, and the sections are
+  // flattened into a single list of parts. Where two analyses overlap, the
+  // shared part is listed once per analysis: nìtorí is recorded both as
+  // ní + ìtorí and as ní + ti + orí, so "ní" appeared twice — once bare and
+  // once glossed "on, at" — reading as though the word had five parts, two of
+  // them the same. Only the copies are folded together, never two parts that
+  // carry different meanings: àmọ̀tẹ́kùn really is à- + mọ̀ + tó ("that") +
+  // tó ("is equal to") + ẹkùn, and both tó belong there.
+  //
+  // Done here rather than in the build because the duplicate is in the source
+  // and the pipeline's rule is to supplement it, never to drop from it.
+  function foldRepeatedMorphemes(morphemes) {
+    const out = [];
+    for (const m of morphemes) {
+      const twinIndex = out.findIndex(
+        (o) => o.form === m.form && !(o.gloss && m.gloss && o.gloss !== m.gloss)
+      );
+      if (twinIndex === -1) {
+        out.push(m);
+      } else if (!out[twinIndex].gloss && m.gloss) {
+        out[twinIndex] = m; // keep whichever copy actually says what it means
+      }
+    }
+    return out;
+  }
+
+  function morphemesHtml(allMorphemes) {
+    const morphemes = foldRepeatedMorphemes(allMorphemes || []);
+    if (!morphemes.length) return '';
     // Exactly one element per morpheme in the etymology, regardless of how
     // many entries share that spelling: every entryId here refers to the SAME
     // morpheme text from the SAME etymology template, so one pill per entryId
@@ -491,11 +544,13 @@
       if (m.resolved && m.entryIds && m.entryIds.length > 0) {
         const ids = m.entryIds.filter((id) => state.entries[id]);
         if (ids.length) {
-          return ambiguityPillHtml(ids[0], ids, {
+          const chosen = ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0];
+          return ambiguityPillHtml(chosen, ids, {
             label: m.form,
             hint: m.gloss || '',
             searchForm: m.form,
-            note: `${ids.length} entries are spelled “${m.form}”. The etymology doesn't say which one this is built from — we link to the first.`,
+            uncertain: ids.length > 1 && m.chosenBy !== 'meaning',
+            note: morphemeNote(m, ids.length),
           });
         }
       }

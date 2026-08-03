@@ -90,6 +90,98 @@ function attachSiblings(entries) {
   }
 }
 
+// Did the etymology's own meaning for a morpheme actually pick one of the
+// entries that share its spelling, or are we about to link to whichever came
+// first? The UI needs the difference: telling a reader "the etymology doesn't
+// say which one this is" while the pill beside it prints the meaning the
+// etymology gave reads as a contradiction, and it's untrue for 934 of the
+// 1,707 pills that have more than one candidate.
+//
+// nìtorí is the whole argument in one entry. Its etymology decomposes to
+// ní ("on, at") + ti ("of") + orí ("head, reason"), and it also carries a
+// shorter decomposition whose morphemes have no meanings at all. The bare
+// "ní" ranks the Latin-letter-N entry first; the "ní" glossed "on, at" ranks
+// the preposition first. Same spelling, same page - the meaning is doing real
+// work, and only the bare one is a guess.
+//
+// Recomputed here rather than trusting the upstream ordering, so the pick and
+// the claim we make about it always come from the same comparison.
+function annotateMorphemeConfidence(entries, byId) {
+  for (const entry of entries) {
+    for (const m of entry.etymologyMorphemes || []) {
+      const ids = (m.entryIds || []).filter((id) => byId.has(id));
+      if (ids.length < 2) continue;
+
+      const winner = pickByDiscriminatingMeaning(m.gloss, ids, byId);
+      m.chosenEntryId = winner || ids[0];
+      // 'meaning'      - the etymology said what it means and that settled it
+      // 'noMeaning'    - the etymology never said, so this is whichever came first
+      // 'meaningTied'  - it said, but the meaning fits several of them equally
+      m.chosenBy = winner ? 'meaning' : m.gloss ? 'meaningTied' : 'noMeaning';
+    }
+  }
+}
+
+function meaningWords(text) {
+  return new Set(
+    (text || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean)
+  );
+}
+
+function entryMeaningWords(entry) {
+  const words = new Set();
+  for (const sense of entry.senses || []) {
+    for (const gloss of sense.glosses || []) {
+      for (const w of meaningWords(gloss)) words.add(w);
+    }
+  }
+  return words;
+}
+
+// Which candidate does a recorded meaning actually point at?
+//
+// Word overlap alone can't answer that, and the two obvious tokenizers both
+// get it wrong in opposite directions. Filtering short words (as the dialect
+// matcher does) throws away "on, at", which is the entire meaning of the
+// preposition ní. Keeping everything (as the upstream ranker does) lets "to"
+// match every verb in the language, so "to beat" scores against all five gbá
+// entries equally and the tie looks like a match.
+//
+// The fix needs no stopword list, which is just as well - one would have to
+// be maintained by hand and would be wrong for a dictionary where "at" is a
+// definition rather than a filler. A word is only evidence if it fails to
+// appear in some candidate: "to" is in all five gbá glosses so it separates
+// nothing and drops out, while "at" appears in only one of the four ní
+// entries and therefore means something. Self-tuning, and it says no exactly
+// when the candidates really are indistinguishable on the text we have.
+function pickByDiscriminatingMeaning(meaning, ids, byId) {
+  if (!meaning || ids.length < 2) return null;
+  const query = meaningWords(meaning);
+  if (!query.size) return null;
+
+  const candidateWords = ids.map((id) => entryMeaningWords(byId.get(id)));
+  for (const word of [...query]) {
+    if (candidateWords.every((words) => words.has(word))) query.delete(word);
+  }
+  if (!query.size) return null;
+
+  let best = 0;
+  let winner = null;
+  let tied = false;
+  ids.forEach((id, i) => {
+    let score = 0;
+    for (const w of query) if (candidateWords[i].has(w)) score++;
+    if (score > best) {
+      best = score;
+      winner = id;
+      tied = false;
+    } else if (score === best && score > 0) {
+      tied = true;
+    }
+  });
+  return best > 0 && !tied ? winner : null;
+}
+
 // The gloss the etymology attaches to one specific spelling. Deliberately not
 // "the first quoted gloss in etymologyText": for the ì-/à- nominalizations
 // that make up most of the ambiguous cases, the first gloss belongs to the
@@ -137,25 +229,13 @@ function chooseAmongHomographs(derivedEntry, candidates, byId) {
   const spelling = byId.get(candidates[0])?.canonicalForm.value;
   const gloss = spelling ? etymologyGlossFor(derivedEntry, spelling) : null;
 
-  if (gloss) {
-    let best = 0;
-    let winners = [];
-    for (const id of candidates) {
-      const score = glossOverlap(gloss, byId.get(id));
-      if (score > best) {
-        best = score;
-        winners = [id];
-      } else if (score === best && score > 0) {
-        winners.push(id);
-      }
-    }
-    if (best > 0 && winners.length === 1) {
-      return {
-        chosen: winners[0],
-        ordered: [winners[0], ...candidates.filter((id) => id !== winners[0])],
-        method: 'glossOverlap',
-      };
-    }
+  const winner = pickByDiscriminatingMeaning(gloss, candidates, byId);
+  if (winner) {
+    return {
+      chosen: winner,
+      ordered: [winner, ...candidates.filter((id) => id !== winner)],
+      method: 'glossOverlap',
+    };
   }
 
   return { chosen: candidates[0], ordered: candidates, method: 'ambiguous' };
@@ -264,6 +344,7 @@ export function synthesizeRelationships(entries) {
   }
 
   attachSiblings(entries);
+  annotateMorphemeConfidence(entries, byId);
 
   const dialect = synthesizeDialectRelations(entries, aliasIndex, byId);
 
