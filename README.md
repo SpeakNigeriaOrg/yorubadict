@@ -518,6 +518,22 @@ URL fragment never reaches the server, so deployment is just "serve
 `public/` as static files" — no `_redirects` rewrite rule needed, unlike a
 typical single-page app using `history.pushState`.
 
+`public/_headers` puts every file on `max-age=0, must-revalidate`, replacing
+the `max-age=14400` Pages applies to static assets by default. **Nothing here
+is fingerprinted** — the files are `app.js`, `style.css`, `data/entries.json`,
+by those names — so a `max-age` is a promise that can't be withdrawn: no
+purge or redeploy reaches a browser that already stored the file. The default
+let a visitor pair four-hour-old JavaScript with current markup and a current
+dictionary, and those aren't independent (`entries.json` and `app.js` ship as
+a matched pair). A 304 costs no body and ~715 bytes of headers, multiplexed
+onto the connection already open for the HTML, so a warm cache pays about one
+extra round trip — and a cold cache pays it regardless.
+
+If repeat-visit latency ever justifies real caching, fingerprint the
+filenames *first* and then use `max-age=31536000, immutable`; lengthening the
+window without fingerprints just widens the blast radius of a bad deploy. The
+file itself explains the trade in full.
+
 **Currently configured**: Cloudflare Pages' build command is none, output
 directory `public/` - it auto-deploys on every push to `main`, serving
 exactly whatever `public/data/*.json` is committed at that point. This

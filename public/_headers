@@ -1,0 +1,51 @@
+# Cloudflare Pages response headers. This directory is the deploy root, so
+# this file lands at /_headers and applies from the next deploy.
+#
+# ---------------------------------------------------------------------------
+# Why everything revalidates
+# ---------------------------------------------------------------------------
+# None of the assets here are fingerprinted - they are app.js, style.css,
+# _tokens.css, data/entries.json, by those exact names. That single fact
+# decides the policy, because max-age on an unfingerprinted file is a promise
+# that cannot be withdrawn: no purge, redeploy or cache-clear reaches a
+# browser that has already stored it. The number is therefore not "how long is
+# this file likely to stay valid" but "how long am I prepared for a broken
+# deploy to stay live for someone who has already visited". Zero.
+#
+# Pages defaulted to max-age=14400 for static assets while serving the HTML at
+# max-age=0, which let a visitor pair four-hour-old JavaScript with current
+# markup and a current dictionary. Those three are not independent: entries.json
+# and app.js ship as a matched pair (the etymologyMorphemes `analysis` field
+# and its renderer went out together, as did chosenBy and siblingEntryIds).
+# The renderer tolerates old data with new code by design; nothing guards the
+# reverse. Putting every file on one policy means a visitor cannot hold a
+# mixed set.
+#
+# What it costs, measured against production: a 304 carries no body and about
+# 715 bytes of headers, ~100ms, multiplexed onto the connection already open
+# for the HTML. The three assets revalidate in parallel, so a warm cache pays
+# roughly one extra round trip - and a cold cache pays that anyway, since it
+# has to fetch them regardless.
+#
+# ---------------------------------------------------------------------------
+# When to change this
+# ---------------------------------------------------------------------------
+# If repeat-visit latency ever matters enough to want real caching, lengthen
+# the window only *after* fingerprinting the filenames, never before:
+#
+#   /app.<hash>.js, /style.<hash>.css   Cache-Control: public, max-age=31536000, immutable
+#   /                                   Cache-Control: public, max-age=0, must-revalidate
+#
+# That gives zero network on repeat visits and instant invalidation, because a
+# new deploy references new URLs. It needs the build to stamp the hash into
+# index.html, which is the frontend build step the README currently avoids.
+# The no-build-step version - app.js?v=2026-08-03, bumped by hand - works
+# until the bump is forgotten, at which point the stale copy is
+# indistinguishable from a bug.
+#
+# Do not give data/* a longer life or a stale-while-revalidate window on its
+# own, tempting though it is at 1.4 MB: it decouples the dictionary from the
+# code that reads it, which is the mismatch this policy exists to prevent.
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
