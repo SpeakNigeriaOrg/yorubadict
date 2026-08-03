@@ -2,8 +2,42 @@
 //
 // Stage 4: Validation. Produces a report describing detected inconsistencies
 // in the data. Never modifies entries — purely diagnostic.
+//
+// The report's job is to be a work queue, not a census. "2,363 unknown
+// referenced words" is a number nobody can act on; the same 2,363 split into
+// "191 are typos where we already know the intended target" and "1,158 are
+// words Wiktionary genuinely doesn't have yet" is two afternoons and a
+// long-term project. So every issue carries:
+//
+//   effort  easy       the correct fix is already known, no judgment needed
+//           mechanical no judgment, but no shortcut either — bulk work
+//           expertise  needs someone who knows Yoruba
+//           info       not a defect; context that stops a number looking bad
+//   target  wiktionary fix it upstream and we pick it up on the next refresh
+//           pipeline   fix it in this repo or in kaikki-yoruba
+//
+// and a deep link to the Wiktionary section to edit. Issues sort by effort
+// then by breadth, so easy wins with the widest reach come first.
+//
+// The flat per-item arrays are still emitted underneath, unchanged: they are
+// what the downloadable JSON is for, and what anything scripting this report
+// already reads.
 
-import { spellingsForEntry, toneInsensitiveForm } from './orthography.mjs';
+import {
+  spellingsForEntry,
+  toneInsensitiveForm,
+  orthographyInsensitiveForm,
+} from './orthography.mjs';
+
+const EFFORT_ORDER = { easy: 0, mechanical: 1, expertise: 2, info: 3 };
+
+// How many pages to list inline per issue. The full detail is always in the
+// legacy arrays below, so this caps the rendered view, not the data — and the
+// overflow is reported rather than silently dropped.
+const MAX_PAGES_PER_ISSUE = 120;
+
+const wiktionaryUrl = (headword) =>
+  `https://en.wiktionary.org/wiki/${encodeURIComponent(headword)}#Yoruba`;
 
 export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null) {
   const report = {
@@ -30,7 +64,14 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   const FOREIGN_SCRIPT = /[㐀-䶿一-鿿぀-ヿ가-힯؀-ۿ]/u;
   const LATIN_LETTER = /[A-Za-zÀ-ɏḀ-ỿ]/u;
 
+  const byId = new Map(entries.map((e) => [e.id, e]));
   const toneIndex = new Map(); // toneInsensitive spelling -> Set(ids)
+  // Separate indexes for classifying a failed reference. A reference that
+  // matches nothing exactly but matches once tone marks (or underdots) are
+  // ignored is a diacritic typo with a known intended target - the single
+  // most actionable thing in this report.
+  const toneLookup = new Map();
+  const orthoLookup = new Map();
 
   for (const entry of entries) {
     if (entry.canonicalForm.inferenceMethod !== 'explicit_canonical_tag') {
@@ -53,6 +94,12 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
       const key = toneInsensitiveForm(spelling);
       if (!toneIndex.has(key)) toneIndex.set(key, new Set());
       toneIndex.get(key).add(entry.id);
+
+      if (!toneLookup.has(key)) toneLookup.set(key, new Set());
+      toneLookup.get(key).add(spelling);
+      const okey = orthographyInsensitiveForm(spelling);
+      if (!orthoLookup.has(okey)) orthoLookup.set(okey, new Set());
+      orthoLookup.get(okey).add(spelling);
     }
 
     for (const field of ['synonyms', 'antonyms', 'derivedTerms', 'relatedTerms', 'descendants']) {
@@ -74,7 +121,6 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   }
 
   // Circular derivation check: walk derivedTerms graph, flag cycles.
-  const byId = new Map(entries.map((e) => [e.id, e]));
   const visiting = new Set();
   const visited = new Set();
   const cycles = [];
@@ -104,5 +150,289 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   }
   report.circularDerivations = cycles;
 
+  report.issues = buildIssues(entries, byId, report, { toneLookup, orthoLookup });
+  report.summary = summarize(report.issues);
+
   return report;
+}
+
+// ---------------------------------------------------------------------------
+// The work queue
+// ---------------------------------------------------------------------------
+
+function buildIssues(entries, byId, report, { toneLookup, orthoLookup }) {
+  const issues = [];
+
+  // -- Failed cross-references, split by what it would actually take to fix --
+
+  const refBuckets = {
+    tone: new Map(),
+    underdot: new Map(),
+    phrase: new Map(),
+    missing: new Map(),
+  };
+
+  for (const ref of report.unknownReferencedWords) {
+    const source = byId.get(ref.sourceEntryId);
+    if (!source) continue;
+    const toneHit = toneLookup.get(toneInsensitiveForm(ref.text));
+    const orthoHit = orthoLookup.get(orthographyInsensitiveForm(ref.text));
+
+    let bucket;
+    let detail;
+    if (toneHit && toneHit.size) {
+      bucket = 'tone';
+      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${[...toneHit].slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
+    } else if (orthoHit && orthoHit.size) {
+      bucket = 'underdot';
+      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${[...orthoHit].slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
+    } else if (ref.text.includes(' ')) {
+      bucket = 'phrase';
+      detail = `${ref.relationType} “${ref.text}”`;
+    } else {
+      bucket = 'missing';
+      detail = `${ref.relationType} “${ref.text}”`;
+    }
+    pushPage(refBuckets[bucket], source, detail);
+  }
+
+  issues.push(
+    issue({
+      kind: 'reference-tone-typo',
+      title: 'Cross-reference with the wrong tone marks',
+      severity: 'high',
+      effort: 'easy',
+      target: 'wiktionary',
+      why:
+        'These references match an existing word once tone marks are ignored, so the intended target is already known — the reference just carries different tone marks from the entry it means. Every one of them is a link the reader currently does not get.',
+      fix: 'On the listed Wiktionary page, correct the tone marks on the reference to match the entry it points at (or, if the reference is right, fix the tone on the target entry).',
+      pages: refBuckets.tone,
+    }),
+    issue({
+      kind: 'reference-underdot-typo',
+      title: 'Cross-reference with a missing or extra underdot',
+      severity: 'high',
+      effort: 'easy',
+      target: 'wiktionary',
+      why:
+        'Same as the tone typos, one dimension over: these match once underdots (ẹ ọ ṣ) are ignored, so the intended target is known.',
+      fix: 'Correct the underdots on the reference so it matches the entry it means.',
+      pages: refBuckets.underdot,
+    }),
+    issue({
+      kind: 'reference-missing-entry',
+      title: 'Cross-reference to a word Wiktionary does not have',
+      severity: 'medium',
+      effort: 'expertise',
+      target: 'wiktionary',
+      why:
+        'The listed page names a related or derived word that has no Yoruba entry of its own, so the link goes nowhere. This is the dictionary\'s largest real content gap.',
+      fix: 'Create the referenced word as a Yoruba entry on Wiktionary, with at least a definition and a headword template carrying its tone marks.',
+      pages: refBuckets.missing,
+    }),
+    issue({
+      kind: 'reference-multiword-phrase',
+      title: 'Cross-reference to a multi-word phrase',
+      severity: 'low',
+      effort: 'info',
+      target: 'wiktionary',
+      why:
+        'Verb phrases and proverbs listed as derived terms mostly have no entry of their own and are not expected to. Counted separately so they stop inflating the number of real gaps above.',
+      fix: 'Nothing required. Create an entry only if the phrase is idiomatic enough to deserve one.',
+      pages: refBuckets.phrase,
+    })
+  );
+
+  // -- Derivations the source records but does not attribute to a sense --
+
+  const ambiguous = new Map();
+  const noEtymology = new Map();
+
+  for (const entry of entries) {
+    for (const rel of entry.synthesizedRelations || []) {
+      if (rel.type !== 'derivedFrom') continue;
+      if (rel.resolution?.method !== 'ambiguous' || rel.resolution.candidateCount < 2) continue;
+      const root = byId.get(rel.entryId);
+      const rootSpelling = root ? root.canonicalForm.value : rel.text;
+      const detail =
+        `listed as a derived term by ${rel.resolution.candidateCount} separate “${rootSpelling}” entries` +
+        (entry.etymologyText ? `; its own etymology says “${entry.etymologyText.slice(0, 90)}”` : '');
+      pushPage(entry.etymologyText ? ambiguous : noEtymology, entry, detail);
+    }
+  }
+
+  issues.push(
+    issue({
+      kind: 'ambiguous-derivation',
+      title: 'Derived term listed under several etymologies of the same spelling',
+      severity: 'medium',
+      effort: 'expertise',
+      target: 'wiktionary',
+      why:
+        'Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.',
+      fix: 'Move the derived term to the etymology section it truly belongs to, or give it a gloss in the derived-terms list (e.g. “|gbígbá<t:beating>”) so the sense is recoverable.',
+      pages: ambiguous,
+    }),
+    issue({
+      kind: 'derived-without-etymology',
+      title: 'Listed as a derived term, but the word has no etymology section',
+      severity: 'medium',
+      effort: 'expertise',
+      target: 'wiktionary',
+      why:
+        'Another page claims this word is derived from it, but this word\'s own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary\'s back-links are meant to expose.',
+      fix: 'Write an Etymology section on the listed page naming the root it comes from, with a gloss. If it turns out not to be derived at all, remove it from the root\'s derived-terms list instead.',
+      pages: noEtymology,
+    })
+  );
+
+  // -- Pipeline-side, mechanical --
+
+  const redup = new Map();
+  for (const entry of entries) {
+    for (const tpl of entry.etymologyTemplates || []) {
+      if (tpl.name !== 'reduplication') continue;
+      const args = tpl.args || {};
+      if (args.t && !args.t1) pushPage(redup, entry, `{{reduplication}} passes its gloss as “t=${args.t}”`);
+    }
+  }
+
+  issues.push(
+    issue({
+      kind: 'reduplication-gloss-dropped',
+      title: 'Reduplication glosses are dropped before we ever see them',
+      severity: 'high',
+      effort: 'mechanical',
+      target: 'pipeline',
+      why:
+        'Every {{reduplication}} template in the corpus passes its gloss as a bare “t” argument, but kaikki-yoruba\'s morpheme extractor reads “t1”, “t2”, … as the other compounding templates use. The gloss is discarded — and reduplications are exactly the word class where several identically-spelled roots compete, so this disables the one signal that could tell them apart precisely where it is needed most.',
+      fix: 'In kaikki-yoruba src/lib/normalizer.mjs, accept a bare “t” as the gloss for single-root templates alongside the numbered t1/t2 form.',
+      pages: redup,
+    }),
+    issue({
+      kind: 'suspicious-relation-text',
+      title: 'Relation text mixing scripts',
+      severity: 'low',
+      effort: 'mechanical',
+      target: 'pipeline',
+      why: 'A flattened dialect table can leak a separator into a relation. Genuine foreign-script relations are foreign all through; these are not.',
+      fix: 'Tighten the container-level filter in kaikki-yoruba src/lib/relationDebris.mjs.',
+      pages: mapFrom(report.suspiciousRelationText, byId, (r) => `${r.field} “${r.text}”`),
+    }),
+    issue({
+      kind: 'circular-derivation',
+      title: 'Words that derive from each other in a loop',
+      severity: 'medium',
+      effort: 'mechanical',
+      target: 'pipeline',
+      why: 'A derivation cycle, usually because a derived term is also carried as one of the root\'s own alternative forms.',
+      fix: 'Check whether the two are genuinely the same word; if so the derived-terms listing is the error.',
+      pages: mapFrom(
+        report.circularDerivations.map((c) => ({ entryId: c[0] })),
+        byId,
+        () => 'derives from itself'
+      ),
+    })
+  );
+
+  // -- Wiktionary-side, bulk --
+
+  issues.push(
+    issue({
+      kind: 'missing-ipa',
+      title: 'No pronunciation',
+      severity: 'low',
+      effort: 'mechanical',
+      target: 'wiktionary',
+      why: 'The entry has no IPA. For Yoruba this is largely derivable from the toned spelling, so it is bulk work rather than research.',
+      fix: 'Add {{yo-IPA}} to the Pronunciation section of the listed page.',
+      pages: mapFrom(report.missingIpa, byId, () => 'no Pronunciation section'),
+    }),
+    issue({
+      kind: 'inferred-canonical-form',
+      title: 'Main spelling not confirmed by the source',
+      severity: 'low',
+      effort: 'expertise',
+      target: 'wiktionary',
+      why:
+        'No headword template gave a tone-marked spelling, so we fall back to the page title, which is usually untoned. This does not mean the spelling shown is wrong — often there is simply nothing for Wiktionary to choose between — but the tones are unverified, and deciding them needs someone who knows the word.',
+      fix: 'Add a headword template carrying the tone marks (e.g. {{yo-verb|gbá}}) to the listed page.',
+      pages: mapFrom(report.inferredCanonicalForms, byId, () => 'headword template gives no toned spelling'),
+    }),
+    issue({
+      kind: 'shared-spelling',
+      title: 'Spellings shared by several different words',
+      severity: 'low',
+      effort: 'info',
+      target: 'wiktionary',
+      why:
+        'Counted so it is not mistaken for a defect. Yoruba has many homographs, and entries that differ only in tone are different words that this dictionary keeps deliberately apart. Every entry involved now links to its siblings so a reader can see the others.',
+      fix: 'Nothing required.',
+      pages: new Map(),
+      count: Object.keys(report.duplicateNormalizedSpellings).length,
+    })
+  );
+
+  return issues
+    .filter((i) => i.count > 0)
+    .sort(
+      (a, b) => EFFORT_ORDER[a.effort] - EFFORT_ORDER[b.effort] || b.count - a.count
+    );
+}
+
+function pushPage(map, entry, detail) {
+  if (!map.has(entry.headword)) {
+    map.set(entry.headword, {
+      page: entry.headword,
+      editUrl: wiktionaryUrl(entry.headword),
+      entryIds: [],
+      details: [],
+    });
+  }
+  const row = map.get(entry.headword);
+  if (!row.entryIds.includes(entry.id)) row.entryIds.push(entry.id);
+  if (row.details.length < 8) row.details.push(detail);
+}
+
+function mapFrom(items, byId, detailOf) {
+  const map = new Map();
+  for (const item of items) {
+    const entry = byId.get(item.entryId);
+    if (!entry) continue;
+    pushPage(map, entry, detailOf(item));
+  }
+  return map;
+}
+
+function issue({ kind, title, severity, effort, target, why, fix, pages, count }) {
+  const rows = [...pages.values()];
+  const total = count ?? rows.reduce((n, r) => n + r.details.length, 0);
+  return {
+    kind,
+    title,
+    severity,
+    effort,
+    target,
+    why,
+    fix,
+    count: total,
+    pageCount: rows.length,
+    pages: rows.slice(0, MAX_PAGES_PER_ISSUE),
+    pagesOmitted: Math.max(0, rows.length - MAX_PAGES_PER_ISSUE),
+  };
+}
+
+function summarize(issues) {
+  const byEffort = {};
+  const byTarget = {};
+  for (const i of issues) {
+    byEffort[i.effort] = (byEffort[i.effort] || 0) + i.count;
+    byTarget[i.target] = (byTarget[i.target] || 0) + i.count;
+  }
+  return {
+    byEffort,
+    byTarget,
+    actionable: issues.filter((i) => i.effort !== 'info').reduce((n, i) => n + i.count, 0),
+    easyWins: issues.filter((i) => i.effort === 'easy').reduce((n, i) => n + i.count, 0),
+  };
 }

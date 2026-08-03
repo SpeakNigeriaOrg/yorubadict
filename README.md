@@ -100,16 +100,15 @@ rendering, routing — locally:
 
 | File | Current size | Contents |
 |---|---|---|
-| `data/entries.json` | ~6.6 MB | every entry, keyed by id, for O(1) lookup |
-| `data/search-index.json` | ~2.6 MB | Yorùbá tier indices + English inverted index |
-| `data/validation-report.json` | ~450 KB | data-quality diagnostics (below) |
+| `data/entries.json` | ~10.5 MB | every entry, keyed by id, for O(1) lookup |
+| `data/search-index.json` | ~3.6 MB | Yorùbá tier indices + English inverted index |
+| `data/validation-report.json` | ~580 KB | data-quality work queue (below), **not fetched on boot** |
 
-That's roughly 9.6 MB fetched up front for ~6,270 entries. This is a
+That's roughly 14 MB fetched up front for ~6,270 entries. This is a
 deliberate tradeoff for simplicity and a genuinely offline-after-load
-experience, but it hasn't been tested at meaningfully larger scale, and one
-thing is an outright inefficiency worth fixing: `validation-report.json` is
-fetched on *every* visit just so the "Data quality" panel can render if
-someone clicks it — it should be lazy-loaded on demand instead, not on boot.
+experience, but it hasn't been tested at meaningfully larger scale. The
+quality report is no longer part of that: nothing on the reading path needs
+it, so it's fetched the first time someone opens the "Data quality" panel.
 
 ## The pipeline: kaikki-yoruba's artifact → browser-ready JSON
 
@@ -143,9 +142,20 @@ quirk, not a bug in this pipeline), it produces:
 - **777 entries** with an inferred rather than explicitly-tagged canonical
   spelling (see below).
 - **374 entries** with no IPA in the source data.
-- **2,362 unresolved relationship references** — a derived/related/synonym
+- **2,111 unresolved relationship references** — a derived/related/synonym
   points to a spelling that isn't in this extract. (Was 2,762 before the
-  flattened dialect tables stopped being counted as relations.)
+  flattened dialect tables stopped being counted as relations, and 2,363
+  before descendants stopped being matched against the Yorùbá index — every
+  descendant in the corpus carries a non-Yorùbá `langCode`, so resolving them
+  here could only ever produce a false positive, and it did: English *dodo*
+  was resolving to eight Yorùbá *dòdò* homographs.)
+
+  These are triaged rather than listed flat, because "2,111 problems" isn't
+  something anyone can start on. **189 are diacritic typos** where the
+  intended target is already known (a reference to `ẹ̀fá` where the entry is
+  `ẹfa`); 679 are multi-word phrases that were never going to have entries;
+  the remaining **1,046 are the real content gap** — words Wiktionary
+  genuinely doesn't have yet.
 - **6,426 dialect terms** across 138 entries, imported from Wiktionary's own
   dialect-synonym modules — see "Dialect tables" below.
 - **1,579 spellings** shared by more than one homograph once tone marks and
@@ -155,6 +165,20 @@ quirk, not a bug in this pipeline), it produces:
 
 All of these are visible live in the app via the "Data quality" button, not
 just in this file — nothing about data quality is hidden from users.
+
+The report is built as a **work queue, not a census**, because a total is not
+something anyone can act on. Every issue carries what it would actually take
+to fix — `easy` (the right answer is already known), `mechanical` (no judgment,
+just volume), `expertise` (needs someone who knows Yorùbá), `info` (not a
+defect) — whether it's ours to fix or Wiktionary's, a one-line statement of
+why it matters, a concrete instruction, and a deep link to the section to edit.
+Issues sort easiest-first, so the 189 items where we already know the intended
+word come before the 1,046 that need new entries written. Two of the current
+items are ours: descendants being matched against the Yorùbá index (fixed), and
+kaikki-yoruba reading `t1`/`t2` for reduplication glosses when every
+`{{reduplication}}` template in the corpus passes a bare `t` — silently
+dropping 96 morpheme glosses in precisely the word class where several
+identically-spelled roots compete.
 
 ### Canonical forms and homographs
 
@@ -181,6 +205,21 @@ different root). We preserve that split by using Kaikki's own per-sense id as
 our entry id, so homographs stay distinct, independently searchable entries
 with their own etymology text rather than getting merged into one confusing
 entry.
+
+Keeping them apart is the right call for Yorùbá — `dá` "to create" and `dá`
+"to hit" are no more one entry than English *bank* and *bank* — but it created
+a problem of its own: **1,161 entries (18.5%) share an exact, tone-marked
+spelling with another, and nothing on the page said so.** You could read one
+of eleven `dá` entries and never learn the other ten existed. Every such entry
+now carries an **"Other entries with this spelling"** section directly after
+its definitions, listing each sibling with its part of speech, etymology
+number, and first gloss — enough to tell them apart at a glance.
+
+Grouping is on `forms.exact`, never on a normalized form. Identical spelling
+*and* identical diacritics is one written word carrying several senses;
+different diacritics is a different word. Putting `gbà` and `gbá` in one list
+would teach the opposite of how the language works, so tone variants are
+deliberately excluded from this section.
 
 ### Dialect tables: read from source, not salvaged
 
@@ -248,6 +287,46 @@ etymology prose, with no `derived`/`related`/`synonyms`/`antonyms` list on
 synthesized in either direction. That's a real limit of the current
 pipeline, not a design choice.
 
+#### Which sense did it come from?
+
+A resolved reference names a *spelling*, and a spelling can belong to
+several entries. Wiktionary lists `gbígbá` as a derived term under all five
+`gbá` etymology sections — which isn't wrong, since partial reduplication is
+productive and every one of those verbs can form it, but the `gbígbá` entry
+documents exactly one sense, so only one derivation is lexically real. The
+source never records which. Kaikki's `_dis1` vector looks like the answer and
+isn't: it's all-zero on 2,611 of 2,638 derived items, and where it is
+populated the *same* vector repeats for every derived term on the page, so it
+cannot distinguish one from another.
+
+So synthesized `derivedFrom` relations are grouped by the target's spelling
+and part of speech, and each group resolves as far as the evidence goes:
+
+- **One candidate** — a normal link.
+- **Several, and the derived word's own etymology glosses the root** —
+  scored against each candidate's definitions. `gbígbà`'s etymology says
+  "to take, accept, allow", which matches `gbà` etymology 2 and nothing else.
+  This settles 4 of the 24 ambiguous groups.
+- **Several, and nothing distinguishes them** — all candidates are kept and
+  the relation is marked ambiguous. `gbígbá`'s etymology says "to beat" and
+  no `gbá` entry glosses "beat" (sense 5 is "to hit, kick, slap"), so nothing
+  can honestly pick one. The UI shows one pill with a count badge that opens
+  the full candidate list and says the source doesn't specify.
+
+Two things that look like further signals and aren't, both measured over the
+whole corpus rather than assumed: the upstream etymology-morpheme resolver
+filters homographs on `canonicalForm.value`, which *is* `forms.exact` for all
+6,272 entries, so the set it produces is exactly the group already formed here
+— it narrows a group in 0 cases, and what looks like disambiguation in the
+Component words UI is just the first candidate being displayed. And neither
+crude English stemming ("beating" → "beat") nor scoring the derived word's own
+gloss against the candidates resolves a single additional group.
+
+An entry with no etymology section at all (`ìgbá`, `ìré`) is **not** evidence
+that the derivation is false — it means nobody has written one, which is
+exactly the gap these back-links exist to expose. Those are reported as
+`derived-without-etymology`, a different action item from `ambiguous-derivation`.
+
 ### Etymology decomposition: Component words
 
 Yorùbá habitually builds larger words out of smaller ones — `àmọ̀tẹ́kùn`
@@ -290,10 +369,19 @@ Neither refinement is exhaustive: cross-language mismatches in Wiktionary's
 own template data (a real, if rare, case: one word's etymology glosses a
 morpheme "I" using a spelling that's actually a different, unrelated word)
 can't be fixed algorithmically, and gloss-overlap is a lexical heuristic, not
-true semantic matching. For exactly this reason, clicking a resolved
-"Component words" pill both navigates to the ranked-best entry *and*
-populates the search box with that spelling, so every homograph is one look
-away if the default guess is wrong.
+true semantic matching. Worse, the tie-break only *ranks* — it never removes a
+candidate, and the homograph filter it runs first can't narrow within a tone
+group at all (see "Which sense did it come from?" above). So on a shared
+spelling, a Component words pill is showing you the first of several, and it
+is right by luck as often as by evidence.
+
+That guess is therefore never silent. **1,707 morpheme pills across 1,240
+entries** stand for more than one candidate entry, and each carries a count
+badge that expands in place to list every candidate with its own gloss — so a
+wrong pick is one tap from being corrected instead of hidden behind a
+confident link. (It used to be a `title=` tooltip, which is invisible on touch
+and unreadable to a screen reader.) Clicking the pill itself additionally
+populates the search box with that spelling, as before.
 
 The reverse direction is synthesized too (also upstream, in kaikki-yoruba):
 if one entry's etymology decomposes to include another as a free-standing

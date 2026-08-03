@@ -99,10 +99,16 @@ async function main() {
   console.log(`  search-index size  ${sizeOf(outIndexPath)} KB`);
   console.log(`  entries.json       ${linkedEntries.length} entries`);
   console.log(`  search-index.json  ${Object.keys(searchIndex.english.postings).length} English tokens`);
-  console.log(`  validation-report  ${validationReport.inferredCanonicalForms.length} inferred canonical forms, ` +
-    `${validationReport.unknownReferencedWords.length} unresolved relationship references, ` +
-    `${validationReport.missingIpa.length} entries missing IPA`);
   if (kaikkiSourceDate) console.log(`  kaikki-yoruba data  release ${kaikkiReleaseTag}, sourced ${kaikkiSourceDate}`);
+
+  console.log(`\nData quality: ${validationReport.summary.actionable} actionable items, ` +
+    `${validationReport.summary.easyWins} of them easy wins.`);
+  for (const issue of validationReport.issues) {
+    console.log(
+      `  ${issue.effort.padEnd(10)} ${issue.target.padEnd(10)} ` +
+        `${String(issue.count).padStart(5)} on ${String(issue.pageCount).padStart(4)} pages  ${issue.title}`
+    );
+  }
 }
 
 main().catch((err) => {

@@ -582,6 +582,115 @@ a { color: inherit; }
   font-size: 0.75rem;
   opacity: 0.6;
 }
+.relation-pill.foreign {
+  border-style: dotted;
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+/* ---------- Ambiguous pills ----------
+   Where several entries share a spelling we link to one of them, often on
+   thin evidence. The count badge opens the full candidate list in place, so
+   a wrong pick is one tap from being corrected instead of invisible. The
+   open group takes a whole flex row so the list can breathe at any width —
+   a popover would have overflowed the mobile sheet. */
+.pill-group {
+  display: inline-flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.pill-group.has-alts > .relation-pill {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-width: 0;
+}
+.pill-more {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 9px;
+  border: 1px solid var(--brand-indigo);
+  border-left: 1px dashed var(--brand-indigo);
+  border-radius: 0 16px 16px 0;
+  background: var(--background-primary);
+  color: var(--brand-indigo);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.pill-more:hover,
+.pill-more[aria-expanded='true'] {
+  background: var(--brand-indigo);
+  color: var(--surface);
+}
+.pill-more:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 2px; }
+
+/* Open takes the whole flex row so the candidate list has full width to
+   itself; the panel's own flex-basis pushes it below the pill. */
+.pill-group.open { flex: 1 0 100%; align-content: flex-start; }
+.pill-alternatives {
+  flex-basis: 100%;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius, 4px);
+  background: var(--background-primary);
+}
+.pill-alternatives[hidden] { display: none; }
+.pill-alternatives-note {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ---------- Sibling entries ----------
+   Shared by the "Other entries with this spelling" section and the expanded
+   candidate list above: both answer the same question, "what else is written
+   exactly like this?" */
+.sibling-note {
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.sibling-list { display: flex; flex-direction: column; gap: 2px; }
+.sibling-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius, 4px);
+  text-decoration: none;
+  color: inherit;
+}
+.sibling-row:hover { background: var(--background-secondary); }
+.sibling-row.current {
+  background: var(--background-secondary);
+  box-shadow: inset 2px 0 0 var(--brand-accent);
+}
+.sibling-word {
+  font-family: var(--font-yoruba);
+  font-weight: 600;
+  color: var(--brand-indigo);
+  text-rendering: optimizeLegibility;
+}
+.sibling-meta {
+  font-size: 0.72rem;
+  color: var(--accent-grammar);
+  white-space: nowrap;
+}
+.sibling-gloss {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+@media (max-width: 420px) {
+  .sibling-row { grid-template-columns: 1fr; gap: 2px; }
+}
 
 /* ---------- Dialectal synonyms ----------
    Imported from Wiktionary's own dialect-synonym modules. Collapsed by
@@ -850,6 +959,109 @@ a { color: inherit; }
   line-height: 1.5;
 }
 .quality-download:hover { border-color: var(--brand-indigo); color: var(--brand-accent-deep); }
+
+/* ---------- Data quality work queue ----------
+   Grouped by what fixing an item actually takes, easiest first, because the
+   question the report has to answer is "where do I start" — not "how many
+   problems are there". */
+.quality-group { margin-top: 24px; }
+.quality-group-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.quality-group-blurb { font-size: 0.8rem; color: var(--text-secondary); }
+.effort-chip {
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid currentColor;
+}
+.effort-chip.easy { color: var(--brand-accent-deep); }
+.effort-chip.mechanical { color: var(--brand-indigo); }
+.effort-chip.expertise { color: var(--accent-grammar); }
+.effort-chip.info { color: var(--text-tertiary); }
+
+.quality-issue {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius, 4px);
+  margin-bottom: 8px;
+  background: var(--surface);
+}
+.quality-issue > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.quality-issue > summary::-webkit-details-marker { display: none; }
+/* Drawn rather than a glyph — the display font has no ▸ and fell back to a dot. */
+.quality-issue > summary::before {
+  content: '';
+  flex: 0 0 auto;
+  align-self: center;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  opacity: 0.45;
+  transition: transform 0.15s ease;
+}
+.quality-issue[open] > summary::before { transform: rotate(90deg); }
+.quality-issue-title { flex: 1; min-width: 0; }
+.quality-issue-count {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--brand-indigo);
+}
+.target-chip {
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px dashed var(--border-subtle);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.quality-why,
+.quality-fix {
+  margin: 0 14px 10px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.quality-fix { color: var(--text-primary); }
+.quality-pages {
+  margin: 0;
+  padding: 0 14px 12px 14px;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.quality-page {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 0;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+}
+.quality-page > a {
+  font-family: var(--font-yoruba);
+  font-weight: 600;
+  color: var(--brand-indigo);
+  text-decoration: none;
+}
+.quality-page > a:hover { text-decoration: underline; }
+.quality-page-detail { color: var(--text-secondary); min-width: 0; }
+.quality-page.more { color: var(--text-tertiary); font-style: italic; }
 
 /* ---------- Footer ---------- */
 

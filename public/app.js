@@ -341,9 +341,92 @@
     return lines ? section('Dialect', `<div class="dialect-of">${lines}</div>`) : '';
   }
 
-  function relationPillsHtml(list, extraSynthesized) {
+  // A pill stands for one word, not one database row. Where several entries
+  // share a spelling we have to pick one to link to, and that pick is
+  // frequently a guess: 20 of the 24 ambiguous "Derived from" groups can't be
+  // resolved from anything Wiktionary records, and every "Component words"
+  // pill over a shared spelling is showing you the first candidate. Rendering
+  // one pill per entry instead just repeated identical text (ìdá showed ten
+  // identical "dá verb" pills); rendering one pill and saying nothing hides a
+  // wrong guess behind a confident link. So: one pill, with every alternative
+  // reachable from it and the reason we're unsure stated in words.
+  let pillGroupSeq = 0;
+
+  function ambiguityPillHtml(chosenId, candidateIds, opts) {
+    const o = opts || {};
+    const target = state.entries[chosenId];
+    if (!target) return '';
+
+    const label = o.label != null ? o.label : target.canonicalForm.value;
+    const hint = o.hint != null ? o.hint : target.pos || '';
+    const cls = o.synthesized ? 'relation-pill synthesized' : 'relation-pill';
+    const searchAttr = o.searchForm ? ` data-search-form="${escapeHtml(o.searchForm)}"` : '';
+    const pill =
+      `<a class="${cls}" href="#/entry/${encodeURIComponent(chosenId)}"${searchAttr}>${escapeHtml(label)}` +
+      `${hint ? `<span class="pos-hint">${escapeHtml(hint)}</span>` : ''}</a>`;
+
+    const all = (candidateIds && candidateIds.length ? candidateIds : [chosenId]).filter(
+      (id) => state.entries[id]
+    );
+    if (all.length < 2) return `<span class="pill-group">${pill}</span>`;
+
+    const panelId = `pill-alts-${++pillGroupSeq}`;
+    const rows = all
+      .map((id) => {
+        const alt = state.entries[id];
+        return `<a class="sibling-row${id === chosenId ? ' current' : ''}" href="#/entry/${encodeURIComponent(id)}">
+          <span class="sibling-word">${escapeHtml(alt.canonicalForm.value)}</span>
+          <span class="sibling-meta">${escapeHtml(alt.pos || '')}${alt.etymologyNumber ? ` · etym. ${escapeHtml(alt.etymologyNumber)}` : ''}</span>
+          <span class="sibling-gloss">${escapeHtml(firstGloss(alt))}</span>
+        </a>`;
+      })
+      .join('');
+
+    return `<span class="pill-group has-alts">
+      ${pill}
+      <button type="button" class="pill-more" aria-expanded="false" aria-controls="${panelId}"
+        title="${escapeHtml(o.note || `${all.length} entries share this spelling`)}">${all.length}</button>
+      <span class="pill-alternatives" id="${panelId}" hidden>
+        <span class="pill-alternatives-note">${escapeHtml(o.note || `${all.length} entries share this spelling. We link to the first.`)}</span>
+        ${rows}
+      </span>
+    </span>`;
+  }
+
+  // Several relations pointing at entries that share a spelling and part of
+  // speech render as indistinguishable pills, so they're folded into one
+  // group. Relations pointing at different spellings are different words (a
+  // compound is derived from each of its components) and keep their own pills.
+  function groupBySpelling(items) {
+    const groups = new Map();
+    for (const item of items || []) {
+      const ids = (item.entryIds && item.entryIds.length ? item.entryIds : [item.entryId]).filter(
+        (id) => state.entries[id]
+      );
+      if (!ids.length) continue;
+      const target = state.entries[ids[0]];
+      const key = `${target.forms.exact} ${target.pos || ''}`;
+      if (!groups.has(key)) {
+        groups.set(key, { chosen: ids.includes(item.entryId) ? item.entryId : ids[0], ids: [], resolution: item.resolution });
+      }
+      const g = groups.get(key);
+      for (const id of ids) if (!g.ids.includes(id)) g.ids.push(id);
+    }
+    return [...groups.values()];
+  }
+
+  function ambiguityNote(resolution, count, spelling) {
+    if (!resolution || count < 2) return '';
+    if (resolution.method === 'glossOverlap') {
+      return `${count} entries are spelled “${spelling}”. We matched this one using the gloss in the etymology — open the others to check.`;
+    }
+    return `Wiktionary lists this word under ${count} separate “${spelling}” entries and does not say which one it comes from. Any of these could be the root.`;
+  }
+
+  function relationPillsHtml(list, extraSynthesized, currentEntry) {
     const elements = [];
-    
+    const selfId = currentEntry ? currentEntry.id : null;
+
     for (const rel of list || []) {
       // Flattened dialect tables used to arrive here as debris, with a
       // synthetic "external_link" item standing in for whatever had been
@@ -351,65 +434,94 @@
       // and rendered by renderDialectSynonyms instead, so both are gone.
       if (rel.type === 'external_link') continue;
 
+      // A descendant in another language has no Yoruba entry to link to by
+      // definition. It used to be matched against the Yoruba index anyway,
+      // which turned English "dodo" into eight Yoruba dòdò pills.
+      if (rel.foreign) {
+        elements.push(`<span class="pill-group"><span class="relation-pill foreign">${escapeHtml(rel.text)}${
+          rel.lang ? `<span class="pos-hint">${escapeHtml(rel.lang)}</span>` : ''
+        }</span></span>`);
+        continue;
+      }
+
       if (rel.resolved && rel.entryIds && rel.entryIds.length > 0) {
-        for (const id of rel.entryIds) {
-          const target = state.entries[id];
-          if (!target) continue;
-          elements.push(`<a class="relation-pill" href="#/entry/${encodeURIComponent(id)}">
-            ${escapeHtml(target.canonicalForm.value)}
-            <span class="pos-hint">${escapeHtml(target.pos || '')}</span>
-          </a>`);
-        }
+        const ids = rel.entryIds.filter((id) => state.entries[id] && id !== selfId);
+        if (!ids.length) continue;
+        const spelling = state.entries[ids[0]].forms.exact;
+        elements.push(
+          ambiguityPillHtml(ids[0], ids, {
+            note: ambiguityNote({ method: 'spelling' }, ids.length, spelling),
+          })
+        );
       } else {
-        elements.push(`<span class="relation-pill unresolved" title="Not in this dictionary yet">
-          ${escapeHtml(rel.text)}
-        </span>`);
+        elements.push(`<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`);
       }
     }
 
-    // 3. Synthesized Back-links
-    for (const rel of extraSynthesized || []) {
-      // ... existing synthesized link logic ...
-      const target = state.entries[rel.entryId];
-      if (!target) continue;
-      elements.push(`<a class="relation-pill synthesized" href="#/entry/${encodeURIComponent(rel.entryId)}" title="Synthesized reciprocal link">
-        ${escapeHtml(target.canonicalForm.value)}
-        <span class="pos-hint">${escapeHtml(target.pos || '')}</span>
-      </a>`);
+    for (const group of groupBySpelling(extraSynthesized)) {
+      const ids = group.ids.filter((id) => id !== selfId);
+      if (!ids.length) continue;
+      const chosen = ids.includes(group.chosen) ? group.chosen : ids[0];
+      const spelling = state.entries[chosen].forms.exact;
+      elements.push(
+        ambiguityPillHtml(chosen, ids, {
+          synthesized: true,
+          note: ambiguityNote(group.resolution || { method: 'spelling' }, ids.length, spelling),
+        })
+      );
     }
-    
-    return elements.join('');
+
+    return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
   }
 
   function morphemesHtml(morphemes) {
     if (!morphemes || !morphemes.length) return '';
     // Exactly one element per morpheme in the etymology, regardless of how
-    // many dictionary entries share that spelling - unlike relationPillsHtml
-    // (where each entryId is a genuinely different target word worth its
-    // own pill, labeled with THAT target's own canonical form/pos), every
-    // entryId here refers to the SAME morpheme text from the SAME etymology
-    // template, so rendering one pill per entryId would just repeat
-    // identical text (confirmed bug: "tó"/"ẹkùn" - common spellings shared
-    // by several homographs - rendered 2-3x each with no distinguishing
-    // information). When more than one entry shares the spelling, this
-    // links to the first and notes the ambiguity in the tooltip, since
-    // Kaikki's etymology template doesn't say which specific sense is meant.
-    return morphemes.map((m) => {
-      const glossHtml = m.gloss ? ` <span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
+    // many entries share that spelling: every entryId here refers to the SAME
+    // morpheme text from the SAME etymology template, so one pill per entryId
+    // would just repeat identical text. Kaikki's template doesn't say which
+    // sense is meant, and the upstream resolver's tone-exact filter can only
+    // narrow to the tone group, never within it - so on a shared spelling this
+    // is showing the first candidate and the count says so.
+    const elements = morphemes.map((m) => {
+      const glossHtml = m.gloss ? `<span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
       if (m.bound) {
-        return `<span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span>`;
+        return `<span class="pill-group"><span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span></span>`;
       }
       if (m.resolved && m.entryIds && m.entryIds.length > 0) {
-        const target = state.entries[m.entryIds[0]];
-        if (target) {
-          const title = m.entryIds.length > 1
-            ? ` title="${m.entryIds.length} words share this spelling — linking to the first"`
-            : '';
-          return `<a class="relation-pill" href="#/entry/${encodeURIComponent(m.entryIds[0])}"${title} data-search-form="${escapeHtml(m.form)}">${escapeHtml(m.form)}${glossHtml}</a>`;
+        const ids = m.entryIds.filter((id) => state.entries[id]);
+        if (ids.length) {
+          return ambiguityPillHtml(ids[0], ids, {
+            label: m.form,
+            hint: m.gloss || '',
+            searchForm: m.form,
+            note: `${ids.length} entries are spelled “${m.form}”. The etymology doesn't say which one this is built from — we link to the first.`,
+          });
         }
       }
-      return `<span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span>`;
-    }).join('');
+      return `<span class="pill-group"><span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span></span>`;
+    });
+    return `<div class="relation-list">${elements.join('')}</div>`;
+  }
+
+  // Entries sharing an exact, tone-marked spelling are the same written word
+  // carrying different senses, and nothing on the page used to say so - you
+  // could read one of eleven dá entries and never learn the other ten existed.
+  function siblingsHtml(entry) {
+    const ids = (entry.siblingEntryIds || []).filter((id) => state.entries[id]);
+    if (!ids.length) return '';
+    const rows = ids
+      .map((id) => {
+        const s = state.entries[id];
+        return `<a class="sibling-row" href="#/entry/${encodeURIComponent(id)}">
+          <span class="sibling-word">${escapeHtml(s.canonicalForm.value)}</span>
+          <span class="sibling-meta">${escapeHtml(s.pos || '')}${s.etymologyNumber ? ` · etym. ${escapeHtml(s.etymologyNumber)}` : ''}</span>
+          <span class="sibling-gloss">${escapeHtml(firstGloss(s))}</span>
+        </a>`;
+      })
+      .join('');
+    return `<div class="sibling-note">Wiktionary records ${ids.length + 1} entries spelled “${escapeHtml(entry.canonicalForm.value)}”. You're reading one of them; here are the others.</div>
+      <div class="sibling-list">${rows}</div>`;
   }
 
   function section(title, innerHtml) {
@@ -455,16 +567,18 @@
 
     const dialectHtml = dialectSynonymsHtml(entry);
     const dialectOfHtml = dialectOfHtmlFor(entry);
-    const derivedHtml = relationPillsHtml(entry.derivedTerms);
-    const relatedHtml = relationPillsHtml(entry.relatedTerms);
-    const synonymsHtml = relationPillsHtml(entry.synonyms);
-    const antonymsHtml = relationPillsHtml(entry.antonyms);
-    const descendantsHtml = relationPillsHtml(entry.descendants);
+    const derivedHtml = relationPillsHtml(entry.derivedTerms, [], entry);
+    const relatedHtml = relationPillsHtml(entry.relatedTerms, [], entry);
+    const synonymsHtml = relationPillsHtml(entry.synonyms, [], entry);
+    const antonymsHtml = relationPillsHtml(entry.antonyms, [], entry);
+    const descendantsHtml = relationPillsHtml(entry.descendants, [], entry);
     const derivedFromHtml = relationPillsHtml(
       [],
-      (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom')
+      (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom'),
+      entry
     );
-    const usedInHtml = relationPillsHtml([], entry.usedInCompounds || []);
+    const usedInHtml = relationPillsHtml([], entry.usedInCompounds || [], entry);
+    const siblingsHtmlStr = siblingsHtml(entry);
 
     els.entryContent.innerHTML = `
       <div class="entry-header">
@@ -477,6 +591,7 @@
       <div class="tone-rule divider" aria-hidden="true"><span></span><span></span><span></span></div>
 
       ${section('Definitions', sensesHtml)}
+      ${section('Other entries with this spelling', siblingsHtmlStr)}
       ${dialectOfHtml}
       ${section('Etymology', etymologyHtml)}
       ${section('Component words', morphemesHtmlStr)}
@@ -622,27 +737,78 @@
   // Data quality panel
   // ---------------------------------------------------------------
 
+  // The report is a work queue, not a census. A single number like "2,363
+  // links to words we don't have" tells nobody where to start; the same items
+  // split by what fixing them actually takes — 189 where we already know the
+  // intended word, 1,046 that need a new Wiktionary entry written — is the
+  // difference between a wall and a morning's work.
+  const EFFORT_UI = {
+    easy: { label: 'Easy win', blurb: 'We already know the right answer — it just needs typing in.' },
+    mechanical: { label: 'Mechanical', blurb: 'No judgment needed, but no shortcut either.' },
+    expertise: { label: 'Needs Yorùbá', blurb: 'Someone who knows the word has to decide.' },
+    info: { label: 'For context', blurb: 'Not a defect — counted so it doesn’t look like one.' },
+  };
+
   function renderQualityPanel() {
     const v = state.validation;
     if (!v) return;
+
     const sourceNote = v.kaikkiSourceDate
       ? `<div class="quality-note">Data last refreshed from <a href="https://github.com/SpeakNigeriaOrg/kaikki-yoruba/releases/tag/${encodeURIComponent(v.kaikkiReleaseTag)}" target="_blank" rel="noopener noreferrer">kaikki-yoruba release ${escapeHtml(v.kaikkiReleaseTag)}</a>, sourced ${escapeHtml(v.kaikkiSourceDate)}.</div>`
       : '';
+
+    const issues = v.issues || [];
+    const groups = ['easy', 'mechanical', 'expertise', 'info']
+      .map((effort) => {
+        const rows = issues.filter((i) => i.effort === effort);
+        if (!rows.length) return '';
+        return `<div class="quality-group">
+          <div class="quality-group-head">
+            <span class="effort-chip ${effort}">${escapeHtml(EFFORT_UI[effort].label)}</span>
+            <span class="quality-group-blurb">${escapeHtml(EFFORT_UI[effort].blurb)}</span>
+          </div>
+          ${rows.map(issueHtml).join('')}
+        </div>`;
+      })
+      .join('');
+
     els.qualityContent.innerHTML = `
       ${sourceNote}
       <div class="quality-stat"><span>Words in the dictionary</span><strong>${v.totalEntries}</strong></div>
-      <div class="quality-stat"><span>Main spelling not confirmed</span><strong>${v.inferredCanonicalForms.length}</strong></div>
-      <div class="quality-stat"><span>Words with no pronunciation</span><strong>${v.missingIpa.length}</strong></div>
-      <div class="quality-stat"><span>Links to words we don’t have</span><strong>${v.unknownReferencedWords.length}</strong></div>
-      <div class="quality-stat"><span>Spellings shared by several words</span><strong>${Object.keys(v.duplicateNormalizedSpellings).length}</strong></div>
-      <div class="quality-stat"><span>Words that circularly derive from each other</span><strong>${v.circularDerivations.length}</strong></div>
+      <div class="quality-stat"><span>Things worth fixing</span><strong>${v.summary ? v.summary.actionable : '—'}</strong></div>
+      <div class="quality-stat"><span>…of those, easy wins</span><strong>${v.summary ? v.summary.easyWins : '—'}</strong></div>
       <div class="quality-note">
-        These describe the Wiktionary data this dictionary is built from, not bugs in this site — missing pronunciations, links pointing at words we don't have yet, spellings shared by several different words, and so on. "Main spelling not confirmed" doesn't mean a word is wrong: usually there's simply no alternative spelling for Wiktionary to choose between, so we show the spelling it used. Fixing a real gap means editing the word on Wiktionary itself; we'll pick that up automatically the next time we refresh.
+        These describe the Wiktionary data this dictionary is built from, not bugs in this site. Almost everything here is fixed by editing the word on Wiktionary itself, and we pick that up automatically the next time we refresh — each item below links straight to the section to edit. A few are ours to fix, and say so.
       </div>
+      ${groups}
       <a class="quality-download" href="data/validation-report.json" download="yorubadict-quality-report.json">
-        Download the full report (JSON) — every word affected, for fixing on Wiktionary
+        Download the full report (JSON) — every word affected, not just the first ${escapeHtml(String(120))}
       </a>
     `;
+  }
+
+  function issueHtml(issue) {
+    const pages = (issue.pages || [])
+      .map(
+        (p) => `<li class="quality-page">
+          <a href="${escapeHtml(p.editUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.page)}</a>
+          <span class="quality-page-detail">${escapeHtml(p.details[0] || '')}</span>
+        </li>`
+      )
+      .join('');
+    const omitted = issue.pagesOmitted
+      ? `<li class="quality-page more">…and ${issue.pagesOmitted} more pages — see the downloadable report</li>`
+      : '';
+    return `<details class="quality-issue">
+      <summary>
+        <span class="quality-issue-title">${escapeHtml(issue.title)}</span>
+        <span class="quality-issue-count">${issue.count}</span>
+        ${issue.target === 'pipeline' ? '<span class="target-chip">ours to fix</span>' : ''}
+      </summary>
+      <p class="quality-why">${escapeHtml(issue.why)}</p>
+      <p class="quality-fix"><strong>Fix:</strong> ${escapeHtml(issue.fix)}</p>
+      ${pages ? `<ul class="quality-pages">${pages}${omitted}</ul>` : ''}
+    </details>`;
   }
 
   // ---------------------------------------------------------------
@@ -741,15 +907,16 @@
   // ---------------------------------------------------------------
 
   async function boot() {
-    const [entries, index, validation] = await Promise.all([
+    // The quality report is over half a megabyte and nothing on the reading
+    // path needs it, so it's fetched when the panel is first opened rather
+    // than on every visit.
+    const [entries, index] = await Promise.all([
       fetch('data/entries.json').then((r) => r.json()),
       fetch('data/search-index.json').then((r) => r.json()),
-      fetch('data/validation-report.json').then((r) => r.json()).catch(() => null),
     ]);
 
     state.entries = entries;
     state.index = index;
-    state.validation = validation;
 
     els.searchInput.addEventListener('input', onSearchInput);
     els.searchInput.addEventListener('keydown', onSearchKeydown);
@@ -757,9 +924,19 @@
       els.qualityPanel.classList.add('hidden');
     }
 
-    els.qualityToggle.addEventListener('click', () => {
-      renderQualityPanel();
+    els.qualityToggle.addEventListener('click', async () => {
       els.qualityPanel.classList.remove('hidden');
+      if (!state.validation) {
+        els.qualityContent.innerHTML = '<div class="quality-note">Loading the report…</div>';
+        state.validation = await fetch('data/validation-report.json')
+          .then((r) => r.json())
+          .catch(() => null);
+        if (!state.validation) {
+          els.qualityContent.innerHTML = '<div class="quality-note">The report could not be loaded.</div>';
+          return;
+        }
+      }
+      renderQualityPanel();
     });
     els.qualityClose.addEventListener('click', closeQualityPanel);
     // Clicking the backdrop (anywhere in the fixed overlay outside the
@@ -778,12 +955,27 @@
       }
     });
 
-    // Component-word pills link to one ranked-best homograph, but several
-    // real entries can share the exact same spelling - clicking a pill also
-    // populates and runs the search pane for that spelling, so every
-    // homograph is one click away if the default pick is wrong. Delegated
-    // on entryContent since it's rebuilt via innerHTML on every render.
+    // Both escape hatches for a pill that had to pick one of several
+    // identically-spelled entries. Delegated on entryContent since it's
+    // rebuilt via innerHTML on every render.
     els.entryContent.addEventListener('click', (e) => {
+      // The count badge: expand the pill to list every candidate with its own
+      // gloss, so a wrong pick is visible rather than hidden behind a
+      // confident link. A real button, so this works on touch and by keyboard
+      // - the tooltip it replaces did neither.
+      const more = e.target.closest('.pill-more');
+      if (more) {
+        const group = more.closest('.pill-group');
+        const panel = document.getElementById(more.getAttribute('aria-controls'));
+        const open = more.getAttribute('aria-expanded') === 'true';
+        more.setAttribute('aria-expanded', String(!open));
+        group.classList.toggle('open', !open);
+        if (panel) panel.hidden = open;
+        return;
+      }
+
+      // Component-word pills additionally populate and run the search pane for
+      // that spelling, so every homograph is one click away too.
       const pill = e.target.closest('[data-search-form]');
       if (!pill) return;
       els.searchInput.value = pill.getAttribute('data-search-form');
