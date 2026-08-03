@@ -270,7 +270,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup }) {
       target: 'wiktionary',
       why:
         'Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.',
-      fix: 'Move the derived term to the etymology section it truly belongs to, or give it a gloss in the derived-terms list (e.g. “|gbígbá<t:beating>”) so the sense is recoverable.',
+      fix: 'Move the derived term to the etymology section it truly belongs to, or add a short definition to it in the derived-terms list (e.g. “|gbígbá<t:beating>”) so its meaning is recoverable.',
       pages: ambiguous,
     }),
     issue({
@@ -281,33 +281,71 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup }) {
       target: 'wiktionary',
       why:
         'Another page claims this word is derived from it, but this word\'s own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary\'s back-links are meant to expose.',
-      fix: 'Write an Etymology section on the listed page naming the root it comes from, with a gloss. If it turns out not to be derived at all, remove it from the root\'s derived-terms list instead.',
+      fix: 'Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root\'s derived-terms list instead.',
       pages: noEtymology,
     })
   );
 
   // -- Pipeline-side, mechanical --
 
-  const redup = new Map();
+  // Detects the outcome, not the template shape. Testing for the shape that
+  // caused it (a bare “t” where the extractor read “t1”) would keep reporting
+  // this after the extractor was fixed, because the templates still use a
+  // bare “t” — it was the reading that changed. Written this way it clears
+  // itself on the next refresh, and catches the same mistake on any other
+  // template it happens to next.
+  const droppedMeaning = new Map();
   for (const entry of entries) {
+    const morphemes = entry.etymologyMorphemes || [];
+    if (!morphemes.length) continue;
     for (const tpl of entry.etymologyTemplates || []) {
-      if (tpl.name !== 'reduplication') continue;
       const args = tpl.args || {};
-      if (args.t && !args.t1) pushPage(redup, entry, `{{reduplication}} passes its gloss as “t=${args.t}”`);
+      // Same guard the morpheme extractor upstream applies: a template whose
+      // first argument isn't "yo" describes another language, so its terms
+      // were never going to become Yoruba morphemes. Without this, ìgbá's
+      // Nupe cognate {{cog|nup|gba|t=two thousand}} reads as a lost meaning
+      // purely because it collides in spelling with the "gba" in {{af|yo|i-|gba}}.
+      if (args['1'] !== 'yo') continue;
+      // Where a template records its first term and that term's meaning
+      // differs by shape: reduplication takes a single term, so the meaning
+      // is “t” or the positional “4” and “3” is display text for the same
+      // term; the multi-term templates number theirs t1, t2, … alongside
+      // args 2, 3, … one per term.
+      const single = tpl.name === 'reduplication';
+      const supplied = single ? args.t || args['4'] : args.t1 || args.t;
+      const root = single ? args['3'] || args['2'] : args['2'];
+      if (!supplied || !root) continue;
+      // Require that the term became a morpheme and that NO copy of it
+      // carries a meaning. Two things this guards against:
+      //
+      // Cross-language templates (cog, inh, bor) carry a “t” too, describing
+      // a cognate in another language, and are excluded from morpheme
+      // extraction by design — their term never becomes a morpheme, so
+      // nothing was dropped. Requiring a match rules them out.
+      //
+      // And a page can carry several competing decompositions: nitori has
+      // {{compound|yo|ní|ìtorí}} with no meanings at all *and*
+      // {{compound|yo|ní|ti|orí|t1=on, at|…}} with them, so "ní" appears
+      // twice, once bare. Checking every copy rather than the first one
+      // stops the bare copy from being read as a loss.
+      const copies = morphemes.filter((m) => m.form === root);
+      if (!copies.length || copies.some((m) => m.gloss)) continue;
+      pushPage(droppedMeaning, entry, `“${tpl.name}” records ${root} as meaning “${supplied}”, but that never reached the entry`);
+      break;
     }
   }
 
   issues.push(
     issue({
-      kind: 'reduplication-gloss-dropped',
-      title: 'Reduplication glosses are dropped before we ever see them',
+      kind: 'root-meaning-dropped',
+      title: 'The root word’s meaning is recorded but never reaches the entry',
       severity: 'high',
       effort: 'mechanical',
       target: 'pipeline',
       why:
-        'Every {{reduplication}} template in the corpus passes its gloss as a bare “t” argument, but kaikki-yoruba\'s morpheme extractor reads “t1”, “t2”, … as the other compounding templates use. The gloss is discarded — and reduplications are exactly the word class where several identically-spelled roots compete, so this disables the one signal that could tell them apart precisely where it is needed most.',
-      fix: 'In kaikki-yoruba src/lib/normalizer.mjs, accept a bare “t” as the gloss for single-root templates alongside the numbered t1/t2 form.',
-      pages: redup,
+        'Wiktionary says what the root word means, but we lose that text on the way in, so the component word shows up on the entry with nothing beside it to say what it is. It also costs us the only signal we have for telling several identically-spelled roots apart — and the words this happens to are exactly the ones where several compete.',
+      fix: 'Correct how kaikki-yoruba src/lib/normalizer.mjs reads that template’s arguments, then refresh the data.',
+      pages: droppedMeaning,
     }),
     issue({
       kind: 'suspicious-relation-text',

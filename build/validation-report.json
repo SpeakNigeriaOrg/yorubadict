@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T16:45:04.294Z",
+  "generatedAt": "2026-08-03T17:13:20.656Z",
   "totalEntries": 6272,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -27126,15 +27126,15 @@
       "pagesOmitted": 222
     },
     {
-      "kind": "reduplication-gloss-dropped",
-      "title": "Reduplication glosses are dropped before we ever see them",
+      "kind": "root-meaning-dropped",
+      "title": "The root word’s meaning is recorded but never reaches the entry",
       "severity": "high",
       "effort": "mechanical",
       "target": "pipeline",
-      "why": "Every {{reduplication}} template in the corpus passes its gloss as a bare “t” argument, but kaikki-yoruba's morpheme extractor reads “t1”, “t2”, … as the other compounding templates use. The gloss is discarded — and reduplications are exactly the word class where several identically-spelled roots compete, so this disables the one signal that could tell them apart precisely where it is needed most.",
-      "fix": "In kaikki-yoruba src/lib/normalizer.mjs, accept a bare “t” as the gloss for single-root templates alongside the numbered t1/t2 form.",
-      "count": 77,
-      "pageCount": 63,
+      "why": "Wiktionary says what the root word means, but we lose that text on the way in, so the component word shows up on the entry with nothing beside it to say what it is. It also costs us the only signal we have for telling several identically-spelled roots apart — and the words this happens to are exactly the ones where several compete.",
+      "fix": "Correct how kaikki-yoruba src/lib/normalizer.mjs reads that template’s arguments, then refresh the data.",
+      "count": 78,
+      "pageCount": 64,
       "pages": [
         {
           "page": "wowo",
@@ -27143,7 +27143,7 @@
             "en-wowo-yo-noun-eEF7sg~5"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to crumble, to break”"
+            "“reduplication” records wó as meaning “to crumble, to break”, but that never reached the entry"
           ]
         },
         {
@@ -27153,7 +27153,7 @@
             "en-araarọ-yo-noun-Jn604ahw"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=morning”"
+            "“reduplication” records àárọ̀ as meaning “morning”, but that never reached the entry"
           ]
         },
         {
@@ -27164,8 +27164,8 @@
             "en-ọkọọkan-yo-noun-q2A0BJSr"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=one”",
-            "{{reduplication}} passes its gloss as “t=one”"
+            "“reduplication” records ọ̀kan as meaning “one”, but that never reached the entry",
+            "“reduplication” records ọ̀kan as meaning “one”, but that never reached the entry"
           ]
         },
         {
@@ -27176,8 +27176,8 @@
             "en-meji_meji-yo-adj-S2t9vbTH"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=two”",
-            "{{reduplication}} passes its gloss as “t=two”"
+            "“reduplication” records méjì as meaning “two”, but that never reached the entry",
+            "“reduplication” records méjì as meaning “two”, but that never reached the entry"
           ]
         },
         {
@@ -27188,8 +27188,8 @@
             "en-mẹta_mẹta-yo-adj-Mh-T5Cwi"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=three”",
-            "{{reduplication}} passes its gloss as “t=three”"
+            "“reduplication” records mẹ́ta as meaning “three”, but that never reached the entry",
+            "“reduplication” records mẹ́ta as meaning “three”, but that never reached the entry"
           ]
         },
         {
@@ -27200,8 +27200,8 @@
             "en-mẹrin_mẹrin-yo-adj-kETAoQj2"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=four”",
-            "{{reduplication}} passes its gloss as “t=four”"
+            "“reduplication” records mẹ́rin as meaning “four”, but that never reached the entry",
+            "“reduplication” records mẹ́rin as meaning “four”, but that never reached the entry"
           ]
         },
         {
@@ -27212,8 +27212,8 @@
             "en-marun-un_marun-un-yo-adj-wQ9A6ioo"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=five”",
-            "{{reduplication}} passes its gloss as “t=five”"
+            "“reduplication” records márùn-ún as meaning “five”, but that never reached the entry",
+            "“reduplication” records márùn-ún as meaning “five”, but that never reached the entry"
           ]
         },
         {
@@ -27224,8 +27224,8 @@
             "en-mẹfa_mẹfa-yo-adj-ti7XGjAj"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=six”",
-            "{{reduplication}} passes its gloss as “t=six”"
+            "“reduplication” records mẹ́fà as meaning “six”, but that never reached the entry",
+            "“reduplication” records mẹ́fà as meaning “six”, but that never reached the entry"
           ]
         },
         {
@@ -27236,8 +27236,8 @@
             "en-meje_meje-yo-adj-7WmPL84L"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=seven”",
-            "{{reduplication}} passes its gloss as “t=seven”"
+            "“reduplication” records méje as meaning “seven”, but that never reached the entry",
+            "“reduplication” records méje as meaning “seven”, but that never reached the entry"
           ]
         },
         {
@@ -27248,8 +27248,8 @@
             "en-mẹjọ_mẹjọ-yo-adj-jfigLeNq"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=eight”",
-            "{{reduplication}} passes its gloss as “t=eight”"
+            "“reduplication” records mẹ́jọ as meaning “eight”, but that never reached the entry",
+            "“reduplication” records mẹ́jọ as meaning “eight”, but that never reached the entry"
           ]
         },
         {
@@ -27260,8 +27260,8 @@
             "en-mẹsan-an_mẹsan-an-yo-adj-XOlP9XMb"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=nine”",
-            "{{reduplication}} passes its gloss as “t=nine”"
+            "“reduplication” records mẹ́sàn-án as meaning “nine”, but that never reached the entry",
+            "“reduplication” records mẹ́sàn-án as meaning “nine”, but that never reached the entry"
           ]
         },
         {
@@ -27272,8 +27272,18 @@
             "en-mẹwaa_mẹwaa-yo-adj-PX84L5I4"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=ten”",
-            "{{reduplication}} passes its gloss as “t=ten”"
+            "“reduplication” records mẹ́wàá as meaning “ten”, but that never reached the entry",
+            "“reduplication” records mẹ́wàá as meaning “ten”, but that never reached the entry"
+          ]
+        },
+        {
+          "page": "daadaa",
+          "editUrl": "https://en.wiktionary.org/wiki/daadaa#Yoruba",
+          "entryIds": [
+            "en-daadaa-yo-adv-p3Irdl0V"
+          ],
+          "details": [
+            "“reduplication” records dáa as meaning “to be good”, but that never reached the entry"
           ]
         },
         {
@@ -27283,7 +27293,7 @@
             "en-kolekole-yo-noun-ES9bIt-T"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to gather (the contents) of a house, to rob a house”"
+            "“reduplication” records kólé as meaning “to gather (the contents) of a house, to rob a house”, but that never reached the entry"
           ]
         },
         {
@@ -27293,7 +27303,7 @@
             "en-ẹrọ_gbohungbohun-yo-noun-M-P~4Se3"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to amplify a sound/voice”"
+            "“reduplication” records gbohùn as meaning “to amplify a sound/voice”, but that never reached the entry"
           ]
         },
         {
@@ -27303,7 +27313,7 @@
             "en-baba_baba-yo-noun-moj5SYxR"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=father's father”"
+            "“reduplication” records bàbá as meaning “father's father”, but that never reached the entry"
           ]
         },
         {
@@ -27313,7 +27323,7 @@
             "en-pẹjapẹja-yo-noun-2ozHkJBV"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to kill fish”"
+            "“reduplication” records pẹja as meaning “to kill fish”, but that never reached the entry"
           ]
         },
         {
@@ -27323,7 +27333,7 @@
             "en-rẹkorẹko-yo-noun-RFR0JvJh"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to smear the penis”"
+            "“reduplication” records rẹ́kó as meaning “to smear the penis”, but that never reached the entry"
           ]
         },
         {
@@ -27333,7 +27343,7 @@
             "en-ojoojumọ-yo-noun-7Sj2yuD6"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=day”"
+            "“reduplication” records ojúmọ́ as meaning “day”, but that never reached the entry"
           ]
         },
         {
@@ -27343,7 +27353,7 @@
             "en-panapana-yo-noun-P9hAbGCJ"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to extinguish a fire”"
+            "“reduplication” records paná as meaning “to extinguish a fire”, but that never reached the entry"
           ]
         },
         {
@@ -27353,7 +27363,7 @@
             "en-yọyinyọyin-yo-noun-9i5hCDTy"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to extract teeth”"
+            "“reduplication” records yọyín as meaning “to extract teeth”, but that never reached the entry"
           ]
         },
         {
@@ -27364,8 +27374,8 @@
             "en-darandaran-yo-noun-iTrwtEB7"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to herd animals”",
-            "{{reduplication}} passes its gloss as “t=to cause trouble”"
+            "“reduplication” records daran as meaning “to herd animals”, but that never reached the entry",
+            "“reduplication” records dáràn as meaning “to cause trouble”, but that never reached the entry"
           ]
         },
         {
@@ -27375,7 +27385,7 @@
             "en-pidanpidan-yo-noun-i8NF5P8h"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to do magic”"
+            "“reduplication” records pidán as meaning “to do magic”, but that never reached the entry"
           ]
         },
         {
@@ -27385,7 +27395,7 @@
             "en-yimiyimi-yo-noun-3n185KOJ"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to roll dung”"
+            "“reduplication” records yímí as meaning “to roll dung”, but that never reached the entry"
           ]
         },
         {
@@ -27395,7 +27405,7 @@
             "en-gbẹnagbẹna-yo-noun-hMpds4g1"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to carve”"
+            "“reduplication” records gbẹ́nà as meaning “to carve”, but that never reached the entry"
           ]
         },
         {
@@ -27405,7 +27415,7 @@
             "en-kọlekọle-yo-noun-32sHF2qb"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to build houses”"
+            "“reduplication” records kọ́lé as meaning “to build houses”, but that never reached the entry"
           ]
         },
         {
@@ -27415,7 +27425,7 @@
             "en-gbọmọgbọmọ-yo-noun-jkYSTG0c"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to carry a child”"
+            "“reduplication” records gbọ́mọ as meaning “to carry a child”, but that never reached the entry"
           ]
         },
         {
@@ -27425,7 +27435,7 @@
             "en-tannatanna-yo-noun-r6wyfnNp"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to turn on light, fire”"
+            "“reduplication” records tanná as meaning “to turn on light, fire”, but that never reached the entry"
           ]
         },
         {
@@ -27435,7 +27445,7 @@
             "en-kọlikọli-yo-noun-ho8Feado"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to build a house”"
+            "“reduplication” records kọ́ ulí as meaning “to build a house”, but that never reached the entry"
           ]
         },
         {
@@ -27445,7 +27455,7 @@
             "en-sọrọsọrọ-yo-noun-vu7DfHEV"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to talk”"
+            "“reduplication” records sọ̀rọ̀ as meaning “to talk”, but that never reached the entry"
           ]
         },
         {
@@ -27455,7 +27465,7 @@
             "en-alaalẹ-yo-noun-jAiUQHzV"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=evening”"
+            "“reduplication” records alẹ́ as meaning “evening”, but that never reached the entry"
           ]
         },
         {
@@ -27465,7 +27475,7 @@
             "en-ọdọọdun-yo-noun-SvvGoUsX"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=year”"
+            "“reduplication” records ọdún as meaning “year”, but that never reached the entry"
           ]
         },
         {
@@ -27475,7 +27485,7 @@
             "en-ọsọọsan-yo-noun-YzqrC6Ti"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=afternoon”"
+            "“reduplication” records ọ̀sán as meaning “afternoon”, but that never reached the entry"
           ]
         },
         {
@@ -27485,7 +27495,7 @@
             "en-eteeti-yo-noun-VPzL0y7m"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=side”"
+            "“reduplication” records etí as meaning “side”, but that never reached the entry"
           ]
         },
         {
@@ -27495,7 +27505,7 @@
             "en-ọmama-yo-noun-LoHpWh30"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=child”"
+            "“reduplication” records ọma as meaning “child”, but that never reached the entry"
           ]
         },
         {
@@ -27505,7 +27515,7 @@
             "en-bojuboju-yo-noun-UZzvlOqX"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to cover eyes”"
+            "“reduplication” records bojú as meaning “to cover eyes”, but that never reached the entry"
           ]
         },
         {
@@ -27515,7 +27525,7 @@
             "en-jijẹ-yo-noun-w9aEvSCL"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to eat”"
+            "“reduplication” records jẹ as meaning “to eat”, but that never reached the entry"
           ]
         },
         {
@@ -27525,7 +27535,7 @@
             "en-jagunjagun-yo-noun-~wduxwWD"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to fight war”"
+            "“reduplication” records jà ogun as meaning “to fight war”, but that never reached the entry"
           ]
         },
         {
@@ -27535,7 +27545,7 @@
             "en-dẹdodẹdo-yo-noun--gcto5S9"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to hunt in the rivers”"
+            "“reduplication” records dẹ odò as meaning “to hunt in the rivers”, but that never reached the entry"
           ]
         },
         {
@@ -27545,7 +27555,7 @@
             "en-nla-yo-adj-zS7rhlBR"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to be big”"
+            "“reduplication” records lá as meaning “to be big”, but that never reached the entry"
           ]
         },
         {
@@ -27555,7 +27565,7 @@
             "en-ayoayo-yo-noun-47DEQpj8"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=a type of mancala game”"
+            "“reduplication” records ayò as meaning “a type of mancala game”, but that never reached the entry"
           ]
         },
         {
@@ -27565,7 +27575,7 @@
             "en-mọnamọna-yo-noun-BIaXCCLD"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to be bright”"
+            "“reduplication” records mọ́ná as meaning “to be bright”, but that never reached the entry"
           ]
         },
         {
@@ -27575,7 +27585,7 @@
             "en-kolẹkolẹ-yo-noun-qPPweOjS"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to pack dirt”"
+            "“reduplication” records kólẹ̀ as meaning “to pack dirt”, but that never reached the entry"
           ]
         },
         {
@@ -27585,7 +27595,7 @@
             "en-wolewole-yo-noun-RoFXZSIG"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to look at a house”"
+            "“reduplication” records wolé as meaning “to look at a house”, but that never reached the entry"
           ]
         },
         {
@@ -27595,7 +27605,7 @@
             "en-tulẹtulẹ-yo-noun-KbuzB3j5"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to scatter the ground”"
+            "“reduplication” records túlẹ̀ as meaning “to scatter the ground”, but that never reached the entry"
           ]
         },
         {
@@ -27605,7 +27615,7 @@
             "en-jokujoku-yo-noun-cY7J-iXp"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to eat the dead”"
+            "“reduplication” records jòkú as meaning “to eat the dead”, but that never reached the entry"
           ]
         },
         {
@@ -27615,7 +27625,7 @@
             "en-gbalẹgbalẹ-yo-noun-VOoh5p6d"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to sweep the floor”"
+            "“reduplication” records gbálẹ̀ as meaning “to sweep the floor”, but that never reached the entry"
           ]
         },
         {
@@ -27625,7 +27635,7 @@
             "en-kunlekunle-yo-noun-sJ~bgHgb"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to paint a house”"
+            "“reduplication” records kun ilé as meaning “to paint a house”, but that never reached the entry"
           ]
         },
         {
@@ -27636,8 +27646,8 @@
             "en-pupọ-yo-adv-lzAcG~yq"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to be plenty”",
-            "{{reduplication}} passes its gloss as “t=to be plenty”"
+            "“reduplication” records pọ̀ as meaning “to be plenty”, but that never reached the entry",
+            "“reduplication” records pọ̀ as meaning “to be plenty”, but that never reached the entry"
           ]
         },
         {
@@ -27648,8 +27658,8 @@
             "en-gidi-gidi-yo-noun-5PbZzKOp"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=solid, firm”",
-            "{{reduplication}} passes its gloss as “t=solid, firm”"
+            "“reduplication” records gìdì as meaning “solid, firm”, but that never reached the entry",
+            "“reduplication” records gìdì as meaning “solid, firm”, but that never reached the entry"
           ]
         },
         {
@@ -27659,7 +27669,7 @@
             "en-oṣooṣu-yo-noun-uUSD9FXM"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=month”"
+            "“reduplication” records oṣù as meaning “month”, but that never reached the entry"
           ]
         },
         {
@@ -27669,7 +27679,7 @@
             "en-ọsọọsẹ-yo-noun-Rh3U6XWw"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=week”"
+            "“reduplication” records ọ̀sẹ̀ as meaning “week”, but that never reached the entry"
           ]
         },
         {
@@ -27679,7 +27689,7 @@
             "en-ọrọọrun-yo-noun-EbKp36DG"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=five days”"
+            "“reduplication” records ọrún as meaning “five days”, but that never reached the entry"
           ]
         },
         {
@@ -27689,7 +27699,7 @@
             "en-isiisan-yo-noun-M4GV~XQx"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=nine days”"
+            "“reduplication” records isán as meaning “nine days”, but that never reached the entry"
           ]
         },
         {
@@ -27699,7 +27709,7 @@
             "en-ọgbọọgba-yo-noun-hgld24Dg"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=equal”"
+            "“reduplication” records ọgba as meaning “equal”, but that never reached the entry"
           ]
         },
         {
@@ -27710,8 +27720,8 @@
             "en-gbingbin-yo-noun-lDh1JFgx"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to groan”",
-            "{{reduplication}} passes its gloss as “t=to plant”"
+            "“reduplication” records gbin as meaning “to groan”, but that never reached the entry",
+            "“reduplication” records gbìn as meaning “to plant”, but that never reached the entry"
           ]
         },
         {
@@ -27721,7 +27731,7 @@
             "en-mugwẹmugwẹ-yo-noun-gjvD4BVc"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to know swimming”"
+            "“reduplication” records mà ùgwẹ̀ as meaning “to know swimming”, but that never reached the entry"
           ]
         },
         {
@@ -27731,7 +27741,7 @@
             "en-lụkalụka-yo-adj-N2ecJUjj"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to be good”"
+            "“reduplication” records lụ́kà as meaning “to be good”, but that never reached the entry"
           ]
         },
         {
@@ -27741,7 +27751,7 @@
             "en-yinrunyinrun-yo-noun-0XMZ-ItX"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=twist neck”"
+            "“reduplication” records yín ọrùn as meaning “twist neck”, but that never reached the entry"
           ]
         },
         {
@@ -27751,7 +27761,7 @@
             "en-lọrunlọrun-yo-noun-0XMZ-ItX"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=twist neck”"
+            "“reduplication” records lọ́ ọrùn as meaning “twist neck”, but that never reached the entry"
           ]
         },
         {
@@ -27761,7 +27771,7 @@
             "en-ẹgbẹẹgbẹ-yo-noun-KtNjJDIr"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=side”"
+            "“reduplication” records ẹ̀gbẹ́ as meaning “side”, but that never reached the entry"
           ]
         },
         {
@@ -27771,7 +27781,7 @@
             "en-jawojawo-yo-noun-r8gnhfBO"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=snatch money”"
+            "“reduplication” records já owó as meaning “snatch money”, but that never reached the entry"
           ]
         },
         {
@@ -27781,7 +27791,7 @@
             "en-kọrinkọrin-yo-noun-TFr5c~YE"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to sing a song”"
+            "“reduplication” records kọrin as meaning “to sing a song”, but that never reached the entry"
           ]
         },
         {
@@ -27791,7 +27801,7 @@
             "en-jẹdi-jẹdi-yo-noun-af1xdq2a"
           ],
           "details": [
-            "{{reduplication}} passes its gloss as “t=to eat or consume the butt”"
+            "“reduplication” records jẹ̀dí as meaning “to eat or consume the butt”, but that never reached the entry"
           ]
         }
       ],
@@ -30623,7 +30633,7 @@
       "effort": "expertise",
       "target": "wiktionary",
       "why": "Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.",
-      "fix": "Move the derived term to the etymology section it truly belongs to, or give it a gloss in the derived-terms list (e.g. “|gbígbá<t:beating>”) so the sense is recoverable.",
+      "fix": "Move the derived term to the etymology section it truly belongs to, or add a short definition to it in the derived-terms list (e.g. “|gbígbá<t:beating>”) so its meaning is recoverable.",
       "count": 11,
       "pageCount": 10,
       "pages": [
@@ -30739,7 +30749,7 @@
       "effort": "expertise",
       "target": "wiktionary",
       "why": "Another page claims this word is derived from it, but this word's own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary's back-links are meant to expose.",
-      "fix": "Write an Etymology section on the listed page naming the root it comes from, with a gloss. If it turns out not to be derived at all, remove it from the root's derived-terms list instead.",
+      "fix": "Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root's derived-terms list instead.",
       "count": 9,
       "pageCount": 5,
       "pages": [
@@ -32288,15 +32298,15 @@
   "summary": {
     "byEffort": {
       "easy": 189,
-      "mechanical": 452,
+      "mechanical": 453,
       "expertise": 1841,
       "info": 2258
     },
     "byTarget": {
       "wiktionary": 4662,
-      "pipeline": 78
+      "pipeline": 79
     },
-    "actionable": 2482,
+    "actionable": 2483,
     "easyWins": 189
   },
   "kaikkiSourceDate": "2026-08-03",

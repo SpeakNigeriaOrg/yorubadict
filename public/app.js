@@ -418,7 +418,7 @@
   function ambiguityNote(resolution, count, spelling) {
     if (!resolution || count < 2) return '';
     if (resolution.method === 'glossOverlap') {
-      return `${count} entries are spelled “${spelling}”. We matched this one using the gloss in the etymology — open the others to check.`;
+      return `${count} entries are spelled “${spelling}”. The etymology says what the root means, and this entry's definition matches it — open the others to check.`;
     }
     return `Wiktionary lists this word under ${count} separate “${spelling}” entries and does not say which one it comes from. Any of these could be the root.`;
   }
