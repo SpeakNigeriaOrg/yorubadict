@@ -1146,20 +1146,31 @@
         started = true;
         resolve();
       };
+
+      let watchingPaint = false;
       try {
         const observer = new PerformanceObserver(() => {
           observer.disconnect();
           go();
         });
         observer.observe({ type: 'largest-contentful-paint', buffered: true });
+        watchingPaint = true;
       } catch (err) {
-        // Older Safari has no LCP entry type; the fallbacks below cover it.
+        // Older Safari has no largest-contentful-paint entry type.
       }
-      if (typeof requestIdleCallback === 'function') {
-        requestIdleCallback(go, { timeout: 1000 });
-      } else {
-        setTimeout(go, 200);
+
+      // Only a fallback, never a race. An earlier version let an idle callback
+      // with a 1s timeout run against the observer, which meant that on a slow
+      // load - paint at 2.3s in one measured run - the timer fired first and
+      // started the download before the paint, which is the one case this is
+      // meant to prevent. It scored 65 where the same code scored 99 on a fast
+      // load. The long stop below exists only so a paint that never arrives
+      // can't strand the dictionary.
+      if (!watchingPaint) {
+        if (typeof requestIdleCallback === 'function') requestIdleCallback(go, { timeout: 1000 });
+        else setTimeout(go, 200);
       }
+      setTimeout(go, 5000);
     });
 
     // Only now the part that genuinely needs the dictionary. The quality
