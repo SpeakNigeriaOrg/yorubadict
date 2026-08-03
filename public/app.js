@@ -11,6 +11,7 @@
     entries: null,
     index: null,
     validation: null,
+    buildingBlocks: null,
     activeResults: [],
     activeIndex: -1,
     searchMode: 'both', // 'both', 'yoruba', or 'english'
@@ -735,7 +736,7 @@
   function renderAbout() {
     els.entryContent.innerHTML = `
       <div class="about-content">
-        <h1>About this dictionary</h1>
+        <h1>About the Dictionary</h1>
         <p class="about-lede">Wiktionary's crowdsourced Yorùbá dictionary is one of the best resources online for learning Yorùbá. Not only does it have more defined words than most Yorùbá dictionaries, but it also includes details of how longer words are constructed from shorter words. Learning to recognize these compound words is a core part of learning the language. The Wiktionary website itself, though, is poorly matched to language learners, whether in terms of quick single-word lookups or language exploration. This project keeps the data and rebuilds the user experience.</p>
 
         <h2>Why care about etymology?</h2>
@@ -758,9 +759,193 @@
           <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
           <a class="about-btn ghost" href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Visit speaknigeria.org ↗</a>
         </div>
+
+        <h2>Read next</h2>
+        <ul>
+          <li><a href="#/building-blocks">Key building block words</a> — the 25 roots that build the most other words in this dictionary.</li>
+          <li><a href="#/learners">For learners</a> — how to learn roots and read the words built from them.</li>
+          <li><a href="#/teachers">For teachers</a> — sequencing a curriculum around roots, and when to explain a compound.</li>
+          <li><a href="#/speak-nigeria">About Speak Nigeria</a> — the nonprofit behind this.</li>
+        </ul>
       </div>
     `;
-    document.title = 'About — Sọ̀rọ̀ Sókè';
+    document.title = 'About the Dictionary — Sọ̀rọ̀ Sókè';
+  }
+
+  function renderSpeakNigeria() {
+    els.entryContent.innerHTML = `
+      <div class="about-content">
+        <h1>About Speak Nigeria</h1>
+        <p class="about-lede">Speak Nigeria is a nonprofit. We build free tools so children can learn Nigerian heritage languages and keep them.</p>
+
+        <h2>Why we exist</h2>
+        <p>Millions of children grow up in families that speak a Nigerian language, and learn only English. Their parents want to pass the language on. Most of the time there is nothing to teach from — no course at the right level, no games, no dictionary a child can actually use. The language stops at one generation.</p>
+        <p>We make the missing pieces, and we give them away.</p>
+
+        <h2>What we make</h2>
+        <ul>
+          <li><strong>Structured courses.</strong> Yorùbá from the beginning, in an order that builds.</li>
+          <li><strong>Games.</strong> Practice that a child will choose on their own.</li>
+          <li><strong>This dictionary.</strong> Every word, searchable with or without tone marks, and every word broken into the words it came from.</li>
+        </ul>
+
+        <h2>How this dictionary fits</h2>
+        <p>A course teaches a set of words in order. A dictionary answers a question the moment someone asks it. This one also answers a second question — where did this word come from? — because in Yorùbá that answer is usually another word you can learn.</p>
+        <p><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> means Earth. It is <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home) and <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). A learner who knows those two words can read the third the first time they see it.</p>
+
+        <div class="about-actions">
+          <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
+          <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play the games ↗</a>
+        </div>
+      </div>
+    `;
+    document.title = 'About Speak Nigeria — Sọ̀rọ̀ Sókè';
+  }
+
+  function renderLearners() {
+    els.entryContent.innerHTML = `
+      <div class="about-content">
+        <h1>For learners</h1>
+        <p class="about-lede">Yorùbá builds long words out of short ones. Learn the short ones and you can read words nobody has taught you yet.</p>
+
+        <h2>Start with what a word is made of</h2>
+        <p>Take <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a>. It means home. Now look at what it builds:</p>
+        <ul>
+          <li><a href="#/entry/en-ile-iwe-yo-noun-1k3r2ULX">ilé-ìwé</a> — school. Home of books.</li>
+          <li><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> — Earth. Home of life.</li>
+        </ul>
+        <p>You did not memorise those two words. You read them, because you knew <em>ilé</em>. That is how the language works, and it keeps working: every root you learn makes the next words cheaper.</p>
+
+        <h2>Guess before you look</h2>
+        <p>When you meet a new long word, stop and look for a word you already know inside it. Guess what the whole thing means. Then check.</p>
+        <p><a href="#/entry/en-ṣe-yo-verb-IXZV9I3e">ṣe</a> means to do. What do you think <a href="#/entry/en-ṣiṣẹ-yo-verb-5qTsaA0x">ṣiṣẹ́</a> means? It is work. And <a href="#/entry/en-ṣalaye-yo-verb-cgQ~Nwbp">ṣàlàyé</a>? To explain.</p>
+        <p>Sometimes the guess is obvious. Sometimes it is strange and you remember it forever. Both are useful. Guessing wrong and finding out is a better way to learn a word than reading it in a list.</p>
+
+        <h2>Use tone marks from the start</h2>
+        <p>Tone is not decoration. <a href="#/entry/en-gba-yo-verb-DCZgzqX2">gbà</a> means to rescue. <a href="#/entry/en-gba-yo-verb-VAsl51P3">gbá</a> means to hit. Same letters, different words. If you learn a word without its tone marks you have learned half of it.</p>
+        <p>You can still search here without them. Type <em>gba</em> and you will get every word spelled that way, so you can find the one you meant.</p>
+
+        <h2>Where to go next</h2>
+        <ul>
+          <li><a href="#/building-blocks">Key building block words</a> — the 25 roots that build the most words in this dictionary. Learn these first.</li>
+          <li>Our <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">structured courses</a> teach Yorùbá in an order that builds on itself.</li>
+          <li>Our <a href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">games</a> are for practice you will actually keep doing.</li>
+        </ul>
+
+        <div class="about-actions">
+          <a class="about-btn primary" href="#/building-blocks">Start with the building blocks</a>
+        </div>
+      </div>
+    `;
+    document.title = 'For Learners — Sọ̀rọ̀ Sókè';
+  }
+
+  function renderTeachers() {
+    els.entryContent.innerHTML = `
+      <div class="about-content">
+        <h1>For teachers</h1>
+        <p class="about-lede">Two things matter more than which words you teach: whether you teach roots, and when you explain them.</p>
+
+        <h2>Build the curriculum around roots, not a word list</h2>
+        <p>A list of a hundred common words gives a student a hundred words. A hundred words chosen as roots gives them far more, because each root unlocks the words built from it.</p>
+        <p>Teach <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home). Then teach <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> (Earth). Then teach <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life) on its own. Now the student holds three words, and the third one explains the second. Teach <em>ayé</em> and never connect it to <em>ilé ayé</em> and you have taught two unrelated facts instead.</p>
+        <p><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words here, with examples of what each one builds. It is a reasonable place to start a syllabus.</p>
+
+        <h2>Explain the parts the first time, every time</h2>
+        <p>Never define <em>ilé ayé</em> as "Earth" and move on. It is two words, and the student can see that it is two words. Say what they are.</p>
+        <p>This holds for single words too, which is where it usually gets skipped. <a href="#/entry/en-sọrọ-yo-verb-SuqWjjbe">sọ̀rọ̀</a> means to speak. It is a contraction of <em>sọ</em> ("to say") and <em>ọ̀rọ̀</em> ("word"). And the phrase this dictionary is named after, <a href="#/entry/en-sọrọ_soke-yo-verb-zjLiM20R">sọ̀rọ̀ sókè</a>, is a calque of English <em>speak up</em>: <em>sọ</em> ("to say") + <em>ọ̀rọ̀</em> ("word") + <em>sí</em> ("to") + <em>òkè</em> ("heights").</p>
+
+        <h3>Make it a game</h3>
+        <p>Give the class two words they already know. Ask what the combination will mean. Take guesses before you answer.</p>
+        <p>Sometimes the answer is obvious and the class feels clever. Sometimes it is surprising — <em>ilé</em> plus <em>ayé</em> giving Earth — and they remember it. Either way they are doing the work, instead of watching you do it.</p>
+
+        <h2>Do not teach the rules yet</h2>
+        <p>There are rules for how Yorùbá combines words, and for how combining changes the sounds. Do not start there.</p>
+        <p>What early students need is to keep seeing combinations in words they already use. Given enough examples, they start to feel which words combine and how the pronunciation shifts, before anyone tells them. The rules land much better later, on top of a few years of examples, than they do first as abstractions.</p>
+        <p>So: months or years of noticing, then the rules. Not the other way round.</p>
+
+        <h2>Check the breakdown before you teach it</h2>
+        <p>Look the word up here first. This dictionary is built from Wiktionary, which is crowdsourced, so it is patchy — plenty of words have no breakdown at all. But it is more comprehensive than any structured source we know of, and it is worth checking your own knowledge against it. Where we are unsure which sense a word came from, the page says so rather than guessing.</p>
+        <p>If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here on the next refresh.</p>
+
+        <h2>Teach students to compare sources</h2>
+        <p>There is no single authority for Yorùbá. Students need to know that.</p>
+        <ul>
+          <li><strong>This dictionary</strong> for lookups and for how words are built.</li>
+          <li><strong><a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a></strong> to see several dictionaries side by side and compare them.</li>
+          <li><strong>Google Translate</strong> — usable for a rough idea, not for anything you are teaching. It is weak for Yorùbá, and confidently so.</li>
+        </ul>
+        <p>Your students are probably better at the internet than you are. They are still not good at judging which source to trust. That part is your job.</p>
+
+        <div class="about-actions">
+          <a class="about-btn primary" href="#/building-blocks">See the building block words</a>
+          <a class="about-btn ghost" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Our courses ↗</a>
+        </div>
+      </div>
+    `;
+    document.title = 'For Teachers — Sọ̀rọ̀ Sókè';
+  }
+
+  // The one generated page. Its list is computed at build time by
+  // build/lib/building-blocks.mjs; see data/frequency/README.md for why
+  // choosing the examples needs frequency data rather than signals from our
+  // own corpus. Fetched on first visit rather than at boot - nothing on the
+  // reading path needs it.
+  function renderBuildingBlocks() {
+    document.title = 'Key Building Block Words — Sọ̀rọ̀ Sókè';
+    const listHtml = state.buildingBlocks
+      ? buildingBlocksListHtml(state.buildingBlocks)
+      : '<p>Loading the list…</p>';
+
+    els.entryContent.innerHTML = `
+      <div class="about-content">
+        <h1>Key building block words</h1>
+        <p class="about-lede">These 25 words build more other words than any others in this dictionary. Learn one and you can read several more.</p>
+        <p>Each root below is a single meaning, not a spelling. <em>gbá</em> ("to hit") and <em>gbà</em> ("to accept") are different words, and they build different families, so they are counted separately.</p>
+        <div id="blocks-list">${listHtml}</div>
+        <p class="blocks-note">Chosen automatically from the etymologies in this dictionary, counting how many words each root builds. Example words are picked using Yorùbá word frequencies from the <a href="https://wortschatz.uni-leipzig.de/en/download" target="_blank" rel="noopener noreferrer">Leipzig Corpora Collection</a> (CC BY 4.0), so they favour words you are likely to meet.</p>
+      </div>
+    `;
+
+    if (!state.buildingBlocks) {
+      fetch('data/building-blocks.json')
+        .then((r) => r.json())
+        .then((data) => {
+          state.buildingBlocks = data;
+          // Only patch the list if the reader is still on this page.
+          const host = document.getElementById('blocks-list');
+          if (host) host.innerHTML = buildingBlocksListHtml(data);
+        })
+        .catch(() => {
+          const host = document.getElementById('blocks-list');
+          if (host) host.innerHTML = '<p>The list could not be loaded.</p>';
+        });
+    }
+  }
+
+  function buildingBlocksListHtml(data) {
+    return (data.blocks || [])
+      .map((block, i) => `
+        <div class="block-card">
+          <div class="block-head">
+            <span class="block-rank">${i + 1}</span>
+            <a class="block-word" href="#/entry/${encodeURIComponent(block.entryId)}">${escapeHtml(block.form)}</a>
+            <span class="sibling-meta">${escapeHtml(block.pos || '')}</span>
+            <span class="block-def">${escapeHtml(block.definition)}</span>
+          </div>
+          <div class="block-count">builds ${block.buildsCount} words in this dictionary, including:</div>
+          <div class="sibling-list">
+            ${block.examples.map((ex) => `
+              <a class="sibling-row" href="#/entry/${encodeURIComponent(ex.entryId)}">
+                <span class="sibling-word">${escapeHtml(ex.form)}</span>
+                <span class="sibling-meta">${escapeHtml(ex.pos || '')}</span>
+                <span class="sibling-gloss">${escapeHtml(ex.definition)}</span>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `)
+      .join('');
   }
 
   // ---------------------------------------------------------------
@@ -773,11 +958,23 @@
     location.hash = `#/entry/${encodeURIComponent(entryId)}`;
   }
 
+  // Written pages, plus the one generated page. All render from markup that's
+  // already in app.js, so they paint on first load without the dictionary -
+  // boot() calls handleRoute() before fetching it for exactly this reason.
+  const STATIC_ROUTES = {
+    '#/about': renderAbout,
+    '#/speak-nigeria': renderSpeakNigeria,
+    '#/learners': renderLearners,
+    '#/teachers': renderTeachers,
+    '#/building-blocks': renderBuildingBlocks,
+  };
+
   function handleRoute() {
     const hash = location.hash || '';
 
-    if (hash === '#/about') {
-      renderAbout();
+    const staticPage = STATIC_ROUTES[hash];
+    if (staticPage) {
+      staticPage();
       onEntryRendered();
       return;
     }

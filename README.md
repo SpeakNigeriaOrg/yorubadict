@@ -103,12 +103,74 @@ rendering, routing — locally:
 | `data/entries.json` | ~10.5 MB | every entry, keyed by id, for O(1) lookup |
 | `data/search-index.json` | ~3.6 MB | Yorùbá tier indices + English inverted index |
 | `data/validation-report.json` | ~580 KB | data-quality work queue (below), **not fetched on boot** |
+| `data/building-blocks.json` | ~19 KB | the Key Building Block Words list, **not fetched on boot** |
 
 That's roughly 14 MB fetched up front for ~6,270 entries. This is a
 deliberate tradeoff for simplicity and a genuinely offline-after-load
-experience, but it hasn't been tested at meaningfully larger scale. The
-quality report is no longer part of that: nothing on the reading path needs
-it, so it's fetched the first time someone opens the "Data quality" panel.
+experience, but it hasn't been tested at meaningfully larger scale. Neither
+the quality report nor the building-block list is part of it: nothing on the
+reading path needs either, so each is fetched the first time someone opens the
+page that shows it.
+
+## The pages we write ourselves
+
+Everything else here comes from Wiktionary. These five don't, and they live as
+render functions in `public/app.js` dispatched from a `STATIC_ROUTES` table:
+
+| Route | Page |
+|---|---|
+| `#/about` | About the Dictionary — what this is and where the data comes from |
+| `#/speak-nigeria` | About Speak Nigeria — the nonprofit behind it |
+| `#/learners` | For Learners — learn roots, then read what they build |
+| `#/teachers` | For Teachers — curriculum sequencing, and *when* to explain a compound |
+| `#/building-blocks` | Key Building Block Words — **generated**, see below |
+
+They render from markup already in `app.js`, so they paint on first load
+without the dictionary — `boot()` calls `handleRoute()` before fetching it for
+exactly this reason. Any new page must keep that property, and must set its own
+`document.title` and call `onEntryRendered()`.
+
+**Voice:** simple sentences, concrete vocabulary, and an example rather than a
+description of one. Every claim about how Yorùbá builds words is followed by a
+real word linked to its entry. Nothing that reads like an advert.
+
+All six nav entries live in one dropdown at every width. It used to be an
+inline row on desktop and a dropdown only below 700px, which worked with two
+items; the note by the narrow-viewport header block records that the wordmark
+plus *two* buttons already left the search field 30px of readable text at
+800px. Making the dropdown universal also gave the search field its width back
+on desktop.
+
+### Key Building Block Words is generated
+
+`build/lib/building-blocks.mjs` picks the 25 roots that build the most other
+words, each with five examples of what they build. Two decisions in it are
+worth knowing about, both settled by measurement:
+
+**A building block is a meaning, not a spelling.** `gba` is not a word; `gbá`
+("to hit") and `gbà` ("to accept") are different words that build different
+families. So roots are keyed on entry ids via `etymologyMorphemes[].chosenEntryId`
+— *not* `usedInCompounds`, which fans out to every homograph in the tone group
+upstream, so counting it would credit `gbà` "to rescue" for words built from
+`gbà` "to accept". `ní` correctly appears twice in the list, as the verb and as
+the preposition.
+
+**Choosing the examples needs outside frequency data.** Ranking the roots
+themselves does not — by raw count or by weighted prominence, 24 of the same 25
+words come back. But every signal available inside our own corpus (sense count,
+usage examples, IPA, dialect coverage) measures *editor attention*, which
+follows cultural notability rather than commonness. Ranked that way the examples
+for `ọmọ` ("child") are `agẹmọ` (chameleon), `ọmọdó` (pestle) and `Agẹmọ` (an
+orisha). With `data/frequency/` they are `ọmọdé` (child), `ọmọnìyàn` (humanity)
+and `mọ̀lẹ́bí` (extended family). See `data/frequency/README.md` for provenance
+and the licence that has to be honoured.
+
+Given names, definitions longer than six words, pointer definitions
+("archaic spelling of…") and absurdly long headwords are all excluded — and
+`assertBuildingBlocksAreUsable` fails the build if any slip through, rather than
+letting a bad list reach the page. `data/building-blocks.overrides.json` is an
+optional hand-edit layer (exclude, pin, or replace a block's examples); it does
+not exist yet, and the list is fully programmatic until it does.
 
 ## The pipeline: kaikki-yoruba's artifact → browser-ready JSON
 

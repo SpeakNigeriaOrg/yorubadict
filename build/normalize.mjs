@@ -35,6 +35,7 @@ import { loadEntriesFromFile, loadLatestEntriesAndMetadata } from './lib/loadEnt
 import { synthesizeRelationships } from './lib/relationships.mjs';
 import { buildValidationReport } from './lib/validator.mjs';
 import { buildSearchIndex } from './lib/search-index.mjs';
+import { buildBuildingBlocks, assertBuildingBlocksAreUsable } from './lib/building-blocks.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -87,17 +88,24 @@ const outEntriesPath = path.join(rootDir, 'public', 'data', 'entries.json');
 const outIndexPath = path.join(rootDir, 'public', 'data', 'search-index.json');
 const outValidationPath = path.join(rootDir, 'build', 'validation-report.json');
 const outPublicValidationPath = path.join(rootDir, 'public', 'data', 'validation-report.json');
+const outBlocksPath = path.join(rootDir, 'public', 'data', 'building-blocks.json');
+
+const blockOptions = {
+  yorubaFrequencyPath: path.join(rootDir, 'data', 'frequency', 'yoruba.json'),
+  englishFrequencyPath: path.join(rootDir, 'data', 'frequency', 'english.json'),
+  overridesPath: path.join(rootDir, 'data', 'building-blocks.overrides.json'),
+};
 
 async function main() {
   let entriesById, kaikkiSourceDate, kaikkiReleaseTag, kaikkiParseErrorCount;
   if (inputPath) {
-    console.log(`[1/4] Loading ${path.relative(rootDir, inputPath)} ...`);
+    console.log(`[1/5] Loading ${path.relative(rootDir, inputPath)} ...`);
     entriesById = await loadEntriesFromFile(inputPath);
     kaikkiSourceDate = null;
     kaikkiReleaseTag = null;
     kaikkiParseErrorCount = null;
   } else {
-    console.log("[1/4] Fetching kaikki-yoruba's latest release ...");
+    console.log("[1/5] Fetching kaikki-yoruba's latest release ...");
     const fetched = await loadLatestEntriesAndMetadata();
     entriesById = fetched.entries;
     kaikkiSourceDate = fetched.metadata.sourceDate;
@@ -107,21 +115,33 @@ async function main() {
   const entries = Object.values(entriesById);
   console.log(`      ${entries.length} entries loaded`);
 
-  console.log('[2/4] Synthesizing relationship graph ...');
+  console.log('[2/5] Synthesizing relationship graph ...');
   const { entries: linkedEntries, unresolved, dialect } = synthesizeRelationships(entries);
   console.log(
     `      dialect data on ${dialect.entriesWithData} entries: ${dialect.terms} terms ` +
       `(${dialect.distinctTerms} distinct, ${dialect.resolvedTerms} matching an existing entry)`
   );
 
-  console.log('[3/4] Building validation report ...');
+  console.log('[3/5] Building validation report ...');
   const validationReport = buildValidationReport(linkedEntries, unresolved, [], dialect);
   validationReport.kaikkiSourceDate = kaikkiSourceDate;
   validationReport.kaikkiReleaseTag = kaikkiReleaseTag;
   validationReport.kaikkiParseErrorCount = kaikkiParseErrorCount;
 
-  console.log('[4/4] Building search index ...');
+  console.log('[4/5] Building search index ...');
   const searchIndex = buildSearchIndex(linkedEntries);
+
+  console.log('[5/5] Choosing building-block words ...');
+  const buildingBlocks = buildBuildingBlocks(linkedEntries, blockOptions);
+  // Throws rather than shipping a list with a given name or an encyclopedic
+  // definition in it - the whole point of the page is that its examples are
+  // words a learner would plausibly meet.
+  assertBuildingBlocksAreUsable(buildingBlocks);
+  console.log(
+    `      ${buildingBlocks.blocks.length} blocks, ` +
+      `${buildingBlocks.blocks.reduce((n, b) => n + b.examples.length, 0)} examples` +
+      `${buildingBlocks.overridesApplied ? ' (overrides applied)' : ''}`
+  );
 
   mkdirSync(path.dirname(outEntriesPath), { recursive: true });
   mkdirSync(path.dirname(outValidationPath), { recursive: true });
@@ -135,12 +155,14 @@ async function main() {
   writeFileSync(outIndexPath, JSON.stringify(searchIndex));
   writeFileSync(outValidationPath, JSON.stringify(validationReport, null, 2));
   writeFileSync(outPublicValidationPath, JSON.stringify(validationReport));
+  writeFileSync(outBlocksPath, JSON.stringify(buildingBlocks));
 
   const sizeOf = (p) => (statSync(p).size / 1024).toFixed(1);
 
   console.log('\nDone.');
   console.log(`  entries.json size  ${sizeOf(outEntriesPath)} KB`);
   console.log(`  search-index size  ${sizeOf(outIndexPath)} KB`);
+  console.log(`  building-blocks    ${sizeOf(outBlocksPath)} KB`);
   console.log(`  entries.json       ${linkedEntries.length} entries`);
   console.log(`  search-index.json  ${Object.keys(searchIndex.english.postings).length} English tokens`);
   if (kaikkiSourceDate) console.log(`  kaikki-yoruba data  release ${kaikkiReleaseTag}, sourced ${kaikkiSourceDate}`);

@@ -56,8 +56,15 @@
     <div class="header-actions">
       <button id="menu-toggle" class="menu-toggle" type="button"
               aria-expanded="false" aria-controls="header-menu" aria-label="Menu">≡</button>
+      <!-- One dropdown at every width. A flat row was already too wide on
+           desktop with two buttons (see the note by the header media query in
+           style.css); six is not a question. -->
       <div id="header-menu" class="header-menu">
-        <a href="#/about" class="ghost-btn">About</a>
+        <a href="#/building-blocks" class="ghost-btn">Building blocks</a>
+        <a href="#/learners" class="ghost-btn">For learners</a>
+        <a href="#/teachers" class="ghost-btn">For teachers</a>
+        <a href="#/about" class="ghost-btn">About the dictionary</a>
+        <a href="#/speak-nigeria" class="ghost-btn">About Speak Nigeria</a>
         <button id="data-quality-toggle" class="ghost-btn" type="button">Data quality</button>
       </div>
     </div>

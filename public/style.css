@@ -80,16 +80,44 @@ a { color: inherit; }
   position: relative;
 }
 
-/* The hamburger only ever appears at narrow widths (see the header
-   narrow-viewport block at the bottom of this file); on desktop the two
-   actions sit inline exactly as before. */
-.menu-toggle { display: none; }
+/* One menu at every width. This used to be an inline row on desktop and a
+   dropdown only below 700px, which worked while there were two items. There
+   are now six, and the note by the narrow-viewport header block records that
+   the wordmark plus *two* buttons already left the search field 30px of
+   readable text at 800px - a flat row of six was never going to fit. Making
+   the dropdown universal also gives the search field its width back on
+   desktop, which was the other half of that problem. */
+.menu-toggle {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--surface);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 7px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.menu-toggle[aria-expanded="true"],
+.menu-toggle:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
 
 .header-menu {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 8px;
+  background: var(--brand-indigo);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  z-index: 60;
 }
+.header-menu.open { display: flex; }
+.header-menu .ghost-btn { text-align: left; }
 
 .sr-only {
   position: absolute;
@@ -904,8 +932,68 @@ a { color: inherit; }
 .about-content a { color: var(--brand-indigo); text-decoration: underline; text-underline-offset: 2px; }
 .about-content a:hover { color: var(--brand-accent-deep); }
 
-.about-content ul { margin-top: 10px; padding-left: 20px; }
+.about-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--brand-indigo);
+  margin-top: 24px;
+  margin-bottom: 4px;
+}
+
+.about-content ul,
+.about-content ol { margin-top: 10px; padding-left: 20px; }
 .about-content li { margin-top: 10px; line-height: 1.6; }
+.about-content em { font-family: var(--font-yoruba); font-style: italic; }
+
+/* ---------- Key building block words ----------
+   The one generated page. Each card is a root plus a few of the words built
+   from it; the example rows reuse .sibling-list / .sibling-row wholesale,
+   since "word · part of speech · meaning" is the same shape the sibling
+   entries list already solves. */
+.block-card {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+.block-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.block-rank {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  min-width: 1.6em;
+}
+.about-content a.block-word {
+  font-family: var(--font-yoruba);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--brand-indigo);
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+.about-content a.block-word:hover { text-decoration: underline; }
+/* .about-content underlines every link, which is right for prose and wrong for
+   a list of rows - it underlined the word and its meaning separately. The rows
+   carry their own hover background from .sibling-row. */
+.about-content a.sibling-row { text-decoration: none; }
+.block-def { color: var(--text-secondary); font-size: 0.95rem; }
+.block-count {
+  margin: 8px 0 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.blocks-note {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
 
 .about-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
 .about-content a.about-btn {
@@ -1261,37 +1349,8 @@ a { color: inherit; }
 
   .header-search { flex: 1 0 100%; order: 3; }
 
-  .menu-toggle {
-    display: inline-block;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.35);
-    color: var(--surface);
-    font-size: 1.25rem;
-    line-height: 1;
-    padding: 7px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .menu-toggle[aria-expanded="true"],
-  .menu-toggle:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
-
-  .header-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: calc(100% + 8px);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-    padding: 8px;
-    background: var(--brand-indigo);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 4px;
-    box-shadow: var(--shadow);
-    z-index: 60;
-  }
-  .header-menu.open { display: flex; }
-  .header-menu .ghost-btn { text-align: left; }
+  /* The hamburger and its dropdown are now defined once, near the top of this
+     file, and apply at every width. Nothing narrow-specific is left here. */
 }
 
 /* Small phones (iPhone SE, older Androids). The tagline is ~105px of the
