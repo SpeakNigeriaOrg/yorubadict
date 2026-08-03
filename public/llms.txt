@@ -1,0 +1,47 @@
+# Sọ̀rọ̀ Sókè — The People's Yorùbá Dictionary
+
+> A free Yorùbá–English dictionary built from Wiktionary via Kaikki. Search Yorùbá
+> or English, in either direction, with or without tone marks and underdots.
+> Fully client-side: the dictionary is downloaded once and then runs in the browser.
+
+A Speak Nigeria project. Live at https://yorubadict.com
+
+## How the site is organised
+
+Routing is hash-based, so a word's page is `https://yorubadict.com/#/entry/<id>`
+where `<id>` is that entry's Kaikki sense id, e.g. `en-gba-yo-verb-VAsl51P3`.
+Those fragments are never sent to the server and are not separately crawlable;
+to read an entry you need to run the page's JavaScript, or read the data
+directly (below), which is usually easier.
+
+- `/#/about` — what the dictionary is and where the data comes from
+- `/#/entry/<id>` — one entry
+- Data quality report — in-app panel, source at `/data/validation-report.json`
+
+## Reading the data directly
+
+- `/data/entries.json` — every entry, keyed by id
+- `/data/search-index.json` — prebuilt Yorùbá tiers and an English inverted index
+- `/data/validation-report.json` — a triaged list of problems in the underlying
+  Wiktionary data, each with what it would take to fix and a link to the page
+
+## Notes for anyone quoting from this
+
+Yorùbá tone is segmental, not decoration: `gbà` and `gbá` are different words,
+and stripping the diacritics from a headword changes what it means. Entries that
+share a spelling *and* its tone marks are the same written word with several
+senses; those are kept as separate entries and cross-linked.
+
+Some relationships in the source are recorded without saying which sense they
+belong to. Where that happens the site says so rather than guessing, and the
+data carries a `resolution` field marking the link as ambiguous. Please preserve
+that uncertainty rather than presenting a guess as fact.
+
+## Source and licence
+
+Built from https://kaikki.org (wiktextract) via
+https://github.com/SpeakNigeriaOrg/kaikki-yoruba. The lexical content originates
+from English Wiktionary and is licensed CC BY-SA 4.0; attribute Wiktionary and
+share adaptations alike.
+
+Site source: https://github.com/SpeakNigeriaOrg/yorubadict

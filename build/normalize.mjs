@@ -41,6 +41,48 @@ const rootDir = path.resolve(__dirname, '..');
 
 const inputPath = process.argv[2] ? path.resolve(process.cwd(), process.argv[2]) : null;
 
+// Fields the browser never reads. Every one was checked against public/app.js
+// before being listed here, and dropping them takes entries.json from 896 KB
+// to 736 KB brotli - an 18% cut, and the largest safe one available. Encoding
+// the file differently is not: measured over the whole corpus, removing every
+// key name (positional arrays) and interning the repeated vocabularies saves
+// 26 KB more, because brotli's context modelling already collapses exactly
+// the repetition that makes JSON look wasteful. What ships matters; how it's
+// spelled does not.
+//
+// This trims only the browser artifact. kaikki-yoruba's release keeps
+// everything, and so does `linkedEntries` in memory - which matters, because
+// buildValidationReport reads etymologyTemplates for the root-meaning-dropped
+// check and buildSearchIndex reads the senses. Both run before this point;
+// keep it that way.
+const BROWSER_OMITS_ENTRY = new Set([
+  'etymologyTemplates', // read only by build/lib/validator.mjs, at build time
+  'provenance', // source file and line number - a build-time breadcrumb
+  'langCode', // 'yo' on all 6,272 of them
+]);
+const BROWSER_OMITS_SENSE = new Set([
+  'rawGlosses', // near-duplicate of glosses, which is what renders
+  'links', // bare strings, never turned into links
+  'altOf', // nothing renders alt-of; see the data-quality report instead
+]);
+
+function forBrowser(entry) {
+  const out = {};
+  for (const [key, value] of Object.entries(entry)) {
+    if (BROWSER_OMITS_ENTRY.has(key)) continue;
+    out[key] = value;
+  }
+  out.senses = (entry.senses || []).map((sense) => {
+    const s = {};
+    for (const [key, value] of Object.entries(sense)) {
+      if (BROWSER_OMITS_SENSE.has(key)) continue;
+      s[key] = value;
+    }
+    return s;
+  });
+  return out;
+}
+
 const outEntriesPath = path.join(rootDir, 'public', 'data', 'entries.json');
 const outIndexPath = path.join(rootDir, 'public', 'data', 'search-index.json');
 const outValidationPath = path.join(rootDir, 'build', 'validation-report.json');
@@ -85,7 +127,9 @@ async function main() {
   mkdirSync(path.dirname(outValidationPath), { recursive: true });
 
   // Entries are shipped to the browser as an id-keyed object for O(1) lookup.
-  const linkedEntriesById = Object.fromEntries(linkedEntries.map((e) => [e.id, e]));
+  const linkedEntriesById = Object.fromEntries(
+    linkedEntries.map((e) => [e.id, forBrowser(e)])
+  );
 
   writeFileSync(outEntriesPath, JSON.stringify(linkedEntriesById));
   writeFileSync(outIndexPath, JSON.stringify(searchIndex));

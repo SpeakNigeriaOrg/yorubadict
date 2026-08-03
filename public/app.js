@@ -1125,12 +1125,21 @@
     // on screen at 2.3s, which is why the LCP score was 0/25 while every
     // other metric was near-perfect.
     //
-    // rAF runs before the next paint, and a task queued from inside it runs
-    // after that paint has committed - so the fetch is now genuinely second,
-    // in the trace as well as in the source. It also stops the download
-    // competing with the render for a connection the page hasn't finished
-    // using, which is worth doing on its own merits.
-    await new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+    // Waiting one frame wasn't enough: the filter is on when a request
+    // STARTS, not when it finishes, so a fetch issued 16ms later is still
+    // inside the window. This waits for the main thread to actually go idle,
+    // which is after the paint has been committed and recorded. The timeout
+    // bounds it so a busy thread can't stall the dictionary indefinitely.
+    //
+    // Worth doing on its own merits regardless of the metric: a 1.3 MB
+    // download shouldn't compete with first render for the connection.
+    await new Promise((resolve) => {
+      if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(() => resolve(), { timeout: 1000 });
+      } else {
+        requestAnimationFrame(() => setTimeout(resolve, 0));
+      }
+    });
 
     // Only now the part that genuinely needs the dictionary. The quality
     // report is over half a megabyte and nothing on the reading path needs it,
