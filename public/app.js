@@ -222,8 +222,10 @@
           ? `<div class="results-empty">${escapeHtml(ui.empty)}</div>`
           : '<div class="results-hint">Loading the dictionary… your search will run as soon as it’s here.</div>';
       els.resultsList.innerHTML = message;
+      els.resultsList.removeAttribute('role');
       return;
     }
+    els.resultsList.setAttribute('role', 'listbox');
 
     results.forEach((entry, i) => {
       const btn = document.createElement('button');
@@ -1122,11 +1124,16 @@
     state.index = index;
     state.ready = true;
 
-    // A deep link couldn't resolve until now, and anything typed during the
-    // wait was answered with "Loading the dictionary…" - both are re-run
-    // rather than left waiting for the next keystroke.
-    handleRoute();
-    renderResults(els.searchInput.value.trim() ? search(els.searchInput.value) : []);
+    // Re-route ONLY for a deep link, which was showing "Loading the
+    // dictionary…" and couldn't resolve until now. Calling handleRoute()
+    // unconditionally re-rendered the welcome text over itself, and since
+    // that replaces #entry-content wholesale it destroyed and recreated the
+    // paragraph the browser had picked as the Largest Contentful Paint -
+    // so LCP was re-recorded at whenever the dictionary happened to land.
+    // Lighthouse read 14.0s against a page whose text had genuinely been on
+    // screen since 227ms, and every one of those seconds was this line.
+    if (/^#\/entry\//.test(location.hash || '')) handleRoute();
+    if (els.searchInput.value.trim()) renderResults(search(els.searchInput.value));
   }
 
   // ---------------------------------------------------------------
@@ -1174,7 +1181,11 @@
     const ui = MODE_UI[state.searchMode];
     if (els.modeCycle) {
       els.modeCycle.textContent = ui.badge;
-      els.modeCycle.setAttribute('aria-label', ui.label);
+      // The accessible name has to start with the visible text (WCAG 2.5.3,
+      // "Label in Name"): someone using speech control says "tap YO slash EN"
+      // and the name has to contain that, or the command doesn't match what
+      // they can see. The description follows it rather than replacing it.
+      els.modeCycle.setAttribute('aria-label', `${ui.badge} — ${ui.label}`);
       els.modeCycle.setAttribute('title', ui.label);
     }
     // The mobile field shares its row with the wordmark, so the long

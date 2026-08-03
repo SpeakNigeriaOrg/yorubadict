@@ -8,7 +8,10 @@
            used as a recurring divider motif instead of a plain <hr>.
    ============================================================ */
 
-@import url("_tokens.css");
+/* Loaded as its own <link> in index.html, not @import-ed. An @import can only
+   be discovered after this file has downloaded and started parsing, which put
+   the two stylesheets in series and cost 668ms of render-blocking time on a
+   mobile connection; two <link>s fetch in parallel. */
 
 :root {
   --accent-grammar: #5f6f52; /* part-of-speech / grammatical tags */
@@ -180,7 +183,10 @@ a { color: inherit; }
      button resize would shift the field's text area under the caret on every
      tap. Sized for the widest state. */
   min-width: 3.5rem;
-  padding: 4px 6px;
+  /* Vertical padding takes the tap target to the 24px WCAG 2.5.8 minimum -
+     it measured 49.6 x 19.6px, wide enough but too short. The badge itself
+     is unchanged; this is padding, not type. */
+  padding: 7px 6px;
   border: 1px solid var(--brand-indigo);
   border-radius: 3px;
   background: var(--brand-indigo);
@@ -1251,7 +1257,7 @@ a { color: inherit; }
 
   #search-input { font-size: 0.95rem; padding: 8px 12px; padding-right: 62px; }
   .menu-toggle { padding: 6px 10px; }
-  .mode-cycle { right: 5px; min-width: 3.1rem; font-size: 0.6rem; padding: 4px 5px; }
+  .mode-cycle { right: 5px; min-width: 3.1rem; font-size: 0.6rem; padding: 7px 5px; }
 
   .header-search { flex: 1 0 100%; order: 3; }
 

@@ -1,0 +1,17 @@
+# Sọ̀rọ̀ Sókè — The People's Yorùbá Dictionary
+#
+# Without this file the host answers /robots.txt with index.html, and a
+# crawler reads the markup as 97 unparseable directives.
+
+User-agent: *
+Allow: /
+
+# The dictionary itself: several megabytes of JSON that render nothing on
+# their own, and whose content is already reachable as normal pages.
+Disallow: /data/
+
+# No Sitemap line on purpose. Every word lives at a hash route
+# (#/entry/<id>), which is not a separately crawlable URL, so a sitemap could
+# only ever list the front page. /sitemap.xml currently answers 200 with
+# index.html via the SPA fallback, so pointing at it would promise a sitemap
+# that isn't one.
