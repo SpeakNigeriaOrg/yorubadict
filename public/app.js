@@ -1133,11 +1133,32 @@
     //
     // Worth doing on its own merits regardless of the metric: a 1.3 MB
     // download shouldn't compete with first render for the connection.
+    // Waiting on the paint itself rather than on a proxy for it. Idle alone
+    // put the request 8ms after the paint was recorded - the right side of
+    // the line, but only just, and a slower machine would land on the wrong
+    // side and take LCP back to 14s. The paint entry is the actual signal, so
+    // it's the one to wait for; idle and a timeout are only fallbacks for
+    // browsers without the observer, and bound the wait if it never fires.
     await new Promise((resolve) => {
+      let started = false;
+      const go = () => {
+        if (started) return;
+        started = true;
+        resolve();
+      };
+      try {
+        const observer = new PerformanceObserver(() => {
+          observer.disconnect();
+          go();
+        });
+        observer.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (err) {
+        // Older Safari has no LCP entry type; the fallbacks below cover it.
+      }
       if (typeof requestIdleCallback === 'function') {
-        requestIdleCallback(() => resolve(), { timeout: 1000 });
+        requestIdleCallback(go, { timeout: 1000 });
       } else {
-        requestAnimationFrame(() => setTimeout(resolve, 0));
+        setTimeout(go, 200);
       }
     });
 
