@@ -14,6 +14,9 @@
     activeResults: [],
     activeIndex: -1,
     searchMode: 'both', // 'both', 'yoruba', or 'english'
+    // The dictionary is ~1.7 MB gzipped and the whole app is unusable without
+    // it, but the page around it isn't - see boot().
+    ready: false,
   };
 
   const els = {
@@ -132,7 +135,7 @@
 
   function search(query, limit = 40) {
     const trimmed = query.trim();
-    if (!trimmed) return [];
+    if (!trimmed || !state.ready) return [];
 
     const seen = new Set();
     const ordered = [];
@@ -210,9 +213,15 @@
     if (results.length === 0) {
       // Both messages are scope-specific — see MODE_UI.
       const ui = MODE_UI[state.searchMode];
-      els.resultsList.innerHTML = els.searchInput.value.trim()
-        ? `<div class="results-empty">${escapeHtml(ui.empty)}</div>`
-        : `<div class="results-hint">${escapeHtml(ui.hint)}</div>`;
+      const typed = els.searchInput.value.trim();
+      // "No words found" would be a lie while the dictionary is still on its
+      // way; the search runs again by itself once it lands.
+      const message = !typed
+        ? `<div class="results-hint">${escapeHtml(ui.hint)}</div>`
+        : state.ready
+          ? `<div class="results-empty">${escapeHtml(ui.empty)}</div>`
+          : '<div class="results-hint">Loading the dictionary… your search will run as soon as it’s here.</div>';
+      els.resultsList.innerHTML = message;
       return;
     }
 
@@ -773,6 +782,14 @@
 
     const match = hash.match(/^#\/entry\/(.+)$/);
     if (match) {
+      // Someone arriving on a link to a word shouldn't be shown the welcome
+      // page in the meantime and left to wonder whether the link was wrong;
+      // handleRoute runs again once the dictionary lands.
+      if (!state.ready) {
+        els.entryContent.innerHTML =
+          '<div class="entry-welcome"><p>Loading the dictionary…</p></div>';
+        return;
+      }
       const id = decodeURIComponent(match[1]);
       const entry = state.entries[id];
       if (entry) {
@@ -1003,17 +1020,27 @@
   // ---------------------------------------------------------------
 
   async function boot() {
-    // The quality report is over half a megabyte and nothing on the reading
-    // path needs it, so it's fetched when the panel is first opened rather
-    // than on every visit.
-    const [entries, index] = await Promise.all([
-      fetch('data/entries.json').then((r) => r.json()),
-      fetch('data/search-index.json').then((r) => r.json()),
-    ]);
+    // Paint everything that doesn't depend on the dictionary BEFORE asking for
+    // it. The YO/EN badge, the "Start typing…" hint and the welcome text are
+    // all written by JS, and they used to be written after this await - so on
+    // a slow connection the page sat for twelve seconds showing a header, a
+    // footer and two empty panes, while the parts that come from index.html
+    // were up in a fifth of a second. Measured over a throttled load: static
+    // HTML at 235ms, entries.json at 12,402ms, and all three of these at
+    // 12,496ms. None of them needed a byte of it.
+    applySearchMode();
+    // handleRoute rather than renderWelcome, so a deep link says "Loading the
+    // dictionary…" instead of showing the welcome page to someone who followed
+    // a link to a word and would reasonably think the link was broken. About
+    // is static and renders in full straight away.
+    handleRoute();
+    renderResults([]);
+    initMenu();
+    initSheet();
+    syncChromeHeights();
 
-    state.entries = entries;
-    state.index = index;
-
+    // Wired before the data lands too, so typing during the wait is answered
+    // ("Loading the dictionary…") instead of silently doing nothing.
     els.searchInput.addEventListener('input', onSearchInput);
     els.searchInput.addEventListener('keydown', onSearchKeydown);
     function closeQualityPanel() {
@@ -1078,21 +1105,28 @@
       renderResults(search(els.searchInput.value));
     });
 
-    initMenu();
-    initSheet();
-    syncChromeHeights();
     window.addEventListener('resize', syncChromeHeights);
     // Web fonts land after first paint and change both bars' heights.
     if (document.fonts) document.fonts.ready.then(syncChromeHeights);
-
     window.addEventListener('hashchange', handleRoute);
-    handleRoute();
-
     initSearchMode();
-    // Paint the scope-specific hint on first load: without this the results
-    // pane started out blank and only picked up its hint once a query had been
-    // typed and cleared.
-    renderResults([]);
+
+    // Only now the part that genuinely needs the dictionary. The quality
+    // report is over half a megabyte and nothing on the reading path needs it,
+    // so it waits until the panel is opened.
+    const [entries, index] = await Promise.all([
+      fetch('data/entries.json').then((r) => r.json()),
+      fetch('data/search-index.json').then((r) => r.json()),
+    ]);
+    state.entries = entries;
+    state.index = index;
+    state.ready = true;
+
+    // A deep link couldn't resolve until now, and anything typed during the
+    // wait was answered with "Loading the dictionary…" - both are re-run
+    // rather than left waiting for the next keystroke.
+    handleRoute();
+    renderResults(els.searchInput.value.trim() ? search(els.searchInput.value) : []);
   }
 
   // ---------------------------------------------------------------

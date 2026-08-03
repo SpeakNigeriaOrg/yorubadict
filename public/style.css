@@ -1130,8 +1130,10 @@ a { color: inherit; }
   font-size: 0.95rem;
 }
 /* The icon is centred on the text it sits beside rather than on the baseline,
-   so it doesn't drag the line box down. */
-.parent-brand img {
+   so it doesn't drag the line box down. Matches both the inline <svg> in the
+   footer and an <img>, in case one comes back. */
+.parent-brand img,
+.parent-brand svg {
   display: inline-block;
   vertical-align: -0.18em;
   margin-right: 8px;
