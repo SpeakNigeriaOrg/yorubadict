@@ -526,37 +526,78 @@
     return out;
   }
 
+  // A word's parts, one line per decomposition. 81 entries record more than
+  // one way of breaking the same word down, and they are alternatives rather
+  // than parts of a single longer word: nìtorí is ní + ìtorí *or*
+  // ní + ti + orí, and mùwé is mọ̀ + ùwé in Èkìtì and Oǹdó *or* mù + ùwé in
+  // Ìjẹ̀bú. Run together in one list they read as a four-part word that
+  // nobody has ever proposed - and joining them with "+" is what makes the
+  // section teach anything, since the structure is the point.
   function morphemesHtml(allMorphemes) {
-    const morphemes = foldRepeatedMorphemes(allMorphemes || []);
+    const morphemes = allMorphemes || [];
     if (!morphemes.length) return '';
-    // Exactly one element per morpheme in the etymology, regardless of how
-    // many entries share that spelling: every entryId here refers to the SAME
-    // morpheme text from the SAME etymology template, so one pill per entryId
-    // would just repeat identical text. Kaikki's template doesn't say which
-    // sense is meant, and the upstream resolver's tone-exact filter can only
-    // narrow to the tone group, never within it - so on a shared spelling this
-    // is showing the first candidate and the count says so.
-    const elements = morphemes.map((m) => {
-      const glossHtml = m.gloss ? `<span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
-      if (m.bound) {
-        return `<span class="pill-group"><span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span></span>`;
+
+    // Grouping comes from upstream (see kaikki-yoruba's extractEtymologyMorphemes,
+    // where it is the only place the template boundaries are still visible).
+    // Data published before that lands has no `analysis`, so it keeps the old
+    // flat rendering, with repeats folded to hide the worst of the confusion.
+    if (morphemes.every((m) => typeof m.analysis === 'number')) {
+      const groups = [];
+      for (const m of morphemes) {
+        const g = groups.find((x) => x.analysis === m.analysis);
+        if (g) g.items.push(m);
+        else groups.push({ analysis: m.analysis, items: [m] });
       }
-      if (m.resolved && m.entryIds && m.entryIds.length > 0) {
-        const ids = m.entryIds.filter((id) => state.entries[id]);
-        if (ids.length) {
-          const chosen = ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0];
-          return ambiguityPillHtml(chosen, ids, {
-            label: m.form,
-            hint: m.gloss || '',
-            searchForm: m.form,
-            uncertain: ids.length > 1 && m.chosenBy !== 'meaning',
-            note: morphemeNote(m, ids.length),
-          });
-        }
+      const note =
+        groups.length > 1
+          ? `<div class="morpheme-note">Wiktionary records ${groups.length} different ways of breaking this word down. Each line is one of them, not a further part.</div>`
+          : '';
+      return (
+        note +
+        groups
+          .map(
+            (g) =>
+              `<div class="morpheme-analysis">${g.items
+                .map(morphemePillHtml)
+                .join('<span class="morpheme-plus" aria-hidden="true">+</span>')}</div>`
+          )
+          .join('')
+      );
+    }
+
+    return legacyFlatMorphemesHtml(foldRepeatedMorphemes(morphemes));
+  }
+
+  // Exactly one element per morpheme, regardless of how many entries share
+  // its spelling: every entryId on a morpheme refers to the SAME text from the
+  // SAME etymology template, so one pill per entryId would just repeat
+  // identical text. The upstream resolver's tone-exact filter can only narrow
+  // to the tone group, never within it, so on a shared spelling this shows one
+  // candidate — badged when choosing it was a guess.
+  function morphemePillHtml(m) {
+    const glossHtml = m.gloss ? `<span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
+    if (m.bound) {
+      return `<span class="pill-group"><span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span></span>`;
+    }
+    if (m.resolved && m.entryIds && m.entryIds.length > 0) {
+      const ids = m.entryIds.filter((id) => state.entries[id]);
+      if (ids.length) {
+        const chosen = ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0];
+        return ambiguityPillHtml(chosen, ids, {
+          label: m.form,
+          hint: m.gloss || '',
+          searchForm: m.form,
+          uncertain: ids.length > 1 && m.chosenBy !== 'meaning',
+          note: morphemeNote(m, ids.length),
+        });
       }
-      return `<span class="pill-group"><span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span></span>`;
-    });
-    return `<div class="relation-list">${elements.join('')}</div>`;
+    }
+    return `<span class="pill-group"><span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span></span>`;
+  }
+
+  function legacyFlatMorphemesHtml(morphemes) {
+    if (!morphemes.length) return '';
+    return `<div class="relation-list">${morphemes.map(morphemePillHtml).join('')}</div>`;
   }
 
   // Entries sharing an exact, tone-marked spelling are the same written word

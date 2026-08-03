@@ -398,15 +398,27 @@ scores equally against all five `gbá` entries and the tie reads as a match.
 Dropping words common to all candidates kills "to" while keeping "at", and
 says no exactly when the candidates really are indistinguishable.
 
-Two presentation notes on the same section. 943 entries carry more than one
-competing etymology, flattened into a single list of parts, so an overlapping
-part was listed once per analysis — `nìtorí` is recorded both as `ní + ìtorí`
-and as `ní + ti + orí`, and "ní" appeared twice, once bare and once glossed
-"on, at". Repeated parts are folded at render time, keeping whichever copy
-says what it means, but never folding two that carry *different* meanings:
-`àmọ̀tẹ́kùn` really is `à- + mọ̀ + tó ("that") + tó ("is equal to") + ẹkùn`.
-This is done in the UI rather than the build because the duplicate is in the
-source and the pipeline's rule is to supplement it, never to drop from it.
+**Competing decompositions get a line each.** 81 entries record more than one
+way of breaking the same word down, and they are alternatives rather than
+parts of a single longer word. Run together in one list they read as nonsense:
+`mùwé` is `mọ̀ + ùwé` in Èkìtì and Oǹdó *or* `mù + ùwé` in Ìjẹ̀bú, and flat
+that becomes a four-part word nobody has proposed. Each decomposition now gets
+its own row with its parts joined by `+`, which is also what makes the section
+teach anything — the structure is the point:
+
+```
+Wiktionary records 2 different ways of breaking this word down.
+
+  ní ⁴  +  ìtorí
+  ní "on, at"  +  ti "of"  +  orí "head, reason"
+```
+
+The grouping comes from kaikki-yoruba (`analysis` / `analysisTemplate` on each
+morpheme), because template boundaries are only visible while the templates
+are being walked — re-deriving them here would mean copying the rules for
+which args are morphemes, reduplication's special case included, which is the
+duplication that repo exists to remove. Data published before that field
+lands keeps the older flat rendering, with repeated parts folded together.
 
 The reverse direction is synthesized too (also upstream, in kaikki-yoruba):
 if one entry's etymology decomposes to include another as a free-standing

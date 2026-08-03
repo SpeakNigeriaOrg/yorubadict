@@ -646,6 +646,29 @@ a { color: inherit; }
   color: var(--text-secondary);
 }
 
+/* ---------- Component words ----------
+   One row per decomposition, its parts joined by "+", so a word that
+   Wiktionary analyses two different ways reads as two alternatives rather
+   than as one long chain of parts. */
+.morpheme-note {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.morpheme-analysis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.morpheme-analysis + .morpheme-analysis { margin-top: 10px; }
+.morpheme-plus {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
 /* ---------- Sibling entries ----------
    Shared by the "Other entries with this spelling" section and the expanded
    candidate list above: both answer the same question, "what else is written
