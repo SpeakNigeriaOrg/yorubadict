@@ -15,9 +15,11 @@
 //    ("to hit") and gbà ("to accept") are different words that happen to share
 //    letters. So blocks are keyed on entry ids via etymologyMorphemes[]
 //    .chosenEntryId, which relationships.mjs resolved to a single entry. NOT on
-//    usedInCompounds, which fans out to every homograph in the tone group
-//    upstream - all three gbà entries carry an identical 33-item list, so
-//    counting it would credit "to rescue" for words built from "to accept".
+//    the rendered usedInCompounds/possiblyUsedIn pair: the second of those
+//    deliberately lists an uncertain compound under every homograph it might
+//    belong to, so counting it would credit gbà "to rescue" for words built
+//    from gbà "to accept". A count has to commit to one answer even where the
+//    display refuses to.
 //
 // 2. Picking examples needs outside data. Every signal available inside the
 //    corpus - sense count, usage examples, IPA, dialect coverage - measures

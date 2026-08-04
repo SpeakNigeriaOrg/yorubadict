@@ -633,10 +633,25 @@
       <div class="sibling-list">${rows}</div>`;
   }
 
-  function section(title, innerHtml) {
+  function section(title, innerHtml, infoHtml) {
     if (!innerHtml) return '';
+    if (!infoHtml) {
+      return `<div class="entry-section">
+        <div class="entry-section-title">${escapeHtml(title)}</div>
+        ${innerHtml}
+      </div>`;
+    }
+    // A heading that needs explaining gets a button, not a title= tooltip:
+    // hover doesn't exist on a phone, and this is the section people are most
+    // likely to disbelieve.
+    const noteId = `section-info-${++pillGroupSeq}`;
     return `<div class="entry-section">
-      <div class="entry-section-title">${escapeHtml(title)}</div>
+      <div class="entry-section-title">
+        ${escapeHtml(title)}
+        <button type="button" class="info-toggle" aria-expanded="false" aria-controls="${noteId}"
+          aria-label="Why is this uncertain?">i</button>
+      </div>
+      <div class="info-note" id="${noteId}" hidden>${infoHtml}</div>
       ${innerHtml}
     </div>`;
   }
@@ -687,6 +702,11 @@
       entry
     );
     const usedInHtml = relationPillsHtml([], entry.usedInCompounds || [], entry);
+    const maybeUsedInHtml = relationPillsHtml([], entry.possiblyUsedIn || [], entry);
+    const maybeUsedInNote = `
+      <p>Wiktionary says these words were built from a word spelled like this one. It does not say which meaning.</p>
+      <p>So we show each word under every meaning it could have come from. Some of them belong to a different entry, and we don't know which.</p>
+      <p>Naming each meaning on Wiktionary fixes this, one word at a time. <a href="#/contribute">How to help</a>.</p>`;
     const siblingsHtmlStr = siblingsHtml(entry);
 
     els.entryContent.innerHTML = `
@@ -706,6 +726,7 @@
       ${section('Component words', morphemesHtmlStr)}
       ${dialectHtml}
       ${section('Used in', usedInHtml)}
+      ${section('Possibly used in', maybeUsedInHtml, maybeUsedInNote)}
       ${section('Derived terms', derivedHtml)}
       ${section('Derived from', derivedFromHtml)}
       ${section('Related terms', relatedHtml)}
@@ -1006,11 +1027,14 @@ kọ    to recite</pre>
 to stub, strike     the same 8 words
 to recite           the same 8 words</pre>
         <p>All eight belong to <em>to write</em>. The other two meanings were showing a borrowed list, because words were being attached to a spelling rather than to a meaning. A reader looking up <em>kọ</em> "to stub, strike, hit" was told it builds <em>àròkọ</em>, "essay".</p>
-        <p>That one was ours, not Wiktionary's, and it is fixed. Each word now appears under the meaning it was actually attributed to:</p>
-        <pre class="wikitext">to write            7 words
+        <p>That one was ours, not Wiktionary's, and it is fixed. Six of the eight say clearly enough which meaning they came from. Those now sit under one meaning each:</p>
+        <pre class="wikitext">to write            5 words
 to stub, strike     none
 to recite           kọrin, "to sing"</pre>
-        <p>Empty is the honest answer. Nothing in the dictionary is yet recorded as built from <em>kọ</em> "to stub, strike, hit".</p>
+        <p>Empty is the honest answer. Nothing is yet recorded as built from <em>kọ</em> "to stub, strike, hit".</p>
+        <p>The other two — <em>ayékòótọ́</em> and <em>kọjá</em> — could belong to any of the three. We do not guess. They are listed under all three meanings, in a second section headed <em>Possibly used in</em>.</p>
+        <p>That is deliberate. Picking one meaning for a word we cannot place goes wrong twice at once: the word shows up under a meaning it does not belong to, and it vanishes from the meaning it does. Listing it under every candidate goes wrong only the first way, and the heading tells you that is what you are reading.</p>
+        <p>Adding the seven names to Wiktionary is what moves a word out of that second list for good.</p>
 
         <h3>What is left on kọ</h3>
         <p>Six words can be pointed at a meaning straight away, once the seven names exist. One needs its tone settled first. One — <a href="#/entry/en-kọja-yo-verb-yadZ7L6K">kọjá</a>, "to pass beyond" — records no meaning for its <em>kọ</em> at all, so it needs someone who knows the word. All eight are listed below under <em>kọ</em>.</p>
@@ -1465,6 +1489,18 @@ to recite           kọrin, "to sing"</pre>
         more.setAttribute('aria-expanded', String(!open));
         group.classList.toggle('open', !open);
         if (panel) panel.hidden = open;
+        return;
+      }
+
+      // Same idea one level up: the "Possibly used in" heading has to say why
+      // it's hedged, and that explanation is too long to sit permanently above
+      // the list.
+      const info = e.target.closest('.info-toggle');
+      if (info) {
+        const note = document.getElementById(info.getAttribute('aria-controls'));
+        const open = info.getAttribute('aria-expanded') === 'true';
+        info.setAttribute('aria-expanded', String(!open));
+        if (note) note.hidden = open;
         return;
       }
 

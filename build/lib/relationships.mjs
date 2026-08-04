@@ -298,25 +298,51 @@ function pickByDiscriminatingMeaning(meaning, ids, byId) {
 // "to stub, strike, hit" from 8 to 0, and "to recite" from 8 to the one word
 // that really is built from it.
 function attributeUsedIn(entries, byId) {
-  const inverse = new Map(); // root entry id -> compounds built from it
+  const certain = new Map(); // root -> compounds we can attribute to it
+  const maybe = new Map(); // root -> compounds that might belong to it
+
+  const add = (bucket, rootId, entry, m) => {
+    if (!bucket.has(rootId)) bucket.set(rootId, new Map());
+    bucket.get(rootId).set(entry.id, {
+      entryId: entry.id,
+      text: entry.canonicalForm.value,
+      provenance: 'attributed_from_etymology',
+      confidence: m.chosenBy || 'single',
+    });
+  };
+
   for (const entry of entries) {
     for (const m of entry.etymologyMorphemes || []) {
       if (!m.resolved) continue;
-      const rootId = m.chosenEntryId || (m.entryIds || [])[0];
-      if (!rootId || rootId === entry.id || !byId.has(rootId)) continue;
-      if (!inverse.has(rootId)) inverse.set(rootId, new Map());
-      inverse.get(rootId).set(entry.id, {
-        entryId: entry.id,
-        text: entry.canonicalForm.value,
-        provenance: 'attributed_from_etymology',
-        // so the UI can tell a recorded fact from an inference
-        confidence: m.chosenBy || 'single',
-      });
+      const ids = (m.entryIds || []).filter((id) => byId.has(id) && id !== entry.id);
+      if (!ids.length) continue;
+
+      // Attributing on evidence puts the word under one meaning. Attributing
+      // on a guess must not, because being wrong then does two harms at once:
+      // it files the word under a meaning it does not belong to AND hides it
+      // from the one it does. So a guess is shown under every candidate,
+      // labelled as uncertain, which is what the fan-out accidentally achieved
+      // and the only part of it worth keeping.
+      const settled = ids.length === 1 || m.chosenBy === 'meaning' || m.chosenBy === 'anchor';
+      if (settled) {
+        add(certain, ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0], entry, m);
+      } else {
+        for (const id of ids) add(maybe, id, entry, m);
+      }
     }
   }
+
   for (const entry of entries) {
-    const found = inverse.get(entry.id);
-    entry.usedInCompounds = found ? [...found.values()] : [];
+    const sure = certain.get(entry.id);
+    const unsure = maybe.get(entry.id);
+    entry.usedInCompounds = sure ? [...sure.values()] : [];
+    // A word can reach the same root twice - once on evidence, once on a
+    // guess - if its etymology names it more than once. Listing it under both
+    // headings reads as a contradiction, and the evidence is the better
+    // answer, so the definite list wins.
+    entry.possiblyUsedIn = unsure
+      ? [...unsure.values()].filter((c) => !sure || !sure.has(c.entryId))
+      : [];
   }
 }
 

@@ -190,11 +190,11 @@ worth knowing about, both settled by measurement:
 
 **A building block is a meaning, not a spelling.** `gba` is not a word; `gbá`
 ("to hit") and `gbà` ("to accept") are different words that build different
-families. So roots are keyed on entry ids via `etymologyMorphemes[].chosenEntryId`
-— *not* `usedInCompounds`, which fans out to every homograph in the tone group
-upstream, so counting it would credit `gbà` "to rescue" for words built from
-`gbà` "to accept". `ní` correctly appears twice in the list, as the verb and as
-the preposition.
+families. So roots are keyed on entry ids via `etymologyMorphemes[].chosenEntryId`, the
+one field that names a single meaning — `usedInCompounds` and `possiblyUsedIn`
+are the display split described under "Used in" below, and counting the second
+of them would credit `gbà` "to rescue" for words built from `gbà` "to accept".
+`ní` correctly appears twice in the list, as the verb and as the preposition.
 
 **Choosing the examples needs outside frequency data.** Ranking the roots
 themselves does not — by raw count or by weighted prominence, 24 of the same 25
@@ -550,14 +550,32 @@ which args are morphemes, reduplication's special case included, which is the
 duplication that repo exists to remove. Data published before that field
 lands keeps the older flat rendering, with repeated parts folded together.
 
-The reverse direction is synthesized too (also upstream, in kaikki-yoruba):
-if one entry's etymology decomposes to include another as a free-standing
-component, the component's own `usedInCompounds` field lists every word
-built from it, rendered here as a "Used in" section — derived purely from
-etymology templates, so (unlike the `derived`/`related`/etc. synthesis
-below, which *is* still this repo's own job) it doesn't depend on
-Wiktionary's editors having also filled in a "derived terms" list on the
-component's own page.
+The reverse direction is synthesized too: if one entry's etymology decomposes
+to include another as a free-standing component, the component lists every
+word built from it, rendered as a "Used in" section. It is derived purely from
+etymology templates, so (unlike the `derived`/`related`/etc. synthesis below,
+which depends on editors having filled in a list) it doesn't need the
+component's own page to say anything.
+
+**It comes in two fields, because most of these attributions are inferences.**
+A compound's etymology names a *spelling*, and several meanings usually share
+it. `annotateMorphemeConfidence` picks one; `attributeUsedIn` then files the
+result by how it was picked:
+
+| field | when | today |
+|---|---|---|
+| `usedInCompounds` | only one candidate existed, or an `{{etymid}}` anchor or a meaning match chose it | 3,327 items, one root each |
+| `possiblyUsedIn` | the pick was a tiebreak or a fallback | 1,933 items — the same 562 compounds listed under **every** candidate |
+
+Filing a guess under one meaning does two harms at once: the word appears
+under a meaning it doesn't belong to, *and* disappears from the one it does.
+Listing it under all of them, in a section headed "Possibly used in" with the
+reason on an info button, is wrong in only the first way — and that half is
+visible to the reader rather than hidden. It also keeps the two lists worth
+different amounts: "Used in" can be read as a fact.
+
+Anchoring an etymology on Wiktionary moves items from the second list to the
+first, permanently. That is what `#/contribute` asks people to do.
 
 ### Orthographic normalization
 

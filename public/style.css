@@ -524,6 +524,61 @@ a { color: inherit; }
   font-weight: 600;
 }
 
+/* Sits on the heading of a section whose contents are a hedge, to hold the
+   explanation of why. Sized off the heading rather than fixed, so it stays
+   proportionate at the larger text sizes. */
+.info-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 1.45em;
+  height: 1.45em;
+  margin-left: 7px;
+  vertical-align: -0.25em;
+  padding: 0;
+  border: 1px solid var(--brand-accent-deep);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--brand-accent-deep);
+  font: 600 0.72rem/1 var(--font-display);
+  font-style: italic;
+  cursor: pointer;
+}
+/* The circle is sized to the heading it sits on, which leaves it under the
+   24px tap target of WCAG 2.5.8. The target is widened invisibly rather than
+   the circle, which would tower over a 0.75rem uppercase label. */
+.info-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+}
+.info-toggle:hover,
+.info-toggle[aria-expanded='true'] {
+  background: var(--brand-indigo);
+  border-color: var(--brand-indigo);
+  color: var(--surface);
+}
+.info-toggle:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 2px; }
+
+.info-note {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--brand-accent);
+  border-radius: var(--radius, 4px);
+  background: var(--background-primary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.info-note[hidden] { display: none; }
+.info-note p { margin: 0 0 8px; }
+.info-note p:last-child { margin-bottom: 0; }
+
 .sense-list { list-style: none; margin: 0; padding: 0; counter-reset: sense; }
 .sense-item {
   counter-increment: sense;
