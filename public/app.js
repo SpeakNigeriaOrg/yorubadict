@@ -959,12 +959,12 @@
 
         <h2>Choosing a name for a meaning</h2>
         <p>The name is yours to pick. It identifies one etymology section, so it does not have to describe every meaning in that section, and it only has to be unique within its own page.</p>
-        <p>It is also published. On <code>{{affix}}</code> and <code>{{compound}}</code> the name is written into the category the word is filed under: <code>id1=nominalizing prefix</code> files a word under <em>Yoruba terms prefixed with a- (nominalizing prefix)</em> instead of the plain category. Yorùbá already has 583 words filed this way. Reading a name back as a category is a good way to test it.</p>
         <ul>
           <li><strong>One or two plain words, lowercase.</strong> On <em>de</em>: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</li>
           <li><strong>Enough to tell it from the other meanings on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
-          <li><strong>Stable.</strong> Renaming breaks every pointer aimed at it, with no warning, and renames the category too. Pick something that will still fit if the section gains another meaning.</li>
           <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> works, but a broader name would be better.</li>
+          <li><strong>Hard to change later.</strong> Renaming breaks every pointer aimed at it, and nothing warns you. Pick something that will still fit if the meaning is written up more fully one day.</li>
+          <li><strong>Read by other people.</strong> Wiktionary keeps lists of words that share a part — one such list is "Yoruba terms prefixed with a-". Naming a meaning splits that list by meaning, so words built from the <em>nominalizing prefix</em> sense are gathered separately from the others. Your name is what appears on the list, so read it back that way before you settle on it.</li>
         </ul>
 
         <h2>Checking the suggestions below</h2>
