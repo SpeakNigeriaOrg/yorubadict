@@ -20,6 +20,8 @@
 // Building Block Words list. Ordering by references unlocked is what makes the
 // first hour of editing worth far more than the tenth.
 
+import { toneInsensitiveForm } from './orthography.mjs';
+
 const MAX_REFERENCES_PER_PAGE = 60;
 const MAX_PAGES = 120;
 
@@ -212,7 +214,21 @@ export function buildWiktionaryTasks(entries, anchorTable) {
         const form = args[key];
         if (typeof form !== 'string' || !form) return;
         if (form.startsWith('-') || form.endsWith('-')) return; // bound, never ambiguous
-        const target = pages.get(form) || pages.get(form.toLowerCase());
+        // Yoruba strips tone marks when a link template forms its target, so
+        // {{af|yo|ẹ̀-|kọ́}} displays kọ́ and links to the page kọ. Matching the
+        // literal string against page titles therefore found only the
+        // references that happen to be written untoned - 489 of 2,672. The
+        // other 2,183 point at exactly the same ambiguous pages and were
+        // silently absent from this queue.
+        //
+        // Narrowing back down to the sections that spelling can actually reach
+        // is already handled below, by `reachable`: for kọ́ the morpheme's own
+        // candidates are etymologies 2, 3 and 4, not all seven.
+        const target =
+          pages.get(form) ||
+          pages.get(form.toLowerCase()) ||
+          pages.get(toneInsensitiveForm(form)) ||
+          pages.get(toneInsensitiveForm(form).toLowerCase());
         if (!target) return;
         if (args[`id${i + 1}`]) return; // already says which
 
