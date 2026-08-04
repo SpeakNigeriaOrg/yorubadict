@@ -1,0 +1,47 @@
+{
+  "job": "etymid",
+  "page": "kọ",
+  "hostPage": "kọ",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-04T18:36:59.906036+00:00",
+  "finishedAt": "2026-08-04T18:37:31.255034+00:00",
+  "account": "SpeakNigeria",
+  "summary": "Add {{etymid}} to 7 Yoruba etymologies so other entries can point at one meaning (semi-automated, each edit reviewed by hand)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "refuse"
+    },
+    {
+      "etymology": "2",
+      "name": "teach"
+    },
+    {
+      "etymology": "3",
+      "name": "negation particle"
+    },
+    {
+      "etymology": "4",
+      "name": "hang"
+    },
+    {
+      "etymology": "5",
+      "name": "write"
+    },
+    {
+      "etymology": "6",
+      "name": "stub"
+    },
+    {
+      "etymology": "7",
+      "name": "recite"
+    }
+  ],
+  "oldrevid": 85090476,
+  "newrevid": 91799252,
+  "realizedDiff": "@@ -45,4 +45,5 @@\n ===Etymology 1===\n+{{etymid|yo|refuse}}\n Cognates include {{cog|ife|kɔ̀}}\n@@ -62,4 +63,5 @@\n ===Etymology 2===\n+{{etymid|yo|teach}}\n Cognates include {{cog|its|kọ́}}, {{cog|ife|kɔ́}}\n@@ -88,4 +90,5 @@\n ===Etymology 3===\n+{{etymid|yo|negation particle}}\n ====Pronunciation====\n@@ -101,4 +104,5 @@\n ===Etymology 4===\n+{{etymid|yo|hang}}\n ====Pronunciation====\n@@ -112,4 +116,5 @@\n ===Etymology 5===\n+{{etymid|yo|write}}\n Cognates include {{cog|ife|kɔ}}\n@@ -131,4 +136,5 @@\n ===Etymology 6===\n+{{etymid|yo|stub}}\n Cognates include {{cog|ife|kɔ}}\n@@ -148,4 +154,5 @@\n ===Etymology 7===\n+{{etymid|yo|recite}}\n Cognates include {{cog|ife|kɔ}}",
+  "intendedDiff": "--- \n+++ \n@@ -45,4 +45,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|refuse}}\n Cognates include {{cog|ife|kɔ̀}}\n \n@@ -62,4 +63,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|teach}}\n Cognates include {{cog|its|kọ́}}, {{cog|ife|kɔ́}}\n \n@@ -88,4 +90,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|negation particle}}\n \n ====Pronunciation====\n@@ -101,4 +104,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|hang}}\n \n ====Pronunciation====\n@@ -112,4 +116,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|write}}\n Cognates include {{cog|ife|kɔ}}\n \n@@ -131,4 +136,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|stub}}\n Cognates include {{cog|ife|kɔ}}\n \n@@ -148,4 +154,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|recite}}\n Cognates include {{cog|ife|kɔ}}\n ",
+  "realizedMatchesIntended": true
+}

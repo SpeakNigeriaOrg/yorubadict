@@ -474,6 +474,7 @@ class EtymidBot(ExistingPageBot):
 
         new_text = apply_decisions(parsed, collected["items"])
         before = page.text
+        oldrevid = page.latest_revision_id  # before the save; page.text updates in place
         names = [
             {"etymology": i["number"], "name": i["name"]}
             for i in collected["items"]
@@ -515,7 +516,7 @@ class EtymidBot(ExistingPageBot):
             "account": str(page.site.user()),
             "summary": summary_for(collected["items"]),
             "names": names,
-            "oldrevid": page.latest_revision_id,
+            "oldrevid": oldrevid,
             "before": before,
             "after": new_text,
         }

@@ -31,9 +31,14 @@ def realized_diff(site, page_title, newrevid):
     try:
         request = site.simple_request(
             action="compare", fromrev=newrevid, torelative="prev",
-            difftype="unified", prop="diff",
+            difftype="unified", prop="diff", formatversion="2",
         )
-        return _strip_html(request.submit().get("compare", {}).get("body", ""))
+        compare = request.submit().get("compare", {})
+        # simple_request does not set formatversion, and without it the diff
+        # arrives under "*" rather than "body". Asking for formatversion=2 and
+        # still accepting "*" covers both, because reading the wrong key here
+        # fails silently - it just records an empty diff.
+        return _strip_html(compare.get("body") or compare.get("*") or "")
     except Exception as error:  # a failed record must not undo a good edit
         pywikibot.warning(f"could not fetch the recorded diff: {error}")
         return ""
