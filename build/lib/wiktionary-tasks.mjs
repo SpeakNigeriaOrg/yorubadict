@@ -49,15 +49,29 @@ const FILLER = new Set(['to', 'a', 'an', 'the', 'of', 'be', 'in', 'on', 'or', 'a
 const POINTER_DEFINITION =
   /^(alternative|archaic|obsolete|dated|nonstandard|misspelling|standard|superseded|rare)\b.*\b(form|spelling|of)\b/i;
 
-// Containment has to respect word boundaries. As a raw substring test, Mọgbà's
-// component meaning "I" matched mọ's "alternative form of mu", because the word
-// "alternative" contains an i. A length floor would have fixed that case and
-// broken a hundred good ones - "war" against "war, battle" is exactly the match
-// we want. Boundaries target the actual fault instead.
-const escapeForRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-function containsPhrase(haystack, needle) {
-  if (needle.length < 2 || haystack.length < 2) return false;
-  return new RegExp(`\\b${escapeForRegExp(needle)}\\b`).test(haystack);
+// A Wiktionary definition is normally a comma-separated list of near-synonyms:
+// "to tell, to convey" offers two ways of saying one thing. So a recorded
+// meaning of "tell" genuinely matches it - "tell" IS one of the alternatives.
+//
+// What must NOT match is a meaning that only covers part of one alternative.
+// "to become" against "to become opaque" is not a synonym, it is a narrowing:
+// dàgbà ("to age") records its di as "to become", and the section that actually
+// means that is a different one. Matching on the phrase alone put 18 words on
+// the wrong section of di and told readers to go and write it down.
+//
+// So: split the definition into its alternatives, and require the meaning to
+// match a WHOLE alternative rather than a prefix of one.
+const stripLead = (s) => (s || '').toLowerCase().replace(/^to\s+/, '').trim();
+function alternatives(definition) {
+  return (definition || '')
+    .split(/[;,]/)
+    .map(stripLead)
+    .filter((x) => x.length > 1);
+}
+function meaningMatchesDefinition(meaning, definition) {
+  const given = alternatives(meaning);
+  const offered = alternatives(definition);
+  return given.some((g) => offered.some((o) => g === o));
 }
 
 // The name to give an etymology section, following the convention de already
@@ -107,13 +121,20 @@ function sectionsMatching(meaning, sections) {
     for (const entry of section.entries) {
       for (const sense of entry.senses || []) {
         for (const definition of sense.glosses || []) {
-          if (POINTER_DEFINITION.test(definition)) continue;
-          const defWords = words(definition);
-          const a = (meaning || '').toLowerCase().replace(/^to\s+/, '').trim();
-          const b = definition.toLowerCase().replace(/^to\s+/, '').trim();
-          const contained = containsPhrase(b, a) || containsPhrase(a, b);
+          // A pointer definition still carries its meaning, in the bracket:
+          // "alternative form of da (to become)" IS the "to become" sense, and
+          // ignoring it is why di's real match was invisible. Match the
+          // bracketed part, not the pointer wording.
+          const pointer = POINTER_DEFINITION.test(definition);
+          const inner = pointer ? (definition.match(/\(([^)]*)\)/) || [])[1] : null;
+          const candidate = pointer ? inner : definition;
+          if (!candidate) continue;
+
+          const defWords = words(candidate);
           const shared = [...content].filter((w) => defWords.has(w));
-          if (contained || shared.length >= 2) hits.push({ section, definition });
+          if (meaningMatchesDefinition(meaning, candidate) || shared.length >= 2) {
+            hits.push({ section, definition });
+          }
         }
       }
     }
