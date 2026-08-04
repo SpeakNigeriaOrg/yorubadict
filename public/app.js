@@ -933,42 +933,54 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>Contribute</h1>
-        <p class="about-lede">This dictionary is built from Wiktionary. Some Wiktionary entries do not record which meaning of a word another word was built from. This page lists those entries and the text that would fix each one.</p>
+        <p class="about-lede">Some entries in this dictionary cannot say which word they came from. This page explains why, and lists the specific edits that would fix it.</p>
 
-        <h2>What is missing</h2>
-        <p>Seven different words are spelled <a href="#/entry/en-pa-yo-verb-Ps~5DR-I">pa</a>. They mean to kill, to tell, to rub, to gain, to be in a state, to be tight, and to be bald. Fifty-four words are built from one of those seven.</p>
-        <p>Wiktionary does not record which one. This dictionary picks the first, and the first is often wrong. It shows <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> ("to meet") as built from <em>pa</em> "to kill".</p>
+        <h2>Yorùbá words are built from other words</h2>
+        <p><a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> means home. <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> means life. Together they make <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a>, which means Earth.</p>
+        <p>Yorùbá does this constantly, and it is one of the most useful things a learner can see. So entries here show it in both directions. Open <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> and its two parts are listed under <em>Component words</em>. Open <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> and the 56 words built from it are listed under <em>Used in</em>.</p>
 
-        <h2>How it is fixed</h2>
-        <p>Wiktionary has a template for this. <code>{{etymid|yo|kill}}</code> at the top of an etymology section gives that section a name. A word built from it then points at the name with <code>id1=kill</code>.</p>
-        <p>The page for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a> already does this. It has five sections named <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em> and <em>cover</em>.</p>
-        <p>Both halves are needed. A name with nothing pointing at it has no effect, and a pointer to a name that does not exist has no effect. Each page below lists the names to add and the words that should point at them.</p>
+        <h2>Where that breaks down</h2>
+        <p>To show it, we have to know which word a part came from. Usually that is clear. Sometimes it is not, because Yorùbá has many words spelled exactly alike.</p>
+        <p>Seven different words are spelled <a href="#/entry/en-pa-yo-verb-Ps~5DR-I">pa</a>. They mean to kill, to tell, to rub, to gain, to be in a state, to be tight, and to be bald. Fifty-four words in this dictionary are built from one of those seven, and Wiktionary does not record which one.</p>
+        <p>When that happens we show the first, and the first is often wrong. It is why <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a>, which means to meet, currently appears here as built from <em>pa</em> meaning to kill.</p>
 
-        <h2>What makes a good name</h2>
-        <p>A name identifies one etymology section. It does not have to describe every meaning in that section, and it does not have to be unique across Wiktionary — only within the page it sits on.</p>
-        <p>It is also published. On <code>{{affix}}</code> and <code>{{compound}}</code>, the name goes into the category the word is filed under: <code>id1=nominalizing prefix</code> puts a word in <em>Yoruba terms prefixed with a- (nominalizing prefix)</em> rather than the plain category. Yorùbá already has 583 words filed this way. Read the name back as a category before you settle on it.</p>
+        <h2>What would fix it</h2>
+        <p>Two pieces of information are missing, and both have to be written down on Wiktionary.</p>
+        <p><strong>First, each of the seven meanings of <em>pa</em> needs a name.</strong> At the moment they are only "the first section", "the second section", and so on, which is nothing a word can point at.</p>
+        <p><strong>Second, each word built from <em>pa</em> needs to say which of those names it means.</strong></p>
+        <p>Neither piece is difficult. Both are one short line of text. What makes them a pair is that neither works alone: a name nothing points at has no effect, and a pointer to a name that does not exist has no effect either. That is why each page below lists both.</p>
+
+        <h2>How the two lines are written</h2>
+        <p>A name goes at the top of an etymology section, using the <code>etymid</code> template:</p>
+        <p><code>{{etymid|yo|kill}}</code></p>
+        <p>A word built from that meaning then names it, using <code>id1</code>, <code>id2</code> and so on to say which of its parts it is talking about:</p>
+        <p><code>{{compound|yo|pa|kó|t1=kill, clear|id1=kill}}</code></p>
+        <p>The page for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a> is already done, if you want to see a finished one. Its five meanings are named <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em> and <em>cover</em>.</p>
+
+        <h2>Choosing a name for a meaning</h2>
+        <p>The name is yours to pick. It identifies one etymology section, so it does not have to describe every meaning in that section, and it only has to be unique within its own page.</p>
+        <p>It is also published. On <code>{{affix}}</code> and <code>{{compound}}</code> the name is written into the category the word is filed under: <code>id1=nominalizing prefix</code> files a word under <em>Yoruba terms prefixed with a- (nominalizing prefix)</em> instead of the plain category. Yorùbá already has 583 words filed this way. Reading a name back as a category is a good way to test it.</p>
         <ul>
           <li><strong>One or two plain words, lowercase.</strong> On <em>de</em>: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</li>
-          <li><strong>Enough to tell it from the other sections on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
+          <li><strong>Enough to tell it from the other meanings on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
           <li><strong>Stable.</strong> Renaming breaks every pointer aimed at it, with no warning, and renames the category too. Pick something that will still fit if the section gains another meaning.</li>
           <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> works, but a broader name would be better.</li>
         </ul>
 
+        <h2>Checking the suggestions below</h2>
+        <p>Where we can, we suggest which name a word should point at. Each suggestion says the same thing: <em>this word records its part as meaning X, and section N of the target page covers X.</em> Open both pages and confirm that.</p>
+        <p>Two things can be wrong with it. The meaning recorded on the word may itself be vague or mistaken — it was written by someone else and we take it at face value. Or the section may contain those words incidentally rather than actually meaning them.</p>
+        <p>There is a third case, which is not a mistake in the suggestion. Sometimes the recorded meaning matches no section at all. <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> records its <em>pa</em> as "to do; action verb", and none of <em>pa</em>'s seven sections says that. No pointer is right there: either the meaning written on <em>pàdé</em> is wrong, or <em>pa</em> is missing a meaning that ought to be listed. Both are worth fixing, and neither is the edit we suggest.</p>
+        <p>When you are not sure, leave it. A word with no pointer shows here as a gap. A word with the wrong pointer shows as a fact, and other tools will believe it.</p>
+
         <h2>Wiktionary's own documentation</h2>
-        <p>These are the pages that define what the templates do. Read them before a first edit.</p>
+        <p>These pages define what the templates do. Worth reading before a first edit.</p>
         <ul>
-          <li><a href="https://en.wiktionary.org/wiki/Template:etymid" target="_blank" rel="noopener noreferrer">Template:etymid</a> — naming an etymology section. This is the one used below.</li>
+          <li><a href="https://en.wiktionary.org/wiki/Template:etymid" target="_blank" rel="noopener noreferrer">Template:etymid</a> — naming a meaning. This is the one used below.</li>
           <li><a href="https://en.wiktionary.org/wiki/Template:senseid" target="_blank" rel="noopener noreferrer">Template:senseid</a> — naming a single definition, for when one etymology section holds several meanings and a pointer needs to tell them apart.</li>
-          <li><a href="https://en.wiktionary.org/wiki/Template:affix" target="_blank" rel="noopener noreferrer">Template:affix</a> — documents the <code>idN</code> parameter, including its effect on category names. <a href="https://en.wiktionary.org/wiki/Template:compound" target="_blank" rel="noopener noreferrer">Template:compound</a> takes the same parameters.</li>
+          <li><a href="https://en.wiktionary.org/wiki/Template:affix" target="_blank" rel="noopener noreferrer">Template:affix</a> — documents <code>id1</code>, <code>id2</code> and their effect on category names. <a href="https://en.wiktionary.org/wiki/Template:compound" target="_blank" rel="noopener noreferrer">Template:compound</a> takes the same parameters.</li>
           <li><a href="https://en.wiktionary.org/wiki/Wiktionary:Entry_layout" target="_blank" rel="noopener noreferrer">Wiktionary:Entry layout</a> — how numbered etymology sections are structured, if you have not edited an entry before.</li>
         </ul>
-
-        <h2>How to check a suggestion</h2>
-        <p>Each suggestion below says the same thing: <em>this word records its component as meaning X, and section N of the target page covers X.</em> Open both pages and confirm that.</p>
-        <p>Two things can be wrong with it. The meaning recorded on the compound may be vague or mistaken — it was written by someone else, and we take it at face value. Or the section may contain those words incidentally rather than actually meaning them.</p>
-        <p>There is also a third case, and it is not a mistake in the suggestion. Sometimes the recorded meaning matches no section at all. <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> records its <em>pa</em> as "to do; action verb". None of <em>pa</em>'s seven sections says that. So no pointer is correct here: either the meaning written on <em>pàdé</em> is wrong, or <em>pa</em> is missing a section that ought to exist. Both are worth fixing, and neither is the edit suggested below.</p>
-        <p>When you are not sure, leave it. A word with no pointer is a gap, and we show it as a gap. A word with the wrong pointer is a statement, and other tools will believe it.</p>
-
         <p class="task-note">This site has no Wiktionary account and makes no automated edits. Everything below is text for you to check and type.</p>
 
         <div id="tasks-list">${listHtml}</div>
