@@ -34,10 +34,11 @@ and what would point at them; this script carries out what you approve.
 cd tools/wiktionary
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-cp user-config.py.example user-config.py     # then put your username in it
+cp user-config.py.example user-config.py
 ```
 
-`user-config.py` needs one real edit — your Wiktionary username:
+Now edit **`user-config.py`** — the copy, not the `.example` — and put your
+Wiktionary username in it:
 
 ```python
 usernames['wiktionary']['en'] = 'YourWiktionaryUsername'
@@ -62,11 +63,18 @@ setting, so run that one from this directory (or pass `-dir:.`).
 ```bash
 cd tools/wiktionary
 
-.venv/bin/python etymid.py -page:kọ -propose     # write the worksheet
-.venv/bin/python etymid.py -page:kọ -check       # read it back — no network
-.venv/bin/python etymid.py -page:kọ -simulate    # show the diff, save nothing
-.venv/bin/python etymid.py -page:kọ              # show the diff, ask, save
+.venv/bin/python etymid.py -page:kọ -propose
+.venv/bin/python etymid.py -page:kọ -check
+.venv/bin/python etymid.py -page:kọ -simulate
+.venv/bin/python etymid.py -page:kọ
 ```
+
+| | |
+|---|---|
+| `-propose` | write the worksheet |
+| `-check` | read it back — no network |
+| `-simulate` | show the diff, save nothing |
+| *(no flag)* | show the diff, ask, save |
 
 **`-propose`** reads the page and writes `work/<page>/worksheet.md`, listing
 every etymology with its definitions, the words that would point at it, and a
