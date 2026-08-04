@@ -112,25 +112,22 @@ The bot password is revocable on its own, from the same page that issued it.
 
 ## Using it
 
+Four stages, run one at a time. The work happens between the first and the
+second — the script proposes names, you correct them, and only then does
+anything reach Wiktionary.
+
+**1. Propose.** Reads the page and writes a worksheet.
+
 ```bash
 cd tools/wiktionary
-
 .venv/bin/python etymid.py -page:kọ -propose
-.venv/bin/python etymid.py -page:kọ -check
-.venv/bin/python etymid.py -page:kọ -simulate
-.venv/bin/python etymid.py -page:kọ
 ```
 
-| | |
-|---|---|
-| `-propose` | write the worksheet |
-| `-check` | read it back — no network |
-| `-simulate` | show the diff, save nothing |
-| *(no flag)* | show the diff, ask, save |
+It prints the path it wrote, e.g. `work/kọ/worksheet.md`.
 
-**`-propose`** reads the page and writes `work/<page>/worksheet.md`, listing
-every etymology with its definitions, the words that would point at it, and a
-proposed name:
+**2. Decide.** Open that file. This is the part no script can do. Each
+etymology has an `id:` line holding a proposed name, along with its
+definitions and the words that would point at it:
 
 ```
 ## Etymology 5
@@ -145,18 +142,41 @@ proposed name:
       àròkọ  "essay"  (id3)
 ```
 
-Edit the `id:` lines. Everything else is reference material and is ignored. A
-blank `id:` skips that etymology. The words that would point at a name are
-shown beneath it because you cannot judge a name without seeing what it is for.
+Change the `id:` lines you disagree with. Blank one to skip that etymology.
+Everything that is not an `id:` line is reference material and is ignored, so
+the names are the only thing you can get wrong. The words that would point at a
+name are listed under it because you cannot judge a name without seeing what it
+is for.
 
-**`-check`** parses the worksheet and prints back exactly what it understood,
-using the page text `-propose` already read. It makes no requests.
+**3. Check.** Reads your worksheet back and prints exactly what it understood.
+No network at all, so run it as often as you like.
 
-**`-simulate`** is Pywikibot's own dry run: it does everything including
-building the diff, and saves nothing.
+```bash
+.venv/bin/python etymid.py -page:kọ -check
+```
 
-**No flag** shows the diff, asks, and saves. One page per run — there is no
-batch mode and no generator over the queue.
+**4. Look at the diff, then save.** `-simulate` does everything except save:
+
+```bash
+.venv/bin/python etymid.py -page:kọ -simulate
+```
+
+Drop the flag when the diff is right. It shows the diff once more, asks, and
+saves only if you agree:
+
+```bash
+.venv/bin/python etymid.py -page:kọ
+```
+
+One page per run. There is no batch mode and no generator over the queue.
+
+| flag | |
+|---|---|
+| `-propose` | write the worksheet |
+| `-regenerate` | refresh a worksheet, keeping the `id:` lines you edited |
+| `-check` | read it back — no network |
+| `-simulate` | show the diff, save nothing |
+| *(none)* | show the diff, ask, save |
 
 ## What Pywikibot does, and what is ours
 
