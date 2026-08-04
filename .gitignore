@@ -4,7 +4,7 @@
 tools/wiktionary/.venv/
 tools/wiktionary/user-config.py
 tools/wiktionary/user-password.py
-tools/wiktionary/pywikibot.lwp
+tools/wiktionary/*.lwp
 tools/wiktionary/work/
 
 # Pywikibot's own scratch, written into PYWIKIBOT_DIR
