@@ -241,8 +241,16 @@ Most of this is Pywikibot's by default. What we set:
   confirmed by a person, en.wiktionary requires approval before an account may
   flag edits as a bot's, and adding an anchor other pages will point at is not
   a minor edit.
-- `-always`, which would skip the confirmation, is accepted only together with
-  `-simulate`. On a real save it would defeat the one gate the design rests on.
+- The `-always` flag, which skips confirmation, is accepted only together with
+  `-simulate`. It is set before you have seen anything, so on a real run it
+  would defeat the gate the design rests on.
+
+  The interactive **`a`** at the prompt does the same thing from that page
+  onward, and is not blocked — it is Pywikibot's own control and suppressing it
+  would be surprising. The difference is that you have seen at least one diff
+  before choosing it. On a run of near-identical mechanical edits that already
+  passed every gate, that is a reasonable thing to do; on anything you have not
+  seen the shape of, it is not.
 
 Consider a line on your Wiktionary user page saying you use this, linking the
 repo. It is the first thing anyone checks.
