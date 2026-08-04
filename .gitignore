@@ -3,6 +3,7 @@
 # every edit the tool has made.
 tools/wiktionary/.venv/
 tools/wiktionary/user-config.py
+tools/wiktionary/user-password.py
 tools/wiktionary/pywikibot.lwp
 tools/wiktionary/work/
 

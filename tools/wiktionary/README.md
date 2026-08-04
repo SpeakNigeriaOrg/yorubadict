@@ -8,6 +8,10 @@ own advice — if a task looks like it wants a bot, try Pywikibot under your own
 account first and see whether it helps. A separate bot account and a bot flag
 are for unattended, high-volume work, which this is not.
 
+(It does use a *bot password*, which despite the name is not a bot account but
+a scoped second password on your own account. See
+[below](#why-a-bot-password-when-this-runs-under-your-own-account).)
+
 Nothing here is served to the web, and none of it runs during `npm run build`.
 
 ## What it is for
@@ -44,19 +48,48 @@ Wiktionary username in it:
 usernames['wiktionary']['en'] = 'YourWiktionaryUsername'
 ```
 
-Then log in once, from this directory. Pywikibot stores a session cookie in
-`pywikibot.lwp`, so your password is never written to disk:
+Then create a **bot password** at
+<https://en.wiktionary.org/wiki/Special:BotPasswords>, logged in as that
+account. Name it `yorubadict` and tick exactly two grants — *Basic rights* and
+*Edit existing pages*. It shows you a 32-character password once.
+
+```bash
+cp user-password.py.example user-password.py
+chmod 600 user-password.py
+```
+
+Put the password in it, then log in once:
 
 ```bash
 .venv/bin/pwb login
 ```
 
-Pywikibot keeps its config and state — that cookie, the API cache, the logs,
-the throttle file — in a "base directory", and picks it from the current
-directory unless told otherwise. `etymid.py` sets it to its own directory, so
-you can run the script from anywhere and everything it writes stays here, under
-the .gitignore entries. `pwb login` is a separate program and has no such
-setting, so run that one from this directory (or pass `-dir:.`).
+Pywikibot stores a session cookie in `pywikibot.lwp`, so the password is read
+only at login.
+
+### Why a bot password, when this runs under your own account
+
+A bot password is **not a bot account**. It is a second, scoped password on
+your own account. Edits still appear in page history as you, there is no
+separate account, and there is no bot flag — so this still is what
+en.wiktionary recommends, which is to try Pywikibot under your own account
+before asking for anything more.
+
+What it avoids is a deprecation. MediaWiki has deprecated main-account login
+via `action=login`, and Pywikibot chooses between that and the supported
+`action=clientlogin` with this test:
+
+```python
+botpassword = '@' in user or '@' in password
+```
+
+So an ordinary account password that merely happens to contain an `@` is read
+as a bot password, and the login silently takes the deprecated path — which is
+what happened here the first time. A bot password makes that choice correct
+instead of accidental, and it is the route MediaWiki's own warning points to.
+
+It also means this machine never stores the password to the account itself.
+The bot password is revocable on its own, from the same page that issued it.
 
 ## Using it
 

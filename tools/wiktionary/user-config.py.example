@@ -22,5 +22,10 @@ user_agent_description = (
 # tool's whole claim is that it is not in a hurry.
 put_throttle = 10
 
+# Where the bot password lives. See user-password.py.example - a bot password
+# is a scoped credential on your own account, not a bot account, and it keeps
+# logins off MediaWiki's deprecated main-account action=login path.
+password_file = 'user-password.py'
+
 # Never claim the bot flag. Every edit here is confirmed by a person, and
 # en.wiktionary requires approval before an account may mark edits as a bot's.
