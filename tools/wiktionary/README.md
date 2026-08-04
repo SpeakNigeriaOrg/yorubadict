@@ -60,10 +60,17 @@ account. Name it `yorubadict` and tick exactly three grants:
   MediaWiki's note on this grant reads "some actions will still add pages even
   without this right", and "some" is not a guarantee.
 
-Nothing else. Not *High-volume (bot) access*, which carries the `bot` right
-this tool deliberately never uses; not *Create, edit, and move pages*, since it
-only ever edits pages that already exist; and none of the grants marked as a
-vandalism or security risk. It shows you a 32-character password once.
+Nothing else is needed. Not *High-volume (bot) access*, which carries the `bot`
+right this tool deliberately never uses; not *Create, edit, and move pages*,
+since it only ever edits pages that already exist; and none of the grants marked
+as a vandalism or security risk. (*View your watchlist* is harmless if you tick
+it — read-only and unmarked — but nothing here reads a watchlist.) It shows you
+a 32-character password once.
+
+One thing to know for later: **changing your Wiktionary account password stops
+every bot password working** until you reset it, and `Special:BotPasswords`
+flags the ones awaiting a reset. If logins start failing out of nowhere, that
+is the first thing to check.
 
 ```bash
 cp user-password.py.example user-password.py
