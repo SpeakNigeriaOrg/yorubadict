@@ -19,8 +19,21 @@ data means by it. Pywikibot is a MediaWiki framework, not a dictionary one —
 etymology, and nothing in it knows that a Yoruba compound points at a meaning.
 """
 
+import os
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
+
+# Pywikibot keeps its config and its state - user-config.py, the login session
+# cookie, the API cache, the logs, the throttle file - in one "base directory".
+# It picks that directory from -dir:, then PYWIKIBOT_DIR, then the current
+# directory, then its own; run this script from anywhere but tools/wiktionary
+# and it would put all of that wherever you happened to be standing, including
+# pywikibot.lwp, which is a live credential. Setting it here to the directory
+# this file is in means there is nothing to remember and nothing to get wrong.
+# Must happen before pywikibot is imported, which is when it resolves. setdefault
+# so that an explicit PYWIKIBOT_DIR still wins.
+os.environ.setdefault("PYWIKIBOT_DIR", str(Path(__file__).resolve().parent))
 
 import pywikibot
 from pywikibot import config

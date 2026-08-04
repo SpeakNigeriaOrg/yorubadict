@@ -7,7 +7,7 @@
 family = 'wiktionary'
 mylang = 'en'
 
-usernames['wiktionary']['en'] = 'YourWiktionaryUsername'
+usernames['wiktionary']['en'] = 'SpeakNigeria'
 
 # Identify the tool and a contact address, per Wikimedia's User-Agent policy.
 # Pywikibot's default format already carries the script name and its own

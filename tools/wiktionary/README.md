@@ -43,21 +43,24 @@ cp user-config.py.example user-config.py     # then put your username in it
 usernames['wiktionary']['en'] = 'YourWiktionaryUsername'
 ```
 
-Then log in once. Pywikibot stores a session cookie in `pywikibot.lwp`, so your
-password is never written to disk:
+Then log in once, from this directory. Pywikibot stores a session cookie in
+`pywikibot.lwp`, so your password is never written to disk:
 
 ```bash
-export PYWIKIBOT_DIR=$PWD
 .venv/bin/pwb login
 ```
 
-`PYWIKIBOT_DIR` keeps Pywikibot's config, cookie, cache and logs inside this
-directory instead of your home directory. Everything it writes is gitignored.
+Pywikibot keeps its config and state — that cookie, the API cache, the logs,
+the throttle file — in a "base directory", and picks it from the current
+directory unless told otherwise. `etymid.py` sets it to its own directory, so
+you can run the script from anywhere and everything it writes stays here, under
+the .gitignore entries. `pwb login` is a separate program and has no such
+setting, so run that one from this directory (or pass `-dir:.`).
 
 ## Using it
 
 ```bash
-cd tools/wiktionary && export PYWIKIBOT_DIR=$PWD
+cd tools/wiktionary
 
 .venv/bin/python etymid.py -page:kọ -propose     # write the worksheet
 .venv/bin/python etymid.py -page:kọ -check       # read it back — no network
