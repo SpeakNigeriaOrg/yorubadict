@@ -946,11 +946,21 @@
 
         <h2>What makes a good name</h2>
         <p>A name identifies one etymology section. It does not have to describe every meaning in that section, and it does not have to be unique across Wiktionary — only within the page it sits on.</p>
+        <p>It is also published. On <code>{{affix}}</code> and <code>{{compound}}</code>, the name goes into the category the word is filed under: <code>id1=nominalizing prefix</code> puts a word in <em>Yoruba terms prefixed with a- (nominalizing prefix)</em> rather than the plain category. Yorùbá already has 583 words filed this way. Read the name back as a category before you settle on it.</p>
         <ul>
           <li><strong>One or two plain words, lowercase.</strong> On <em>de</em>: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</li>
           <li><strong>Enough to tell it from the other sections on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
-          <li><strong>Stable.</strong> Renaming a name breaks every pointer aimed at it, and there is no warning when that happens. Pick something that will still be right if the section gains another meaning.</li>
-          <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> is a workable name for it, but so is something broader if you can see one.</li>
+          <li><strong>Stable.</strong> Renaming breaks every pointer aimed at it, with no warning, and renames the category too. Pick something that will still fit if the section gains another meaning.</li>
+          <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> works, but a broader name would be better.</li>
+        </ul>
+
+        <h2>Wiktionary's own documentation</h2>
+        <p>These are the pages that define what the templates do. Read them before a first edit.</p>
+        <ul>
+          <li><a href="https://en.wiktionary.org/wiki/Template:etymid" target="_blank" rel="noopener noreferrer">Template:etymid</a> — naming an etymology section. This is the one used below.</li>
+          <li><a href="https://en.wiktionary.org/wiki/Template:senseid" target="_blank" rel="noopener noreferrer">Template:senseid</a> — naming a single definition, for when one etymology section holds several meanings and a pointer needs to tell them apart.</li>
+          <li><a href="https://en.wiktionary.org/wiki/Template:affix" target="_blank" rel="noopener noreferrer">Template:affix</a> — documents the <code>idN</code> parameter, including its effect on category names. <a href="https://en.wiktionary.org/wiki/Template:compound" target="_blank" rel="noopener noreferrer">Template:compound</a> takes the same parameters.</li>
+          <li><a href="https://en.wiktionary.org/wiki/Wiktionary:Entry_layout" target="_blank" rel="noopener noreferrer">Wiktionary:Entry layout</a> — how numbered etymology sections are structured, if you have not edited an entry before.</li>
         </ul>
 
         <h2>How to check a suggestion</h2>
