@@ -50,8 +50,20 @@ usernames['wiktionary']['en'] = 'YourWiktionaryUsername'
 
 Then create a **bot password** at
 <https://en.wiktionary.org/wiki/Special:BotPasswords>, logged in as that
-account. Name it `yorubadict` and tick exactly two grants — *Basic rights* and
-*Edit existing pages*. It shows you a 32-character password once.
+account. Name it `yorubadict` and tick exactly three grants:
+
+- **Basic rights** — needed for any API access at all. It also carries
+  `editsemiprotected`, which is why *Edit protected pages* is not on this list:
+  a busy entry is semi-protected, and this covers that.
+- **Edit existing pages** — where the `edit` right actually lives.
+- **Edit your watchlist** — the script saves with `watchlist='watch'`.
+  MediaWiki's note on this grant reads "some actions will still add pages even
+  without this right", and "some" is not a guarantee.
+
+Nothing else. Not *High-volume (bot) access*, which carries the `bot` right
+this tool deliberately never uses; not *Create, edit, and move pages*, since it
+only ever edits pages that already exist; and none of the grants marked as a
+vandalism or security risk. It shows you a 32-character password once.
 
 ```bash
 cp user-password.py.example user-password.py
