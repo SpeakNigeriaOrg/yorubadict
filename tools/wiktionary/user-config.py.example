@@ -18,9 +18,17 @@ user_agent_description = (
     'admin@speaknigeria.org'
 )
 
-# Ten seconds between saves. Pywikibot's default, left explicit because this
-# tool's whole claim is that it is not in a hurry.
-put_throttle = 10
+# Sixty seconds between saves.
+#
+# Pywikibot's default is 10, which is six edits a minute. That is bot pace, and
+# en.wiktionary's filter 205 ("ac2", actions throttle + blockautopromote) said
+# so: a run of sixteen edits at ten-second spacing cost the account its
+# autoconfirmed status after eight of them. The filter's rule is not public, so
+# the safe threshold is unknown and this is a guess on the cautious side.
+#
+# It is also honest. Every edit here is supposed to be read by a person before
+# it is sent; a minute is nearer the truth than ten seconds.
+put_throttle = 60
 
 # Where the bot password lives. See user-password.py.example - a bot password
 # is a scoped credential on your own account, not a bot account, and it keeps

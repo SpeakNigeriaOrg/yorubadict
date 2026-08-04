@@ -37,6 +37,7 @@ os.environ.setdefault("PYWIKIBOT_DIR", str(Path(__file__).resolve().parent))
 import pywikibot
 from pywikibot import config
 from pywikibot.bot import ExistingPageBot
+from pywikibot.exceptions import AbuseFilterDisallowedError
 
 from lib import components, data, record, wikitext, worksheet
 
@@ -272,10 +273,29 @@ class PointerBot(ExistingPageBot):
         )
         started = datetime.now(timezone.utc).isoformat()
         oldrevid = page.latest_revision_id
-        saved = self.put_current(
-            new_text, summary=summary, minor=False, bot=False,
-            watch="watch", show_diff=False,
-        )
+        try:
+            saved = self.put_current(
+                new_text, summary=summary, minor=False, bot=False,
+                watch="watch", show_diff=False,
+                ignore_save_related_errors=False,
+            )
+        except AbuseFilterDisallowedError as blocked:
+            # Stop the whole run, do not move to the next page.
+            #
+            # An AbuseFilter refusal is a statement about the account's rate or
+            # standing, not about this page, so the next page will trip it too
+            # - and every attempt is itself a filter hit that can escalate. The
+            # first run of this tool carried on after being refused and logged
+            # six hits in ninety seconds, which cost the account its
+            # autoconfirmed status.
+            pywikibot.error(f"{page.title()}: {blocked}")
+            pywikibot.error(
+                "AbuseFilter refused this edit. Stopping the run - the next "
+                "page would trip the same filter, and each attempt is another "
+                "hit against the account. Wait for the filter to relax before "
+                "trying again, and consider a slower put_throttle."
+            )
+            self.quit()
         self.results.append(
             {
                 "page": page.title(),
