@@ -69,7 +69,28 @@ def live_names(parent_page, site):
     return names
 
 
-def collect(task, names):
+def reachable_sections(entries_for_page, form, template_name):
+    """Which etymologies of the parent this spelling can actually reach.
+
+    Tone is most of the answer. ayékòótọ́ writes its component untoned as
+    "kọ", which reaches etymologies 5, 6 and 7 - write, stub, recite. It
+    cannot reach etymology 3, which is spelled kọ́. So "negation particle" is
+    a real name on the page and still the wrong answer here, and the
+    name-exists check alone would let it through.
+
+    Taken from the morpheme's own resolved candidates rather than re-derived,
+    for the same reason wiktionary-tasks.mjs does: the headword is the untoned
+    page title and is identical for every etymology, so comparing against it
+    would declare everything reachable.
+    """
+    for entry in entries_for_page or []:
+        for morpheme in entry.get("etymologyMorphemes") or []:
+            if morpheme.get("form") == form and morpheme.get("analysisTemplate") == template_name:
+                return morpheme.get("entryIds") or []
+    return []
+
+
+def collect(task, names, by_page, entry_sections):
     """One item per reference, with the live name it would point at."""
     items = []
     for reference in task.get("references") or []:
@@ -91,6 +112,18 @@ def collect(task, names):
                 # reference was never tied to one
                 "name": names.get(section, "") if section else "",
                 "matched_definition": reference.get("matchedDefinition"),
+                "reachable": sorted(
+                    {
+                        entry_sections[i]
+                        for i in reachable_sections(
+                            by_page.get(reference["page"]),
+                            reference["component"],
+                            reference["template"].split("|")[0].strip("{ "),
+                        )
+                        if i in entry_sections
+                    },
+                    key=int,
+                ),
             }
         )
     return items
@@ -290,7 +323,7 @@ def main():
             "without one.\n  It is accepted only together with -simulate.\n"
         )
 
-    tasks, _ = data.load()
+    tasks, by_page = data.load()
     task = data.find_task(tasks, parent)
     site = pywikibot.Site()
     directory = data.work_dir_for(parent)
@@ -307,7 +340,10 @@ def main():
             f'\n  Nothing to point at. Run `etymid.py -page:{parent}` first.\n'
         )
 
-    items = collect(task, names)
+    entry_sections = {
+        e["id"]: e["etymologyNumber"] for e in by_page.get(parent, []) if e.get("etymologyNumber")
+    }
+    items = collect(task, names, by_page, entry_sections)
 
     if mode == "propose":
         if path.exists() and not regenerate:
@@ -341,14 +377,30 @@ def main():
             item["name"] = chosen[key]
 
     writable = [i for i in items if i["name"]]
-    unknown = [i for i in writable if i["name"] not in set(names.values())]
-    if unknown:
-        pywikibot.info("")
-        for item in unknown:
-            pywikibot.error(
+    problems = []
+    by_name = {v: k for k, v in names.items()}
+    for item in writable:
+        if item["name"] not in by_name:
+            problems.append(
                 f'{item["word"]}: "{item["name"]}" is not a name on {parent}. '
-                f'Available: {", ".join(sorted(set(names.values())))}'
+                f'Available: {", ".join(sorted(by_name))}'
             )
+            continue
+        section = by_name[item["name"]]
+        if item["reachable"] and section not in item["reachable"]:
+            allowed = [names[s] for s in item["reachable"] if s in names]
+            problems.append(
+                f'{item["word"]}: "{item["name"]}" is Etymology {section}, which the '
+                f'spelling "{item["component"]}" cannot reach.\n'
+                f'              It reaches Etymology {", ".join(item["reachable"])}'
+                + (f' — {", ".join(allowed)}' if allowed else " (none of them named yet)")
+                + "\n              Tone is usually why: a differently toned etymology is a "
+                "different word."
+            )
+    if problems:
+        pywikibot.info("")
+        for problem in problems:
+            pywikibot.error(problem)
         raise SystemExit("\n  Nothing was sent.\n")
 
     if mode == "check":

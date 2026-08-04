@@ -286,6 +286,7 @@ What it will not do:
 | **Guess which template** | The template must match by name *and* have the expected component at the expected argument. Anything but exactly one match is refused. `id4` means positional argument 5, since the language code is argument 1. |
 | **Touch another language** | The replacement happens inside the Yorùbá section and the page is rebuilt from its sections, so an identical template in another language's entry cannot be hit. |
 | **Point at an unnamed etymology** | Compounds the queue could not tie to a section — `ayékòótọ́`, `kọjá` — come through with a blank `id:` and an explanation, rather than a guess. |
+| **Point at a name the spelling cannot reach** | `ayékòótọ́` writes its component untoned as `kọ`, which reaches etymologies 5, 6 and 7. `negation particle` is etymology 3, spelled `kọ́` — a real name on the page, and still wrong here. Tone is usually why: a differently toned etymology is a different word. |
 
 Records for this job hold one entry per compound, each with the diff the server
 recorded for *that* page.
