@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T21:02:34.202Z",
+  "generatedAt": "2026-08-04T04:38:40.424Z",
   "totalEntries": 6272,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -25864,6 +25864,92 @@
       "pagesOmitted": 0
     },
     {
+      "kind": "dangling-sense-anchor",
+      "title": "Points at a name that was never created",
+      "severity": "high",
+      "effort": "easy",
+      "target": "wiktionary",
+      "why": "Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà \"take\", ẹjọ́ \"law\", rò \"think\") and not one of those pages has the anchor. Careful work, pointing nowhere.",
+      "fix": "Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.",
+      "count": 9,
+      "pageCount": 7,
+      "pages": [
+        {
+          "page": "iro",
+          "editUrl": "https://en.wiktionary.org/wiki/iro#Yoruba",
+          "entryIds": [
+            "en-iro-yo-noun-dmFD7C8M"
+          ],
+          "details": [
+            "points at “nominalizing prefix” on ró, which has no such name"
+          ]
+        },
+        {
+          "page": "agbọn",
+          "editUrl": "https://en.wiktionary.org/wiki/agb%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-agbọn-yo-noun-fGDvXPQL"
+          ],
+          "details": [
+            "points at “agent prefix” on a, which has no such name"
+          ]
+        },
+        {
+          "page": "agbẹjọro",
+          "editUrl": "https://en.wiktionary.org/wiki/agb%E1%BA%B9j%E1%BB%8Dro#Yoruba",
+          "entryIds": [
+            "en-agbẹjọro-yo-noun-H~Uh3Zmo"
+          ],
+          "details": [
+            "points at “take” on gbà, which has no such name",
+            "points at “law” on ẹjọ́, which has no such name",
+            "points at “think” on rò, which has no such name"
+          ]
+        },
+        {
+          "page": "atawe",
+          "editUrl": "https://en.wiktionary.org/wiki/atawe#Yoruba",
+          "entryIds": [
+            "en-atawe-yo-noun-AcOGdwV9"
+          ],
+          "details": [
+            "points at “agent prefix” on a, which has no such name"
+          ]
+        },
+        {
+          "page": "Muyiwa",
+          "editUrl": "https://en.wiktionary.org/wiki/Muyiwa#Yoruba",
+          "entryIds": [
+            "en-Muyiwa-yo-name-yeXJvqr-"
+          ],
+          "details": [
+            "points at “arrive” on wá, which has no such name"
+          ]
+        },
+        {
+          "page": "Muyiiwa",
+          "editUrl": "https://en.wiktionary.org/wiki/Muyiiwa#Yoruba",
+          "entryIds": [
+            "en-Muyiiwa-yo-name-qSO8zcvu"
+          ],
+          "details": [
+            "points at “arrive” on wá, which has no such name"
+          ]
+        },
+        {
+          "page": "ọgbọmọdelasuru",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dgb%E1%BB%8Dm%E1%BB%8Ddelasuru#Yoruba",
+          "entryIds": [
+            "en-ọgbọmọdelasuru-yo-noun-~ylVcObc"
+          ],
+          "details": [
+            "points at “nominalizing prefix” on ọ̀, which has no such name"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
+    },
+    {
       "kind": "missing-ipa",
       "title": "No pronunciation",
       "severity": "low",
@@ -29945,6 +30031,540 @@
       "pagesOmitted": 544
     },
     {
+      "kind": "missing-sense-anchor",
+      "title": "Several meanings share this page, and none of them has a name",
+      "severity": "high",
+      "effort": "expertise",
+      "target": "wiktionary",
+      "why": "Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé (\"to meet\") look like it comes from pa (\"to kill\").",
+      "fix": "Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page \"de\". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.",
+      "count": 52,
+      "pageCount": 52,
+      "pages": [
+        {
+          "page": "fa",
+          "editUrl": "https://en.wiktionary.org/wiki/fa#Yoruba",
+          "entryIds": [
+            "en-fa-yo-verb-OFVmd8R8"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "o",
+          "editUrl": "https://en.wiktionary.org/wiki/o#Yoruba",
+          "entryIds": [
+            "en-o-yo-character-DH~zt4JU"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "i",
+          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
+          "entryIds": [
+            "en-i-yo-character-CPhLBG1q"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "mi",
+          "editUrl": "https://en.wiktionary.org/wiki/mi#Yoruba",
+          "entryIds": [
+            "en-mi-yo-noun-yqAU8Uo-"
+          ],
+          "details": [
+            "8 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ba",
+          "editUrl": "https://en.wiktionary.org/wiki/ba#Yoruba",
+          "entryIds": [
+            "en-ba-yo-verb-N20jylCl"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "eye",
+          "editUrl": "https://en.wiktionary.org/wiki/eye#Yoruba",
+          "entryIds": [
+            "en-eye-yo-noun-SlO7ppnL"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ye",
+          "editUrl": "https://en.wiktionary.org/wiki/ye#Yoruba",
+          "entryIds": [
+            "en-ye-yo-noun-zwYi7ypm"
+          ],
+          "details": [
+            "5 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "run",
+          "editUrl": "https://en.wiktionary.org/wiki/run#Yoruba",
+          "entryIds": [
+            "en-run-yo-verb-ScO14v39"
+          ],
+          "details": [
+            "5 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "bi",
+          "editUrl": "https://en.wiktionary.org/wiki/bi#Yoruba",
+          "entryIds": [
+            "en-bi-yo-noun-8n18scPc"
+          ],
+          "details": [
+            "13 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "u",
+          "editUrl": "https://en.wiktionary.org/wiki/u#Yoruba",
+          "entryIds": [
+            "en-u-yo-character-ZlYVbvdW"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ni",
+          "editUrl": "https://en.wiktionary.org/wiki/ni#Yoruba",
+          "entryIds": [
+            "en-ni-yo-noun-i5~d3cDi"
+          ],
+          "details": [
+            "6 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ta",
+          "editUrl": "https://en.wiktionary.org/wiki/ta#Yoruba",
+          "entryIds": [
+            "en-ta-yo-verb-CCCl-YE-"
+          ],
+          "details": [
+            "11 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "na",
+          "editUrl": "https://en.wiktionary.org/wiki/na#Yoruba",
+          "entryIds": [
+            "en-na-yo-verb-wJiqPxZw"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ti",
+          "editUrl": "https://en.wiktionary.org/wiki/ti#Yoruba",
+          "entryIds": [
+            "en-ti-yo-noun-pYdnggPA"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "la",
+          "editUrl": "https://en.wiktionary.org/wiki/la#Yoruba",
+          "entryIds": [
+            "en-la-yo-verb-3I7ASTb5"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ra",
+          "editUrl": "https://en.wiktionary.org/wiki/ra#Yoruba",
+          "entryIds": [
+            "en-ra-yo-det-y5bIz2RD"
+          ],
+          "details": [
+            "5 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "pa",
+          "editUrl": "https://en.wiktionary.org/wiki/pa#Yoruba",
+          "entryIds": [
+            "en-pa-yo-verb-Ps~5DR-I"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "da",
+          "editUrl": "https://en.wiktionary.org/wiki/da#Yoruba",
+          "entryIds": [
+            "en-da-yo-verb-FsER6m5k"
+          ],
+          "details": [
+            "20 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "fo",
+          "editUrl": "https://en.wiktionary.org/wiki/fo#Yoruba",
+          "entryIds": [
+            "en-fo-yo-verb-WQQiW1~2"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "odi",
+          "editUrl": "https://en.wiktionary.org/wiki/odi#Yoruba",
+          "entryIds": [
+            "en-odi-yo-noun-cLVL~cxg"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ibi",
+          "editUrl": "https://en.wiktionary.org/wiki/ibi#Yoruba",
+          "entryIds": [
+            "en-ibi-yo-noun-ABXml9EL"
+          ],
+          "details": [
+            "8 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "di",
+          "editUrl": "https://en.wiktionary.org/wiki/di#Yoruba",
+          "entryIds": [
+            "en-di-yo-noun-ErjmsrWC"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ire",
+          "editUrl": "https://en.wiktionary.org/wiki/ire#Yoruba",
+          "entryIds": [
+            "en-ire-yo-noun-ViOLsFKk"
+          ],
+          "details": [
+            "6 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "le",
+          "editUrl": "https://en.wiktionary.org/wiki/le#Yoruba",
+          "entryIds": [
+            "en-le-yo-verb-nYZfFGVO"
+          ],
+          "details": [
+            "9 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "erin",
+          "editUrl": "https://en.wiktionary.org/wiki/erin#Yoruba",
+          "entryIds": [
+            "en-erin-yo-noun-zQjExDFt"
+          ],
+          "details": [
+            "6 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ya",
+          "editUrl": "https://en.wiktionary.org/wiki/ya#Yoruba",
+          "entryIds": [
+            "en-ya-yo-verb-BsVCin63"
+          ],
+          "details": [
+            "10 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ro",
+          "editUrl": "https://en.wiktionary.org/wiki/ro#Yoruba",
+          "entryIds": [
+            "en-ro-yo-verb-ci5lfH8k"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "a",
+          "editUrl": "https://en.wiktionary.org/wiki/a#Yoruba",
+          "entryIds": [
+            "en-a-yo-character-9n~aNY1j"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "kokoro",
+          "editUrl": "https://en.wiktionary.org/wiki/kokoro#Yoruba",
+          "entryIds": [
+            "en-kokoro-yo-noun-czW-cD52"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ju",
+          "editUrl": "https://en.wiktionary.org/wiki/ju#Yoruba",
+          "entryIds": [
+            "en-ju-yo-verb-rXsYG5fG"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ṣe",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3e#Yoruba",
+          "entryIds": [
+            "en-ṣe-yo-particle-FdxU0BNX"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "oyin",
+          "editUrl": "https://en.wiktionary.org/wiki/oyin#Yoruba",
+          "entryIds": [
+            "en-oyin-yo-noun-YsuBtZBK"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ẹ-yo-character-3~PjHnnM"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ọ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-ọ-yo-character-h5KHBrXu"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "iye",
+          "editUrl": "https://en.wiktionary.org/wiki/iye#Yoruba",
+          "entryIds": [
+            "en-iye-yo-noun-IImldv3w"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "rọ",
+          "editUrl": "https://en.wiktionary.org/wiki/r%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-rọ-yo-verb-IinP9aRt"
+          ],
+          "details": [
+            "5 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "bẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/b%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-bẹ-yo-verb-XQ31nnU1"
+          ],
+          "details": [
+            "10 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "kọ",
+          "editUrl": "https://en.wiktionary.org/wiki/k%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-kọ-yo-verb-gYxwiiH2"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "gbe",
+          "editUrl": "https://en.wiktionary.org/wiki/gbe#Yoruba",
+          "entryIds": [
+            "en-gbe-yo-verb-VvBDcrKw"
+          ],
+          "details": [
+            "7 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "pọn",
+          "editUrl": "https://en.wiktionary.org/wiki/p%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-pọn-yo-verb-ox15gTIC"
+          ],
+          "details": [
+            "8 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "mọ",
+          "editUrl": "https://en.wiktionary.org/wiki/m%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-mọ-yo-verb-Vk7G5aRj"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "gba",
+          "editUrl": "https://en.wiktionary.org/wiki/gba#Yoruba",
+          "entryIds": [
+            "en-gba-yo-verb-DCZgzqX2"
+          ],
+          "details": [
+            "8 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ẹni",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9ni#Yoruba",
+          "entryIds": [
+            "en-ẹni-yo-noun-ZF2nIsjQ"
+          ],
+          "details": [
+            "3 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "ohun",
+          "editUrl": "https://en.wiktionary.org/wiki/ohun#Yoruba",
+          "entryIds": [
+            "en-ohun-yo-noun-XelNaRrj"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "yọ",
+          "editUrl": "https://en.wiktionary.org/wiki/y%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-yọ-yo-verb-Bu1q5Rzq"
+          ],
+          "details": [
+            "11 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "gbẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-gbẹ-yo-verb-smm6y2ok"
+          ],
+          "details": [
+            "6 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "wọ",
+          "editUrl": "https://en.wiktionary.org/wiki/w%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-wọ-yo-verb-lDELpvOE"
+          ],
+          "details": [
+            "9 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "gbọn",
+          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-gbọn-yo-verb-p8R9n899"
+          ],
+          "details": [
+            "5 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "jọ",
+          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-jọ-yo-verb-Cd7~7HT0"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "fọn",
+          "editUrl": "https://en.wiktionary.org/wiki/f%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-fọn-yo-verb-PfXh8wSg"
+          ],
+          "details": [
+            "6 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "urun",
+          "editUrl": "https://en.wiktionary.org/wiki/urun#Yoruba",
+          "entryIds": [
+            "en-urun-yo-noun-XelNaRrj"
+          ],
+          "details": [
+            "2 etymology sections, none of them named"
+          ]
+        },
+        {
+          "page": "tẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/t%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-tẹ-yo-verb-Nw37fLqG"
+          ],
+          "details": [
+            "4 etymology sections, none of them named"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
+    },
+    {
       "kind": "ambiguous-derivation",
       "title": "Derived term listed under several etymologies of the same spelling",
       "severity": "medium",
@@ -31615,17 +32235,17 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 189,
+      "easy": 198,
       "mechanical": 375,
-      "expertise": 1841,
+      "expertise": 1893,
       "info": 2258
     },
     "byTarget": {
-      "wiktionary": 4662,
+      "wiktionary": 4723,
       "pipeline": 1
     },
-    "actionable": 2405,
-    "easyWins": 189
+    "actionable": 2466,
+    "easyWins": 198
   },
   "kaikkiSourceDate": "2026-08-03",
   "kaikkiReleaseTag": "build-9",

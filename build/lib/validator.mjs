@@ -39,7 +39,7 @@ const MAX_PAGES_PER_ISSUE = 120;
 const wiktionaryUrl = (headword) =>
   `https://en.wiktionary.org/wiki/${encodeURIComponent(headword)}#Yoruba`;
 
-export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null) {
+export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null, danglingAnchors = []) {
   const report = {
     generatedAt: new Date().toISOString(),
     totalEntries: entries.length,
@@ -150,7 +150,7 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   }
   report.circularDerivations = cycles;
 
-  report.issues = buildIssues(entries, byId, report, { toneLookup, orthoLookup });
+  report.issues = buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors });
   report.summary = summarize(report.issues);
 
   return report;
@@ -160,7 +160,7 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
 // The work queue
 // ---------------------------------------------------------------------------
 
-function buildIssues(entries, byId, report, { toneLookup, orthoLookup }) {
+function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors = [] }) {
   const issues = [];
 
   // -- Failed cross-references, split by what it would actually take to fix --
@@ -283,6 +283,60 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup }) {
         'Another page claims this word is derived from it, but this word\'s own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary\'s back-links are meant to expose.',
       fix: 'Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root\'s derived-terms list instead.',
       pages: noEtymology,
+    })
+  );
+
+  // -- The one thing Wiktionary can state exactly, and almost nobody has --
+
+  const needsAnchor = new Map();
+  const byPage = new Map();
+  for (const entry of entries) {
+    if (!byPage.has(entry.headword)) byPage.set(entry.headword, []);
+    byPage.get(entry.headword).push(entry);
+  }
+  for (const [page, group] of byPage) {
+    if (new Set(group.map((e) => e.etymologyNumber)).size < 2) continue;
+    const hasAnchor = group.some((e) =>
+      (e.etymologyTemplates || []).some((t) => t.name === 'etymid')
+    );
+    if (hasAnchor) continue;
+    // Only worth reporting if something actually points at this page.
+    const referenced = entries.some((e) =>
+      (e.etymologyMorphemes || []).some(
+        (m) => (m.form === page || m.form?.toLowerCase() === page) && (m.entryIds || []).length > 1
+      )
+    );
+    if (referenced) pushPage(needsAnchor, group[0], `${new Set(group.map((e) => e.etymologyNumber)).size} etymology sections, none of them named`);
+  }
+
+  const dangling = new Map();
+  for (const d of danglingAnchors) {
+    const e = byId.get(d.entryId);
+    if (e) pushPage(dangling, e, `points at “${d.anchor}” on ${d.form}, which has no such name`);
+  }
+
+  issues.push(
+    issue({
+      kind: 'dangling-sense-anchor',
+      title: 'Points at a name that was never created',
+      severity: 'high',
+      effort: 'easy',
+      target: 'wiktionary',
+      why:
+        'Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà "take", ẹjọ́ "law", rò "think") and not one of those pages has the anchor. Careful work, pointing nowhere.',
+      fix: 'Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.',
+      pages: dangling,
+    }),
+    issue({
+      kind: 'missing-sense-anchor',
+      title: 'Several meanings share this page, and none of them has a name',
+      severity: 'high',
+      effort: 'expertise',
+      target: 'wiktionary',
+      why:
+        'Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé ("to meet") look like it comes from pa ("to kill").',
+      fix: 'Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page "de". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.',
+      pages: needsAnchor,
     })
   );
 

@@ -90,6 +90,77 @@ function attachSiblings(entries) {
   }
 }
 
+// Wiktionary's own answer to "which meaning of this word?", and the only
+// non-inferential signal we have.
+//
+// {{etymid|yo|kill}} at the top of an etymology section names it; a compound
+// then points at that name with id1=kill on {{compound}}/{{af}}. Someone who
+// knows the word wrote both halves down, so an anchor beats every heuristic
+// here - gloss overlap, frequency, and the fall-through to whichever entry
+// came first, each of which has been caught getting this wrong.
+//
+// Keyed on every spelling the entry answers to, not just the page title. The
+// anchor lives on a page called "odo" but the compound pointing at it writes
+// the toned form, odò - keying on the title alone matched neither.
+// spellingsForEntry is the same set the alias index uses, for the same reason.
+// Maps to a SET, because one anchor can legitimately name several entries:
+// Kaikki splits a single etymology section into one record per part of speech,
+// and they all carry that section's {{etymid}}. de's "arrive" section is both
+// a verb ("to arrive") and a preposition ("up to, as far as"). An anchor that
+// narrows six candidates to two has still done nearly all the work, so the
+// meaning tiebreak runs inside that pair rather than over the whole six.
+function buildAnchorTable(entries) {
+  const table = new Map(); // "spelling anchor" -> Set(entryId)
+  const add = (entry, anchor) => {
+    if (typeof anchor !== 'string' || !anchor) return;
+    for (const spelling of spellingsForEntry(entry)) {
+      for (const key of [`${spelling} ${anchor}`, `${spelling.toLowerCase()} ${anchor}`]) {
+        if (!table.has(key)) table.set(key, new Set());
+        table.get(key).add(entry.id);
+      }
+    }
+  };
+  for (const entry of entries) {
+    for (const tpl of entry.etymologyTemplates || []) {
+      if (tpl.name === 'etymid') add(entry, (tpl.args || {})['2']);
+    }
+    for (const sense of entry.senses || []) {
+      add(entry, Array.isArray(sense.senseid) ? sense.senseid[0] : sense.senseid);
+    }
+  }
+  return table;
+}
+
+// The anchor each morpheme was pointed at, if any.
+//
+// Paired on (template name, form) rather than by re-deriving which templates
+// produce morphemes and in what order - both sides already carry those two
+// facts, so nothing here has to know the extraction rules. idN follows the
+// same positional convention as the tN meanings: the Nth content argument.
+function anchorsForMorphemes(entry) {
+  const found = new Map(); // morpheme object -> anchor string
+  const morphemes = entry.etymologyMorphemes || [];
+
+  for (const tpl of entry.etymologyTemplates || []) {
+    const args = tpl.args || {};
+    if (args['1'] !== 'yo') continue;
+    const numeric = Object.keys(args)
+      .filter((k) => /^\d+$/.test(k) && k !== '1')
+      .sort((a, b) => Number(a) - Number(b));
+
+    numeric.forEach((key, i) => {
+      const anchor = args[`id${i + 1}`];
+      const form = args[key];
+      if (typeof anchor !== 'string' || !anchor || typeof form !== 'string' || !form) return;
+      const candidates = morphemes.filter(
+        (m) => m.form === form && m.analysisTemplate === tpl.name && !found.has(m)
+      );
+      if (candidates.length) found.set(candidates[0], anchor);
+    });
+  }
+  return found;
+}
+
 // Did the etymology's own meaning for a morpheme actually pick one of the
 // entries that share its spelling, or are we about to link to whichever came
 // first? The UI needs the difference: telling a reader "the etymology doesn't
@@ -106,12 +177,44 @@ function attachSiblings(entries) {
 //
 // Recomputed here rather than trusting the upstream ordering, so the pick and
 // the claim we make about it always come from the same comparison.
-function annotateMorphemeConfidence(entries, byId) {
+function annotateMorphemeConfidence(entries, byId, anchorTable, danglingLog) {
   for (const entry of entries) {
+    const anchors = anchorsForMorphemes(entry);
+
     for (const m of entry.etymologyMorphemes || []) {
       const ids = (m.entryIds || []).filter((id) => byId.has(id));
+      if (!ids.length) continue;
+
+      // 1. An explicit anchor, which is a statement rather than a guess.
+      const anchor = anchors.get(m);
+      if (anchor) {
+        m.anchor = anchor;
+        const named = anchorTable.get(`${m.form} ${anchor}`)
+          || anchorTable.get(`${(m.form || '').toLowerCase()} ${anchor}`);
+        const targets = named ? ids.filter((id) => named.has(id)) : [];
+        if (targets.length === 1) {
+          m.chosenEntryId = targets[0];
+          m.chosenBy = 'anchor';
+          continue;
+        }
+        if (targets.length > 1) {
+          // The anchor narrowed it; settle the remainder the usual way, but
+          // only ever inside what the anchor allowed.
+          const within = pickByDiscriminatingMeaning(m.gloss, targets, byId);
+          m.chosenEntryId = within || targets[0];
+          m.chosenBy = within ? 'anchor' : 'anchorTied';
+          continue;
+        }
+        // A reference to a name nobody ever created. agbẹjọro does this three
+        // times over - gbà id=take, ẹjọ́ id=law, rò id=think, all correct, and
+        // no {{etymid}} on any of the targets. It's a dead link on Wiktionary
+        // and invisible there, so it gets reported rather than dropped.
+        danglingLog.push({ entryId: entry.id, page: entry.headword, form: m.form, anchor });
+      }
+
       if (ids.length < 2) continue;
 
+      // 2. What the etymology says the root means. 3. Whichever came first.
       const winner = pickByDiscriminatingMeaning(m.gloss, ids, byId);
       m.chosenEntryId = winner || ids[0];
       // 'meaning'      - the etymology said what it means and that settled it
@@ -344,11 +447,13 @@ export function synthesizeRelationships(entries) {
   }
 
   attachSiblings(entries);
-  annotateMorphemeConfidence(entries, byId);
+  const anchorTable = buildAnchorTable(entries);
+  const danglingAnchors = [];
+  annotateMorphemeConfidence(entries, byId, anchorTable, danglingAnchors);
 
   const dialect = synthesizeDialectRelations(entries, aliasIndex, byId);
 
-  return { entries, unresolved, aliasIndex, dialect };
+  return { entries, unresolved, aliasIndex, dialect, anchorTable, danglingAnchors };
 }
 
 // A dialect synonym is a different lexeme used in a place, not another

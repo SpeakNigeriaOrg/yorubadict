@@ -36,6 +36,7 @@ import { synthesizeRelationships } from './lib/relationships.mjs';
 import { buildValidationReport } from './lib/validator.mjs';
 import { buildSearchIndex } from './lib/search-index.mjs';
 import { buildBuildingBlocks, assertBuildingBlocksAreUsable } from './lib/building-blocks.mjs';
+import { buildWiktionaryTasks } from './lib/wiktionary-tasks.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -89,6 +90,7 @@ const outIndexPath = path.join(rootDir, 'public', 'data', 'search-index.json');
 const outValidationPath = path.join(rootDir, 'build', 'validation-report.json');
 const outPublicValidationPath = path.join(rootDir, 'public', 'data', 'validation-report.json');
 const outBlocksPath = path.join(rootDir, 'public', 'data', 'building-blocks.json');
+const outTasksPath = path.join(rootDir, 'public', 'data', 'wiktionary-tasks.json');
 
 const blockOptions = {
   yorubaFrequencyPath: path.join(rootDir, 'data', 'frequency', 'yoruba.json'),
@@ -116,14 +118,15 @@ async function main() {
   console.log(`      ${entries.length} entries loaded`);
 
   console.log('[2/5] Synthesizing relationship graph ...');
-  const { entries: linkedEntries, unresolved, dialect } = synthesizeRelationships(entries);
+  const { entries: linkedEntries, unresolved, dialect, anchorTable, danglingAnchors } =
+    synthesizeRelationships(entries);
   console.log(
     `      dialect data on ${dialect.entriesWithData} entries: ${dialect.terms} terms ` +
       `(${dialect.distinctTerms} distinct, ${dialect.resolvedTerms} matching an existing entry)`
   );
 
   console.log('[3/5] Building validation report ...');
-  const validationReport = buildValidationReport(linkedEntries, unresolved, [], dialect);
+  const validationReport = buildValidationReport(linkedEntries, unresolved, [], dialect, danglingAnchors);
   validationReport.kaikkiSourceDate = kaikkiSourceDate;
   validationReport.kaikkiReleaseTag = kaikkiReleaseTag;
   validationReport.kaikkiParseErrorCount = kaikkiParseErrorCount;
@@ -143,6 +146,13 @@ async function main() {
       `${buildingBlocks.overridesApplied ? ' (overrides applied)' : ''}`
   );
 
+  const tasks = buildWiktionaryTasks(linkedEntries, anchorTable);
+  console.log(
+    `      ${tasks.totals.references} ambiguous references across ` +
+      `${tasks.totals.pagesNeedingAnchors} pages ` +
+      `(${JSON.stringify(tasks.totals.byTier)}), ${danglingAnchors.length} dangling anchors`
+  );
+
   mkdirSync(path.dirname(outEntriesPath), { recursive: true });
   mkdirSync(path.dirname(outValidationPath), { recursive: true });
 
@@ -156,6 +166,7 @@ async function main() {
   writeFileSync(outValidationPath, JSON.stringify(validationReport, null, 2));
   writeFileSync(outPublicValidationPath, JSON.stringify(validationReport));
   writeFileSync(outBlocksPath, JSON.stringify(buildingBlocks));
+  writeFileSync(outTasksPath, JSON.stringify(tasks));
 
   const sizeOf = (p) => (statSync(p).size / 1024).toFixed(1);
 
@@ -163,6 +174,7 @@ async function main() {
   console.log(`  entries.json size  ${sizeOf(outEntriesPath)} KB`);
   console.log(`  search-index size  ${sizeOf(outIndexPath)} KB`);
   console.log(`  building-blocks    ${sizeOf(outBlocksPath)} KB`);
+  console.log(`  wiktionary-tasks   ${sizeOf(outTasksPath)} KB`);
   console.log(`  entries.json       ${linkedEntries.length} entries`);
   console.log(`  search-index.json  ${Object.keys(searchIndex.english.postings).length} English tokens`);
   if (kaikkiSourceDate) console.log(`  kaikki-yoruba data  release ${kaikkiReleaseTag}, sourced ${kaikkiSourceDate}`);

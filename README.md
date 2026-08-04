@@ -124,6 +124,7 @@ render functions in `public/app.js` dispatched from a `STATIC_ROUTES` table:
 | `#/learners` | For Learners — learn roots, then read what they build |
 | `#/teachers` | For Teachers — curriculum sequencing, and *when* to explain a compound |
 | `#/building-blocks` | Key Building Block Words — **generated**, see below |
+| `#/contribute` | A Wiktionary work queue — **generated**, see below |
 
 They render from markup already in `app.js`, so they paint on first load
 without the dictionary — `boot()` calls `handleRoute()` before fetching it for
@@ -140,6 +141,46 @@ items; the note by the narrow-viewport header block records that the wordmark
 plus *two* buttons already left the search field 30px of readable text at
 800px. Making the dropdown universal also gave the search field its width back
 on desktop.
+
+### Contribute is a work queue, and it never edits anything
+
+`build/lib/wiktionary-tasks.mjs` turns "we can't tell which meaning this came
+from" into specific Wiktionary edits with the text to add. **Nothing in it ever
+writes to Wiktionary** — no API, no bot account, no auto-submission, now or
+later. A wrong edit applied at scale by a machine damages the shared resource
+this dictionary is built on.
+
+The unit of work is one **page**, not one pass, because the halves have to be
+applied together: anchoring `pa`'s seven sections is useless until compounds
+point at those anchors, and pointing at `kill` is wrong if the editor typed
+`killing`. Pages are ordered by references unlocked — 20 pages carry 415 of the
+664, and 8 of those 20 are on the building-block list, so the first hour of
+editing is worth far more than the tenth.
+
+References are tiered by how safely they can be inferred:
+
+| tier | count | |
+|---|---|---|
+| A "suggested" | 386 | the compound's own recorded meaning matches exactly one section — the `idN=` is filled in |
+| B1/B2 "you decide" | 222 | a meaning is given but doesn't single out a section |
+| C "needs research" | 56 | no meaning recorded at all |
+
+Tier A is the tier a reviewer trusts instead of re-deriving, so the match is
+deliberately strict and two failures shaped it. A word-overlap rule put `ita`'s
+"to be spicy" against "to shoot, fire (from a weapon)" on one incidental word.
+A raw substring test matched `Mọgbà`'s component meaning `"I"` against `mọ`'s
+"alternative form of mu", because *alternative* contains an i — fixed with
+word-boundary matching rather than a length floor, since a floor would also
+have killed "war" against "war, battle". Pointer definitions are excluded from
+matching entirely.
+
+Because an anchor names a whole section, each proposal shows everything that
+section covers. `ta` etymology 6 runs "to shoot" / "to sting" / "to be spicy" /
+"to kick" / "to pick" — a reviewer shown only the first would reject a correct
+proposal for a component meaning "spicy".
+
+The queue clears itself: once an edit lands and the data refreshes, that page
+stops being emitted, the same way the `root-meaning-dropped` check did.
 
 ### Key Building Block Words is generated
 
@@ -349,7 +390,34 @@ etymology prose, with no `derived`/`related`/`synonyms`/`antonyms` list on
 synthesized in either direction. That's a real limit of the current
 pipeline, not a design choice.
 
-#### Which sense did it come from?
+#### Which sense did it come from? The one exact answer
+
+Wiktionary can state this precisely, and it is the only non-inferential signal
+in the whole pipeline. `{{etymid|yo|kill}}` at the top of an etymology section
+names it; a compound then points at that name with `id1=kill` on
+`{{compound}}`/`{{af}}`. Someone who knows the word wrote both halves down.
+
+An anchor therefore **wins outright** over every heuristic below it —
+`chosenBy: 'anchor'` is the top tier in `annotateMorphemeConfidence`, above
+gloss matching and above the fall-through, and it suppresses the ambiguity
+badge honestly rather than by assumption.
+
+It resolves **9 references today**, which is the entire current yield, because
+Yorùbá has 533 multi-etymology pages and 16 of them carry any anchor at all.
+`agbẹjọro` is the shape of the gap: someone wrote `gbà id=take`, `ẹjọ́ id=law`,
+`rò id=think` — exactly right — and no page ever got the matching
+`{{etymid}}`. Three careful references pointing at nothing. That is what
+`#/contribute` exists to fix; see "Contribute" below.
+
+Two details worth knowing if you touch this. Anchors are keyed on every
+spelling an entry answers to (`spellingsForEntry`), not the page title — the
+anchor lives on a page called `odo` while the compound writes `odò`. And one
+anchor can name several entries, because Kaikki splits a section into one
+record per part of speech and they all carry its `{{etymid}}`; `de`'s "arrive"
+is both a verb and a preposition. The meaning tiebreak then runs *inside* what
+the anchor allowed, which is how `Kọlade` correctly gets the verb.
+
+#### When there is no anchor
 
 A resolved reference names a *spelling*, and a spelling can belong to
 several entries. Wiktionary lists `gbígbá` as a derived term under all five
