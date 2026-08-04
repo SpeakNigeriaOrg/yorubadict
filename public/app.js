@@ -983,6 +983,27 @@
         </ul>
         <p class="task-note">This site has no Wiktionary account and makes no automated edits. Everything below is text for you to check and type.</p>
 
+        <h2>One that is already finished</h2>
+        <p>Someone has already done this for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a>, and it shows both halves in place.</p>
+
+        <h3>The page with the meanings</h3>
+        <p><em>de</em> has five, and each one has been given a name. The first line of each numbered section is the only addition:</p>
+        <pre class="wikitext">===Etymology 1===
+{{etymid|yo|tie down}}
+
+===Etymology 4===
+{{etymid|yo|arrive}}</pre>
+
+        <h3>A word built from one of them</h3>
+        <p><a href="https://en.wiktionary.org/wiki/K%E1%BB%8Dlade#Yoruba" target="_blank" rel="noopener noreferrer">Kọlade</a> is a name meaning "Bring honor home". Its etymology on Wiktionary reads:</p>
+        <pre class="wikitext">{{compound|yo|kó|ọlá|dé|t1=to bring|t2=honor, wealth|t3=to arrive|id3=arrive}}</pre>
+        <p><em>dé</em> is the third part, so <code>id3</code> is the one that says which <em>dé</em> is meant: the meaning named <em>arrive</em>.</p>
+        <p>Every task below is one or both of those two lines.</p>
+
+        <h3>What it does</h3>
+        <p>Because that pointer is there, <a href="#/entry/en-Kọlade-yo-name-2o49c7DW">Kọlade</a> shows <a href="#/entry/en-de-yo-verb-MaosAbO4">dé</a> "to arrive" under <em>Component words</em>, and not one of the other four. Nothing was inferred.</p>
+        <p>Without it we would compare the words "to arrive" against each of the five meanings and take the closest. That often works. It is also how <em>pàdé</em> ended up filed under "to kill".</p>
+
         <div id="tasks-list">${listHtml}</div>
       </div>
     `;
