@@ -254,6 +254,42 @@ what was sent, and the diff the server recorded afterwards. Simulated runs and
 refused saves do not write records. It is committed, so a reviewer asking what
 this script has done can be shown every edit it has made.
 
+## The second job: pointing the compounds back
+
+`etymid.py` names the etymologies on one page. `pointers.py` puts the matching
+`idN=` on the words built from them, which is what actually removes the guess:
+
+```bash
+.venv/bin/python pointers.py -parent:kọ -propose
+.venv/bin/python pointers.py -parent:kọ -check
+.venv/bin/python pointers.py -parent:kọ -simulate
+.venv/bin/python pointers.py -parent:kọ
+```
+
+Same four stages, same worksheet. The difference is that it edits one page per
+compound rather than one page in total, so Pywikibot asks about each in turn —
+sixteen questions for `kọ`, not one.
+
+**It reads the names off the parent page, never out of our data.** Our snapshot
+proposes `build` for `kọ` etymology 2; the page says `teach`, because a person
+read the evidence and chose better. Nine pointers would have been born pointing
+at a name that does not exist. So `-propose` fetches the parent first and lists
+the names that are actually there, and a worksheet naming anything else is
+refused before a single page is opened.
+
+What it will not do:
+
+| | |
+|---|---|
+| **Point at a name that is not on the parent** | Checked before any page is opened, so a typo costs nothing. |
+| **Overwrite a pointer that already exists** | `akẹ́kọ̀ọ́` already carries `id1=agent prefix`; that is left exactly as it is. |
+| **Guess which template** | The template must match by name *and* have the expected component at the expected argument. Anything but exactly one match is refused. `id4` means positional argument 5, since the language code is argument 1. |
+| **Touch another language** | The replacement happens inside the Yorùbá section and the page is rebuilt from its sections, so an identical template in another language's entry cannot be hit. |
+| **Point at an unnamed etymology** | Compounds the queue could not tie to a section — `ayékòótọ́`, `kọjá` — come through with a blank `id:` and an explanation, rather than a guess. |
+
+Records for this job hold one entry per compound, each with the diff the server
+recorded for *that* page.
+
 ## Adding another job
 
 `etymid.py` is one job. The next is the other half of it: putting `id2=write`
