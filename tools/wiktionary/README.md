@@ -155,14 +155,32 @@ No network at all, so run it as often as you like.
 .venv/bin/python etymid.py -page:kọ -check
 ```
 
-**4. Look at the diff, then save.** `-simulate` does everything except save:
+**4. Look at where each name lands, then save.** `-simulate` does everything
+except save:
 
 ```bash
 .venv/bin/python etymid.py -page:kọ -simulate
 ```
 
-Drop the flag when the diff is right. It shows the diff once more, asks, and
-saves only if you agree:
+Each insertion is shown under the heading it falls in, with the meanings that
+heading covers, so you can check the name against the section rather than
+against a line number:
+
+```
+  Etymology 2 — to build, construct / to learn, teach, instruct, acquire
+        ===Etymology 2===
+      + {{etymid|yo|teach}}
+        Cognates include {{cog|its|kọ́}}, {{cog|ife|kɔ́}}
+```
+
+This replaces Pywikibot's own diff, which `userPut` renders with zero context
+lines and no way to ask for more — it tells you a line was added at 65, not
+which etymology that is. The view above is built from the same before-and-after
+text that is about to be saved, so it still shows a misplaced name rather than
+what we intended; and a name landing anywhere but directly after a heading
+aborts the run.
+
+Drop the flag when it looks right. It asks, and saves only if you agree:
 
 ```bash
 .venv/bin/python etymid.py -page:kọ
@@ -184,9 +202,9 @@ Pywikibot is a MediaWiki framework, not a dictionary one. `textlib` will hand
 you the headings on a page, but nothing in it has heard of an etymology, and
 nothing knows that a Yorùbá compound points at a meaning. So the split is:
 
-**Pywikibot's** — login and session, tokens, the diff display, the y/n prompt,
-the ten-second throttle, edit-conflict detection, `-simulate`, the User-Agent,
-and `mwparserfromhell` for parsing wikitext.
+**Pywikibot's** — login and session, tokens, the y/n prompt, the ten-second
+throttle, edit-conflict detection, `-simulate`, the User-Agent, and
+`mwparserfromhell` for parsing wikitext.
 
 **Ours** — which etymology deserves which name, and whether the page still
 means by "Etymology 5" what our data means by it. That is `lib/align.py` and

@@ -9,8 +9,12 @@ at a meaning instead of at a spelling.
 
 One page per run. There is no batch mode, no generator over a category, and no
 loop over the work queue — that is a property of this script, not a setting.
-The saving is Pywikibot's `put_current`, so the diff, the y/n, the throttle,
-the edit-conflict detection and -simulate are all its own.
+The saving is Pywikibot's `put_current`, so the y/n, the throttle, the
+edit-conflict detection and -simulate are all its own. The diff is not: userPut
+renders one with no context lines and no way to ask for any, which shows what
+changed but not where. show_placement below prints each inserted line under the
+heading it lands in, built from the same two strings that are about to be
+saved.
 
 What is ours is everything Pywikibot has no opinion about: which etymology
 deserves which name, and whether the page still means by "Etymology 5" what our
@@ -221,6 +225,63 @@ def verify(items):
     return problems, notes, len(writable)
 
 
+def show_placement(before, after, items):
+    """Print every inserted line with the heading it lands under.
+
+    Pywikibot's own diff is called from userPut as showDiff(old, new), with
+    the default context of 0 - so it renders as bare hunks:
+
+        @@ -63,0 +65 @@
+        + {{etymid|yo|teach}}
+
+    which says a line was added at 65 and nothing about which etymology that
+    is. A tool whose entire safety argument is that a person reads the diff
+    has to show enough to read. So this replaces it, and is built from the
+    same two strings that are about to be saved rather than from our idea of
+    them - if apply() put a name in the wrong section, this shows that.
+    """
+    import difflib
+
+    before_lines = before.splitlines()
+    after_lines = after.splitlines()
+    definitions = {i["number"]: i["definitions"] for i in items}
+    misplaced = []
+
+    for tag, _, _, j1, j2 in difflib.SequenceMatcher(
+        None, before_lines, after_lines
+    ).get_opcodes():
+        if tag not in ("insert", "replace"):
+            continue
+        for j in range(j1, j2):
+            heading = number = None
+            for k in range(j, -1, -1):
+                match = wikitext.ETYMOLOGY_TITLE.match(after_lines[k].strip())
+                if match:
+                    heading, number = after_lines[k], match.group(1)
+                    heading_line = k
+                    break
+            pywikibot.info("")
+            if heading is None:
+                pywikibot.info("  NOT INSIDE ANY ETYMOLOGY:")
+                misplaced.append(after_lines[j])
+            else:
+                covers = " / ".join(definitions.get(number) or []) or "(no definition on record)"
+                pywikibot.info(f"  Etymology {number} — {covers}")
+                if j != heading_line + 1:
+                    pywikibot.info("  NOT DIRECTLY AFTER THE HEADING:")
+                    misplaced.append(after_lines[j])
+                pywikibot.info(f"        {heading}")
+            pywikibot.info(f"      + {after_lines[j]}")
+            # the next line that carries anything - a blank one shows nothing
+            # about where this landed
+            for following in after_lines[j + 1: j + 6]:
+                if following.strip():
+                    pywikibot.info(f"        {following}")
+                    break
+    pywikibot.info("")
+    return misplaced
+
+
 def apply_decisions(parsed, items):
     replacements = {}
     for item in items:
@@ -420,14 +481,26 @@ class EtymidBot(ExistingPageBot):
         ]
         started = datetime.now(timezone.utc).isoformat()
 
-        # Pywikibot owns everything from here: the diff, the confirmation, the
-        # throttle, the edit-conflict check, and honouring -simulate.
+        # show_diff=False: userPut's diff has no context lines and cannot be
+        # given any, so it shows what changed but not where. show_placement
+        # renders the same change with the heading each line lands under.
+        stray = show_placement(before, new_text, collected["items"])
+        if stray:
+            raise SystemExit(
+                "\n  A name would land somewhere other than directly after an "
+                "etymology heading.\n  Refusing - this is a bug, not a "
+                "judgement call.\n"
+            )
+
+        # Pywikibot owns the rest: the confirmation, the throttle, the
+        # edit-conflict check, and honouring -simulate.
         saved = self.put_current(
             new_text,
             summary=summary_for(collected["items"]),
             minor=False,
             bot=False,
             watch="watch",
+            show_diff=False,
         )
 
         self.result = {
