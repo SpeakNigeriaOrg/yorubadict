@@ -777,22 +777,22 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>About Speak Nigeria</h1>
-        <p class="about-lede">Speak Nigeria is a nonprofit. We build free tools so children can learn Nigerian heritage languages and keep them.</p>
+        <p class="about-lede">Speak Nigeria is a nonprofit. We make free tools for learning Nigerian heritage languages.</p>
 
         <h2>Why we exist</h2>
-        <p>Millions of children grow up in families that speak a Nigerian language, and learn only English. Their parents want to pass the language on. Most of the time there is nothing to teach from — no course at the right level, no games, no dictionary a child can actually use. The language stops at one generation.</p>
-        <p>We make the missing pieces, and we give them away.</p>
+        <p>Many children in Nigerian families grow up speaking only English. Parents who want to teach their own language often have nothing to teach from: no course at the right level, no games, and no dictionary a child can use.</p>
+        <p>We build those and publish them free.</p>
 
         <h2>What we make</h2>
         <ul>
-          <li><strong>Structured courses.</strong> Yorùbá from the beginning, in an order that builds.</li>
-          <li><strong>Games.</strong> Practice that a child will choose on their own.</li>
-          <li><strong>This dictionary.</strong> Every word, searchable with or without tone marks, and every word broken into the words it came from.</li>
+          <li><strong>Courses.</strong> Yorùbá from the beginning, in a set order.</li>
+          <li><strong>Games.</strong> Practice for children learning on their own.</li>
+          <li><strong>This dictionary.</strong> Every word, searchable with or without tone marks, and where each word came from.</li>
         </ul>
 
         <h2>How this dictionary fits</h2>
-        <p>A course teaches a set of words in order. A dictionary answers a question the moment someone asks it. This one also answers a second question — where did this word come from? — because in Yorùbá that answer is usually another word you can learn.</p>
-        <p><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> means Earth. It is <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home) and <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). A learner who knows those two words can read the third the first time they see it.</p>
+        <p>The courses teach words in a set order. The dictionary is for looking something up. It also shows where a word came from, because in Yorùbá the answer is usually another word.</p>
+        <p><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> means Earth. It is <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home) and <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). A learner who knows those two words can read the third without being taught it.</p>
 
         <div class="about-actions">
           <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
@@ -807,34 +807,34 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>For learners</h1>
-        <p class="about-lede">Yorùbá builds long words out of short ones. Learn the short ones and you can read words nobody has taught you yet.</p>
+        <p class="about-lede">Yorùbá builds long words from short ones. If you know the short words, you can often work out a long word you have not been taught.</p>
 
-        <h2>Start with what a word is made of</h2>
-        <p>Take <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a>. It means home. Now look at what it builds:</p>
+        <h2>Look for the words inside a word</h2>
+        <p><a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> means home. Two words built from it:</p>
         <ul>
-          <li><a href="#/entry/en-ile-iwe-yo-noun-1k3r2ULX">ilé-ìwé</a> — school. Home of books.</li>
-          <li><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> — Earth. Home of life.</li>
+          <li><a href="#/entry/en-ile-iwe-yo-noun-1k3r2ULX">ilé-ìwé</a> — school. From <em>ilé</em> (home) and <em>ìwé</em> (book).</li>
+          <li><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> — Earth. From <em>ilé</em> (home) and <em>ayé</em> (life).</li>
         </ul>
-        <p>You did not memorise those two words. You read them, because you knew <em>ilé</em>. That is how the language works, and it keeps working: every root you learn makes the next words cheaper.</p>
+        <p>Both are made of words you can look up separately. Each entry in this dictionary lists its parts under "Component words", and lists the words built from it under "Used in".</p>
 
-        <h2>Guess before you look</h2>
-        <p>When you meet a new long word, stop and look for a word you already know inside it. Guess what the whole thing means. Then check.</p>
-        <p><a href="#/entry/en-ṣe-yo-verb-IXZV9I3e">ṣe</a> means to do. What do you think <a href="#/entry/en-ṣiṣẹ-yo-verb-5qTsaA0x">ṣiṣẹ́</a> means? It is work. And <a href="#/entry/en-ṣalaye-yo-verb-cgQ~Nwbp">ṣàlàyé</a>? To explain.</p>
-        <p>Sometimes the guess is obvious. Sometimes it is strange and you remember it forever. Both are useful. Guessing wrong and finding out is a better way to learn a word than reading it in a list.</p>
+        <h2>Guess before you look it up</h2>
+        <p>When you meet a long word, find a word inside it that you already know. Decide what you think the whole word means. Then check.</p>
+        <p><a href="#/entry/en-ṣe-yo-verb-IXZV9I3e">ṣe</a> means to do. <a href="#/entry/en-ṣiṣẹ-yo-verb-5qTsaA0x">ṣiṣẹ́</a> means work. <a href="#/entry/en-ṣalaye-yo-verb-cgQ~Nwbp">ṣàlàyé</a> means to explain.</p>
+        <p>Some of these are easy to predict and some are not. Either way you will remember the word better than if you had read it in a list.</p>
 
-        <h2>Use tone marks from the start</h2>
-        <p>Tone is not decoration. <a href="#/entry/en-gba-yo-verb-DCZgzqX2">gbà</a> means to rescue. <a href="#/entry/en-gba-yo-verb-VAsl51P3">gbá</a> means to hit. Same letters, different words. If you learn a word without its tone marks you have learned half of it.</p>
-        <p>You can still search here without them. Type <em>gba</em> and you will get every word spelled that way, so you can find the one you meant.</p>
+        <h2>Learn tone marks with the word</h2>
+        <p><a href="#/entry/en-gba-yo-verb-DCZgzqX2">gbà</a> means to rescue. <a href="#/entry/en-gba-yo-verb-VAsl51P3">gbá</a> means to hit. The letters are the same and the tone marks are not, and they are two different words. A word learned without its tone marks is incomplete.</p>
+        <p>You can still search without them. Type <em>gba</em> and you will get all eight words spelled that way, with their meanings, so you can find the one you want.</p>
 
         <h2>Where to go next</h2>
         <ul>
-          <li><a href="#/building-blocks">Key building block words</a> — the 25 roots that build the most words in this dictionary. Learn these first.</li>
-          <li>Our <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">structured courses</a> teach Yorùbá in an order that builds on itself.</li>
-          <li>Our <a href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">games</a> are for practice you will actually keep doing.</li>
+          <li><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words in this dictionary, with examples of what each one builds.</li>
+          <li>Our <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">courses</a> teach Yorùbá in a set order.</li>
+          <li>Our <a href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">games</a> are for practice.</li>
         </ul>
 
         <div class="about-actions">
-          <a class="about-btn primary" href="#/building-blocks">Start with the building blocks</a>
+          <a class="about-btn primary" href="#/building-blocks">See the building block words</a>
         </div>
       </div>
     `;
@@ -845,38 +845,37 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>For teachers</h1>
-        <p class="about-lede">Two things matter more than which words you teach: whether you teach roots, and when you explain them.</p>
+        <p class="about-lede">Two decisions shape how much vocabulary a student can use: which words you choose to teach, and when you explain how those words are built.</p>
 
-        <h2>Build the curriculum around roots, not a word list</h2>
-        <p>A list of a hundred common words gives a student a hundred words. A hundred words chosen as roots gives them far more, because each root unlocks the words built from it.</p>
-        <p>Teach <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home). Then teach <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> (Earth). Then teach <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life) on its own. Now the student holds three words, and the third one explains the second. Teach <em>ayé</em> and never connect it to <em>ilé ayé</em> and you have taught two unrelated facts instead.</p>
-        <p><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words here, with examples of what each one builds. It is a reasonable place to start a syllabus.</p>
+        <h2>Choose roots, not a flat word list</h2>
+        <p>Teach <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home). Then <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> (Earth). Then <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). The student now has three words and can see how the middle one is made.</p>
+        <p>Teaching <em>ayé</em> without connecting it to <em>ilé ayé</em> leaves the student with two separate facts to memorise instead.</p>
+        <p><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words in this dictionary, with examples of each. <em>ilé</em> alone appears in 56 of them.</p>
 
-        <h2>Explain the parts the first time, every time</h2>
-        <p>Never define <em>ilé ayé</em> as "Earth" and move on. It is two words, and the student can see that it is two words. Say what they are.</p>
-        <p>This holds for single words too, which is where it usually gets skipped. <a href="#/entry/en-sọrọ-yo-verb-SuqWjjbe">sọ̀rọ̀</a> means to speak. It is a contraction of <em>sọ</em> ("to say") and <em>ọ̀rọ̀</em> ("word"). And the phrase this dictionary is named after, <a href="#/entry/en-sọrọ_soke-yo-verb-zjLiM20R">sọ̀rọ̀ sókè</a>, is a calque of English <em>speak up</em>: <em>sọ</em> ("to say") + <em>ọ̀rọ̀</em> ("word") + <em>sí</em> ("to") + <em>òkè</em> ("heights").</p>
+        <h2>Explain the parts the first time the word appears</h2>
+        <p>Do not define <em>ilé ayé</em> as "Earth" and stop. It is two words, and a student can see it is two words. Say which two.</p>
+        <p>The same applies to single words, where it is more often skipped. <a href="#/entry/en-sọrọ-yo-verb-SuqWjjbe">sọ̀rọ̀</a> means to speak. It is a contraction of <em>sọ</em> ("to say") and <em>ọ̀rọ̀</em> ("word"). <a href="#/entry/en-sọrọ_soke-yo-verb-zjLiM20R">sọ̀rọ̀ sókè</a> is a calque of English <em>speak up</em>: <em>sọ</em> ("to say") + <em>ọ̀rọ̀</em> ("word") + <em>sí</em> ("to") + <em>òkè</em> ("heights").</p>
 
-        <h3>Make it a game</h3>
-        <p>Give the class two words they already know. Ask what the combination will mean. Take guesses before you answer.</p>
-        <p>Sometimes the answer is obvious and the class feels clever. Sometimes it is surprising — <em>ilé</em> plus <em>ayé</em> giving Earth — and they remember it. Either way they are doing the work, instead of watching you do it.</p>
+        <h3>Ask the class first</h3>
+        <p>Give them two words they already know and ask what the two together will mean. Take answers before you give yours.</p>
+        <p>Some combinations are predictable and some are not. <em>ilé</em> and <em>ayé</em> giving Earth is not obvious in advance.</p>
 
-        <h2>Do not teach the rules yet</h2>
-        <p>There are rules for how Yorùbá combines words, and for how combining changes the sounds. Do not start there.</p>
-        <p>What early students need is to keep seeing combinations in words they already use. Given enough examples, they start to feel which words combine and how the pronunciation shifts, before anyone tells them. The rules land much better later, on top of a few years of examples, than they do first as abstractions.</p>
-        <p>So: months or years of noticing, then the rules. Not the other way round.</p>
+        <h2>Leave the rules of combination until later</h2>
+        <p>Yorùbá has rules for how words combine and for how combining changes pronunciation. Early students do not need them.</p>
+        <p>What they need is to keep meeting combinations in words they already use. After enough examples, students begin to predict which words combine and how the sounds change, before anyone states a rule. Teach the rules after that, not before.</p>
 
-        <h2>Check the breakdown before you teach it</h2>
-        <p>Look the word up here first. This dictionary is built from Wiktionary, which is crowdsourced, so it is patchy — plenty of words have no breakdown at all. But it is more comprehensive than any structured source we know of, and it is worth checking your own knowledge against it. Where we are unsure which sense a word came from, the page says so rather than guessing.</p>
-        <p>If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here on the next refresh.</p>
+        <h2>Check a breakdown before teaching it</h2>
+        <p>Look the word up here first. This dictionary comes from Wiktionary, which is crowdsourced and uneven — many words have no breakdown at all. It is still more complete than any structured Yorùbá source we know of, so it is worth checking your own knowledge against.</p>
+        <p>Where the source does not say which meaning a word was built from, the entry says so rather than picking one. If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here after the next refresh. The <a href="#/contribute">Contribute</a> page lists the cases where the missing piece is already identified.</p>
 
         <h2>Teach students to compare sources</h2>
-        <p>There is no single authority for Yorùbá. Students need to know that.</p>
+        <p>There is no single authority for Yorùbá, and students should know that before they start looking things up.</p>
         <ul>
           <li><strong>This dictionary</strong> for lookups and for how words are built.</li>
-          <li><strong><a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a></strong> to see several dictionaries side by side and compare them.</li>
-          <li><strong>Google Translate</strong> — usable for a rough idea, not for anything you are teaching. It is weak for Yorùbá, and confidently so.</li>
+          <li><strong><a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a></strong> to compare several dictionaries side by side.</li>
+          <li><strong>Google Translate</strong> is unreliable for Yorùbá. It is usable for a rough idea and not for anything you are teaching.</li>
         </ul>
-        <p>Your students are probably better at the internet than you are. They are still not good at judging which source to trust. That part is your job.</p>
+        <p>Students who are confident online are often still poor at judging which source to trust. Show them how you decide.</p>
 
         <div class="about-actions">
           <a class="about-btn primary" href="#/building-blocks">See the building block words</a>
@@ -934,22 +933,33 @@
     els.entryContent.innerHTML = `
       <div class="about-content">
         <h1>Contribute</h1>
-        <p class="about-lede">This dictionary is built from Wiktionary. When Wiktionary is unclear, so are we. Here is a list of specific edits that would fix that, with the text to add.</p>
+        <p class="about-lede">This dictionary is built from Wiktionary. Some Wiktionary entries do not record which meaning of a word another word was built from. This page lists those entries and the text that would fix each one.</p>
 
-        <h2>The problem, in one word</h2>
-        <p>Seven different words are spelled <a href="#/entry/en-pa-yo-verb-Ps~5DR-I">pa</a>. One means "to kill", another "to tell", another "to gain". Thirty-five words are built from one of them — but Wiktionary doesn't record <em>which</em> one, so we have to guess, and we guess wrong. <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> ("to meet") shows up here as built from <em>pa</em> "to kill".</p>
+        <h2>What is missing</h2>
+        <p>Seven different words are spelled <a href="#/entry/en-pa-yo-verb-Ps~5DR-I">pa</a>. They mean to kill, to tell, to rub, to gain, to be in a state, to be tight, and to be bald. Fifty-four words are built from one of those seven.</p>
+        <p>Wiktionary does not record which one. This dictionary picks the first, and the first is often wrong. It shows <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> ("to meet") as built from <em>pa</em> "to kill".</p>
 
-        <h2>The fix</h2>
-        <p>Wiktionary has a template for this. <code>{{etymid|yo|kill}}</code> at the top of an etymology section gives that section a name. A word built from it then points at the name with <code>id1=kill</code>. The page for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a> already does this — five sections, five names: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</p>
-        <p>Both halves are needed. A name nobody points at does nothing, and pointing at a name that doesn't exist does nothing either. So each page below lists the names to add <em>and</em> the words that should point at them.</p>
+        <h2>How it is fixed</h2>
+        <p>Wiktionary has a template for this. <code>{{etymid|yo|kill}}</code> at the top of an etymology section gives that section a name. A word built from it then points at the name with <code>id1=kill</code>.</p>
+        <p>The page for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a> already does this. It has five sections named <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em> and <em>cover</em>.</p>
+        <p>Both halves are needed. A name with nothing pointing at it has no effect, and a pointer to a name that does not exist has no effect. Each page below lists the names to add and the words that should point at them.</p>
 
-        <h2>Before you start</h2>
+        <h2>What makes a good name</h2>
+        <p>A name identifies one etymology section. It does not have to describe every meaning in that section, and it does not have to be unique across Wiktionary — only within the page it sits on.</p>
         <ul>
-          <li><strong>Check every suggestion.</strong> The ones marked <em>suggested</em> come from matching the meaning a word already records against the meanings on the target page. That is usually right and sometimes wrong. You are confirming, not rubber-stamping.</li>
-          <li><strong>A name covers a whole section, not one meaning.</strong> If a section lists five meanings, one name stands for all of them. We show you what the section covers so you can tell.</li>
-          <li><strong>Names are permanent.</strong> Once anything points at a name, changing it breaks the link. Short and plain is best.</li>
-          <li><strong>Nothing here is automated.</strong> We never edit Wiktionary. This page is a list; the edits are yours.</li>
+          <li><strong>One or two plain words, lowercase.</strong> On <em>de</em>: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</li>
+          <li><strong>Enough to tell it from the other sections on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
+          <li><strong>Stable.</strong> Renaming a name breaks every pointer aimed at it, and there is no warning when that happens. Pick something that will still be right if the section gains another meaning.</li>
+          <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> is a workable name for it, but so is something broader if you can see one.</li>
         </ul>
+
+        <h2>How to check a suggestion</h2>
+        <p>Each suggestion below says the same thing: <em>this word records its component as meaning X, and section N of the target page covers X.</em> Open both pages and confirm that.</p>
+        <p>Two things can be wrong with it. The meaning recorded on the compound may be vague or mistaken — it was written by someone else, and we take it at face value. Or the section may contain those words incidentally rather than actually meaning them.</p>
+        <p>There is also a third case, and it is not a mistake in the suggestion. Sometimes the recorded meaning matches no section at all. <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> records its <em>pa</em> as "to do; action verb". None of <em>pa</em>'s seven sections says that. So no pointer is correct here: either the meaning written on <em>pàdé</em> is wrong, or <em>pa</em> is missing a section that ought to exist. Both are worth fixing, and neither is the edit suggested below.</p>
+        <p>When you are not sure, leave it. A word with no pointer is a gap, and we show it as a gap. A word with the wrong pointer is a statement, and other tools will believe it.</p>
+
+        <p class="task-note">This site has no Wiktionary account and makes no automated edits. Everything below is text for you to check and type.</p>
 
         <div id="tasks-list">${listHtml}</div>
       </div>
@@ -971,15 +981,19 @@
   }
 
   const TIER_LABEL = {
-    A: 'suggested',
-    B1: 'you decide',
-    B2: 'you decide',
-    C: 'needs research',
+    A: 'suggested — check it',
+    B1: 'you choose',
+    B2: 'you choose',
+    C: 'needs a Yorùbá speaker',
   };
 
   function contributeListHtml(data) {
     const t = data.totals || {};
-    const head = `<div class="tasks-summary">${t.references} words across ${t.pagesNeedingAnchors} pages can't say which meaning they came from. The pages are ordered by how many that is, so the first few are worth the most.</div>`;
+    const byTier = t.byTier || {};
+    const head = `<div class="tasks-summary">
+      <p>${t.references} words across ${t.pagesNeedingAnchors} pages do not record which meaning they were built from. Pages are ordered by how many words each one affects.</p>
+      <p>Of those words, ${byTier.A || 0} have a suggested answer to check, ${(byTier.B1 || 0) + (byTier.B2 || 0)} record a meaning that does not single out one section, and ${byTier.C || 0} record no meaning at all.</p>
+    </div>`;
 
     return head + (data.pages || []).slice(0, 40).map((page) => `
       <details class="task-page">
@@ -1012,7 +1026,7 @@
                 ? `<code>add ${escapeHtml(r.argument)}=${escapeHtml(r.proposedValue)}</code>`
                 : `<code>add ${escapeHtml(r.argument)}=?</code>`}
               <div class="task-why">${escapeHtml(r.why)}${r.sectionCovers && r.sectionCovers.length > 1
-                ? ` — that section covers ${r.sectionCovers.map((d) => `“${d}”`).join(', ')}`
+                ? `. That section also covers ${r.sectionCovers.slice(1).map((d) => `“${d}”`).join(', ')}`
                 : ''}</div>
             </li>
           `).join('')}
