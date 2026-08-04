@@ -1,8 +1,16 @@
-# Wiktionary contribution tooling.
-# Credentials, and the scratch space a run works in. The records/ directory
-# beside them is deliberately NOT ignored - it is the audit trail of every edit
-# the tool has made.
-tools/wiktionary/.credentials.json
+# Wiktionary contribution tooling (tools/wiktionary).
+# The records/ directory is deliberately NOT ignored - it is the audit trail of
+# every edit the tool has made.
+tools/wiktionary/.venv/
+tools/wiktionary/user-config.py
+tools/wiktionary/pywikibot.lwp
 tools/wiktionary/work/
+
+# Pywikibot's own scratch, written into PYWIKIBOT_DIR
+tools/wiktionary/apicache/
+tools/wiktionary/logs/
+tools/wiktionary/throttle.ctrl
+__pycache__/
+*.pyc
 
 .DS_Store
