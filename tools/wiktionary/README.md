@@ -255,6 +255,21 @@ Most of this is Pywikibot's by default. What we set:
 Consider a line on your Wiktionary user page saying you use this, linking the
 repo. It is the first thing anyone checks.
 
+## Checking the account
+
+```bash
+.venv/bin/python account.py
+```
+
+Prints the rights the account currently holds and anything AbuseFilter has
+logged against it. Worth running before a session and after any refusal.
+
+`autoconfirmed` is the one to watch. An AbuseFilter `blockautopromote` action
+withholds it, which is what a run of edits at bot pace earned here — filter 205
+("ac2") after eight saves ten seconds apart. It returns on its own when the
+action expires; there is nothing to apply for, and editing by hand meanwhile
+is fine.
+
 ## Records
 
 `records/` holds one JSON and one `.diff` per edit that actually happened —
