@@ -156,6 +156,7 @@ function renderTemplate(tpl, extra) {
 }
 
 export function buildWiktionaryTasks(entries, anchorTable) {
+  const byId = new Map(entries.map((e) => [e.id, e]));
   const byPage = new Map();
   for (const entry of entries) {
     if (!byPage.has(entry.headword)) byPage.set(entry.headword, []);
@@ -216,9 +217,43 @@ export function buildWiktionaryTasks(entries, anchorTable) {
         if (args[`id${i + 1}`]) return; // already says which
 
         const meaning = args[`t${i + 1}`] || null;
-        const matches = sectionsMatching(meaning, target.sections);
+        let matches = sectionsMatching(meaning, target.sections);
+
+        // A section can only be pointed at if the spelling written here
+        // actually reaches it. ayékòótọ́ records its component as "kọ" and
+        // glosses it "to reject", but "to refuse, reject" is kọ̀ - a different
+        // word. Proposing id=refuse there would be an edit our own resolver
+        // then rejects, and would paper over the real problem, which is a
+        // missing tone mark on the compound.
+        //
+        // Reachability comes from the morpheme's own resolved candidates, not
+        // from re-deriving it: headword is the untoned page title and is the
+        // same for every section, so comparing against it declared everything
+        // reachable and this filter did nothing.
+        const morpheme = (entry.etymologyMorphemes || []).find(
+          (mm) => mm.form === form && mm.analysisTemplate === tpl.name
+        );
+        const candidateSections = new Set(
+          ((morpheme && morpheme.entryIds) || [])
+            .map((id) => byId.get(id))
+            .filter(Boolean)
+            .map((e) => e.etymologyNumber)
+        );
+        const reachable = (sec) =>
+          candidateSections.size === 0 || candidateSections.has(sec.number);
+        // Tone errors are common enough that a differently toned word matching
+        // the recorded meaning is worth surfacing even when the tone-exact word
+        // matches too. ìwúre records "goodness, blessings" and reaches ire
+        // ("good fortune, good luck"), but ìre means precisely "blessings".
+        // That is a question for a Yoruba speaker, not a fault we can assert -
+        // baba and bàbá both mean father and are simply variants - so it rides
+        // along as a caution rather than changing the tier.
+        const outOfReach = matches.filter((h) => !reachable(h.section));
+        matches = matches.filter((h) => reachable(h.section));
+
         let tier;
-        if (!meaning) tier = 'C';
+        if (outOfReach.length && !matches.length) tier = 'S';
+        else if (!meaning) tier = 'C';
         else if (matches.length === 1) tier = 'A';
         else if (matches.length > 1) tier = 'B1';
         else tier = 'B2';
@@ -235,6 +270,13 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           template: renderTemplate(tpl),
           matchedSection: matches.length === 1 ? matches[0].section.number : null,
           matchedDefinition: matches.length === 1 ? matches[0].definition : null,
+          // The meaning belongs to a section spelled differently from what the
+          // compound wrote - a tone problem, not a missing pointer.
+          spelledElsewhere: outOfReach.length
+            ? { section: outOfReach[0].section.number,
+                spelling: outOfReach[0].section.entries[0].forms.exact,
+                definition: outOfReach[0].definition }
+            : null,
         });
       });
     }
@@ -259,7 +301,7 @@ export function buildWiktionaryTasks(entries, anchorTable) {
       const slugFor = new Map(anchors.map((a) => [a.etymologyNumber, a.slug]));
       const coversFor = new Map(p.sections.map((sec) => [sec.number, sec.definitions]));
 
-      const tierRank = { A: 0, B1: 1, B2: 2, C: 3 };
+      const tierRank = { A: 0, S: 1, B1: 2, B2: 3, C: 4 };
       const references = [...p.references]
         .sort((a, b) => tierRank[a.tier] - tierRank[b.tier] || a.word.localeCompare(b.word))
         .slice(0, MAX_REFERENCES_PER_PAGE)
@@ -273,6 +315,8 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           why:
             ref.tier === 'A'
               ? `its own etymology calls this component “${ref.meaning}”, and Etymology ${ref.matchedSection} covers “${ref.matchedDefinition}”`
+              : ref.tier === 'S'
+                ? `it writes this component as “${ref.component}” and calls it “${ref.meaning}” — but that meaning belongs to ${ref.spelledElsewhere.spelling}, a differently toned word. The tone here looks wrong, and that has to be settled before any pointer is added.`
               : ref.tier === 'C'
                 ? 'its etymology gives no meaning for this component, so somebody has to know the word'
                 : `its own etymology calls this component “${ref.meaning}”, which does not single out one section`,

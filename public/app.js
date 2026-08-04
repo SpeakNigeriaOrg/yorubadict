@@ -983,26 +983,37 @@
         </ul>
         <p class="task-note">This site has no Wiktionary account and makes no automated edits. Everything below is text for you to check and type.</p>
 
-        <h2>One that is already finished</h2>
-        <p>Someone has already done this for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a>, and it shows both halves in place.</p>
+        <h2>A worked example: kọ</h2>
+        <p>Seven different words are spelled <a href="#/entry/en-kọ-yo-verb-GyIdbR6y">kọ</a>, separated by tone. Going through them showed two separate faults, and it is worth seeing both.</p>
 
-        <h3>The page with the meanings</h3>
-        <p><em>de</em> has five, and each one has been given a name. The first line of each numbered section is the only addition:</p>
-        <pre class="wikitext">===Etymology 1===
-{{etymid|yo|tie down}}
+        <h3>The seven meanings</h3>
+        <pre class="wikitext">kọ̀   to refuse, reject
+kọ́   to build, construct · to learn, teach
+kọ́   a negation particle
+kọ́   to hang, suspend
+kọ    to write
+kọ    to stub, strike, hit
+kọ    to recite</pre>
 
-===Etymology 4===
-{{etymid|yo|arrive}}</pre>
+        <h3>Fault one: words attached to the wrong meaning</h3>
+        <p>Most words built from <em>kọ</em> are about writing — <em>àkọtọ́</em> (orthography), <em>àròkọ</em> (essay), <em>àkọọ́lẹ̀</em> (written record) — and those were already right.</p>
+        <p><a href="#/entry/en-ayekootọ-yo-noun-oyCCzzpN">ayékòótọ́</a>, "parrot", was not. Its etymology records the component as meaning "to reject", which is <em>kọ̀</em> — but it writes the component untoned, as <em>kọ</em>, and untoned <em>kọ</em> reaches only the write, stub and recite meanings. So it landed on "to write".</p>
+        <p>The fix is not a pointer. The tone mark is missing, and until that is settled there is nothing correct to point at. Cases like this are listed separately below, because adding a pointer would hide the problem rather than fix it.</p>
 
-        <h3>A word built from one of them</h3>
-        <p><a href="https://en.wiktionary.org/wiki/K%E1%BB%8Dlade#Yoruba" target="_blank" rel="noopener noreferrer">Kọlade</a> is a name meaning "Bring honor home". Its etymology on Wiktionary reads:</p>
-        <pre class="wikitext">{{compound|yo|kó|ọlá|dé|t1=to bring|t2=honor, wealth|t3=to arrive|id3=arrive}}</pre>
-        <p><em>dé</em> is the third part, so <code>id3</code> is the one that says which <em>dé</em> is meant: the meaning named <em>arrive</em>.</p>
-        <p>Every task below is one or both of those two lines.</p>
+        <h3>Fault two: every meaning claiming the same words</h3>
+        <p>Look at what each <em>kọ</em> listed under <em>Used in</em> before this:</p>
+        <pre class="wikitext">to write            8 words
+to stub, strike     the same 8 words
+to recite           the same 8 words</pre>
+        <p>All eight belong to <em>to write</em>. The other two meanings were showing a borrowed list, because words were being attached to a spelling rather than to a meaning. A reader looking up <em>kọ</em> "to stub, strike, hit" was told it builds <em>àròkọ</em>, "essay".</p>
+        <p>That one was ours, not Wiktionary's, and it is fixed. Each word now appears under the meaning it was actually attributed to:</p>
+        <pre class="wikitext">to write            7 words
+to stub, strike     none
+to recite           kọrin, "to sing"</pre>
+        <p>Empty is the honest answer. Nothing in the dictionary is yet recorded as built from <em>kọ</em> "to stub, strike, hit".</p>
 
-        <h3>What it does</h3>
-        <p>Because that pointer is there, <a href="#/entry/en-Kọlade-yo-name-2o49c7DW">Kọlade</a> shows <a href="#/entry/en-de-yo-verb-MaosAbO4">dé</a> "to arrive" under <em>Component words</em>, and not one of the other four. Nothing was inferred.</p>
-        <p>Without it we would compare the words "to arrive" against each of the five meanings and take the closest. That often works. It is also how <em>pàdé</em> ended up filed under "to kill".</p>
+        <h3>What is left on kọ</h3>
+        <p>Six words can be pointed at a meaning straight away, once the seven names exist. One needs its tone settled first. One — <a href="#/entry/en-kọja-yo-verb-yadZ7L6K">kọjá</a>, "to pass beyond" — records no meaning for its <em>kọ</em> at all, so it needs someone who knows the word. All eight are listed below under <em>kọ</em>.</p>
 
         <div id="tasks-list">${listHtml}</div>
       </div>
@@ -1027,6 +1038,7 @@
     A: 'suggested — check it',
     B1: 'you choose',
     B2: 'you choose',
+    S: 'tone looks wrong',
     C: 'needs a Yorùbá speaker',
   };
 
@@ -1035,7 +1047,7 @@
     const byTier = t.byTier || {};
     const head = `<div class="tasks-summary">
       <p>${t.references} words across ${t.pagesNeedingAnchors} pages do not record which meaning they were built from. Pages are ordered by how many words each one affects.</p>
-      <p>Of those words, ${byTier.A || 0} have a suggested answer to check, ${(byTier.B1 || 0) + (byTier.B2 || 0)} record a meaning that does not single out one section, and ${byTier.C || 0} record no meaning at all.</p>
+      <p>Of those words, ${byTier.A || 0} have a suggested answer to check, ${(byTier.B1 || 0) + (byTier.B2 || 0)} record a meaning that does not single out one section, and ${byTier.C || 0} record no meaning at all. A further ${byTier.S || 0} record a meaning belonging to a differently toned word, so the tone has to be settled before a pointer can be added.</p>
     </div>`;
 
     return head + (data.pages || []).slice(0, 40).map((page) => `
@@ -1068,6 +1080,9 @@
               ${r.proposedValue
                 ? `<code>add ${escapeHtml(r.argument)}=${escapeHtml(r.proposedValue)}</code>`
                 : `<code>add ${escapeHtml(r.argument)}=?</code>`}
+              ${r.spelledElsewhere && r.tier !== 'S'
+                ? `<div class="task-caution">Check the tone first: <strong>${escapeHtml(r.spelledElsewhere.spelling)}</strong>, a differently toned word on the same page, is defined as “${escapeHtml(r.spelledElsewhere.definition)}” and may be what was meant.</div>`
+                : ''}
               <div class="task-why">${escapeHtml(r.why)}${r.sectionCovers && r.sectionCovers.length > 1
                 ? `. That section also covers ${r.sectionCovers.slice(1).map((d) => `“${d}”`).join(', ')}`
                 : ''}</div>

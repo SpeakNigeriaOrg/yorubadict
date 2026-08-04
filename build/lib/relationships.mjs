@@ -285,6 +285,41 @@ function pickByDiscriminatingMeaning(meaning, ids, byId) {
   return best > 0 && !tied ? winner : null;
 }
 
+// "Used in" arrives from kaikki-yoruba fanned out across the whole tone group:
+// every kọ entry sharing a spelling gets an identical list, so kọ "to stub,
+// strike, hit" and kọ "to recite" each displayed all eight words belonging to
+// kọ "to write". Three sections, one list, two of them wrong.
+//
+// Rebuilt here as the exact inverse of the link we resolved in the other
+// direction, so a word appears under the meaning it was actually attributed
+// to and nowhere else. Where that attribution was a guess it stays a guess -
+// but it is now one guess rather than the same guess copied across every
+// homograph. Measured on kọ: the negation particle drops from 12 words to 0,
+// "to stub, strike, hit" from 8 to 0, and "to recite" from 8 to the one word
+// that really is built from it.
+function attributeUsedIn(entries, byId) {
+  const inverse = new Map(); // root entry id -> compounds built from it
+  for (const entry of entries) {
+    for (const m of entry.etymologyMorphemes || []) {
+      if (!m.resolved) continue;
+      const rootId = m.chosenEntryId || (m.entryIds || [])[0];
+      if (!rootId || rootId === entry.id || !byId.has(rootId)) continue;
+      if (!inverse.has(rootId)) inverse.set(rootId, new Map());
+      inverse.get(rootId).set(entry.id, {
+        entryId: entry.id,
+        text: entry.canonicalForm.value,
+        provenance: 'attributed_from_etymology',
+        // so the UI can tell a recorded fact from an inference
+        confidence: m.chosenBy || 'single',
+      });
+    }
+  }
+  for (const entry of entries) {
+    const found = inverse.get(entry.id);
+    entry.usedInCompounds = found ? [...found.values()] : [];
+  }
+}
+
 // The gloss the etymology attaches to one specific spelling. Deliberately not
 // "the first quoted gloss in etymologyText": for the ì-/à- nominalizations
 // that make up most of the ambiguous cases, the first gloss belongs to the
@@ -450,6 +485,7 @@ export function synthesizeRelationships(entries) {
   const anchorTable = buildAnchorTable(entries);
   const danglingAnchors = [];
   annotateMorphemeConfidence(entries, byId, anchorTable, danglingAnchors);
+  attributeUsedIn(entries, byId);
 
   const dialect = synthesizeDialectRelations(entries, aliasIndex, byId);
 

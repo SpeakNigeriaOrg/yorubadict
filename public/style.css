@@ -1478,3 +1478,9 @@ a { color: inherit; }
   line-height: 1.7;
   overflow-x: auto;
 }
+.task-caution {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--brand-accent-deep);
+}
