@@ -60,114 +60,75 @@
   }
 
   // ---------------------------------------------------------------
-  // Sorted-array search helpers (binary search for exact + prefix)
-  // ---------------------------------------------------------------
-
-  function lowerBound(arr, target) {
-    let lo = 0, hi = arr.length;
-    while (lo < hi) {
-      const mid = (lo + hi) >>> 1;
-      if (arr[mid] < target) lo = mid + 1; else hi = mid;
-    }
-    return lo;
-  }
-
-  function exactMatch(tier, query) {
-    const i = lowerBound(tier.spellings, query);
-    if (i < tier.spellings.length && tier.spellings[i] === query) {
-      return tier.postings[tier.spellings[i]];
-    }
-    return [];
-  }
-
-  function prefixMatches(tier, prefix, limit) {
-    const start = lowerBound(tier.spellings, prefix);
-    const results = [];
-    for (let i = start; i < tier.spellings.length; i++) {
-      const spelling = tier.spellings[i];
-      if (!spelling.startsWith(prefix)) break;
-      for (const id of tier.postings[spelling]) results.push(id);
-      if (results.length >= limit) break;
-    }
-    return results;
-  }
-
-  // ---------------------------------------------------------------
-  // English scoring
+  // Sorted-array search helpers
   // ---------------------------------------------------------------
   //
-  // The scorer itself lives in english-relevance.js, loaded before this file, because it also has to
-  // be reachable from Node: build/check-search-agreement.mjs checks the ranking against a fixture
-  // shared with yoruba_student_dict_platform, and a checker that reimplements the thing it checks
-  // drifts from it. That drift is exactly what let searching "child" break in both engines, in two
-  // different ways, without either noticing.
+  // lowerBound / exactMatch / prefixMatches moved into english-relevance.js alongside the ranking
+  // itself, so a Node checker can exercise the real search rather than a copy of it - see that
+  // file's note. The dialect tier stays here because its matching has a side effect.
 
-  function bm25Search(query, limit) {
-    return EnglishRelevance.bm25Search(
-      state.index.english,
-      state.index.components || {},
-      query,
-      limit,
-      {
-        orthographyInsensitive: orthographyInsensitive,
-        formOfEntry: function (entryId) {
-          var entry = state.entries[entryId];
-          if (!entry) return '';
-          return entry.canonicalForm ? entry.canonicalForm.value : entry.headword;
-        },
-      }
-    );
-  }
+  const lowerBound = EnglishRelevance.lowerBound;
 
   // ---------------------------------------------------------------
-  // Combined ranking (spec section 7):
-  //   1. exact Yoruba match
+  // Combined ranking
+  //
+  // HARD, in order - each is an identification, and nothing outranks one:
+  //   1. exact Yorùbá match
   //   2. tone-insensitive match
   //   3. orthography-insensitive match
-  //   4. prefix matches
-  //   5. English full-text matches
-  // Deterministic: dedupes by id, preserving first-seen tier order.
+  //   4. dialect tier (a variety's word for a standard entry)
+  //
+  // SOFT, merged and sorted by score - both are guesses of a different kind:
+  //   5. prefix matches, scored by how much of the word the query covers
+  //   6. English gloss matches, scored by relevance
+  //
+  // Spec section 7 described 5 and 6 as separate ranked tiers, prefix always first. That is what
+  // buried ojú for "eye" - see the note at the soft block below. Deterministic either way: dedupes
+  // by id, and the soft block sorts on score with no dependence on corpus order.
   // ---------------------------------------------------------------
+
+  // Handed to rankQuery to switch a half off, so the scope toggle needs no branching inside it.
+  const EMPTY_TIER = { spellings: [], postings: {} };
+  const EMPTY_ENGLISH = { postings: {}, df: {}, docEntryIds: [], docLengths: [], avgDocLength: 1, totalDocs: 0, glossDocCount: 0, exactClauses: {} };
 
   function search(query, limit = 40) {
     const trimmed = query.trim();
     if (!trimmed || !state.ready) return [];
 
-    const seen = new Set();
-    const ordered = [];
-    const push = (ids) => {
-      for (const id of ids) {
-        if (!seen.has(id)) {
-          seen.add(id);
-          ordered.push(id);
-        }
-      }
-    };
-
     const mode = state.searchMode;
     const y = state.index.yoruba;
 
-    // Why the dialect tier is last among the Yorùbá tiers: it matches a word
-    // that a *variety* uses and returns the standard entry it belongs to, so
-    // it must never outrank a real headword. It's Yorùbá, so it belongs to the
-    // YO scope and is skipped when only EN is lit.
+    // Why the dialect tier sits with the hard tiers: it matches a word a *variety* uses and returns
+    // the standard entry it belongs to, so it is an identification rather than a partial spelling.
+    // It is Yorùbá, so it belongs to the YO scope and is skipped when only EN is lit. Computed here
+    // rather than inside rankQuery because it records which varieties produced each hit.
     state.dialectMatches = new Map();
+    const dialectIds =
+      mode === 'both' || mode === 'yoruba'
+        ? dialectMatches(y.dialect, orthographyInsensitive(trimmed), limit)
+        : [];
 
-    // 1. Yorùbá Search Path
-    if (mode === 'both' || mode === 'yoruba') {
-      push(exactMatch(y.exact, trimmed));
-      push(exactMatch(y.tone, toneInsensitive(trimmed)));
-      push(exactMatch(y.ortho, orthographyInsensitive(trimmed)));
-      push(prefixMatches(y.ortho, orthographyInsensitive(trimmed), limit));
-      push(dialectMatches(y.dialect, orthographyInsensitive(trimmed), limit));
-    }
+    const helpers = {
+      orthographyInsensitive: orthographyInsensitive,
+      toneInsensitive: toneInsensitive,
+      dialectIds: dialectIds,
+      formOfEntry: function (entryId) {
+        const entry = state.entries[entryId];
+        if (!entry) return '';
+        return entry.canonicalForm ? entry.canonicalForm.value : entry.headword;
+      },
+    };
 
-    // 2. English Search Path
-    if (mode === 'both' || mode === 'english') {
-      push(bm25Search(trimmed, limit));
-    }
+    // Scope toggles are applied by handing rankQuery an empty half rather than by branching inside
+    // it: an EN-only search gets no Yoruba tiers, a YO-only search no gloss index.
+    const scoped = {
+      yoruba: mode === 'english' ? { exact: EMPTY_TIER, tone: EMPTY_TIER, ortho: EMPTY_TIER } : y,
+      english: mode === 'yoruba' ? EMPTY_ENGLISH : state.index.english,
+    };
 
-    return ordered.slice(0, limit).map((id) => state.entries[id]);
+    return EnglishRelevance.rankQuery(scoped, state.index.components || {}, trimmed, limit, helpers).map(
+      (id) => state.entries[id]
+    );
   }
 
   // Exact then prefix over the dialect tier. Records which varieties produced

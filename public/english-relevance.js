@@ -59,6 +59,27 @@
    * appears in still surfaces without competing with meaning. */
   var EXAMPLE_DOC_WEIGHT = 0.3;
 
+  /** Scales a partial-spelling (prefix) match onto this score's range, so the two can be compared.
+   *
+   * A prefix match used to outrank every English match automatically, however little of the word the
+   * query covered. Searching "eye" filled the whole first page with Yoruba - it IS ẹyẹ (bird)
+   * orthography-insensitively, and a prefix of eyeye/èyé/yéye - so ojú, whose gloss is literally
+   * "eye", was pushed off it.
+   *
+   * Coverage is always below 1 for a prefix, since a full-length match would have been the
+   * whole-string tier. 9 puts a near-complete prefix above a strong English match and a
+   * three-of-eight-character one below it.
+   *
+   * The three whole-string tiers stay ABSOLUTE - if you typed the word, you get the word. Softening
+   * those too was measured in the platform: it lifts ojú to first but pushes the Yoruba query `owo`
+   * from #5 to #11, trading a Yoruba answer for an English one in a Yoruba dictionary. */
+  var PREFIX_SCALE = 9;
+
+  function prefixMatchScore(queryLength, formLength) {
+    if (formLength <= 0) return 0;
+    return (queryLength / formLength) * PREFIX_SCALE;
+  }
+
   function tokenizeQuery(query) {
     return query.toLowerCase().split(/[^a-z0-9']+/).filter(function (t) { return t.length > 1; });
   }
@@ -138,8 +159,110 @@
     });
 
     finalScores.sort(function (a, b) { return b[1] - a[1]; });
-    return finalScores.slice(0, limit).map(function (pair) { return pair[0]; });
+    // Scores, not just ids: search() merges these with scored prefix matches, so it needs both.
+    return finalScores.slice(0, limit);
   }
 
-  return { bm25Search: bm25Search, EXAMPLE_DOC_WEIGHT: EXAMPLE_DOC_WEIGHT };
+  // ---------------------------------------------------------------------------
+  // The full ranking, so a checker can exercise what a user actually gets
+  // ---------------------------------------------------------------------------
+  // The tier lookups and the hard/soft merge live here rather than in app.js's search() because
+  // otherwise nothing outside a browser can reach them - and a check that only covers the English
+  // scorer misses the tier interaction entirely. That is not a hypothetical gap either: it let a
+  // claim that "eye -> ojú reaches #1 in yorubadict but not the platform" stand for a while, when in
+  // fact both put it around #9 once the Yoruba tiers are included.
+  //
+  // app.js still owns the dialect tier, because matching there has a side effect (recording which
+  // varieties produced a hit, for the result row to explain itself). It passes the ids in.
+
+  function lowerBound(arr, target) {
+    var lo = 0, hi = arr.length;
+    while (lo < hi) {
+      var mid = (lo + hi) >>> 1;
+      if (arr[mid] < target) lo = mid + 1; else hi = mid;
+    }
+    return lo;
+  }
+
+  function exactMatch(tier, query) {
+    var i = lowerBound(tier.spellings, query);
+    if (i < tier.spellings.length && tier.spellings[i] === query) return tier.postings[tier.spellings[i]];
+    return [];
+  }
+
+  /** [entryId, score] pairs, scored by how much of the matched word the query covers. */
+  function prefixMatches(tier, prefix, limit) {
+    var start = lowerBound(tier.spellings, prefix);
+    var results = [];
+    var byId = new Map();
+    for (var i = start; i < tier.spellings.length; i++) {
+      var spelling = tier.spellings[i];
+      if (spelling.indexOf(prefix) !== 0) break;
+      var score = prefixMatchScore(prefix.length, spelling.length);
+      var postings = tier.postings[spelling];
+      for (var j = 0; j < postings.length; j++) {
+        var id = postings[j];
+        // The same entry can be reached under several spellings; keep its best coverage.
+        if (byId.has(id)) {
+          var prior = byId.get(id);
+          if (score > prior[1]) prior[1] = score;
+        } else {
+          var pair = [id, score];
+          byId.set(id, pair);
+          results.push(pair);
+        }
+      }
+      if (results.length >= limit) break;
+    }
+    return results;
+  }
+
+  /** Entry ids, best first: the three whole-string tiers and the dialect tier are absolute, then
+   * prefix and English compete on score. */
+  function rankQuery(index, components, query, limit, helpers) {
+    var trimmed = query.trim();
+    if (!trimmed) return [];
+    var y = index.yoruba;
+    var seen = new Set();
+    var ordered = [];
+    var push = function (ids) {
+      for (var i = 0; i < ids.length; i++) {
+        if (!seen.has(ids[i])) { seen.add(ids[i]); ordered.push(ids[i]); }
+      }
+    };
+
+    push(exactMatch(y.exact, trimmed));
+    push(exactMatch(y.tone, helpers.toneInsensitive(trimmed)));
+    push(exactMatch(y.ortho, helpers.orthographyInsensitive(trimmed)));
+    push(helpers.dialectIds || []);
+
+    var soft = new Map();
+    var offer = function (pairs) {
+      for (var i = 0; i < pairs.length; i++) {
+        var id = pairs[i][0], score = pairs[i][1];
+        if (seen.has(id)) continue; // a hard match already claimed it
+        if (!soft.has(id) || soft.get(id) < score) soft.set(id, score);
+      }
+    };
+    offer(prefixMatches(y.ortho, helpers.orthographyInsensitive(trimmed), limit));
+    offer(bm25Search(index.english, components, trimmed, limit, helpers));
+
+    var softList = [];
+    soft.forEach(function (score, id) { softList.push([id, score]); });
+    softList.sort(function (a, b) { return b[1] - a[1]; });
+    push(softList.map(function (pair) { return pair[0]; }));
+
+    return ordered.slice(0, limit);
+  }
+
+  return {
+    bm25Search: bm25Search,
+    prefixMatchScore: prefixMatchScore,
+    prefixMatches: prefixMatches,
+    exactMatch: exactMatch,
+    lowerBound: lowerBound,
+    rankQuery: rankQuery,
+    EXAMPLE_DOC_WEIGHT: EXAMPLE_DOC_WEIGHT,
+    PREFIX_SCALE: PREFIX_SCALE,
+  };
 });

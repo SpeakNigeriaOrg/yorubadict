@@ -596,11 +596,36 @@ frontend build step just to share code.
 
 ### Search ranking
 
-Priority order (`public/app.js`, `search()`): exact Yorùbá match →
-tone-insensitive → orthography-insensitive → prefix → English BM25, deduped
-by id, first-seen tier wins. This is what makes "search both directions at
-once" work without a special-cased merge step — it's just running the
-Yorùbá tiers and the English index and keeping first-seen order.
+Priority order (`public/english-relevance.js`, `rankQuery`): exact Yorùbá match
+→ tone-insensitive → orthography-insensitive → dialect, deduped by id,
+first-seen tier wins; then prefix and English BM25 **merged by score**. This is
+what makes "search both directions at once" work without a special-cased merge
+step — it's just running the Yorùbá tiers and the English index over one `seen`
+set.
+
+The ranking lives in `english-relevance.js` rather than in `app.js`'s `search()`
+so something outside a browser can reach it: `build/check-search-agreement.mjs`
+exercises the ranking a user actually gets, not a reimplementation of it. A check
+covering only the English scorer misses the tier interaction, and that gap let a
+wrong claim about where `ojú` lands for "eye" stand for a while. `search()` keeps
+the dialect tier, because matching there has a side effect — recording which
+varieties produced a hit, so the result row can explain itself.
+
+#### The first three tiers are hard; prefix competes on score
+
+The whole-string tiers are *identifications* — if you typed the word, you get the
+word. A **prefix** match is a weaker claim, and it used to outrank every English
+match automatically however little of the word the query covered. Searching "eye"
+filled the whole first page with Yorùbá (it *is* `ẹyẹ` orthography-insensitively,
+and a prefix of `eyeye`/`èyé`/`yéye`), pushing `ojú` — glossed "eye" — off it.
+
+A prefix now scores by how much of the matched word the query covers
+(`prefixMatchScore`, `PREFIX_SCALE = 9`, mirrored in the platform so the two
+cannot drift on how a partial spelling compares to a gloss match) and sorts
+against English scores. `dog` → `ajá` and `moon` → `òṣùpá` went to #1, `eye` →
+`ojú` #18 → #9, and every Yorùbá query tested is unchanged. Softening the
+whole-string tiers too was measured in the platform and rejected — it trades a
+Yorùbá answer for an English one.
 
 Every Yorùbá tier indexes each entry's alt forms as well as its canonical
 spelling (`build/lib/search-index.mjs`'s `searchableForms`) — an alt form is

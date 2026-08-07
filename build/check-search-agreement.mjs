@@ -21,7 +21,7 @@ const rootDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 // The scorer assigns itself to globalThis so one file serves both a browser <script> and Node ESM -
 // see its header. Importing it for the side effect is how Node gets at it.
 await import(pathToFileURL(path.join(rootDir, 'public', 'english-relevance.js')).href);
-const { bm25Search } = globalThis.EnglishRelevance;
+const { rankQuery } = globalThis.EnglishRelevance;
 
 const load = (...parts) => JSON.parse(readFileSync(path.join(rootDir, ...parts), 'utf8'));
 
@@ -32,8 +32,12 @@ const fixture = load('build', 'fixtures', 'search_agreement.json');
 const entryList = Array.isArray(rawEntries) ? rawEntries : Object.values(rawEntries);
 const entriesById = new Map(entryList.map((e) => [e.id, e]));
 
+// The dialect tier is deliberately not exercised: its matching has a side effect in the browser
+// (recording which varieties produced a hit) and this fixture asserts nothing about it.
 const helpers = {
   orthographyInsensitive: (s) => allForms(s).orthographyInsensitive,
+  toneInsensitive: (s) => allForms(s).toneInsensitive,
+  dialectIds: [],
   formOfEntry: (entryId) => {
     const entry = entriesById.get(entryId);
     if (!entry) return '';
@@ -42,10 +46,11 @@ const helpers = {
 };
 
 const nfc = (s) => s.normalize('NFC');
+/** The FULL ranking a user gets - hard Yoruba tiers and the soft prefix/English block - not just the
+ * English scorer. Checking the scorer alone missed the tier interaction, which is how a wrong claim
+ * about where `ojú` lands for "eye" survived for a while. */
 function formsFor(query, limit) {
-  return bm25Search(index.english, index.components || {}, query, limit, helpers).map((id) =>
-    nfc(helpers.formOfEntry(id)),
-  );
+  return rankQuery(index, index.components || {}, query, limit, helpers).map((id) => nfc(helpers.formOfEntry(id)));
 }
 
 const failures = [];
