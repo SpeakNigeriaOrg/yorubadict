@@ -70,27 +70,85 @@ function buildSortedTierIndex(entries, tierKey, formsByEntry) {
   };
 }
 
+// One document per GLOSS, not per entry. This is the fix for the bug that started this:
+// searching "child" put ọmọ - the word for child - at #35.
+//
+// BM25 divides by document length, and pooling every sense of an entry into one document meant a
+// word was penalised for having many senses, which is to say for being important. ọmọ's pooled
+// document is 3.5x the corpus average, so it lost to ọmọkọ́mọ ("any child, naughty child": one
+// sense, eight tokens). Measured across the corpus, rank correlated almost perfectly with document
+// length: ojú (2 senses, 0.4x average) #1, ilé (4 senses, 2.2x) #28, igi (5 senses, 2.2x) #79.
+//
+// Per-gloss documents, with an entry scoring as its BEST gloss, put ọmọ and igi at #1. Verified
+// against this corpus before the change was written.
+//
+// Example translations stay searchable but as their own documents, and they cannot earn the
+// exact-gloss bonus below - finding a word through a sentence it appears in is a real feature, and
+// it should not compete with what the word MEANS. This is one of the few places yorubadict and
+// yoruba_student_dict_platform legitimately differ, because the platform's corpus rows carry no
+// examples at all.
+//
+// Keep this in step with the platform's shared/src/englishRelevance.ts. The two engines had drifted
+// into scoring English completely differently, which is how one query got broken in two different
+// ways at once.
 function buildEnglishIndex(entries) {
-  const postings = new Map(); // token -> Map(entryId -> tf)
-  const docLengths = {};
+  const postings = new Map(); // token -> Map(docIdx -> tf)
+  /** docIdx -> entryId. The client folds per-document scores back up to one score per entry. */
+  const docEntryIds = [];
+  const docLengths = [];
+  /** An exact-clause inverted index: "child" -> [docIdx, ...].
+   *
+   * The bonus for "this gloss IS the query" needs to know a gloss's clauses at query time, and
+   * shipping every clause per document would bloat the artifact. Inverting it costs one row per
+   * distinct clause instead. */
+  const exactClauses = new Map();
 
-  for (const entry of entries) {
-    const { glossText, exampleText } = englishTextForEntry(entry);
-    const tokens = [
-      ...tokenize(glossText, { keepStopwords: true }),
-      ...tokenize(exampleText),
-    ];
-    docLengths[entry.id] = tokens.length;
+  const addDoc = (entryId, tokens, clauses) => {
+    if (tokens.length === 0) return;
+    const docIdx = docEntryIds.length;
+    docEntryIds.push(entryId);
+    docLengths.push(tokens.length);
     const tf = new Map();
     for (const tok of tokens) tf.set(tok, (tf.get(tok) || 0) + 1);
     for (const [tok, count] of tf.entries()) {
       if (!postings.has(tok)) postings.set(tok, new Map());
-      postings.get(tok).set(entry.id, count);
+      postings.get(tok).set(docIdx, count);
+    }
+    for (const clause of clauses) {
+      if (!exactClauses.has(clause)) exactClauses.set(clause, []);
+      exactClauses.get(clause).push(docIdx);
+    }
+  };
+
+  // GLOSS documents first, then EXAMPLE documents, so one integer separates the two kinds and the
+  // client can weight them differently without an extra per-document array.
+  //
+  // The weighting matters more than it looks. Once documents are per-gloss they are short, and a
+  // three-word example translation mentioning "child" then outscores real glosses: measured, the
+  // first pass at this put dẹ̀ ("to be soft in texture"), mu ("to drink") and akọ ("male") into the
+  // top ten for "child", purely because each has an example sentence with a child in it. An example
+  // is evidence that a word appears NEAR the query, not that it means it.
+  for (const entry of entries) {
+    for (const sense of entry.senses) {
+      // Glosses keep stopwords, for the reason englishTextForEntry documents: a real Yoruba
+      // demonstrative's entire correct gloss can be "that".
+      for (const gloss of [...(sense.glosses || []), ...(sense.rawGlosses || [])]) {
+        addDoc(entry.id, tokenize(gloss, { keepStopwords: true }), clausesOfGloss(gloss));
+      }
+    }
+  }
+  const glossDocCount = docEntryIds.length;
+
+  for (const entry of entries) {
+    for (const sense of entry.senses) {
+      for (const ex of sense.examples) {
+        if (ex.translation) addDoc(entry.id, tokenize(ex.translation), []);
+      }
     }
   }
 
-  const totalDocs = entries.length;
-  const totalLength = Object.values(docLengths).reduce((a, b) => a + b, 0);
+  const totalDocs = docEntryIds.length;
+  const totalLength = docLengths.reduce((a, b) => a + b, 0);
   const avgDocLength = totalDocs > 0 ? totalLength / totalDocs : 0;
 
   const postingsOut = {};
@@ -100,7 +158,47 @@ function buildEnglishIndex(entries) {
     df[tok] = docMap.size;
   }
 
-  return { postings: postingsOut, df, docLengths, avgDocLength, totalDocs };
+  return {
+    postings: postingsOut,
+    df,
+    docEntryIds,
+    docLengths,
+    avgDocLength,
+    totalDocs,
+    /** Documents below this index are glosses; at or above it, example translations. */
+    glossDocCount,
+    exactClauses: Object.fromEntries(exactClauses),
+  };
+}
+
+/** The `;`/`,`-delimited clauses of a gloss, folded the way tokens are.
+ *
+ * A gloss is usually a list of near-synonyms ("child; offspring", "path, way, road"), so the unit
+ * that can equal a query is a clause rather than the whole string. Mirrors glossClauses in the
+ * platform's englishRelevance.ts. */
+function clausesOfGloss(gloss) {
+  return allForms(gloss || '')
+    .orthographyInsensitive.replace(/["'’“”().]/g, '')
+    .split(/[;,]/)
+    .map((clause) => clause.trim())
+    .filter(Boolean);
+}
+
+/** For each entry, the non-bound morphemes it is built FROM, orthography-insensitively.
+ *
+ * Feeds the "root of other matching words" bonus: ọmọ should rank up partly because ọmọdé,
+ * ọmọkọ́mọ and ọmọ àlè are built out of it, and Wiktionary's etymology records that directly.
+ * Bound morphemes (prefixes like `a-`) are skipped - they are not words a search should promote. */
+function buildComponentIndex(entries) {
+  const out = {};
+  for (const entry of entries) {
+    const parts = (entry.etymologyMorphemes || [])
+      .filter((m) => m && !m.bound && m.form)
+      .map((m) => allForms(m.form).orthographyInsensitive)
+      .filter(Boolean);
+    if (parts.length > 0) out[entry.id] = [...new Set(parts)];
+  }
+  return out;
 }
 
 // Dialect synonyms are searchable, but on their own tier and pointing at the
@@ -165,5 +263,6 @@ export function buildSearchIndex(entries) {
       dialect: buildDialectTier(entries, ortho),
     },
     english: buildEnglishIndex(entries),
+    components: buildComponentIndex(entries),
   };
 }

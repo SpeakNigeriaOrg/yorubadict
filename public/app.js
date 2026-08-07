@@ -93,36 +93,30 @@
   }
 
   // ---------------------------------------------------------------
-  // English BM25 scoring over the prebuilt inverted index
+  // English scoring
   // ---------------------------------------------------------------
+  //
+  // The scorer itself lives in english-relevance.js, loaded before this file, because it also has to
+  // be reachable from Node: build/check-search-agreement.mjs checks the ranking against a fixture
+  // shared with yoruba_student_dict_platform, and a checker that reimplements the thing it checks
+  // drifts from it. That drift is exactly what let searching "child" break in both engines, in two
+  // different ways, without either noticing.
 
   function bm25Search(query, limit) {
-    const eng = state.index.english;
-    const tokens = query
-      .toLowerCase()
-      .split(/[^a-z0-9']+/)
-      .filter((t) => t.length > 1);
-    if (tokens.length === 0) return [];
-
-    const k1 = 1.5, b = 0.75;
-    const scores = new Map();
-
-    for (const tok of tokens) {
-      const postings = eng.postings[tok];
-      if (!postings) continue;
-      const df = eng.df[tok] || postings.length;
-      const idf = Math.log(1 + (eng.totalDocs - df + 0.5) / (df + 0.5));
-      for (const [docId, tf] of postings) {
-        const docLen = eng.docLengths[docId] || 1;
-        const norm = tf * (k1 + 1) / (tf + k1 * (1 - b + b * (docLen / eng.avgDocLength)));
-        scores.set(docId, (scores.get(docId) || 0) + idf * norm);
+    return EnglishRelevance.bm25Search(
+      state.index.english,
+      state.index.components || {},
+      query,
+      limit,
+      {
+        orthographyInsensitive: orthographyInsensitive,
+        formOfEntry: function (entryId) {
+          var entry = state.entries[entryId];
+          if (!entry) return '';
+          return entry.canonicalForm ? entry.canonicalForm.value : entry.headword;
+        },
       }
-    }
-
-    return [...scores.entries()]
-      .sort((a, b2) => b2[1] - a[1])
-      .slice(0, limit)
-      .map(([id]) => id);
+    );
   }
 
   // ---------------------------------------------------------------

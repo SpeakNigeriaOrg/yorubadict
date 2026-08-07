@@ -607,6 +607,39 @@ spelling (`build/lib/search-index.mjs`'s `searchableForms`) — an alt form is
 real, displayed data (e.g. `iná` "fire" lists `uná` as an alternative form),
 and without this it was findable on the page but not by searching for it.
 
+#### English documents are per-GLOSS, and a word scores as its best one
+
+Searching "child" used to put **ọmọ** — the word for child — at **#35**. BM25
+divides by document length, and the index pooled every sense of an entry into
+one document, so a word was penalised for having many senses, which is to say
+for being important. Rank tracked document length almost exactly: `ojú`
+(2 senses, 0.4× the average) #1, `ilé` (4 senses, 2.2×) #28, `ọmọ` (5 senses,
+3.5×) #35, `igi` (5 senses, 2.2×) #79.
+
+One document per gloss, with an entry scoring as its **best** gloss, puts
+`ọmọ` and `igi` first. Two bonuses sit on top: a gloss that *is* the query
+outranks one that merely mentions it, and a word that other **matching** words
+are built from gets a minor, damped, capped lift — so `ọmọ` benefits from
+`ọmọdé`, `ọmọkọ́mọ` and `ọmọ àlè` also matching. That bonus counts only other
+members of the same result set, which is what keeps it minor: searching
+"wheelbarrow" finds `ọmọlan̄ke` without dragging `ọmọ` along.
+
+Example translations stay searchable but at **0.3 weight**. Once documents are
+per-gloss they are short, and a three-word example sentence mentioning a child
+otherwise outscores real definitions — measured, `dẹ̀` ("to be soft in
+texture"), `mu` ("to drink") and `akọ` ("male") all reached the top ten for
+"child" before the weighting.
+
+The scorer lives in `public/english-relevance.js` rather than inside `app.js`,
+so Node can load the same file the browser does. It is mirrored by
+`shared/src/englishRelevance.ts` in **yoruba_student_dict_platform**, and
+`npm run check:search` asserts `build/fixtures/search_agreement.json` — a
+fixture checked into *both* repos. The two engines had drifted into scoring
+English completely differently, which is how one query ended up broken in both,
+in two different ways, with nothing to notice. That fixture is not full parity:
+it records the differences the two are allowed to have, and fails on the ones
+they are not.
+
 The English index deliberately does *not* apply stopword-filtering to
 glosses (only to example-sentence translations, genuine prose where
 "the"/"and" are just connective noise). A gloss is a short, curated
