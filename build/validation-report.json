@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-04T18:53:42.798Z",
-  "totalEntries": 6272,
+  "generatedAt": "2026-08-10T10:09:48.689Z",
+  "totalEntries": 6273,
   "parseErrors": [],
   "inferredCanonicalForms": [
     {
@@ -30038,8 +30038,8 @@
       "target": "wiktionary",
       "why": "Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé (\"to meet\") look like it comes from pa (\"to kill\").",
       "fix": "Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page \"de\". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.",
-      "count": 52,
-      "pageCount": 52,
+      "count": 51,
+      "pageCount": 51,
       "pages": [
         {
           "page": "fa",
@@ -30349,16 +30349,6 @@
           ],
           "details": [
             "3 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "oyin",
-          "editUrl": "https://en.wiktionary.org/wiki/oyin#Yoruba",
-          "entryIds": [
-            "en-oyin-yo-noun-YsuBtZBK"
-          ],
-          "details": [
-            "2 etymology sections, none of them named"
           ]
         },
         {
@@ -32237,17 +32227,17 @@
     "byEffort": {
       "easy": 198,
       "mechanical": 375,
-      "expertise": 1893,
+      "expertise": 1892,
       "info": 2258
     },
     "byTarget": {
-      "wiktionary": 4723,
+      "wiktionary": 4722,
       "pipeline": 1
     },
-    "actionable": 2466,
+    "actionable": 2465,
     "easyWins": 198
   },
-  "kaikkiSourceDate": "2026-08-03",
-  "kaikkiReleaseTag": "build-9",
+  "kaikkiSourceDate": "2026-08-10",
+  "kaikkiReleaseTag": "build-10",
   "kaikkiParseErrorCount": 0
 }
