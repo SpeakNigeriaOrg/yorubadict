@@ -316,6 +316,11 @@ Same four stages, same worksheet. The difference is that it edits one page per
 compound rather than one page in total, so Pywikibot asks about each in turn —
 sixteen questions for `kọ`, not one.
 
+Its `-check` is not offline, unlike `etymid.py`'s: it reads the parent page for
+the names, but not the compound pages. So its count is what the worksheet sets,
+not what would change — a compound already carrying its pointer still counts
+there, and only shows up as already done at `-simulate`.
+
 **It reads the names off the parent page, never out of our data.** Our snapshot
 proposes `build` for `kọ` etymology 2; the page says `teach`, because a person
 read the evidence and chose better. Nine pointers would have been born pointing

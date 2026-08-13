@@ -2,7 +2,7 @@
 """Point each compound at one meaning of the word it was built from.
 
     python pointers.py -parent:kọ -propose     write the worksheet
-    python pointers.py -parent:kọ -check       read it back — no network
+    python pointers.py -parent:kọ -check       read it back — parent only
     python pointers.py -parent:kọ -simulate    show the edits, save nothing
     python pointers.py -parent:kọ              show each edit, ask, save
 
@@ -476,7 +476,18 @@ def main():
             label = f'-> {item["name"]}' if item["name"] else "skipped (id: is blank)"
             pywikibot.info(f'  {item["word"]:22} {item["argument"]:5} {label}')
         pywikibot.info("")
-        pywikibot.info(f"  {len(writable)} pointers would be written. No network was used.")
+        # Not "would be written": this has read the parent page for its names,
+        # but not the compound pages, so it cannot know which of these already
+        # carry their pointer. àròkọ was already done and still counted here.
+        pywikibot.info(
+            f"  {len(writable)} pointers set in the worksheet, of {len(items)} compounds."
+        )
+        pywikibot.info(
+            f"  Read {parent} for its names; the compound pages are not read until"
+        )
+        pywikibot.info(
+            "  -simulate, which is where any that are already pointed will show up."
+        )
         pywikibot.info("")
         return
 
