@@ -145,27 +145,42 @@ parent:   {parent}
 language: {language}
 ```
 
-Names that exist on **{parent}** right now:
+Names that exist on **{parent}** right now, grouped by how the meaning is
+spelled. Tone is part of the word: a compound that writes its component `bọ`
+cannot point at a meaning spelled `bọ̀`, however well the definition fits.
 
 {names}
 
 Edit the `id:` lines. Each must be one of the names above, or blank to skip
-that word. Everything else is reference material and is ignored.
+that word. Every entry below lists the names its own spelling can reach.
+Everything else is reference material and is ignored.
 """
 
 
-def render(parent, names, items, definitions_by_section=None):
+def render(parent, names, items, definitions_by_section=None, spelling_by_section=None):
     # The names alone are not enough to choose between. Most of these compounds
     # arrive blank, and deciding one means knowing what each etymology actually
     # means - which otherwise sends you to the etymid worksheet or the page.
+    #
+    # Grouped by spelling because tone decides what a compound may point at,
+    # and a flat list hid that: bọ's six names cover three different words -
+    # bọ̀, bọ and bọ́ - and nothing said so at the moment of choosing.
     definitions_by_section = definitions_by_section or {}
+    spelling_by_section = spelling_by_section or {}
     width = max((len(n) for n in names.values()), default=0)
+    groups = {}
+    for number, name in names.items():
+        groups.setdefault(spelling_by_section.get(number) or parent, []).append(number)
     listed = []
-    for number, name in sorted(names.items(), key=lambda kv: int(kv[0])):
-        covers = " / ".join(definitions_by_section.get(number) or [])
-        listed.append(
-            f"    {number}. {name.ljust(width)}" + (f"   {covers}" if covers else "")
-        )
+    for spelling in sorted(groups, key=lambda s: min(int(n) for n in groups[s])):
+        listed.append(f"    {spelling}")
+        for number in sorted(groups[spelling], key=int):
+            covers = " / ".join(definitions_by_section.get(number) or [])
+            listed.append(
+                f"      {number}. {names[number].ljust(width)}"
+                + (f"   {covers}" if covers else "")
+            )
+        listed.append("")
     lines = [
         HEADER.format(
             parent=parent,
@@ -197,6 +212,17 @@ def render(parent, names, items, definitions_by_section=None):
             )
         else:
             lines.append(f'    unmatched {item["why"]}')
+        # The reachable set is what the gate will enforce, so say it here rather
+        # than only refusing later. Written as "bọ can point at" so the spelling
+        # doing the limiting is visible beside the names it allows.
+        if item["reachable"]:
+            allowed = [
+                f'{names[n]}' for n in item["reachable"] if n in names
+            ]
+            lines.append(
+                f'    can point at "{item["component"]}" meanings: '
+                + (", ".join(allowed) if allowed else "(none of them named yet)")
+            )
         lines.append("")
     return "\n".join(lines)
 
@@ -426,6 +452,10 @@ def main():
     definitions_by_section = {
         number: data.definitions_for(by_page.get(parent, []), number) for number in names
     }
+    spelling_by_section = {
+        number: data.identity_of(by_page.get(parent, []), number)["spelling"]
+        for number in names
+    }
     items = collect(task, names, by_page, entry_sections)
 
     if mode == "propose":
@@ -445,7 +475,8 @@ def main():
                     f"  kept {len(previous)} id: line(s) from the existing worksheet"
                 )
         path.write_text(
-            render(parent, names, items, definitions_by_section), encoding="utf-8"
+            render(parent, names, items, definitions_by_section, spelling_by_section),
+            encoding="utf-8",
         )
         ready = sum(1 for i in items if i["name"])
         pywikibot.info(
