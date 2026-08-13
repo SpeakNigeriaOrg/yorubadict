@@ -1278,6 +1278,8 @@ to recite           kọrin, "to sing"</pre>
 
   const TIER_LABEL = {
     A: 'suggested — check it',
+    D: 'the page already says so',
+    X: 'the page and the wording disagree',
     B1: 'several sections match',
     B2: 'no section matches',
     S: 'tone looks wrong',

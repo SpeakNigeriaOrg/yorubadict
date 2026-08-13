@@ -1,0 +1,43 @@
+{
+  "job": "etymid",
+  "page": "bọ",
+  "hostPage": "bọ",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T18:39:19.437609+00:00",
+  "finishedAt": "2026-08-13T18:39:34.105126+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 6 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "come"
+    },
+    {
+      "etymology": "2",
+      "name": "boil"
+    },
+    {
+      "etymology": "3",
+      "name": "insert"
+    },
+    {
+      "etymology": "4",
+      "name": "sacrifice"
+    },
+    {
+      "etymology": "5",
+      "name": "fall"
+    },
+    {
+      "etymology": "6",
+      "name": "thatch"
+    }
+  ],
+  "oldrevid": 86587436,
+  "newrevid": 91981389,
+  "realizedDiff": "@@ -74,4 +74,5 @@\n ===Etymology 1===\n+{{etymid|yo|come}}\n ====Pronunciation====\n@@ -94,4 +95,5 @@\n ===Etymology 2===\n+{{etymid|yo|boil}}\n ====Pronunciation====\n@@ -116,4 +118,5 @@\n ===Etymology 3===\n+{{etymid|yo|insert}}\n ====Pronunciation====\n@@ -140,4 +143,5 @@\n ===Etymology 4===\n+{{etymid|yo|sacrifice}}\n ====Pronunciation====\n@@ -159,4 +163,5 @@\n ===Etymology 5===\n+{{etymid|yo|fall}}\n ====Pronunciation====\n@@ -177,4 +182,5 @@\n ===Etymology 6===\n+{{etymid|yo|thatch}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -74,4 +74,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|come}}\n \n ====Pronunciation====\n@@ -94,4 +95,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|boil}}\n \n ====Pronunciation====\n@@ -116,4 +118,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|insert}}\n \n ====Pronunciation====\n@@ -140,4 +143,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|sacrifice}}\n \n ====Pronunciation====\n@@ -159,4 +163,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|fall}}\n \n ====Pronunciation====\n@@ -177,4 +182,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|thatch}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

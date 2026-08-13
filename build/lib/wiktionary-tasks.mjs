@@ -259,7 +259,31 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           existingAnchor: existing ? (existing.args || {})['2'] : null,
         };
       });
-    pages.set(page, { page, sections, references: [] });
+    // What each etymology section claims as its own derived terms.
+    //
+    // A =====Derived terms===== list sits INSIDE one etymology, so it is a
+    // statement by an editor about which meaning a word came from - the same
+    // fact an idN records, already written down. Measured across the corpus it
+    // agrees with independent meaning-matching on 196 references and conflicts
+    // on 3, so it is evidence worth trusting rather than re-deriving.
+    const declaredBy = new Map(); // page title of the derived word -> Set(section number)
+    for (const section of sections) {
+      for (const entry of section.entries) {
+        for (const derived of entry.derivedTerms || []) {
+          const text = derived && derived.text;
+          if (!text) continue;
+          const key = byPage.has(text)
+            ? text
+            : byPage.has(toneInsensitiveForm(text))
+              ? toneInsensitiveForm(text)
+              : null;
+          if (!key) continue; // no entry of our own - nothing to point at
+          if (!declaredBy.has(key)) declaredBy.set(key, new Set());
+          declaredBy.get(key).add(section.number);
+        }
+      }
+    }
+    pages.set(page, { page, sections, references: [], declaredBy });
   }
 
   // Every component reference landing on one of those pages.
@@ -271,6 +295,18 @@ export function buildWiktionaryTasks(entries, anchorTable) {
       const numeric = Object.keys(args)
         .filter((k) => /^\d+$/.test(k) && k !== '1')
         .sort((a, b) => a - b);
+
+      // How many of this template's components land on the same page. Two
+      // means a derived-terms claim cannot say WHICH of them it refers to.
+      const targetCounts = new Map();
+      for (const k of numeric) {
+        const f = args[k];
+        if (typeof f !== 'string' || !f || f.startsWith('-') || f.endsWith('-')) continue;
+        const p =
+          pages.get(f) || pages.get(f.toLowerCase()) ||
+          pages.get(toneInsensitiveForm(f)) || pages.get(toneInsensitiveForm(f).toLowerCase());
+        if (p) targetCounts.set(p.page, (targetCounts.get(p.page) || 0) + 1);
+      }
 
       numeric.forEach((key, i) => {
         const form = args[key];
@@ -329,8 +365,24 @@ export function buildWiktionaryTasks(entries, anchorTable) {
         const outOfReach = matches.filter((h) => !reachable(h.section));
         matches = matches.filter((h) => reachable(h.section));
 
+        // Does the target page itself claim this word, under exactly one of
+        // its etymologies? Only usable when this template names that page once
+        // - otherwise the claim cannot say which component it means.
+        const claimed =
+          targetCounts.get(target.page) === 1 ? target.declaredBy.get(entry.headword) : null;
+        const declaredSection = claimed && claimed.size === 1 ? [...claimed][0] : null;
+        const declaredReachable =
+          declaredSection && target.sections.some((sec) => sec.number === declaredSection && reachable(sec));
+        const declaredConflicts =
+          declaredSection && matches.length === 1 && matches[0].section.number !== declaredSection;
+
         let tier;
-        if (outOfReach.length && !matches.length) tier = 'S';
+        // The page saying so outranks our inference from wording, except where
+        // the two disagree - 3 references in the corpus - which is a question
+        // for a person rather than something to settle by precedence.
+        if (declaredConflicts) tier = 'X';
+        else if (declaredSection && declaredReachable) tier = 'D';
+        else if (outOfReach.length && !matches.length) tier = 'S';
         else if (!meaning) tier = 'C';
         else if (matches.length === 1) tier = 'A';
         else if (matches.length > 1) tier = 'B1';
@@ -347,14 +399,25 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           meaning,
           template: renderTemplate(tpl),
           matchCount: matches.length,
+          declaredSection: declaredSection || null,
+          declaredReachable: Boolean(declaredReachable),
           // Only the sections this spelling can actually reach: a near-miss on
           // a section the tone rules out would send a reader at the wrong word.
           nearestMiss:
             matches.length === 0 && meaning
               ? nearestMiss(meaning, target.sections, reachable)
               : null,
-          matchedSection: matches.length === 1 ? matches[0].section.number : null,
-          matchedDefinition: matches.length === 1 ? matches[0].definition : null,
+          matchedSection:
+            matches.length === 1 ? matches[0].section.number : declaredSection && declaredReachable ? declaredSection : null,
+          matchedDefinition:
+            matches.length === 1
+              ? matches[0].definition
+              : declaredSection && declaredReachable
+                ? firstDefinition(
+                    (target.sections.find((sec) => sec.number === declaredSection) || { entries: [] })
+                      .entries[0] || {}
+                  )
+                : null,
           // The meaning belongs to a section spelled differently from what the
           // compound wrote - a tone problem, not a missing pointer.
           spelledElsewhere: outOfReach.length
@@ -393,12 +456,26 @@ export function buildWiktionaryTasks(entries, anchorTable) {
         .map((ref) => ({
           ...ref,
           // Filled in only for tier A, where we are prepared to say which.
-          proposedValue: ref.tier === 'A' ? slugFor.get(ref.matchedSection) || null : null,
+          proposedValue:
+            ref.tier === 'A'
+              ? slugFor.get(ref.matchedSection) || null
+              : ref.tier === 'D'
+                ? slugFor.get(ref.declaredSection) || null
+                : null,
           // The anchor names a whole etymology section, so show everything
           // that section covers rather than only the sense that matched.
-          sectionCovers: ref.tier === 'A' ? coversFor.get(ref.matchedSection) || [] : [],
-          why:
+          sectionCovers:
             ref.tier === 'A'
+              ? coversFor.get(ref.matchedSection) || []
+              : ref.tier === 'D'
+                ? coversFor.get(ref.declaredSection) || []
+                : [],
+          why:
+            ref.tier === 'D'
+              ? `Etymology ${ref.declaredSection} of ${ref.component} lists this word under its own derived terms, which says which meaning it came from`
+              : ref.tier === 'X'
+                ? `Etymology ${ref.declaredSection} lists this word under its derived terms, but its own etymology calls the component “${ref.meaning}”, which matches Etymology ${ref.matchedSection} instead. The page and the wording disagree`
+              : ref.tier === 'A'
               ? `its own etymology calls this component “${ref.meaning}”, and Etymology ${ref.matchedSection} covers “${ref.matchedDefinition}”`
               : ref.tier === 'S'
                 ? `it writes this component as “${ref.component}” and calls it “${ref.meaning}” — but that meaning belongs to ${ref.spelledElsewhere.spelling}, a differently toned word. The tone here looks wrong, and that has to be settled before any pointer is added.`

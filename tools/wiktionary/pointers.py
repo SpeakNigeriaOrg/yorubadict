@@ -206,7 +206,14 @@ def render(parent, names, items, definitions_by_section=None, spelling_by_sectio
             lines.append(f'    component "{item["component"]}" glossed "{item["meaning"]}"')
         else:
             lines.append(f'    component "{item["component"]}" — no meaning recorded')
-        if item["section"]:
+        if item["section"] and item["tier"] == "D":
+            # Not "matched": nothing was inferred. The parent page lists this
+            # word under that etymology, which is an editor saying so outright.
+            lines.append(
+                f'    declared  Etymology {item["section"]} — {item["matched_definition"]}'
+            )
+            lines.append('              (that etymology lists this word under its derived terms)')
+        elif item["section"]:
             lines.append(
                 f'    matched   Etymology {item["section"]} — {item["matched_definition"]}'
             )

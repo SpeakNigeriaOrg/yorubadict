@@ -1,0 +1,59 @@
+{
+  "job": "etymid",
+  "page": "ya",
+  "hostPage": "ya",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T17:15:47.900642+00:00",
+  "finishedAt": "2026-08-13T17:16:23.459051+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 10 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "borrow"
+    },
+    {
+      "etymology": "2",
+      "name": "fast"
+    },
+    {
+      "etymology": "3",
+      "name": "tear"
+    },
+    {
+      "etymology": "4",
+      "name": "flow"
+    },
+    {
+      "etymology": "5",
+      "name": "turn"
+    },
+    {
+      "etymology": "6",
+      "name": "depict"
+    },
+    {
+      "etymology": "7",
+      "name": "comb"
+    },
+    {
+      "etymology": "8",
+      "name": "split"
+    },
+    {
+      "etymology": "9",
+      "name": "become"
+    },
+    {
+      "etymology": "10",
+      "name": "visit"
+    }
+  ],
+  "oldrevid": 91975751,
+  "newrevid": 91980599,
+  "realizedDiff": "@@ -1602,4 +1602,5 @@\n ===Etymology 1===\n+{{etymid|yo|borrow}}\n ====Pronunciation====\n@@ -1626,4 +1627,5 @@\n ===Etymology 2===\n+{{etymid|yo|fast}}\n ====Pronunciation====\n@@ -1652,4 +1654,5 @@\n ===Etymology 3===\n+{{etymid|yo|tear}}\n ====Pronunciation====\n@@ -1669,4 +1672,5 @@\n ===Etymology 4===\n+{{etymid|yo|flow}}\n ====Pronunciation====\n@@ -1687,4 +1691,5 @@\n ===Etymology 5===\n+{{etymid|yo|turn}}\n ====Pronunciation====\n@@ -1698,4 +1703,5 @@\n ===Etymology 6===\n+{{etymid|yo|depict}}\n ====Pronunciation====\n@@ -1722,4 +1728,5 @@\n ===Etymology 7===\n+{{etymid|yo|comb}}\n ====Pronunciation====\n@@ -1742,4 +1749,5 @@\n ===Etymology 8===\n+{{etymid|yo|split}}\n ====Pronunciation====\n@@ -1768,4 +1776,5 @@\n ===Etymology 9===\n+{{etymid|yo|become}}\n ====Pronunciation====\n@@ -1792,4 +1801,5 @@\n ===Etymology 10===\n+{{etymid|yo|visit}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -1602,4 +1602,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|borrow}}\n \n ====Pronunciation====\n@@ -1626,4 +1627,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|fast}}\n \n ====Pronunciation====\n@@ -1652,4 +1654,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|tear}}\n \n ====Pronunciation====\n@@ -1669,4 +1672,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|flow}}\n \n ====Pronunciation====\n@@ -1687,4 +1691,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|turn}}\n \n ====Pronunciation====\n@@ -1698,4 +1703,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|depict}}\n \n ====Pronunciation====\n@@ -1722,4 +1728,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|comb}}\n \n ====Pronunciation====\n@@ -1742,4 +1749,5 @@\n \n ===Etymology 8===\n+{{etymid|yo|split}}\n \n ====Pronunciation====\n@@ -1768,4 +1776,5 @@\n \n ===Etymology 9===\n+{{etymid|yo|become}}\n \n ====Pronunciation====\n@@ -1792,4 +1801,5 @@\n \n ===Etymology 10===\n+{{etymid|yo|visit}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

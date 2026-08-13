@@ -1,0 +1,31 @@
+{
+  "job": "etymid",
+  "page": "iwe",
+  "hostPage": "iwe",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T17:52:44.178310+00:00",
+  "finishedAt": "2026-08-13T17:53:32.632122+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 3 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "paper"
+    },
+    {
+      "etymology": "2",
+      "name": "gizzard"
+    },
+    {
+      "etymology": "3",
+      "name": "this"
+    }
+  ],
+  "oldrevid": 91914287,
+  "newrevid": 91980925,
+  "realizedDiff": "@@ -98,4 +98,5 @@\n ===Etymology 1===\n+{{etymid|yo|paper}}\n From {{af|yo|ì-|wé|t1=nominalizing prefix|id1=nominalizing prefix|t2=to bind, to wrap|lit=That which can be bound}}. Compare with {{doublet|yo|ewé}} \n@@ -174,4 +175,5 @@\n ===Etymology 2===\n+{{etymid|yo|gizzard}}\n [[File:Chicken Gizzard.jpg|thumb|'''Iwe''' adìyẹ]]\n Coganates with Ifẹ̀ {{cog|yo|ighe}}, Èkìtì & Ìjẹ̀bú {{cog|yo|uwe}}\n@@ -191,4 +193,5 @@\n ===Etymology 3===\n+{{etymid|yo|this}}\n Cognates with {{cog|yo|èyí}}, Ìkálẹ̀ {{cog|yo|ìyí}}",
+  "intendedDiff": "--- \n+++ \n@@ -98,4 +98,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|paper}}\n From {{af|yo|ì-|wé|t1=nominalizing prefix|id1=nominalizing prefix|t2=to bind, to wrap|lit=That which can be bound}}. Compare with {{doublet|yo|ewé}} \n \n@@ -174,4 +175,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|gizzard}}\n [[File:Chicken Gizzard.jpg|thumb|'''Iwe''' adìyẹ]]\n Coganates with Ifẹ̀ {{cog|yo|ighe}}, Èkìtì & Ìjẹ̀bú {{cog|yo|uwe}}\n@@ -191,4 +193,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|this}}\n Cognates with {{cog|yo|èyí}}, Ìkálẹ̀ {{cog|yo|ìyí}}\n ",
+  "realizedMatchesIntended": true
+}
