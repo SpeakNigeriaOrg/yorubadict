@@ -83,6 +83,12 @@
    * below 1. So 10 beats every partial-spelling guess and lands after the definitions that are
    * actually about the query. */
   var SYNONYM_TIER_SCORE = 10;
+  // A word inside a multi-word entry. 480 of 6,273 entries are phrases, and
+  // each was only ever indexed whole, so searching ṣeun found nothing at all
+  // while o ṣeun and ẹ ṣeun both contain it. Soft, and below a synonym: the
+  // query is a part of the entry's name rather than the name, so it must never
+  // outrank an entry that really is spelled that way.
+  var WORD_TIER_SCORE = 8;
 
   /** Scales a partial-spelling (prefix) match onto this score's range, so the two can be compared.
    *
@@ -282,6 +288,20 @@
    *
    * Postings are {id, sense} rather than bare ids, so a caller that wants to explain the row can say
    * which meaning did the naming. */
+  /** Entries whose multi-word name contains this word. Same shape as the
+   *  synonym tier, and offered alongside it. */
+  function wordTierMatches(tier, key) {
+    if (!tier || !tier.spellings) return [];
+    var i = lowerBound(tier.spellings, key);
+    if (i >= tier.spellings.length || tier.spellings[i] !== key) return [];
+    var postings = tier.postings[key] || [];
+    var out = [];
+    for (var j = 0; j < postings.length; j++) {
+      out.push([postings[j].id !== undefined ? postings[j].id : postings[j], WORD_TIER_SCORE]);
+    }
+    return out;
+  }
+
   function synonymTierMatches(tier, key) {
     if (!tier || !tier.spellings) return [];
     var i = lowerBound(tier.spellings, key);
@@ -352,6 +372,7 @@
     // structural rather than a matter of tuning: searching wì gives wì first and sun (which calls wì
     // another word for "to roast") further down.
     offer(synonymTierMatches(y.synonym, helpers.orthographyInsensitive(trimmed)));
+    offer(wordTierMatches(y.word, helpers.orthographyInsensitive(trimmed)));
     offer(bm25Search(index.english, components, trimmed, limit, helpers, helpers.out));
 
     var softList = [];
@@ -370,10 +391,12 @@
     lowerBound: lowerBound,
     rankQuery: rankQuery,
     synonymTierMatches: synonymTierMatches,
+    wordTierMatches: wordTierMatches,
     matchProvenance: matchProvenance,
     EXAMPLE_DOC_WEIGHT: EXAMPLE_DOC_WEIGHT,
     SYNONYM_DOC_WEIGHT: SYNONYM_DOC_WEIGHT,
     SYNONYM_TIER_SCORE: SYNONYM_TIER_SCORE,
+    WORD_TIER_SCORE: WORD_TIER_SCORE,
     PREFIX_SCALE: PREFIX_SCALE,
   };
 });

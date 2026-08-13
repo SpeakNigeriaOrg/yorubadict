@@ -33,6 +33,35 @@ function searchableForms(entry) {
   return spellingsForEntry(entry).map(allForms);
 }
 
+// Each word of a multi-word entry, so a phrase is findable by any word in it.
+//
+// 480 of 6,273 entries are phrases and every one was indexed only whole, so
+// searching ṣeun returned nothing while both o ṣeun and ẹ ṣeun contain it.
+// Orthography-insensitive, matching the loosest whole-string tier, so it works
+// with or without tone marks and underdots.
+//
+// Single-word entries are deliberately absent: they are already found whole by
+// the three tiers above, and adding them here would only duplicate postings.
+function buildWordTier(entries, formsByEntry) {
+  const map = new Map();
+  for (const entry of entries) {
+    for (const formsObj of formsByEntry.get(entry.id)) {
+      const spelling = formsObj.orthographyInsensitive;
+      if (!spelling || !spelling.includes(' ')) continue;
+      for (const word of spelling.split(/\s+/)) {
+        if (word.length < 2) continue; // "o", "a" - every phrase would match
+        if (!map.has(word)) map.set(word, new Set());
+        map.get(word).add(entry.id);
+      }
+    }
+  }
+  const sorted = [...map.keys()].sort();
+  return {
+    spellings: sorted,
+    postings: Object.fromEntries(sorted.map((w) => [w, [...map.get(w)]])),
+  };
+}
+
 function buildSortedTierIndex(entries, tierKey, formsByEntry) {
   const map = new Map(); // spelling -> Set(entryId)
   for (const entry of entries) {
@@ -469,6 +498,7 @@ export function buildSearchIndex(entries, mentionedWords = []) {
       ortho,
       dialect: buildDialectTier(entries, ortho),
       synonym: buildSynonymTier(synonymData.tier),
+      word: buildWordTier(entries, formsByEntry),
     },
     english: buildEnglishIndex(entries, synonymData.inherited),
     components: buildComponentIndex(entries),

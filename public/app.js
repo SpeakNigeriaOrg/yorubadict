@@ -1439,11 +1439,27 @@ to recite           kọrin, "to sing"</pre>
   // Search input wiring + keyboard accessibility (spec section 13)
   // ---------------------------------------------------------------
 
+  // On a narrow viewport the entry pane is a sheet that sits over the results,
+  // and onEntryRendered scrolls it up there on purpose every time an entry or a
+  // static page renders. Typing then puts results into a pane that is off the
+  // top of the screen, so the search looks broken - most visibly on the pages
+  // that are all text, like #/contribute.
+  //
+  // Fixed here rather than in each page's render function, so that adding a
+  // page cannot forget it. Only when there is something typed, and only when
+  // the results are actually out of view.
+  function revealResults() {
+    if (!mobileQuery.matches) return;
+    if (!els.searchInput.value.trim()) return;
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   let debounceTimer = null;
   function onSearchInput() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       renderResults(search(els.searchInput.value));
+      revealResults();
     }, 60);
   }
 
