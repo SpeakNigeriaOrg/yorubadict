@@ -2,9 +2,17 @@
 """Point each compound at one meaning of the word it was built from.
 
     python pointers.py -parent:kọ -propose     write the worksheet
-    python pointers.py -parent:kọ -check       read it back — parent only
-    python pointers.py -parent:kọ -simulate    show the edits, save nothing
+    <edit the worksheet>
+    python pointers.py -parent:kọ -simulate    the run without the saving
     python pointers.py -parent:kọ              show each edit, ask, save
+
+    python pointers.py -parent:kọ -check       optional: list every compound,
+                                               blanks included. Reads the
+                                               parent, not the compounds.
+
+-simulate is optional in etymid.py but worth keeping here: this touches one page
+per compound and asks per page, so `a` at the prompt answers for every remaining
+one at once.
 
 The other half of etymid.py. That names the etymologies on one page; this puts
 idN= on the words built from them, so that

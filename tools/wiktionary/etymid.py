@@ -3,9 +3,15 @@
 at a meaning instead of at a spelling.
 
     python etymid.py -page:kọ -propose     write the worksheet
-    python etymid.py -page:kọ -check       read it back — no network
-    python etymid.py -page:kọ -simulate    show the diff, save nothing
-    python etymid.py -page:kọ              show the diff, ask, save
+    <edit the worksheet>
+    python etymid.py -page:kọ              show where each name lands, ask, save
+
+    python etymid.py -page:kọ -check       optional: list every etymology,
+                                           blanks included. Offline.
+    python etymid.py -page:kọ -simulate    optional: the run without the saving
+
+Neither optional step runs a gate the real run does not - -check and the save
+path call the same verify() - so they buy visibility rather than safety.
 
 One page per run. There is no batch mode, no generator over a category, and no
 loop over the work queue — that is a property of this script, not a setting.

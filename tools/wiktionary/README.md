@@ -112,9 +112,10 @@ The bot password is revocable on its own, from the same page that issued it.
 
 ## Using it
 
-Four stages, run one at a time. The work happens between the first and the
-second — the script proposes names, you correct them, and only then does
-anything reach Wiktionary.
+**Three stages: propose, edit the worksheet, run it.** That is the whole job.
+`-check` and `-simulate` sit in between and are optional — neither runs a gate
+the real run does not, so skip them once you trust the shape of the work. What
+each is actually for is at the end of this section.
 
 **1. Propose.** Reads the page and writes a worksheet.
 
@@ -148,23 +149,16 @@ the names are the only thing you can get wrong. The words that would point at a
 name are listed under it because you cannot judge a name without seeing what it
 is for.
 
-**3. Check.** Reads your worksheet back and prints exactly what it understood.
-No network at all, so run it as often as you like.
+**3. Run it.** It shows where each name lands, asks, and saves only if you
+agree:
 
 ```bash
-.venv/bin/python etymid.py -page:kọ -check
+.venv/bin/python etymid.py -page:kọ
 ```
 
-**4. Look at where each name lands, then save.** `-simulate` does everything
-except save:
-
-```bash
-.venv/bin/python etymid.py -page:kọ -simulate
-```
-
-Each insertion is shown under the heading it falls in, with the meanings that
-heading covers, so you can check the name against the section rather than
-against a line number:
+Each insertion is shown before the prompt, under the heading it falls in and
+with the meanings that heading covers, so you check the name against the
+section rather than against a line number:
 
 ```
   Etymology 2 — to build, construct / to learn, teach, instruct, acquire
@@ -180,21 +174,34 @@ text that is about to be saved, so it still shows a misplaced name rather than
 what we intended; and a name landing anywhere but directly after a heading
 aborts the run.
 
-Drop the flag when it looks right. It asks, and saves only if you agree:
-
-```bash
-.venv/bin/python etymid.py -page:kọ
-```
-
 One page per run. There is no batch mode and no generator over the queue.
+
+### The two optional steps
+
+Neither runs a gate the real run does not — in `pointers.py` the name and
+reachability checks sit above the mode branch, and in `etymid.py` `-check` and
+the save path call the same `verify()`. So they buy visibility, not safety.
+
+**`-check`** lists *every* item, including the ones left blank; the real run
+only shows what changes. So it answers "did the tool read my worksheet the way
+I meant, and what am I leaving out?" — which is how you would notice a hand-
+edited `id:` line that did not take. Worth running after editing a lot of them.
+`etymid.py`'s is instant and fully offline; `pointers.py`'s reads the parent
+page, so there it is only a faster subset of `-simulate`.
+
+**`-simulate`** prints exactly what the real run prints, but cannot save. On a
+one-page `etymid` run that is close to pointless — the real run shows the same
+thing and you can answer `N`. On a seventeen-page `pointers` run it is worth
+having, because `a` sits beside `y` on the keyboard and answers for every
+remaining page at once.
 
 | flag | |
 |---|---|
 | `-propose` | write the worksheet |
 | `-regenerate` | refresh a worksheet, keeping the `id:` lines you edited |
-| `-check` | read it back — no network |
-| `-simulate` | show the diff, save nothing |
-| *(none)* | show the diff, ask, save |
+| `-check` | list every item, blanks included — optional |
+| `-simulate` | everything the real run does, minus the saving — optional |
+| *(none)* | show each change, ask, save |
 
 ## What Pywikibot does, and what is ours
 
@@ -338,12 +345,13 @@ this script has done can be shown every edit it has made.
 
 ```bash
 .venv/bin/python pointers.py -parent:kọ -propose
-.venv/bin/python pointers.py -parent:kọ -check
 .venv/bin/python pointers.py -parent:kọ -simulate
 .venv/bin/python pointers.py -parent:kọ
 ```
 
-Same four stages, same worksheet. The difference is that it edits one page per
+Same stages, same worksheet — but keep `-simulate` here even though it is
+optional for `etymid.py`. This run touches one page per compound and answers
+per page, so `a` at the prompt commits every remaining one. The difference is that it edits one page per
 compound rather than one page in total, so Pywikibot asks about each in turn —
 sixteen questions for `kọ`, not one.
 
@@ -351,6 +359,9 @@ Its `-check` is not offline, unlike `etymid.py`'s: it reads the parent page for
 the names, but not the compound pages. So its count is what the worksheet sets,
 not what would change — a compound already carrying its pointer still counts
 there, and only shows up as already done at `-simulate`.
+
+The difference is worth a line: on `ro`, `-check` says 3 and `-simulate` says
+"àròkọ already points at think" plus two edits to make.
 
 **It reads the names off the parent page, never out of our data.** Our snapshot
 proposes `build` for `kọ` etymology 2; the page says `teach`, because a person
