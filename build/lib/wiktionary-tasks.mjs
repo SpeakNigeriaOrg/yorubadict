@@ -157,10 +157,22 @@ function sectionsMatching(meaning, sections) {
 // iṣu-nìkàn-kọ́niyán, whose "not" shares nothing at all with "a negation
 // particle". What a reader needs is the closest section THIS reference had and
 // what stopped it, so they can judge it rather than re-derive it.
-function nearestMiss(meaning, sections) {
+// Ranked so the most informative miss wins, and a section the spelling cannot
+// reach is still reported rather than hidden. bọ̀dí writes its component "bọ"
+// and glosses it "insert"; the section meaning "to insert into" is spelled bọ̀,
+// so restricting the search to reachable sections left only "to sacrifice" and
+// the honest-looking but useless answer "shares no wording with one". The
+// mismatch IS the finding there - it is a tone error in the compound.
+const MISS_RANK = { 'partial-reachable': 0, 'partial-unreachable': 1, 'shared-reachable': 2, 'shared-unreachable': 3 };
+
+function nearestMiss(meaning, sections, reachable) {
   const given = alternatives(meaning);
   const content = new Set([...words(meaning)].filter((w) => !FILLER.has(w)));
   let best = null;
+  const consider = (candidate) => {
+    const rank = MISS_RANK[`${candidate.kind}-${candidate.reachable ? 'reachable' : 'unreachable'}`];
+    if (!best || rank < best.rank) best = { ...candidate, rank };
+  };
   for (const section of sections) {
     for (const entry of section.entries) {
       for (const sense of entry.senses || []) {
@@ -170,18 +182,23 @@ function nearestMiss(meaning, sections) {
             // "come" inside "come here": the meaning is part of an
             // alternative rather than the whole of it. This is the near-miss
             // worth naming, and the one the strict rule exists to refuse.
+            const common = {
+              section: section.number,
+              definition,
+              reachable: reachable(section),
+              spelling: (section.entries[0] || {}).canonicalForm
+                ? section.entries[0].canonicalForm.value
+                : null,
+            };
             const partial = given.find(
               (g) => offered !== g && (offered.startsWith(`${g} `) || offered.endsWith(` ${g}`))
             );
-            if (partial && (!best || best.kind !== 'partial')) {
-              best = { kind: 'partial', section: section.number, definition, offered, given: partial };
+            if (partial) {
+              consider({ ...common, kind: 'partial', offered, given: partial });
               continue;
             }
-            if (best) continue;
             const shared = [...content].filter((w) => words(offered).has(w));
-            if (shared.length) {
-              best = { kind: 'shared', section: section.number, definition, shared };
-            }
+            if (shared.length) consider({ ...common, kind: 'shared', shared });
           }
         }
       }
@@ -334,7 +351,7 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           // a section the tone rules out would send a reader at the wrong word.
           nearestMiss:
             matches.length === 0 && meaning
-              ? nearestMiss(meaning, target.sections.filter(reachable))
+              ? nearestMiss(meaning, target.sections, reachable)
               : null,
           matchedSection: matches.length === 1 ? matches[0].section.number : null,
           matchedDefinition: matches.length === 1 ? matches[0].definition : null,
@@ -402,10 +419,19 @@ export function buildWiktionaryTasks(entries, anchorTable) {
                       const head = `its own etymology calls this component “${ref.meaning}”, which matches no section here`;
                       const miss = ref.nearestMiss;
                       if (!miss) return `${head} and shares no wording with one`;
+                      const closest = `The closest is Etymology ${miss.section}, “${miss.definition}”`;
+                      // A near-match on a section this spelling cannot reach is
+                      // a tone problem in the compound, not a naming decision,
+                      // and saying which spelling would reach it is the fix.
+                      const tone = miss.reachable
+                        ? ''
+                        : ` — but that section is spelled “${miss.spelling}” and this writes “${ref.component}”, so the tone here may be wrong`;
                       if (miss.kind === 'partial') {
-                        return `${head}. The closest is Etymology ${miss.section}, “${miss.definition}” — but “${miss.given}” is only part of “${miss.offered}”, and a meaning has to match a whole alternative`;
+                        return miss.reachable
+                          ? `${head}. ${closest} — but “${miss.given}” is only part of “${miss.offered}”, and a meaning has to match a whole alternative`
+                          : `${head}. ${closest}, where “${miss.given}” is part of “${miss.offered}”${tone}`;
                       }
-                      return `${head}. The closest is Etymology ${miss.section}, “${miss.definition}”, which shares only “${miss.shared.join('”, “')}”`;
+                      return `${head}. ${closest}, which shares only “${miss.shared.join('”, “')}”${tone}`;
                     })(),
         }));
 
