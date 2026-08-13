@@ -275,6 +275,36 @@
       btn.addEventListener('click', () => navigateTo(entry.id));
       els.resultsList.appendChild(btn);
     });
+
+    appendMentionedRow();
+  }
+
+  // A word several entries name but the dictionary has no page for, offered at the
+  // END of the list and never inside it.
+  //
+  // Kept out of rankQuery entirely rather than scored low: it is not an entry, and
+  // no ranking constant should be able to promote it above one by accident. That
+  // also means it appears whether or not the search found anything, which is the
+  // case that matters - most of these words returned nothing at all before.
+  function appendMentionedRow() {
+    const query = els.searchInput.value.trim();
+    if (!query || state.searchMode === 'english') return;
+    const href = mentionedPathFor(query);
+    if (!href) return;
+    const byKey = state.index.mentioned.byKey;
+    const spelling = byKey[orthographyInsensitive(query)];
+    // Already answered by a real entry of that spelling - no need to say the
+    // dictionary lacks one.
+    if (state.activeResults.some((e) => orthographyInsensitive(e.forms.exact) === orthographyInsensitive(spelling))) return;
+
+    const row = document.createElement('a');
+    row.className = 'result-item result-mentioned';
+    row.href = href;
+    row.innerHTML = `
+      <div class="result-headword">${escapeHtml(spelling)}</div>
+      <div class="result-meta">no entry yet</div>
+      <div class="result-relation">Other entries name this word — see which</div>`;
+    els.resultsList.appendChild(row);
   }
 
   function highlightActive() {
@@ -506,7 +536,14 @@
           })
         );
       } else {
-        elements.push(`<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`);
+        // A word with no entry is still a dead end unless enough other entries
+        // name it to be worth a page of its own. 157 of them clear that bar.
+        const mentionedHref = mentionedPathFor(rel.text);
+        elements.push(
+          mentionedHref
+            ? `<span class="pill-group"><a class="relation-pill unresolved mentioned" href="${mentionedHref}" title="No entry yet - see which words name it">${escapeHtml(rel.text)}</a></span>`
+            : `<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`
+        );
       }
     }
 
@@ -535,6 +572,85 @@
     }
 
     return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
+  }
+
+  // ---------------------------------------------------------------
+  // Words other entries name, and this dictionary has no page for
+  // ---------------------------------------------------------------
+
+  /** The landing-page path for a word, or '' if it has no page. */
+  function mentionedPathFor(text) {
+    const byKey = (state.index && state.index.mentioned && state.index.mentioned.byKey) || {};
+    const key = orthographyInsensitive(text || '');
+    return byKey[key] ? `#/mentioned/${encodeURIComponent(byKey[key])}` : '';
+  }
+
+  // Deliberately not an entry, and it has to keep saying so. Nothing here invents
+  // a part of speech, a pronunciation, an etymology or a definition - it reports
+  // that several entries use this word in their own definitions and that the
+  // dictionary has no page for it, which is a fact about the data rather than a
+  // claim about Yoruba. A guessed entry would be worse than the dead end it
+  // replaces.
+  function renderMentionedWord(text) {
+    const known = state.index && state.index.mentioned && state.index.mentioned.byKey;
+    const spelling = known ? known[orthographyInsensitive(text)] || text : text;
+    document.title = `${spelling} — Sọ̀rọ̀ Sókè`;
+
+    const shell = (inner) => {
+      els.entryContent.innerHTML = `
+        <div class="entry-header">
+          <span class="entry-headword">${escapeHtml(spelling)}</span>
+          <span class="entry-inferred-badge" title="No entry has been written for this word yet.">no entry yet</span>
+        </div>
+        <div class="tone-rule divider" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div id="mentioned-body">${inner}</div>
+        <div class="entry-provenance-note">
+          Source: Wiktionary. This page is not a dictionary entry — it lists what other
+          entries say, and nothing else.
+        </div>`;
+    };
+
+    const body = (data) => {
+      const word = (data.words || []).find(
+        (w) => orthographyInsensitive(w.text) === orthographyInsensitive(spelling)
+      );
+      if (!word) return '<p>Nothing in this dictionary names this word.</p>';
+      const rows = word.namedBy
+        .map((n) => {
+          const entry = state.entries && state.entries[n.entryId];
+          if (!entry) return '';
+          const form = entry.canonicalForm ? entry.canonicalForm.value : entry.headword;
+          return `<a class="mentioned-row" href="#/entry/${encodeURIComponent(n.entryId)}">
+            <span class="mentioned-word">${escapeHtml(form)}</span>
+            <span class="mentioned-meta">${escapeHtml(entry.pos || '')}</span>
+            <span class="mentioned-meaning">${escapeHtml(n.meaning)}</span>
+          </a>`;
+        })
+        .filter(Boolean)
+        .join('');
+      return `
+        <p class="mentioned-lede">${word.namedBy.length} entries name <em>${escapeHtml(spelling)}</em> as another way to say what they mean. It has no entry of its own here, because Wiktionary has no page for it.</p>
+        <div class="entry-section-title">Named by</div>
+        <div class="mentioned-list">${rows}</div>
+        <p class="blocks-note">Each meaning above is the one that named this word. Writing the entry on Wiktionary is what brings it into this dictionary. <a href="#/contribute">How to help</a>.</p>`;
+    };
+
+    if (state.mentionedWords) {
+      shell(body(state.mentionedWords));
+      return;
+    }
+    shell('<p>Loading…</p>');
+    fetch('data/mentioned-words.json')
+      .then((r) => r.json())
+      .then((data) => {
+        state.mentionedWords = data;
+        // Only patch if the reader is still on this page.
+        if (document.getElementById('mentioned-body')) shell(body(data));
+      })
+      .catch(() => {
+        const host = document.getElementById('mentioned-body');
+        if (host) host.innerHTML = '<p>That list could not be loaded.</p>';
+      });
   }
 
   // Wiktionary attaches these to a single MEANING, not to the word, so they render
@@ -1277,6 +1393,18 @@ to recite           kọrin, "to sing"</pre>
       return;
     }
 
+    const mentionedMatch = hash.match(/^#\/mentioned\/(.+)$/);
+    if (mentionedMatch) {
+      if (!state.ready) {
+        els.entryContent.innerHTML =
+          '<div class="entry-welcome"><p>Loading the dictionary…</p></div>';
+        return;
+      }
+      renderMentionedWord(decodeURIComponent(mentionedMatch[1]));
+      onEntryRendered();
+      return;
+    }
+
     const match = hash.match(/^#\/entry\/(.+)$/);
     if (match) {
       // Someone arriving on a link to a word shouldn't be shown the welcome
@@ -1699,7 +1827,9 @@ to recite           kọrin, "to sing"</pre>
     // so LCP was re-recorded at whenever the dictionary happened to land.
     // Lighthouse read 14.0s against a page whose text had genuinely been on
     // screen since 227ms, and every one of those seconds was this line.
-    if (/^#\/entry\//.test(location.hash || '')) handleRoute();
+    // Both deep-link routes, and only those: #/mentioned/ needs the dictionary too,
+    // because it renders the entries that name the word.
+    if (/^#\/(entry|mentioned)\//.test(location.hash || '')) handleRoute();
     if (els.searchInput.value.trim()) renderResults(search(els.searchInput.value));
   }
 

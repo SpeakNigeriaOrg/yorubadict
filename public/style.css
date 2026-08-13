@@ -1592,3 +1592,39 @@ a { color: inherit; }
   line-height: 1.55;
   color: var(--brand-accent-deep);
 }
+
+
+/* Words other entries name, with no page of their own.
+   A pill that links somewhere must not look like one that does not, but it must
+   not look like a real entry either - so it keeps the dashed unresolved border
+   and only gains a pointer and an underline on hover. */
+.relation-pill.mentioned { text-decoration: none; }
+.relation-pill.mentioned:hover { text-decoration: underline; }
+
+.mentioned-lede { margin: 0 0 18px; }
+.mentioned-list { display: flex; flex-direction: column; }
+.mentioned-row {
+  display: grid;
+  grid-template-columns: minmax(90px, auto) auto 1fr;
+  gap: 4px 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  text-decoration: none;
+  color: inherit;
+}
+.mentioned-row:last-child { border-bottom: none; }
+.mentioned-word {
+  font-family: var(--font-yoruba);
+  font-size: 1.05rem;
+  color: var(--brand-indigo);
+}
+.mentioned-meta { font-size: 0.75rem; color: var(--accent-grammar); }
+.mentioned-meaning { font-size: 0.9rem; color: var(--text-secondary); }
+@media (max-width: 520px) {
+  .mentioned-row { grid-template-columns: 1fr; }
+}
+
+/* The trailing search row. Quieter than a real result, because it is not one. */
+.result-mentioned { display: block; text-decoration: none; opacity: 0.82; }
+.result-mentioned .result-headword { font-style: italic; }

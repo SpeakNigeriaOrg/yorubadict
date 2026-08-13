@@ -442,7 +442,22 @@ function buildSynonymTier(tier) {
   };
 }
 
-export function buildSearchIndex(entries) {
+// The spellings of words two or more entries name as a similar word, and which
+// this dictionary has no entry for. Small on purpose - 157 keys - because it
+// rides along in the search index for two jobs that both need it before any
+// detail is fetched: turning a dead-end pill into a link, and putting a row at
+// the end of a search that would otherwise find nothing. The naming entries and
+// their meanings live in mentioned-words.json, loaded only when a page is opened.
+function buildMentionedIndex(mentionedWords) {
+  const byKey = {};
+  for (const word of mentionedWords) {
+    const key = allForms(word.text).orthographyInsensitive;
+    if (key && !byKey[key]) byKey[key] = word.text;
+  }
+  return { byKey };
+}
+
+export function buildSearchIndex(entries, mentionedWords = []) {
   const byId = new Map(entries.map((e) => [e.id, e]));
   const synonymData = senseSynonymData(entries, byId);
   const formsByEntry = new Map(entries.map((e) => [e.id, searchableForms(e)]));
@@ -457,6 +472,7 @@ export function buildSearchIndex(entries) {
     },
     english: buildEnglishIndex(entries, synonymData.inherited),
     components: buildComponentIndex(entries),
+    mentioned: buildMentionedIndex(mentionedWords),
     synonymReport: synonymData.report,
   };
 }

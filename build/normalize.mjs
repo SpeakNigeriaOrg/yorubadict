@@ -38,6 +38,7 @@ import { buildValidationReport } from './lib/validator.mjs';
 import { buildSearchIndex } from './lib/search-index.mjs';
 import { buildBuildingBlocks, assertBuildingBlocksAreUsable } from './lib/building-blocks.mjs';
 import { buildWiktionaryTasks } from './lib/wiktionary-tasks.mjs';
+import { buildMentionedWords } from './lib/mentioned-words.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -155,6 +156,7 @@ const outValidationPath = path.join(rootDir, 'build', 'validation-report.json');
 const outPublicValidationPath = path.join(rootDir, 'public', 'data', 'validation-report.json');
 const outBlocksPath = path.join(rootDir, 'public', 'data', 'building-blocks.json');
 const outTasksPath = path.join(rootDir, 'public', 'data', 'wiktionary-tasks.json');
+const outMentionedPath = path.join(rootDir, 'public', 'data', 'mentioned-words.json');
 
 const blockOptions = {
   yorubaFrequencyPath: path.join(rootDir, 'data', 'frequency', 'yoruba.json'),
@@ -195,8 +197,16 @@ async function main() {
   validationReport.kaikkiReleaseTag = kaikkiReleaseTag;
   validationReport.kaikkiParseErrorCount = kaikkiParseErrorCount;
 
+  // Before the search index, which carries the spellings so a pill can become a
+  // link and a search can offer a landing page without waiting for a fetch.
+  const mentioned = buildMentionedWords(linkedEntries);
+  console.log(
+    `      ${mentioned.totals.words} words named as a similar word by 2+ entries ` +
+      `(${mentioned.totals.mentions} mentions; ${mentioned.totals.namedOnce} more named only once, left out)`
+  );
+
   console.log('[4/5] Building search index ...');
-  const searchIndex = buildSearchIndex(linkedEntries);
+  const searchIndex = buildSearchIndex(linkedEntries, mentioned.words);
 
   console.log('[5/5] Choosing building-block words ...');
   const buildingBlocks = buildBuildingBlocks(linkedEntries, blockOptions);
@@ -231,6 +241,7 @@ async function main() {
   writeFileSync(outPublicValidationPath, JSON.stringify(validationReport));
   writeFileSync(outBlocksPath, JSON.stringify(buildingBlocks));
   writeFileSync(outTasksPath, JSON.stringify(tasks));
+  writeFileSync(outMentionedPath, JSON.stringify(mentioned));
 
   const sizeOf = (p) => (statSync(p).size / 1024).toFixed(1);
   assertShippedSizes([outEntriesPath, outIndexPath]);
@@ -240,6 +251,7 @@ async function main() {
   console.log(`  search-index size  ${sizeOf(outIndexPath)} KB`);
   console.log(`  building-blocks    ${sizeOf(outBlocksPath)} KB`);
   console.log(`  wiktionary-tasks   ${sizeOf(outTasksPath)} KB`);
+  console.log(`  mentioned-words    ${sizeOf(outMentionedPath)} KB`);
   console.log(`  entries.json       ${linkedEntries.length} entries`);
   console.log(`  search-index.json  ${Object.keys(searchIndex.english.postings).length} English tokens`);
   if (kaikkiSourceDate) console.log(`  kaikki-yoruba data  release ${kaikkiReleaseTag}, sourced ${kaikkiSourceDate}`);
