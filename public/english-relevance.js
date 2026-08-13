@@ -292,6 +292,33 @@
     return out;
   }
 
+  /** Where a winning document came from, so a caller can show the right meaning and explain the row.
+   *
+   * Lives here rather than in app.js because it is knowledge about the index, not about the DOM - the
+   * three document bands and the two integers that separate them are defined in this file, and a
+   * second copy of that arithmetic in the UI is exactly the drift this file exists to prevent.
+   *
+   *   kind      'definition' | 'example' | 'inherited'
+   *   senseIndex  which of the entry's own meanings the document came from, when that is meaningful
+   *   namedBy     [entryId, senseIndex] of the entry whose definition named this word, when inherited
+   */
+  function matchProvenance(english, docIdx) {
+    if (!english || docIdx === undefined || docIdx === null) return null;
+    var inheritedStart = english.inheritedDocStart === undefined ? Infinity : english.inheritedDocStart;
+    if (docIdx >= inheritedStart) {
+      var source = (english.docSource || {})[docIdx];
+      // An inherited document carries another entry's words, so it points at no meaning of this
+      // entry's own. The label is what explains the row.
+      return { kind: 'inherited', senseIndex: null, namedBy: source || null };
+    }
+    var senseIndex = (english.docSenseIdx || [])[docIdx];
+    return {
+      kind: docIdx >= english.glossDocCount ? 'example' : 'definition',
+      senseIndex: senseIndex === undefined ? null : senseIndex,
+      namedBy: null,
+    };
+  }
+
   /** Entry ids, best first: the three whole-string tiers and the dialect tier are absolute, then
    * prefix, the synonym tier and English compete on score. */
   function rankQuery(index, components, query, limit, helpers) {
@@ -343,6 +370,7 @@
     lowerBound: lowerBound,
     rankQuery: rankQuery,
     synonymTierMatches: synonymTierMatches,
+    matchProvenance: matchProvenance,
     EXAMPLE_DOC_WEIGHT: EXAMPLE_DOC_WEIGHT,
     SYNONYM_DOC_WEIGHT: SYNONYM_DOC_WEIGHT,
     SYNONYM_TIER_SCORE: SYNONYM_TIER_SCORE,

@@ -89,7 +89,7 @@
 
   // Handed to rankQuery to switch a half off, so the scope toggle needs no branching inside it.
   const EMPTY_TIER = { spellings: [], postings: {} };
-  const EMPTY_ENGLISH = { postings: {}, df: {}, docEntryIds: [], docLengths: [], avgDocLength: 1, totalDocs: 0, glossDocCount: 0, exactClauses: {} };
+  const EMPTY_ENGLISH = { postings: {}, df: {}, docEntryIds: [], docLengths: [], docSenseIdx: [], avgDocLength: 1, totalDocs: 0, glossDocCount: 0, inheritedDocStart: 0, docSource: {}, exactClauses: {} };
 
   function search(query, limit = 40) {
     const trimmed = query.trim();
@@ -108,10 +108,20 @@
         ? dialectMatches(y.dialect, orthographyInsensitive(trimmed), limit)
         : [];
 
+    // A synonym-tier hit is not a spelling of the entry it returns - it is a word some OTHER entry
+    // calls another way of saying what it means. Recorded here for the same reason the dialect tier
+    // is: a row that cannot say why it appeared looks like a bug in the search.
+    state.synonymMatches = new Map();
+    if (mode !== 'english') recordSynonymMatches(y.synonym, orthographyInsensitive(trimmed));
+
+    // Filled by bm25Search: which document won for each entry. Lets a row show the meaning that
+    // actually matched, and say when it was reached through another word's definition.
+    const out = {};
     const helpers = {
       orthographyInsensitive: orthographyInsensitive,
       toneInsensitive: toneInsensitive,
       dialectIds: dialectIds,
+      out: out,
       formOfEntry: function (entryId) {
         const entry = state.entries[entryId];
         if (!entry) return '';
@@ -122,14 +132,65 @@
     // Scope toggles are applied by handing rankQuery an empty half rather than by branching inside
     // it: an EN-only search gets no Yoruba tiers, a YO-only search no gloss index.
     const scoped = {
-      yoruba: mode === 'english' ? { exact: EMPTY_TIER, tone: EMPTY_TIER, ortho: EMPTY_TIER } : y,
+      yoruba: mode === 'english'
+        ? { exact: EMPTY_TIER, tone: EMPTY_TIER, ortho: EMPTY_TIER, synonym: EMPTY_TIER }
+        : y,
       english: mode === 'yoruba' ? EMPTY_ENGLISH : state.index.english,
     };
 
-    return EnglishRelevance.rankQuery(scoped, state.index.components || {}, trimmed, limit, helpers).map(
-      (id) => state.entries[id]
-    );
+    const ids = EnglishRelevance.rankQuery(scoped, state.index.components || {}, trimmed, limit, helpers);
+    state.winningDoc = out.winningDoc || new Map();
+    return ids.map((id) => state.entries[id]);
   }
+
+  // Which entries some other entry's definition names this spelling for, and which of that entry's
+  // meanings did the naming. Exact match only - see synonymTierMatches.
+  function recordSynonymMatches(tier, key) {
+    if (!tier || !tier.spellings || !key) return;
+    const i = lowerBound(tier.spellings, key);
+    if (i >= tier.spellings.length || tier.spellings[i] !== key) return;
+    for (const posting of tier.postings[key] || []) {
+      if (!state.synonymMatches.has(posting.id)) state.synonymMatches.set(posting.id, posting.sense);
+    }
+  }
+
+  // What a row should show as its definition, and why it is in the list at all.
+  //
+  // firstGloss alone is wrong often enough to read as a bug: searching "money" returns pa and shows
+  // "to gain, to make", and "sell" returns ọ̀bù showing "market". matchProvenance says which meaning
+  // actually won, so use that when the match was about meaning, and fall back to the first when the
+  // query was a spelling - there the word IS the answer and its main meaning is the useful thing.
+  function rowMeaningAndNote(entry) {
+    const glossesOf = (i) => {
+      const sense = i === null || i === undefined ? null : entry.senses[i];
+      return sense ? (sense.glosses || []).join('; ') : firstGloss(entry);
+    };
+
+    // Reached because THIS entry's definition names the query as another word for it.
+    if (state.synonymMatches && state.synonymMatches.has(entry.id)) {
+      return {
+        meaning: glossesOf(state.synonymMatches.get(entry.id)),
+        note: 'Listed here as a similar word',
+      };
+    }
+
+    const docIdx = state.winningDoc ? state.winningDoc.get(entry.id) : undefined;
+    const where = EnglishRelevance.matchProvenance(state.index.english, docIdx);
+    if (!where) return { meaning: firstGloss(entry), note: '' };
+
+    // Reached because some OTHER entry named this word as another way to say what it means.
+    if (where.kind === 'inherited') {
+      const namer = where.namedBy && state.entries[where.namedBy[0]];
+      const namerForm = namer ? (namer.canonicalForm ? namer.canonicalForm.value : namer.headword) : '';
+      return {
+        meaning: firstGloss(entry),
+        note: namerForm ? `Another way to say ${namerForm}` : '',
+      };
+    }
+
+    return { meaning: glossesOf(where.senseIndex), note: '' };
+  }
+
 
   // Exact then prefix over the dialect tier. Records which varieties produced
   // each hit in state.dialectMatches, so a result row can say why it appeared
@@ -196,12 +257,20 @@
       const dialectNote = varieties
         ? `<div class="result-dialect">${escapeHtml([...varieties].slice(0, 3).join(' · '))}${varieties.size > 3 ? ` +${varieties.size - 3}` : ''}</div>`
         : '';
+      // Same problem, same treatment: a row reached through a synonym declaration shows the meaning
+      // that matched and says how it got here. A dialect note wins if somehow both apply - it is the
+      // more direct statement about the spelling the reader typed.
+      const { meaning, note } = rowMeaningAndNote(entry);
+      const relationNote = note && !varieties
+        ? `<div class="result-relation">${escapeHtml(note)}</div>`
+        : '';
 
       btn.innerHTML = `
         <div class="result-headword">${escapeHtml(entry.canonicalForm.value)}</div>
         <div class="result-meta">${escapeHtml(entry.pos || '')}${entry.etymologyNumber ? ' · etym. ' + escapeHtml(entry.etymologyNumber) : ''}</div>
-        <div class="result-gloss">${escapeHtml(firstGloss(entry))}</div>
+        <div class="result-gloss">${escapeHtml(meaning)}</div>
         ${dialectNote}
+        ${relationNote}
       `;
       btn.addEventListener('click', () => navigateTo(entry.id));
       els.resultsList.appendChild(btn);
@@ -468,6 +537,67 @@
     return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
   }
 
+  // Wiktionary attaches these to a single MEANING, not to the word, so they render
+  // with the meaning they belong to. sun's second etymology means both "to roast"
+  // and "to burn; to set on fire", and the two have completely different sets:
+  // yan and wì against jó, jóná and dáná sun. Pooling them into one list at the
+  // bottom of the page - which is all the entry-level sections could ever do -
+  // would claim yan is a word for setting fires.
+  //
+  // Plain-word labels rather than the bottom sections' titles. Entry-level
+  // derivedTerms genuinely co-occurs with sense-level ones on the same page, and
+  // two blocks both headed "Derived terms" reads as a mistake. These also say what
+  // the relationship is to someone who has never met the word "hypernym".
+  const SENSE_RELATION_LABELS = [
+    ['synonyms', 'Similar words'],
+    ['antonyms', 'Opposites'],
+    ['derivedTerms', 'Built from this meaning'],
+    ['relatedTerms', 'Related words'],
+    ['hypernyms', 'A kind of'],
+    ['hyponyms', 'Kinds of this'],
+    ['coordinateTerms', 'Others in the same set'],
+  ];
+
+  function senseRelationsHtml(sense, entry) {
+    const rows = [];
+    for (const [field, label] of SENSE_RELATION_LABELS) {
+      // `|| []` throughout: an artifact published before sense relations existed
+      // has none of these keys, and the site has to keep working against it while
+      // the two repos' refresh workflows land hours apart.
+      const pills = relationPillsHtml(sense[field] || [], [], entry);
+      if (!pills) continue;
+      rows.push(
+        `<div class="sense-relation"><span class="sense-relation-label">${label}</span>${pills}</div>`
+      );
+    }
+    return rows.length ? `<div class="sense-relations">${rows.join('')}</div>` : '';
+  }
+
+  // "wì is another word for sun, in its 'to roast' meaning" - the reverse of a
+  // link sun declared and wì never did. Naming the meaning is the whole point: sun
+  // has eleven of them across seven etymologies, so "listed as a synonym of sun"
+  // on its own says almost nothing.
+  //
+  // The meaning is looked up rather than shipped. The build sends sourceSenseIndex
+  // and the browser already holds the source entry.
+  function namedByHtml(entry, type) {
+    const rows = (entry.synthesizedRelations || []).filter((r) => r.type === type);
+    if (!rows.length) return '';
+    const items = rows.map((rel) => {
+      const source = state.entries[rel.entryId];
+      if (!source) return '';
+      const meaning =
+        rel.sourceSenseIndex !== undefined && source.senses[rel.sourceSenseIndex]
+          ? (source.senses[rel.sourceSenseIndex].glosses || []).join('; ')
+          : '';
+      const pill = relationPillsHtml([], [rel], entry);
+      return `<div class="named-by-row">${pill}${
+        meaning ? `<span class="named-by-meaning">${escapeHtml(meaning)}</span>` : ''
+      }</div>`;
+    });
+    return items.filter(Boolean).join('');
+  }
+
   // 943 entries carry more than one competing etymology, and the sections are
   // flattened into a single list of parts. Where two analyses overlap, the
   // shared part is listed once per analysis: nìtorí is recorded both as
@@ -631,6 +761,7 @@
                 ${ex.translation ? `<span class="en-text">${escapeHtml(ex.translation)}</span>` : ''}
               </div>
             `).join('')}
+            ${senseRelationsHtml(sense, entry)}
           </li>
         `).join('')}</ol>`
       : '';
@@ -656,6 +787,17 @@
       (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom'),
       entry
     );
+    const coordinateHtml = relationPillsHtml(entry.coordinateTerms || [], [], entry);
+    const hyponymsHtml = relationPillsHtml(entry.hyponyms || [], [], entry);
+    const hypernymsHtml = relationPillsHtml(entry.hypernyms || [], [], entry);
+    // The other side of a link this word never declared. Kept apart from the
+    // declared Synonyms/Antonyms sections so the page never presents something we
+    // worked out as something the source said.
+    const namedSynonymHtml = namedByHtml(entry, 'synonyms');
+    const namedAntonymHtml = namedByHtml(entry, 'antonyms');
+    const namedByNote = `
+      <p>These words list this one in their own definitions. This word does not list them back, so Wiktionary records the link in one direction only.</p>
+      <p>The meaning shown next to each is the one that named this word.</p>`;
     const usedInHtml = relationPillsHtml([], entry.usedInCompounds || [], entry);
     const maybeUsedInHtml = relationPillsHtml([], entry.possiblyUsedIn || [], entry);
     const maybeUsedInNote = `
@@ -687,6 +829,11 @@
       ${section('Related terms', relatedHtml)}
       ${section('Synonyms', synonymsHtml)}
       ${section('Antonyms', antonymsHtml)}
+      ${section('Listed as a similar word by', namedSynonymHtml, namedByNote)}
+      ${section('Listed as an opposite by', namedAntonymHtml, namedByNote)}
+      ${section('A kind of', hypernymsHtml)}
+      ${section('Kinds of this', hyponymsHtml)}
+      ${section('Others in the same set', coordinateHtml)}
       ${section('Descendants', descendantsHtml)}
 
       <div class="entry-provenance-note">

@@ -628,6 +628,50 @@ a { color: inherit; }
 }
 .sense-example .en-text { display: block; }
 
+/* Relation lists that belong to ONE meaning, rendered with it.
+   Pills are smaller here than the bottom sections' so that five relation rows
+   cannot outweigh the definition they hang off - the meaning is what the reader
+   came for, the words beside it are the follow-on. */
+.sense-relations {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sense-relation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 8px;
+}
+.sense-relation-label {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-grammar);
+  font-weight: 600;
+}
+.sense-relation .relation-list { gap: 6px; }
+.sense-relation .relation-pill {
+  padding: 3px 10px;
+  font-size: 0.85rem;
+}
+
+/* A link the other word declared and this one did not, with the meaning that
+   declared it. One row each so the word and its reason stay together. */
+.named-by-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin-bottom: 6px;
+}
+.named-by-meaning {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
 .etymology-text { 
   line-height: 1.6; 
   color: var(--text-primary);
@@ -934,6 +978,15 @@ a { color: inherit; }
   font-size: 0.72rem;
   color: var(--brand-accent-deep);
   font-weight: 600;
+}
+
+/* Why a row is here when its spelling is not what you typed. Same size as the
+   dialect note; quieter colour, because a dialect note names a place and this
+   one explains a relationship. */
+.result-relation {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  color: var(--accent-grammar);
 }
 
 @media (max-width: 800px) {
