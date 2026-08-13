@@ -268,9 +268,9 @@ class PointerBot(ExistingPageBot):
         pywikibot.info("")
 
         summary = (
-            f'Add {item["argument"]}= so this points at one meaning of '
-            f'[[{self.parent}]] (semi-automated: each id written by hand, then '
-            f'uploaded via script to save typing time)'
+            f'/* {LANGUAGE} */ Add {item["argument"]}= so this points at one '
+            f'meaning of [[{self.parent}]] (semi-automated: each id written by '
+            f'hand, then uploaded via script to save typing time)'
         )
         started = datetime.now(timezone.utc).isoformat()
         oldrevid = page.latest_revision_id

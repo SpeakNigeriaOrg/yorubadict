@@ -164,9 +164,14 @@ def collect(task, entries, parsed):
 def summary_for(items):
     count = sum(1 for i in items if i["status"] == "proposed" and i["name"])
     word = "etymology" if count == 1 else "etymologies"
+    # The /* Section */ prefix is how MediaWiki marks which section an edit
+    # touched - it renders in history as a clickable "-> Yoruba:" link. These
+    # are whole-page saves, so nothing adds it for us, and on a page carrying
+    # more than one language it is the first thing a patroller looks for.
+    # AutoDooz writes /*Gun:Etymology 1:Noun*/ on this very page.
     return (
-        f"Add {{{{etymid}}}} to {count} {LANGUAGE} {word} so other entries can "
-        f"point at one meaning (semi-automated: each etymid written by hand, "
+        f"/* {LANGUAGE} */ Add {{{{etymid}}}} to {count} {word} so other entries "
+        f"can point at one meaning (semi-automated: each etymid written by hand, "
         f"then uploaded via script to save typing time)"
     )
 
