@@ -158,7 +158,14 @@ def render(parent, names, items):
         )
     ]
     for item in items:
-        lines.append(f'## {item["word"]}   (page {item["page"]}, argument {item["argument"]})')
+        # The component belongs in the key. Page `iro` carries three Yoruba
+        # etymologies that each take id2 - ìró from ró, ìrò from rò, ìro from
+        # ro - so (page, argument) is not unique, and the last one parsed
+        # silently overwrote the other two.
+        lines.append(
+            f'## {item["word"]}   (page {item["page"]}, argument {item["argument"]}, '
+            f'component {item["component"]})'
+        )
         lines.append("")
         lines.append(f'    id: {item["name"]}')
         lines.append("")
@@ -184,9 +191,17 @@ def parse_worksheet(markdown):
 
     chosen, current = {}, None
     for line in markdown.splitlines():
-        heading = re.match(r"^##\s+\S+\s+\(page\s+(\S+),\s+argument\s+(id\d+)\)", line)
+        # The component is optional so that worksheets written before it was
+        # added still parse. Without it the key is (page, argument, None),
+        # which is exactly the non-unique key that lost two of ro's answers -
+        # so it is matched only as a fallback, below.
+        heading = re.match(
+            r"^##\s+\S+\s+\(page\s+(.+?),\s+argument\s+(id\d+)"
+            r"(?:,\s+component\s+(\S+))?\)",
+            line,
+        )
         if heading:
-            current = (heading.group(1), heading.group(2))
+            current = (heading.group(1), heading.group(2), heading.group(3))
             continue
         if line.startswith("## "):
             current = None
@@ -213,62 +228,72 @@ class PointerBot(ExistingPageBot):
 
     def treat_page(self):
         page = self.current_page
-        item = self.by_page[page.title()]
+        items = self.by_page[page.title()]
         parsed, start, end = yoruba_section(page, page.site)
         if parsed is None:
-            pywikibot.warning(f'{page.title()}: no {LANGUAGE} section — skipped')
+            pywikibot.warning(f'{page.title()}: no {LANGUAGE} section - skipped')
             return
 
         section = "".join(
             parsed.sections[i].title + parsed.sections[i].content for i in range(start, end)
         )
-        template, problem = components.find_template(
-            section, item["template_name"], item["argument"], item["component"]
-        )
-        if problem:
-            pywikibot.error(f'{page.title()}: {problem}')
-            return
-
-        already = components.existing_pointer(template, item["argument"])
-        if already:
-            pywikibot.info(
-                f'  {page.title()}: already points at "{already}" — left alone'
+        replacements, applied = {}, []
+        for item in items:
+            template, problem = components.find_template(
+                section, item["template_name"], item["argument"],
+                item["component"], item.get("meaning"),
             )
-            return
-        if item["name"] not in self.names:
-            pywikibot.error(
-                f'{page.title()}: "{item["name"]}" is not a name on the parent page.'
-            )
-            return
-
-        before_template = str(template)
-        components.add_pointer(template, item["argument"], item["name"])
-        after_template = str(template)
-
-        # Replace inside the Yoruba section only, and rebuild the page from
-        # the section list. A plain page.text.replace would scan from the top,
-        # and a compound's page carries other languages - matching the same
-        # string in one of those would edit the wrong entry.
-        replacements = {}
-        for i in range(start, end):
-            if before_template in parsed.sections[i].content:
-                replacements[i] = parsed.sections[i].content.replace(
-                    before_template, after_template, 1
+            if problem:
+                pywikibot.error(f'{page.title()} / {item["word"]}: {problem}')
+                continue
+            already = components.existing_pointer(template, item["argument"])
+            if already:
+                pywikibot.info(
+                    f'  {item["word"]}: {item["argument"]} already points at '
+                    f'"{already}" - left alone'
                 )
-                break
-        if not replacements:
-            pywikibot.error(f"{page.title()}: could not place the change.")
+                continue
+            if item["name"] not in self.names:
+                pywikibot.error(
+                    f'{item["word"]}: "{item["name"]}" is not a name on the parent page.'
+                )
+                continue
+
+            before_template = str(template)
+            components.add_pointer(template, item["argument"], item["name"])
+            after_template = str(template)
+
+            # Replace inside the Yoruba section only, and rebuild the page from
+            # the section list. A plain page.text.replace would scan from the
+            # top, and a compound's page carries other languages - matching the
+            # same string in one of those would edit the wrong entry.
+            placed = False
+            for i in range(start, end):
+                haystack = replacements.get(i, parsed.sections[i].content)
+                if before_template in haystack:
+                    replacements[i] = haystack.replace(before_template, after_template, 1)
+                    placed = True
+                    break
+            if not placed:
+                pywikibot.error(f'{page.title()} / {item["word"]}: could not place the change.')
+                continue
+            applied.append((item, before_template, after_template))
+
+        if not applied:
             return
         new_text = wikitext.reassemble(parsed, replacements)
 
         pywikibot.info("")
-        pywikibot.info(f'  {item["word"]} — "{item["definition"][:60]}"')
-        pywikibot.info(f"      - {before_template}")
-        pywikibot.info(f"      + {after_template}")
-        pywikibot.info("")
+        for item, before_template, after_template in applied:
+            pywikibot.info(f'  {item["word"]} - "{item["definition"][:60]}"')
+            pywikibot.info(f"      - {before_template}")
+            pywikibot.info(f"      + {after_template}")
+            pywikibot.info("")
 
+        arguments = ", ".join(sorted({i["argument"] for i, _, _ in applied}))
         summary = (
-            f'/* {LANGUAGE} */ Add {item["argument"]}= so this points at one '
+            f'/* {LANGUAGE} */ Add {arguments}= so '
+            f'{"this points" if len(applied) == 1 else "these point"} at one '
             f'meaning of [[{self.parent}]] (semi-automated: each id written by '
             f'hand, then uploaded via script to save typing time)'
         )
@@ -297,21 +322,24 @@ class PointerBot(ExistingPageBot):
                 "trying again, and consider a slower put_throttle."
             )
             self.quit()
-        self.results.append(
-            {
-                "page": page.title(),
-                "word": item["word"],
-                "argument": item["argument"],
-                "name": item["name"],
-                "before": before_template,
-                "after": after_template,
-                "oldrevid": oldrevid,
-                "saved": bool(saved),
-                "startedAt": started,
-                # each compound is its own page, so its own revision
-                "newrevid": page.latest_revision_id if saved else None,
-            }
-        )
+            return
+
+        for item, before_template, after_template in applied:
+            self.results.append(
+                {
+                    "page": page.title(),
+                    "word": item["word"],
+                    "argument": item["argument"],
+                    "component": item["component"],
+                    "name": item["name"],
+                    "before": before_template,
+                    "after": after_template,
+                    "oldrevid": oldrevid,
+                    "saved": bool(saved),
+                    "startedAt": started,
+                    "newrevid": page.latest_revision_id if saved else None,
+                }
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -375,9 +403,11 @@ def main():
         if path.exists():
             previous = parse_worksheet(path.read_text(encoding="utf-8"))
             for item in items:
-                key = (item["page"], item["argument"])
+                key = (item["page"], item["argument"], item["component"])
                 if key in previous:
                     item["name"] = previous[key]
+                elif (key[0], key[1], None) in previous:
+                    item["name"] = previous[(key[0], key[1], None)]
             pywikibot.info("  kept the id: lines already in the worksheet")
         path.write_text(render(parent, names, items), encoding="utf-8")
         ready = sum(1 for i in items if i["name"])
@@ -393,9 +423,11 @@ def main():
         raise SystemExit(f'\n  No worksheet. Run `-parent:{parent} -propose` first.\n')
     chosen = parse_worksheet(path.read_text(encoding="utf-8"))
     for item in items:
-        key = (item["page"], item["argument"])
+        key = (item["page"], item["argument"], item["component"])
         if key in chosen:
             item["name"] = chosen[key]
+        elif (key[0], key[1], None) in chosen:
+            item["name"] = chosen[(key[0], key[1], None)]
 
     writable = [i for i in items if i["name"]]
     problems = []
@@ -437,12 +469,15 @@ def main():
     if not writable:
         raise SystemExit("\n  Every id: line is blank. Nothing to do.\n")
 
+    # Several compounds can live on one page - iro holds three - so group by
+    # page and make one edit carrying all of that page's pointers, rather than
+    # keeping one item per page and dropping the rest.
     by_page = {}
     for item in writable:
-        by_page[pywikibot.Page(site, item["page"]).title()] = item
+        by_page.setdefault(pywikibot.Page(site, item["page"]).title(), []).append(item)
     bot = PointerBot(
         by_page, names, parent,
-        generator=[pywikibot.Page(site, i["page"]) for i in writable],
+        generator=[pywikibot.Page(site, title) for title in by_page],
         always=always,
     )
     bot.run()

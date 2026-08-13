@@ -1,0 +1,33 @@
+{
+  "job": "pointers",
+  "parent": "ro",
+  "language": "Yoruba",
+  "account": "SpeakNigeria",
+  "finishedAt": "2026-08-13T15:10:11.175931+00:00",
+  "namesOnParent": {
+    "1": "think",
+    "2": "stir",
+    "3": "hoe",
+    "4": "wrap",
+    "5": "sound",
+    "6": "ache",
+    "7": "live"
+  },
+  "pointers": [
+    {
+      "page": "arokọ",
+      "word": "àròkọ",
+      "argument": "id2",
+      "name": "think",
+      "before": "{{af|yo|à-|rò|kọ|t1=nominalizing prefix|t2=to think|t3=to write|id3=write}}",
+      "after": "{{af|yo|à-|rò|kọ|t1=nominalizing prefix|t2=to think|id2=think|t3=to write|id3=write}}",
+      "oldrevid": 91799912,
+      "saved": true,
+      "startedAt": "2026-08-13T15:09:11.396949+00:00",
+      "newrevid": 91979503,
+      "realizedDiff": "@@ -3,5 +3,5 @@\n ===Etymology===\n-From {{af|yo|à-|rò|kọ|t1=nominalizing prefix|t2=to think|t3=to write|id3=write}}.\n+From {{af|yo|à-|rò|kọ|t1=nominalizing prefix|t2=to think|id2=think|t3=to write|id3=write}}.\n ===Pronunciation===",
+      "realizedShowsOurChange": true
+    }
+  ],
+  "allShowOurChange": true
+}

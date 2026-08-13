@@ -47,7 +47,7 @@ def argument_position(argument):
     return int(argument.removeprefix("id")) + 1
 
 
-def find_template(section_wikitext, template_name, argument, form):
+def find_template(section_wikitext, template_name, argument, form, gloss=None):
     """The one template this pointer belongs on.
 
     Returns (template, problem). A compound can carry several etymology
@@ -55,6 +55,13 @@ def find_template(section_wikitext, template_name, argument, form):
     match has to be on the template name AND the component sitting where the
     queue says it sits. Anything other than exactly one match is refused rather
     than guessed at.
+
+    Name and position are not always enough. Page `iro` has two Yoruba
+    etymologies both built from ì- + ró - one meaning "to wrap", one meaning
+    "to sound" - so they are identical on both counts. The tN gloss beside the
+    component is what separates them, and the queue records it, so it is used
+    as a tiebreak when the first pass is ambiguous. Only as a tiebreak: it is
+    the compound's own wording and may have been edited since our data.
     """
     index = argument_position(argument)
     matches = [
@@ -63,6 +70,14 @@ def find_template(section_wikitext, template_name, argument, form):
         if str(t.name).strip() == template_name
         and positional(t, index) == form
     ]
+    if len(matches) > 1 and gloss:
+        key = "t" + argument.removeprefix("id")
+        narrowed = [
+            t for t in matches
+            if t.has(key) and str(t.get(key).value).strip() == gloss
+        ]
+        if len(narrowed) == 1:
+            matches = narrowed
     if not matches:
         return None, (
             f"no {{{{{template_name}}}}} on the page has {form!r} as argument "
