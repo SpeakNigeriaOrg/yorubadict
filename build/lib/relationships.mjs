@@ -12,25 +12,107 @@
 //      auditing the data) can tell "the dictionary said this" apart from
 //      "we inferred this."
 
-import { spellingsForEntry } from './orthography.mjs';
+import { spellingsForEntry, toneInsensitiveForm, orthographyInsensitiveForm } from './orthography.mjs';
 
+// Three indexes over the same spellings, so a cross-reference written with the
+// wrong diacritics can still find the word it means.
+//
+// Resolution used to be exact-match only, and the validation report has always
+// reported the near-misses separately - "cross-reference with the wrong tone
+// marks" (149 items) and "with a missing or extra underdot" (40) - without ever
+// using what it knew. Those references point at words that ARE in the
+// dictionary; they were rendered as dead ends purely because a tone mark was
+// wrong. Sense-level relations bring 208 more of them.
+//
+// The tiers stay separate rather than collapsing into one normalized index,
+// because that would be a different claim: entries differing only in tone are
+// different words in Yoruba, so an exact hit must always win and a tone hit
+// must be recorded as the inference it is.
 function buildAliasIndex(entries) {
-  const index = new Map(); // spelling -> Set(entryId)
+  const exact = new Map(); // spelling -> Set(entryId)
+  const tone = new Map(); // tone-insensitive spelling -> Set(entryId)
+  const ortho = new Map(); // underdot- and tone-insensitive -> Set(entryId)
 
-  const add = (spelling, id) => {
+  const add = (map, spelling, id) => {
     if (!spelling) return;
-    if (!index.has(spelling)) index.set(spelling, new Set());
-    index.get(spelling).add(id);
+    if (!map.has(spelling)) map.set(spelling, new Set());
+    map.get(spelling).add(id);
   };
 
   for (const entry of entries) {
-    for (const spelling of spellingsForEntry(entry)) add(spelling, entry.id);
+    for (const spelling of spellingsForEntry(entry)) {
+      add(exact, spelling, entry.id);
+      add(tone, toneInsensitiveForm(spelling), entry.id);
+      add(ortho, orthographyInsensitiveForm(spelling), entry.id);
+    }
   }
 
-  return index;
+  // `get` keeps the old call shape, so everything reading the alias index as a
+  // plain spelling -> ids map (the dialect pass, search-index callers) is
+  // unaffected by the two new tiers.
+  return {
+    get: (text) => exact.get(text),
+    exact,
+    tone,
+    ortho,
+  };
 }
 
-function resolveList(list, aliasIndex, unresolvedLog, relationType, sourceId) {
+const startsUpper = (text) => /^\p{Lu}/u.test(text || '');
+
+// Both fallback tiers lowercase, which lets a common noun collide with a proper
+// name. Yoruba forms given names from common nouns systematically - Akin from
+// akin, Olú from olú, Ẹ̀bùn from ẹ̀bùn - so that collision is not an edge case,
+// it is the shape of the vocabulary. Capitalization has to count as part of the
+// spelling here, exactly as an underdot does.
+//
+// Measured over the corpus, allowing a case difference produced 86 matches and
+// every direction was wrong:
+//
+//   lowercase reference -> Capitalized entry    24 matches
+//     ẹ̀gún (thorn) -> Ègùn (the Ogu people), sá -> Sà ("Sir"),
+//     èrò (thought) -> Èró (a town), èbíbì -> Ẹ̀bìbì (a festival)
+//
+//   Capitalized reference -> lowercase entry    62 matches
+//     31 made a word derive from itself, because the name IS the derived term:
+//     akin -> "Akin" -> akin, èlú -> "Elú" -> èlú, òsì -> "Òsì" -> òsì. That
+//     alone took circular derivations from 1 to 17. Of the other 31,
+//     Ilẹ̀ (ground) -> alẹ̀ (night) and Éfà -> ẹ̀fà are plainly different words.
+//
+// A handful of genuine sentence-case references (Sìbí -> sìbí) are lost with
+// them. Those stay in the validation report as the easy Wiktionary fixes they
+// are, which is better than guessing at 86 links to get a dozen right.
+//
+// The guard applies to the fallbacks only. An exact match is what the source
+// wrote, and nothing here second-guesses that.
+function candidatesFor(ids, text, byId) {
+  if (!byId) return ids;
+  const wanted = startsUpper(text);
+  const kept = ids.filter((id) => startsUpper(byId.get(id)?.canonicalForm?.value) === wanted);
+  return kept.length ? kept : null;
+}
+
+/** The best match for a free-text cross-reference, and how it was found. */
+function lookupAlias(aliasIndex, text, byId) {
+  const hit = aliasIndex.exact.get(text);
+  if (hit && hit.size) return { ids: [...hit], matchedBy: 'exact' };
+
+  const toneHit = aliasIndex.tone.get(toneInsensitiveForm(text));
+  if (toneHit && toneHit.size) {
+    const ids = candidatesFor([...toneHit], text, byId);
+    if (ids) return { ids, matchedBy: 'tone' };
+  }
+
+  const orthoHit = aliasIndex.ortho.get(orthographyInsensitiveForm(text));
+  if (orthoHit && orthoHit.size) {
+    const ids = candidatesFor([...orthoHit], text, byId);
+    if (ids) return { ids, matchedBy: 'underdot' };
+  }
+
+  return null;
+}
+
+function resolveList(list, aliasIndex, unresolvedLog, relationType, sourceId, byId, meaning = null) {
   return (list || []).map((item) => {
     // Older releases (before kaikki-yoruba imported the dialect tables from
     // source) put a synthetic escape-hatch item in place of a flattened table.
@@ -51,9 +133,29 @@ function resolveList(list, aliasIndex, unresolvedLog, relationType, sourceId) {
       return { ...item, entryIds: [], resolved: false, foreign: true };
     }
 
-    const matches = aliasIndex.get(item.text);
-    if (matches && matches.size > 0) {
-      return { ...item, entryIds: [...matches], resolved: true };
+    const hit = lookupAlias(aliasIndex, item.text, byId);
+    if (hit) {
+      const resolved = { ...item, entryIds: hit.ids, resolved: true };
+      // Only recorded when it is not the plain exact match, so the common case
+      // stays the same shape it has always been and the artifact does not grow
+      // a key on every item to say "nothing to see here".
+      if (hit.matchedBy !== 'exact') resolved.matchedBy = hit.matchedBy;
+
+      // A spelling shared by several homographs says nothing about which one is
+      // meant - unless the meaning it was listed under discriminates between
+      // them. Reuses the same scorer the etymology pass uses; the winner is
+      // moved to the front, because relationPillsHtml links entryIds[0] and
+      // flags the rest as a guess.
+      if (hit.ids.length > 1 && meaning) {
+        const winner = pickByDiscriminatingMeaning(meaning, hit.ids, byId);
+        if (winner) {
+          resolved.entryIds = [winner, ...hit.ids.filter((id) => id !== winner)];
+          resolved.resolution = { method: 'glossOverlap', candidateCount: hit.ids.length };
+        } else {
+          resolved.resolution = { method: 'ambiguous', candidateCount: hit.ids.length };
+        }
+      }
+      return resolved;
     }
 
     unresolvedLog.push({ sourceEntryId: sourceId, relationType, text: item.text });
@@ -412,15 +514,81 @@ const RECIPROCAL_TYPE = {
   relatedTerms: 'relatedTerms',
 };
 
+const ENTRY_RELATION_FIELDS = [
+  'derivedTerms', 'relatedTerms', 'synonyms', 'antonyms', 'descendants',
+  'coordinateTerms', 'hyponyms', 'hypernyms',
+];
+
+// Mirrors kaikki-yoruba's SENSE_RELATION_FIELD_NAMES. Not imported: this repo
+// consumes a published artifact rather than the upstream source tree, and every
+// read below tolerates the field being absent, so an older release still builds.
+const SENSE_RELATION_FIELDS = [
+  'synonyms', 'antonyms', 'derivedTerms', 'relatedTerms',
+  'coordinateTerms', 'hyponyms', 'hypernyms',
+];
+
+// Which sense-level lists earn a reciprocal, and which do not.
+//
+//   derivedTerms - yes. Sense-level "derived" is the same claim as entry-level
+//     derived, recorded one level down, so ibùsùn should learn it comes from
+//     sun when sun's own meaning says so.
+//   synonyms, antonyms - yes, and they carry the source's sense index, because
+//     without it the pill says "listed as a synonym of sun" and cannot say
+//     which of sun's meanings, which is the attribution this whole change
+//     exists to preserve. Antonymy is symmetric, so its reciprocal is exact.
+//   relatedTerms - no. The lists are full of template debris: A's related list
+//     is "Template:list:Latin script letters", and in's is the whole pronoun
+//     paradigm, so a reciprocal would put 19 pills on every pronoun.
+//   coordinateTerms, hyponyms, hypernyms - no. Directional: the inverse of a
+//     hypernym is a hyponym, which needs the opposite label, not a copy.
+const SENSE_RECIPROCAL_TYPE = {
+  derivedTerms: 'derivedFrom',
+  synonyms: 'synonyms',
+  antonyms: 'antonyms',
+};
+
+/** Does `target` already declare a `field` relation pointing at `sourceId`?
+ *
+ * Checks both levels. Reading only the entry level - as this did while only the
+ * entry level existed - synthesizes a pill that sits next to an identical
+ * declared one, now that most of the real relations live on the senses. */
+function declaresRelation(target, field, sourceId) {
+  const declared = (list) => (list || []).some((r) => r.resolved && r.entryIds.includes(sourceId));
+  if (declared(target[field])) return true;
+  return (target.senses || []).some((sense) => declared(sense[field]));
+}
+
+/** The text a sense's relation lists should be disambiguated against. */
+function senseMeaning(sense) {
+  return (sense.glosses || []).join('; ');
+}
+
 export function synthesizeRelationships(entries) {
   const aliasIndex = buildAliasIndex(entries);
   const unresolved = [];
   const byId = new Map(entries.map((e) => [e.id, e]));
 
-  // Resolve every relation list against the alias index.
+  // Resolve every relation list against the alias index - entry level, then the
+  // sense level, where most of the data actually is. Same resolveList either
+  // way, so the item shape, the foreign-language guard and the unresolved log
+  // stay one implementation.
+  //
+  // relationType is prefixed for sense lists so the validation report can tell
+  // the two apart; it prints the string verbatim, and "sense synonyms “yan” -
+  // the dictionary has ..." reads correctly.
   for (const entry of entries) {
-    for (const field of ['derivedTerms', 'relatedTerms', 'synonyms', 'antonyms', 'descendants']) {
-      entry[field] = resolveList(entry[field], aliasIndex, unresolved, field, entry.id);
+    for (const field of ENTRY_RELATION_FIELDS) {
+      if (!entry[field]) continue;
+      entry[field] = resolveList(entry[field], aliasIndex, unresolved, field, entry.id, byId);
+    }
+    for (const sense of entry.senses || []) {
+      const meaning = senseMeaning(sense);
+      for (const field of SENSE_RELATION_FIELDS) {
+        if (!sense[field]) continue; // older release; nothing to resolve
+        sense[field] = resolveList(
+          sense[field], aliasIndex, unresolved, `sense ${field}`, entry.id, byId, meaning
+        );
+      }
     }
   }
 
@@ -440,30 +608,51 @@ export function synthesizeRelationships(entries) {
   // five are in hand you can't tell whether that's five distinct roots or one
   // root recorded five times. Pushing eagerly threw that distinction away and
   // rendered five identical pills.
-  const pending = new Map(); // targetId -> Map(reciprocalField -> Set(sourceId))
+  // targetId -> Map(reciprocalField -> Map(sourceId -> sourceSenseIndex|null)).
+  // null means the relation was declared by the whole entry rather than by one
+  // of its meanings; a number names the meaning, so the pill can quote it.
+  const pending = new Map();
+
+  const offerReciprocal = (entry, field, reciprocalField, rel, senseIndex) => {
+    if (!rel.resolved) return;
+    // Only the best candidate earns a reciprocal. A spelling shared by several
+    // homographs is one word's worth of claim, and fanning it out to all of them
+    // is how "iye" (value, price) came to be listed as a synonym of "mother".
+    // resolveList has already moved a meaning-discriminated winner to the front.
+    const targetId = rel.entryIds[0];
+    const target = byId.get(targetId);
+    if (!target) return;
+    // A word is not derived from itself. Happens when a derived term is
+    // also one of the source entry's own alt forms - ẹ̀dọ̀ lists ẹ̀dọ̀ki
+    // as derived while carrying ẹ̀dọ̀ki as an alt form, which is the
+    // corpus's one "circular derivation".
+    if (targetId === entry.id) return;
+    if (declaresRelation(target, field, entry.id)) return;
+
+    if (!pending.has(targetId)) pending.set(targetId, new Map());
+    const byType = pending.get(targetId);
+    if (!byType.has(reciprocalField)) byType.set(reciprocalField, new Map());
+    const sources = byType.get(reciprocalField);
+    // First meaning wins when a source lists the same target under several, so
+    // the quoted definition is stable across builds.
+    if (!sources.has(entry.id) || (sources.get(entry.id) === null && senseIndex !== null)) {
+      sources.set(entry.id, senseIndex);
+    }
+  };
 
   for (const entry of entries) {
     for (const [field, reciprocalField] of Object.entries(RECIPROCAL_TYPE)) {
-      for (const rel of entry[field]) {
-        if (!rel.resolved) continue;
-        for (const targetId of rel.entryIds) {
-          const target = byId.get(targetId);
-          if (!target) continue;
-          // A word is not derived from itself. Happens when a derived term is
-          // also one of the source entry's own alt forms - ẹ̀dọ̀ lists ẹ̀dọ̀ki
-          // as derived while carrying ẹ̀dọ̀ki as an alt form, which is the
-          // corpus's one "circular derivation".
-          if (targetId === entry.id) continue;
-          if ((target[field] || []).some((r) => r.resolved && r.entryIds.includes(entry.id))) {
-            continue;
-          }
-          if (!pending.has(targetId)) pending.set(targetId, new Map());
-          const byType = pending.get(targetId);
-          if (!byType.has(reciprocalField)) byType.set(reciprocalField, new Set());
-          byType.get(reciprocalField).add(entry.id);
-        }
+      for (const rel of entry[field] || []) {
+        offerReciprocal(entry, field, reciprocalField, rel, null);
       }
     }
+    (entry.senses || []).forEach((sense, senseIndex) => {
+      for (const [field, reciprocalField] of Object.entries(SENSE_RECIPROCAL_TYPE)) {
+        for (const rel of sense[field] || []) {
+          offerReciprocal(entry, field, reciprocalField, rel, senseIndex);
+        }
+      }
+    });
   }
 
   for (const [targetId, byType] of pending) {
@@ -477,7 +666,7 @@ export function synthesizeRelationships(entries) {
       // different words (a compound is derived from each of its components)
       // and each keeps its own pill.
       const groups = new Map();
-      for (const sourceId of sourceIds) {
+      for (const sourceId of sourceIds.keys()) {
         const source = byId.get(sourceId);
         if (!source) continue;
         const key = `${source.forms.exact} ${source.pos || ''}`;
@@ -495,14 +684,28 @@ export function synthesizeRelationships(entries) {
                 method: candidates.length > 1 ? 'ambiguous' : 'unique',
               };
 
-        target.synthesizedRelations.push({
+        const relation = {
           type: reciprocalField,
           entryId: chosen,
           entryIds: ordered,
           text: byId.get(chosen).canonicalForm.value,
           provenance: 'synthesized',
           resolution: { method, candidateCount: candidates.length },
-        });
+        };
+
+        // Which of the source's meanings named this word. Carried so the pill
+        // can read "listed as another word for sun - to roast" instead of just
+        // naming sun, which on a word with eleven meanings says almost nothing.
+        const senseIndex = sourceIds.get(chosen);
+        if (senseIndex !== null && senseIndex !== undefined) {
+          const sourceSense = byId.get(chosen).senses?.[senseIndex];
+          if (sourceSense) {
+            relation.sourceSenseIndex = senseIndex;
+            relation.sourceMeaning = senseMeaning(sourceSense);
+          }
+        }
+
+        target.synthesizedRelations.push(relation);
       }
     }
   }

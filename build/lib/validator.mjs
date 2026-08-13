@@ -63,6 +63,13 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   // rather than only in the UI.
   const FOREIGN_SCRIPT = /[㐀-䶿一-鿿぀-ヿ가-힯؀-ۿ]/u;
   const LATIN_LETTER = /[A-Za-zÀ-ɏḀ-ỿ]/u;
+  // Every relation field either level can carry. descendants only exists at the
+  // entry level and coordinateTerms/hyponyms/hypernyms only recently at both;
+  // scanning for a field an entry does not have costs nothing.
+  const RELATION_FIELDS = [
+    'synonyms', 'antonyms', 'derivedTerms', 'relatedTerms', 'descendants',
+    'coordinateTerms', 'hyponyms', 'hypernyms',
+  ];
 
   const byId = new Map(entries.map((e) => [e.id, e]));
   const toneIndex = new Map(); // toneInsensitive spelling -> Set(ids)
@@ -102,8 +109,12 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
       orthoLookup.get(okey).add(spelling);
     }
 
-    for (const field of ['synonyms', 'antonyms', 'derivedTerms', 'relatedTerms', 'descendants']) {
-      for (const rel of entry[field] || []) {
+    // Both levels. This tripwire exists to catch flattened-table debris that
+    // slipped past the container filter upstream, and most relation items now
+    // live on the senses - checking only the entry level would leave 9,000 of
+    // them unwatched, which is where the debris would show up first.
+    const scanRelations = (list, field) => {
+      for (const rel of list || []) {
         const text = rel.text || '';
         // A leaked separator sits inside a token; a genuine foreign-script
         // relation (Mandarin 阿哥哥, Japanese イロコ) is foreign all through.
@@ -111,6 +122,10 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
           report.suspiciousRelationText.push({ entryId: entry.id, field, text, reason: 'mixed-script' });
         }
       }
+    };
+    for (const field of RELATION_FIELDS) scanRelations(entry[field], field);
+    for (const sense of entry.senses || []) {
+      for (const field of RELATION_FIELDS) scanRelations(sense[field], `sense ${field}`);
     }
   }
 

@@ -6,6 +6,7 @@
   "description": "Sọ̀rọ̀ Sókè, The People’s Yorùbá Dictionary — a free, fully static, client-side Yorùbá dictionary built from a Kaikki Wiktionary JSONL extract.",
   "scripts": {
     "build": "node build/normalize.mjs",
+    "test": "node --test",
     "check:search": "node build/check-search-agreement.mjs",
     "build:custom": "node build/normalize.mjs",
     "serve": "node server/dev-server.mjs",
