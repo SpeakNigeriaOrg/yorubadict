@@ -1,0 +1,49 @@
+{
+  "job": "pointers",
+  "parent": "ro",
+  "language": "Yoruba",
+  "account": "SpeakNigeria",
+  "finishedAt": "2026-08-13T15:33:14.306261+00:00",
+  "namesOnParent": {
+    "1": "think",
+    "2": "stir",
+    "3": "hoe",
+    "4": "wrap",
+    "5": "sound",
+    "6": "ache",
+    "7": "live"
+  },
+  "pointers": [
+    {
+      "page": "iro",
+      "word": "ìró",
+      "argument": "id2",
+      "component": "ró",
+      "name": "wrap",
+      "before": "{{af|yo|ì-|ró|t1=nominalizing prefix|id1=nominalizing prefix|t2=to wrap}}",
+      "after": "{{af|yo|ì-|ró|t1=nominalizing prefix|id1=nominalizing prefix|t2=to wrap|id2=wrap}}",
+      "oldrevid": 91979541,
+      "saved": true,
+      "startedAt": "2026-08-13T15:32:11.138067+00:00",
+      "newrevid": 91979541,
+      "realizedDiff": "@@ -266,5 +266,5 @@\n ===Etymology 2===\n-From {{af|yo|ì-|ró|t1=nominalizing prefix|id2=nominalizing prefix|t2=to sound}}\n+From {{af|yo|ì-|ró|t1=nominalizing prefix|id1=nominalizing prefix|t2=to sound}}\n ====Alternative forms====",
+      "realizedShowsOurChange": false
+    },
+    {
+      "page": "iro",
+      "word": "ìrò",
+      "argument": "id2",
+      "component": "rò",
+      "name": "think",
+      "before": "{{af|yo|ì-|rò|t1=nominalizing prefix|id1=nominalizing prefix|t2=to think}}",
+      "after": "{{af|yo|ì-|rò|t1=nominalizing prefix|id1=nominalizing prefix|t2=to think|id2=think}}",
+      "oldrevid": 91979541,
+      "saved": true,
+      "startedAt": "2026-08-13T15:32:11.138067+00:00",
+      "newrevid": 91979541,
+      "realizedDiff": "@@ -266,5 +266,5 @@\n ===Etymology 2===\n-From {{af|yo|ì-|ró|t1=nominalizing prefix|id2=nominalizing prefix|t2=to sound}}\n+From {{af|yo|ì-|ró|t1=nominalizing prefix|id1=nominalizing prefix|t2=to sound}}\n ====Alternative forms====",
+      "realizedShowsOurChange": false
+    }
+  ],
+  "allShowOurChange": false
+}

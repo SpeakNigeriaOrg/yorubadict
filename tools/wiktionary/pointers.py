@@ -39,7 +39,7 @@ from pywikibot import config
 from pywikibot.bot import ExistingPageBot
 from pywikibot.exceptions import AbuseFilterDisallowedError
 
-from lib import components, data, record, wikitext, worksheet
+from lib import components, data, issues, record, wikitext, worksheet
 
 LANGUAGE = "Yoruba"
 LANG_CODE = "yo"
@@ -429,6 +429,14 @@ def main():
         ready = sum(1 for i in items if i["name"])
         pywikibot.info(
             f"  {len(items)} compounds: {ready} with a name, {len(items) - ready} needing you"
+        )
+        issues.render(
+            issues.for_pages(
+                [parent] + [i["page"] for i in items],
+                set(names.values()),
+                parent=parent,
+            ),
+            pywikibot.info,
         )
         pywikibot.info("")
         pywikibot.info(f"  {path}")

@@ -278,6 +278,37 @@ Most of this is Pywikibot's by default. What we set:
 Consider a line on your Wiktionary user page saying you use this, linking the
 repo. It is the first thing anyone checks.
 
+## Known problems on the pages you are editing
+
+`-propose` ends by printing anything the data-quality report already knows
+about the word in hand and the compounds around it:
+
+```
+  agbẹjọro — Points at a name that was never created  [easy]
+      points at “take” on gbà, which has no such name
+      points at “law” on ẹjọ́, which has no such name
+```
+
+Two of those would otherwise never reach you.
+
+A compound whose only fault is a **wrong** `idN` never enters the work queue at
+all, because `wiktionary-tasks.mjs` reads "has an `idN`" as resolved. `iro`
+etymology 2 says `id2=nominalizing prefix` where it meant `id1`, so its `ró`
+points at a name `ro` does not have and the queue skips the component as done.
+`agbẹjọro` is worse: it names all three of its components and every one dangles.
+Both are found by matching on the word being pointed *at*, not just the pages in
+the queue.
+
+And when you are naming a page, a word already pointing at a name it does not
+have is evidence rather than only a fault — somebody decided what that meaning
+should be called. `agbẹjọro` asked for `think` on `rò` long before `ro` was
+named, and `think` is what it got.
+
+The report is built from the last Kaikki refresh, so it lags Wiktionary by up to
+a week. Anchors that now exist are filtered out against the live page, so it
+does not send you after work already done — `agbẹjọro`'s third detail, `think`
+on `rò`, stopped printing the moment `ro` was named.
+
 ## Checking the account
 
 ```bash

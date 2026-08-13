@@ -43,7 +43,7 @@ import pywikibot
 from pywikibot import config
 from pywikibot.bot import ExistingPageBot
 
-from lib import align, data, record, wikitext, worksheet
+from lib import align, data, issues, record, wikitext, worksheet
 
 LANGUAGE = "Yoruba"
 LANG_CODE = "yo"
@@ -391,6 +391,18 @@ def cmd_propose(site, task, entries, regenerate):
     if not counts.get("proposed"):
         pywikibot.info("")
         pywikibot.info("  Nothing to write on this page. Every etymology already has a name.")
+    # parent= also catches words pointing AT this page at a name it does not
+    # have. Those are not just faults, they are evidence: somebody already
+    # decided what this meaning should be called. agbẹjọro asked for "think"
+    # on rò long before ro was named, and "think" is what it got.
+    issues.render(
+        issues.for_pages(
+            [task["page"]],
+            {i["existing"] for i in collected["items"] if i["existing"]},
+            parent=task["page"],
+        ),
+        pywikibot.info,
+    )
     pywikibot.info("")
     pywikibot.info(f"  {path}")
 
