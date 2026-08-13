@@ -166,7 +166,8 @@ def summary_for(items):
     word = "etymology" if count == 1 else "etymologies"
     return (
         f"Add {{{{etymid}}}} to {count} {LANGUAGE} {word} so other entries can "
-        f"point at one meaning (semi-automated, each edit reviewed by hand)"
+        f"point at one meaning (semi-automated: each etymid written by hand, "
+        f"then uploaded via script to save typing time)"
     )
 
 

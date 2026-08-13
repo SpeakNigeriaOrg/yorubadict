@@ -269,7 +269,8 @@ class PointerBot(ExistingPageBot):
 
         summary = (
             f'Add {item["argument"]}= so this points at one meaning of '
-            f'[[{self.parent}]] (semi-automated, each edit reviewed by hand)'
+            f'[[{self.parent}]] (semi-automated: each id written by hand, then '
+            f'uploaded via script to save typing time)'
         )
         started = datetime.now(timezone.utc).isoformat()
         oldrevid = page.latest_revision_id
