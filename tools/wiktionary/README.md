@@ -202,8 +202,8 @@ Pywikibot is a MediaWiki framework, not a dictionary one. `textlib` will hand
 you the headings on a page, but nothing in it has heard of an etymology, and
 nothing knows that a Yorùbá compound points at a meaning. So the split is:
 
-**Pywikibot's** — login and session, tokens, the y/n prompt, the ten-second
-throttle, edit-conflict detection, `-simulate`, the User-Agent, and
+**Pywikibot's** — login and session, tokens, the y/n prompt, the throttle
+between saves, edit-conflict detection, `-simulate`, the User-Agent, and
 `mwparserfromhell` for parsing wikitext.
 
 **Ours** — which etymology deserves which name, and whether the page still
@@ -235,7 +235,13 @@ Most of this is Pywikibot's by default. What we set:
 
 - `user_agent_description` in `user-config.py` carries the tool name and a
   contact address, per Wikimedia's User-Agent policy.
-- `put_throttle = 10` — ten seconds between saves.
+- `put_throttle = 60` — a minute between saves. Pywikibot's default is 10,
+  which is six edits a minute; that is bot pace, and en.wiktionary's filter 205
+  ("ac2", actions `throttle` + `blockautopromote`) said so — a run of sixteen
+  edits at ten-second spacing cost the account its `autoconfirmed` status after
+  eight of them. The filter's rule is not public, so the safe rate is unknown
+  and sixty is a guess on the cautious side. It is also more honest about a
+  tool whose claim is that a person reads every edit before it is sent.
 - **`bot=False` and `minor=False` on every save.** Pywikibot's `page.save()`
   defaults to `bot=True, minor=True`; both are wrong here.
 
