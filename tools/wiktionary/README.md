@@ -237,10 +237,27 @@ Most of this is Pywikibot's by default. What we set:
   contact address, per Wikimedia's User-Agent policy.
 - `put_throttle = 10` — ten seconds between saves.
 - **`bot=False` and `minor=False` on every save.** Pywikibot's `page.save()`
-  defaults to `bot=True, minor=True`; both are wrong here. These edits are
-  confirmed by a person, en.wiktionary requires approval before an account may
-  flag edits as a bot's, and adding an anchor other pages will point at is not
-  a minor edit.
+  defaults to `bot=True, minor=True`; both are wrong here.
+
+  `bot=False` because en.wiktionary requires approval before an account may
+  flag edits as a bot's, and these are confirmed one at a time by a person.
+
+  `minor=False` because [Help:Minor edit][minor] says a minor edit "shouldn't
+  lead to disputes", that "if there is any chance that another editor might
+  dispute a change, the edit should not be marked as minor", and lists "adding
+  or removing content to/from a page" under what *not* to mark. Both jobs add
+  content, and both are disputable — our data proposed `build` for `kọ`
+  etymology 2 and a person reading the evidence chose `teach`.
+
+  `{{etymid}}` renders nothing visible, which is the one argument the other
+  way: the output is an empty `<ul class="etymid" id="Yoruba:_write">` anchor
+  and the page looks identical. But the test is disputability, not visibility,
+  and an anchor other pages will point at by name is about as disputable as an
+  invisible change gets. It also matters that readers can filter minor edits
+  out of recent changes — marking a semi-automated run minor hides it from the
+  people who should see it.
+
+[minor]: https://en.wiktionary.org/wiki/Help:Minor_edit
 - The `-always` flag, which skips confirmation, is accepted only together with
   `-simulate`. It is set before you have seen anything, so on a real run it
   would defeat the gate the design rests on.
