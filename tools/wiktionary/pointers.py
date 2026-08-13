@@ -185,22 +185,20 @@ def render(parent, names, items):
     return "\n".join(lines)
 
 
-def parse_worksheet(markdown):
+def parse_worksheet(markdown, strict=True):
     """The id: line under each `## <word>   (page X, argument idN)` heading."""
     import re
 
     chosen, current = {}, None
+    headings = 0
     for line in markdown.splitlines():
-        # The component is optional so that worksheets written before it was
-        # added still parse. Without it the key is (page, argument, None),
-        # which is exactly the non-unique key that lost two of ro's answers -
-        # so it is matched only as a fallback, below.
         heading = re.match(
-            r"^##\s+\S+\s+\(page\s+(.+?),\s+argument\s+(id\d+)"
-            r"(?:,\s+component\s+(\S+))?\)",
+            r"^##\s+\S+\s+\(page\s+(.+?),\s+argument\s+(id\d+),"
+            r"\s+component\s+(\S+)\)",
             line,
         )
         if heading:
+            headings += 1
             current = (heading.group(1), heading.group(2), heading.group(3))
             continue
         if line.startswith("## "):
@@ -208,6 +206,23 @@ def parse_worksheet(markdown):
         match = re.match(r"^\s*id:\s*(.*)$", line)
         if match and current:
             chosen[current] = match.group(1).strip()
+
+    # Silently reading nothing out of a worksheet is the worst outcome: the run
+    # carries on using the proposed names and looks like it worked. If the
+    # headings are there but none parsed, the file has been edited into a shape
+    # this cannot read, or predates the current one.
+    if not chosen and "## " in markdown and not headings:
+        if not strict:
+            # -regenerate is the way out of an unreadable worksheet, so it must
+            # not be blocked by one. It starts fresh instead.
+            pywikibot.warning(
+                "the existing worksheet could not be read; starting it fresh"
+            )
+            return {}
+        raise SystemExit(
+            "\n  Could not read a single heading out of this worksheet.\n"
+            "  Regenerate it: -propose -regenerate\n"
+        )
     return chosen
 
 
@@ -401,14 +416,15 @@ def main():
                 f"  Use -regenerate to refresh it, keeping your id: lines.\n"
             )
         if path.exists():
-            previous = parse_worksheet(path.read_text(encoding="utf-8"))
+            previous = parse_worksheet(path.read_text(encoding="utf-8"), strict=False)
             for item in items:
                 key = (item["page"], item["argument"], item["component"])
                 if key in previous:
                     item["name"] = previous[key]
-                elif (key[0], key[1], None) in previous:
-                    item["name"] = previous[(key[0], key[1], None)]
-            pywikibot.info("  kept the id: lines already in the worksheet")
+            if previous:
+                pywikibot.info(
+                    f"  kept {len(previous)} id: line(s) from the existing worksheet"
+                )
         path.write_text(render(parent, names, items), encoding="utf-8")
         ready = sum(1 for i in items if i["name"])
         pywikibot.info(
@@ -426,8 +442,6 @@ def main():
         key = (item["page"], item["argument"], item["component"])
         if key in chosen:
             item["name"] = chosen[key]
-        elif (key[0], key[1], None) in chosen:
-            item["name"] = chosen[(key[0], key[1], None)]
 
     writable = [i for i in items if i["name"]]
     problems = []
