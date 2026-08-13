@@ -1,0 +1,47 @@
+{
+  "job": "etymid",
+  "page": "ro",
+  "hostPage": "ro",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T14:50:31.871802+00:00",
+  "finishedAt": "2026-08-13T14:51:34.344865+00:00",
+  "account": "SpeakNigeria",
+  "summary": "Add {{etymid}} to 7 Yoruba etymologies so other entries can point at one meaning (semi-automated, each edit reviewed by hand)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "think"
+    },
+    {
+      "etymology": "2",
+      "name": "stir"
+    },
+    {
+      "etymology": "3",
+      "name": "hoe"
+    },
+    {
+      "etymology": "4",
+      "name": "wrap"
+    },
+    {
+      "etymology": "5",
+      "name": "sound"
+    },
+    {
+      "etymology": "6",
+      "name": "ache"
+    },
+    {
+      "etymology": "7",
+      "name": "live"
+    }
+  ],
+  "oldrevid": 91959383,
+  "newrevid": 91979427,
+  "realizedDiff": "@@ -665,4 +665,5 @@\n ===Etymology 1===\n+{{etymid|yo|think}}\n Related to etymology 2, compare with {{cog|ig|lò|t=to reflect}}\n@@ -680,4 +681,5 @@\n ===Etymology 2===\n+{{etymid|yo|stir}}\n ====Pronunciation====\n@@ -697,4 +699,5 @@\n ===Etymology 3===\n+{{etymid|yo|hoe}}\n ====Pronunciation====\n@@ -711,4 +714,5 @@\n ===Etymology 4===\n+{{etymid|yo|wrap}}\n ====Pronunciation====\n@@ -725,4 +729,5 @@\n ===Etymology 5===\n+{{etymid|yo|sound}}\n ====Pronunciation====\n@@ -738,4 +743,5 @@\n ===Etymology 6===\n+{{etymid|yo|ache}}\n Compare with {{cog|ig|lo|t=to ache}}\n@@ -754,4 +760,5 @@\n ===Etymology 7===\n+{{etymid|yo|live}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -665,4 +665,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|think}}\n Related to etymology 2, compare with {{cog|ig|lò|t=to reflect}}\n \n@@ -680,4 +681,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|stir}}\n \n ====Pronunciation====\n@@ -697,4 +699,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|hoe}}\n \n ====Pronunciation====\n@@ -711,4 +714,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|wrap}}\n \n ====Pronunciation====\n@@ -725,4 +729,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|sound}}\n \n ====Pronunciation====\n@@ -738,4 +743,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|ache}}\n Compare with {{cog|ig|lo|t=to ache}}\n \n@@ -754,4 +760,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|live}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

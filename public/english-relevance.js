@@ -59,6 +59,31 @@
    * appears in still surfaces without competing with meaning. */
   var EXAMPLE_DOC_WEIGHT = 0.3;
 
+  /** A meaning reached because another entry's definition named this word as another way to say it.
+   *
+   * Evidence that some other word means this, not that this word does - so stronger than appearing
+   * near the query in an example sentence, and still second-hand. One notch above the example weight
+   * for exactly that reason.
+   *
+   * Measured over the 400 most common definition clauses, with the corpus statistics frozen and the
+   * exact-clause bonus withheld: at 0.3 three entries entered a top-three slot, at 0.4 four, at 1.0
+   * twenty-one and èwe ("adolescent, youth") starts climbing on the query "child". No top result
+   * moves at any of those weights. 0.4 buys the recall without disturbing what already worked. */
+  var SYNONYM_DOC_WEIGHT = 0.4;
+
+  /** A word the query IS, according to some entry that listed it as a synonym.
+   *
+   * Soft, not hard. The three whole-string tiers are identifications - you typed the word, you get
+   * the word - whereas this says the word you typed means roughly what some OTHER entry means, which
+   * is the same kind of claim as an English definition match and belongs where semantics compete.
+   *
+   * Sits above every achievable prefix score and below a typical third-place English score. Measured
+   * over the same 400 clauses: English #1 runs 9.9 at the tenth percentile and 12.9 at the median,
+   * English #3 medians 11.6, and a prefix match cannot exceed PREFIX_SCALE because coverage is always
+   * below 1. So 10 beats every partial-spelling guess and lands after the definitions that are
+   * actually about the query. */
+  var SYNONYM_TIER_SCORE = 10;
+
   /** Scales a partial-spelling (prefix) match onto this score's range, so the two can be compared.
    *
    * A prefix match used to outrank every English match automatically, however little of the word the
@@ -88,9 +113,12 @@
    *
    * `orthographyInsensitive` and `formOfEntry` are injected so this file needs neither the
    * orthography module nor the entry store - the browser and the checker each supply their own. */
-  function bm25Search(english, components, query, limit, helpers) {
+  function bm25Search(english, components, query, limit, helpers, out) {
     var orthographyInsensitive = helpers.orthographyInsensitive;
     var formOfEntry = helpers.formOfEntry;
+    // Documents at or above this index are inherited from a declared synonym. Absent in an index
+    // built before that existed, in which case nothing is inherited and every document is direct.
+    var inheritedStart = english.inheritedDocStart === undefined ? Infinity : english.inheritedDocStart;
 
     var tokens = tokenizeQuery(query);
     if (tokens.length === 0) return [];
@@ -107,28 +135,52 @@
         var tf = postings[j][1];
         var docLen = english.docLengths[docIdx] || 1;
         var norm = (tf * (K1 + 1)) / (tf + K1 * (1 - B + B * (docLen / english.avgDocLength)));
-        var weight = docIdx >= english.glossDocCount ? EXAMPLE_DOC_WEIGHT : 1;
+        // Three bands, separated by two integers rather than a per-document array: definitions, then
+        // example translations, then meanings inherited through a declared synonym.
+        var weight = 1;
+        if (docIdx >= inheritedStart) weight = SYNONYM_DOC_WEIGHT;
+        else if (docIdx >= english.glossDocCount) weight = EXAMPLE_DOC_WEIGHT;
         docScores.set(docIdx, (docScores.get(docIdx) || 0) + idf * norm * weight);
       }
     }
     if (docScores.size === 0) return [];
 
     // Applied per document, before folding up to entries, so it lands on the gloss that earned it.
+    //
+    // Never on an inherited document. The bonus means "this word IS the query"; inherited text only
+    // says a word this word is a synonym of is the query. oṣù ("month") is a declared synonym of
+    // òṣùpá ("moon"), and letting it take the +2 for the clause "moon" put month ahead of the actual
+    // word for moon. The index also withholds inherited documents from exactClauses, so this is the
+    // second of two locks on the same door.
     var exactKey = orthographyInsensitive(query).trim();
     var exactDocs = english.exactClauses && english.exactClauses[exactKey];
     if (exactDocs) {
       for (var e = 0; e < exactDocs.length; e++) {
         var d = exactDocs[e];
-        if (docScores.has(d)) docScores.set(d, docScores.get(d) + EXACT_GLOSS_BONUS);
+        if (d < inheritedStart && docScores.has(d)) docScores.set(d, docScores.get(d) + EXACT_GLOSS_BONUS);
       }
     }
 
     // BEST gloss per entry. Summing is what rewards verbosity.
+    //
+    // `directMatches` records the entries the query matched ITSELF, as opposed to those it reached
+    // through someone else's synonym list. The root bonus below is defined as counting over "this
+    // result set", and inherited documents quietly widen that set to entries the query never touched -
+    // see the note there.
     var byEntry = new Map();
+    var winningDoc = new Map();
+    var directMatches = new Set();
     docScores.forEach(function (score, idx) {
       var entryId = english.docEntryIds[idx];
-      if (!byEntry.has(entryId) || byEntry.get(entryId) < score) byEntry.set(entryId, score);
+      if (idx < inheritedStart) directMatches.add(entryId);
+      if (!byEntry.has(entryId) || byEntry.get(entryId) < score) {
+        byEntry.set(entryId, score);
+        winningDoc.set(entryId, idx);
+      }
     });
+    // Which document won, so a result row can show the meaning that actually matched rather than the
+    // entry's first one, and can say when it was reached through another word.
+    if (out) out.winningDoc = winningDoc;
 
     // Counted over THIS RESULT SET, which is what keeps it minor: a productive root is lifted only
     // when the query already matched it AND matched words built from it. So "wheelbarrow" finds
@@ -137,8 +189,14 @@
       var form = formOfEntry(entryId);
       return form ? orthographyInsensitive(form) : '';
     };
+    // Built from the DIRECT matches only. rootBonusMustNotPromote depends on "this result set" meaning
+    // entries the query itself matched: an inherited document puts an entry into byEntry that the
+    // query never touched, so counting those would let a synonym-reached word vote on some other
+    // word's root bonus. Synonym-reached entries are still scored below; they just do not vote.
     var matches = [];
-    byEntry.forEach(function (_score, entryId) { matches.push({ id: entryId, key: keyOf(entryId) }); });
+    byEntry.forEach(function (_score, entryId) {
+      if (directMatches.has(entryId)) matches.push({ id: entryId, key: keyOf(entryId) });
+    });
 
     var finalScores = [];
     byEntry.forEach(function (score, entryId) {
@@ -217,8 +275,25 @@
     return results;
   }
 
+  /** [entryId, score] for entries whose definitions name this spelling as another word for something.
+   *
+   * Exact match only. A synonym declaration is a claim about a whole word, and prefix-matching it
+   * would turn "the word you typed is a name for this" into "a word starting how you typed might be".
+   *
+   * Postings are {id, sense} rather than bare ids, so a caller that wants to explain the row can say
+   * which meaning did the naming. */
+  function synonymTierMatches(tier, key) {
+    if (!tier || !tier.spellings) return [];
+    var i = lowerBound(tier.spellings, key);
+    if (i >= tier.spellings.length || tier.spellings[i] !== key) return [];
+    var postings = tier.postings[key] || [];
+    var out = [];
+    for (var j = 0; j < postings.length; j++) out.push([postings[j].id, SYNONYM_TIER_SCORE]);
+    return out;
+  }
+
   /** Entry ids, best first: the three whole-string tiers and the dialect tier are absolute, then
-   * prefix and English compete on score. */
+   * prefix, the synonym tier and English compete on score. */
   function rankQuery(index, components, query, limit, helpers) {
     var trimmed = query.trim();
     if (!trimmed) return [];
@@ -245,7 +320,12 @@
       }
     };
     offer(prefixMatches(y.ortho, helpers.orthographyInsensitive(trimmed), limit));
-    offer(bm25Search(index.english, components, trimmed, limit, helpers));
+    // The entry that owns a spelling was already claimed by a hard tier above, and `offer` skips
+    // anything `seen`, so a declaring entry can only ever appear BELOW the word itself. That is
+    // structural rather than a matter of tuning: searching wì gives wì first and sun (which calls wì
+    // another word for "to roast") further down.
+    offer(synonymTierMatches(y.synonym, helpers.orthographyInsensitive(trimmed)));
+    offer(bm25Search(index.english, components, trimmed, limit, helpers, helpers.out));
 
     var softList = [];
     soft.forEach(function (score, id) { softList.push([id, score]); });
@@ -262,7 +342,10 @@
     exactMatch: exactMatch,
     lowerBound: lowerBound,
     rankQuery: rankQuery,
+    synonymTierMatches: synonymTierMatches,
     EXAMPLE_DOC_WEIGHT: EXAMPLE_DOC_WEIGHT,
+    SYNONYM_DOC_WEIGHT: SYNONYM_DOC_WEIGHT,
+    SYNONYM_TIER_SCORE: SYNONYM_TIER_SCORE,
     PREFIX_SCALE: PREFIX_SCALE,
   };
 });

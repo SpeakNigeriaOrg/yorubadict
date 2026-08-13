@@ -71,11 +71,18 @@ function buildSortedTierIndex(entries, tierKey, formsByEntry) {
 // Keep this in step with the platform's shared/src/englishRelevance.ts. The two engines had drifted
 // into scoring English completely differently, which is how one query got broken in two different
 // ways at once.
-function buildEnglishIndex(entries) {
+function buildEnglishIndex(entries, inheritedDocs = []) {
   const postings = new Map(); // token -> Map(docIdx -> tf)
   /** docIdx -> entryId. The client folds per-document scores back up to one score per entry. */
   const docEntryIds = [];
   const docLengths = [];
+  /** docIdx -> which of that entry's senses the document came from.
+   *
+   * One small integer per document, 1.4 KB brotli for all of them, and it is what
+   * lets a result row show the meaning that actually matched instead of the first
+   * one. Without it, searching "stomach" finds ikùn and then displays "abdomen,
+   * belly", which reads as a mistake. */
+  const docSenseIdx = [];
   /** An exact-clause inverted index: "child" -> [docIdx, ...].
    *
    * The bonus for "this gloss IS the query" needs to know a gloss's clauses at query time, and
@@ -83,11 +90,12 @@ function buildEnglishIndex(entries) {
    * distinct clause instead. */
   const exactClauses = new Map();
 
-  const addDoc = (entryId, tokens, clauses) => {
+  const addDoc = (entryId, tokens, clauses, senseIdx = 0) => {
     if (tokens.length === 0) return;
     const docIdx = docEntryIds.length;
     docEntryIds.push(entryId);
     docLengths.push(tokens.length);
+    docSenseIdx.push(senseIdx);
     const tf = new Map();
     for (const tok of tokens) tf.set(tok, (tf.get(tok) || 0) + 1);
     for (const [tok, count] of tf.entries()) {
@@ -122,31 +130,73 @@ function buildEnglishIndex(entries) {
   // their contents, so "(transitive) to buy" yielded the clause "transitive", which then earned the
   // full exact-clause bonus. Querying "transitive" returned rà, lọ̀ and gbò.
   for (const entry of entries) {
-    for (const sense of entry.senses) {
+    entry.senses.forEach((sense, senseIdx) => {
       for (const gloss of sense.glosses || []) {
-        addDoc(entry.id, tokenize(gloss, { keepStopwords: true }), clausesOfGloss(gloss));
+        addDoc(entry.id, tokenize(gloss, { keepStopwords: true }), clausesOfGloss(gloss), senseIdx);
       }
-    }
+    });
   }
   const glossDocCount = docEntryIds.length;
 
   for (const entry of entries) {
-    for (const sense of entry.senses) {
+    entry.senses.forEach((sense, senseIdx) => {
       for (const ex of sense.examples) {
-        if (ex.translation) addDoc(entry.id, tokenize(ex.translation), []);
+        if (ex.translation) addDoc(entry.id, tokenize(ex.translation), [], senseIdx);
       }
-    }
+    });
   }
 
+  // ------------------------------------------------------------------
+  // The corpus statistics are frozen HERE, before inherited documents.
+  // ------------------------------------------------------------------
+  // This is a correctness requirement, not an optimization. BM25 divides by
+  // avgDocLength and weighs a token by how rare it is across totalDocs, so
+  // appending documents changes the score of every query - including queries with
+  // no synonym evidence at all, which should be untouched by this feature.
+  //
+  // Measured: appending the 1,793 inherited documents at WEIGHT ZERO, pure
+  // statistical perturbation with no synonym scoring whatsoever, still moved the
+  // top result for one of 400 test queries and pushed 25 entries into a top-ten
+  // slot, because avgDocLength fell from 6.045 to 5.877 and every df inflated.
+  // Frozen, the feature is provably inert for any query it has nothing to say
+  // about, which is what makes the agreement fixture meaningful rather than lucky.
   const totalDocs = docEntryIds.length;
   const totalLength = docLengths.reduce((a, b) => a + b, 0);
   const avgDocLength = totalDocs > 0 ? totalLength / totalDocs : 0;
+  const df = {};
+  for (const [tok, docMap] of postings.entries()) df[tok] = docMap.size;
+
+  // INHERITED documents: a meaning reached because some other entry's definition
+  // named this word as another way to say it. Third band, after glosses and
+  // examples, so one more integer separates it and the client can weigh it.
+  //
+  // clausesOfGloss is deliberately NOT called, so nothing here can enter
+  // exactClauses and earn the exact-clause bonus. That bonus means "this word IS
+  // the query", and inherited text never says that - it says a word this word is
+  // a synonym of is the query. The difference is not theoretical: oṣù ("month") is
+  // a declared synonym of òṣùpá ("moon"), and letting it take the +2 for the
+  // clause "moon" put month ahead of the actual word for moon, breaking the
+  // fixture's own flagship assertion.
+  const inheritedDocStart = docEntryIds.length;
+  const docSource = {};
+  for (const doc of inheritedDocs) {
+    const tokens = tokenize(doc.gloss, { keepStopwords: true });
+    if (tokens.length === 0) continue;
+    docSource[docEntryIds.length] = [doc.sourceId, doc.sourceSenseIndex];
+    // Sense 0 for display: the source named the whole word, not one of its meanings, so
+    // there is nothing to point at. The row label is what explains an inherited hit.
+    addDoc(doc.targetId, tokens, [], 0);
+  }
 
   const postingsOut = {};
-  const df = {};
   for (const [tok, docMap] of postings.entries()) {
     postingsOut[tok] = [...docMap.entries()];
-    df[tok] = docMap.size;
+    // A token that occurs ONLY in inherited documents has no frozen df, and
+    // idf would divide by zero-ish. Measured over the corpus there are none -
+    // every inherited word already appears in some entry's own definition, which
+    // makes sense given the text is another entry's definition - but a synthetic
+    // df of 1 keeps it findable and finite rather than relying on that holding.
+    if (df[tok] === undefined) df[tok] = 1;
   }
 
   return {
@@ -154,10 +204,15 @@ function buildEnglishIndex(entries) {
     df,
     docEntryIds,
     docLengths,
+    docSenseIdx,
     avgDocLength,
     totalDocs,
     /** Documents below this index are glosses; at or above it, example translations. */
     glossDocCount,
+    /** Documents at or above this index are inherited from a declared synonym. */
+    inheritedDocStart,
+    /** inherited docIdx -> [entryId that named this word, which of its senses did]. */
+    docSource,
     exactClauses: Object.fromEntries(exactClauses),
   };
 }
@@ -243,7 +298,153 @@ function buildDialectTier(entries, orthoTier) {
   };
 }
 
+// A definition that only points at another entry says nothing about meaning, so
+// it must not be inherited: ìgò ("bottle") is a declared synonym of a word whose
+// first definition is "alternative form of koríko (grass, weed)", and inheriting
+// that would make ìgò findable by "grass".
+const META_DEFINITION = /^(alternative (form|spelling)|obsolete form|misspelling|archaic spelling|dated form) of\b/i;
+
+// What a declared synonym is worth to search, in two quite different ways.
+//
+// A sense saying "another word for this meaning is X" supports two claims, and
+// which one applies depends entirely on whether X has an entry of its own:
+//
+//   X has no entry (1,833 items) - then searching X finds nothing today, and the
+//     useful answer is the entry that named it. That is the synonym TIER.
+//   X has an entry (2,736 items) - then searching X already finds X, and what is
+//     new is that X's page can be reached by what the NAMING sense means. That is
+//     INHERITED English.
+//
+// Both directions come from the same pass, and every item feeds the tier while
+// only some feed inheritance, because the tier's posting is the declaring entry -
+// never ambiguous - while inheritance puts meaning onto another word's page and
+// has to be much more careful about which word.
+//
+// No debris filter here. kaikki-yoruba's classifyRelationList drops flattened
+// dialect tables whole before publishing, and measured against the shipped
+// artifact nothing survives it: 0 of 4,569 items look like a variety name, a
+// family label or a bare dash. A second filter on this side would be dead code
+// pretending to be a safeguard.
+function senseSynonymData(entries, byId) {
+  const tier = new Map(); // key -> Map(declaringEntryId -> senseIndex)
+  const inherited = [];
+  const seenDoc = new Set();
+  const report = {
+    items: 0,
+    tierKeys: 0,
+    unresolvedToTier: 0,
+    inheritedDocs: 0,
+    skippedAmbiguous: 0,
+    skippedProperName: 0,
+    skippedMetaDefinition: 0,
+    skippedForeign: 0,
+  };
+
+  for (const entry of entries) {
+    (entry.senses || []).forEach((sense, senseIndex) => {
+      for (const rel of sense.synonyms || []) {
+        report.items += 1;
+        if (rel.foreign) {
+          report.skippedForeign += 1;
+          continue;
+        }
+
+        // Behaviour 1, for every item. Keyed orthography-insensitively, like the
+        // dialect tier and for the same reason: someone recalling a word they
+        // heard called a synonym is the least likely to have the tone marks.
+        const key = allForms(rel.text || '').orthographyInsensitive;
+        if (key) {
+          if (!tier.has(key)) tier.set(key, new Map());
+          // One posting per (key, declaring entry) however many of its meanings
+          // agree, and the first meaning wins so the label is stable.
+          if (!tier.get(key).has(entry.id)) tier.get(key).set(entry.id, senseIndex);
+          if (!rel.resolved) report.unresolvedToTier += 1;
+        }
+
+        // Behaviour 2, for the items that have somewhere to put the meaning.
+        if (!rel.resolved) continue;
+
+        // A spelling shared by several entries says nothing about which is meant,
+        // and fanning the meaning out to all of them is how "iye" (value, price)
+        // came to be findable by "mother". One candidate is enough; so is a
+        // candidate the meaning itself picked out, which is strictly better
+        // evidence than first-of-N and adds 419 documents.
+        const method = (rel.resolution || {}).method;
+        if (rel.entryIds.length > 1 && method !== 'glossOverlap') {
+          report.skippedAmbiguous += 1;
+          continue;
+        }
+        const target = byId.get(rel.entryIds[0]);
+        if (!target) continue;
+        // A place or a person does not acquire a meaning by being listed as
+        // someone's synonym.
+        if (target.pos === 'name') {
+          report.skippedProperName += 1;
+          continue;
+        }
+
+        // The document carries the NAMING meaning, attached to the named word.
+        // The direction is easy to get backwards, and backwards is useless:
+        // indexing the target's own definitions under the target just re-indexes
+        // what is already there. oro means "venom, poison, sting" and calls
+        // majele another word for it, so majele gets a document reading "venom,
+        // poison, sting" - and becomes findable by "venom", which its own
+        // definition ("poison") never says.
+        for (const gloss of sense.glosses || []) {
+          // A definition that only points at another entry says nothing about
+          // meaning, so it has nothing to pass on.
+          if (META_DEFINITION.test(gloss)) {
+            report.skippedMetaDefinition += 1;
+            continue;
+          }
+          // Several sources naming one target is fine and common - one word here
+          // is named by eight - but two of them offering the same text must not
+          // become two documents, because that is a document count, not evidence.
+          const dedupe = `${target.id} ${gloss}`;
+          if (seenDoc.has(dedupe)) continue;
+          seenDoc.add(dedupe);
+          inherited.push({
+            targetId: target.id,
+            sourceId: entry.id,
+            sourceSenseIndex: senseIndex,
+            gloss,
+          });
+        }
+      }
+    });
+  }
+
+  report.tierKeys = tier.size;
+  report.inheritedDocs = inherited.length;
+  return { tier, inherited, report };
+}
+
+// The synonym tier: searching a word some entry calls a synonym also finds that
+// entry. Today "yan" finds nothing, though sun's "to roast" names it.
+//
+// Unlike buildDialectTier this does NOT skip keys the ortho tier already
+// resolves, and that is the point rather than an oversight. Skipping them would
+// keep the yan case and lose the 1,375 keys that collide with a real spelling -
+// jó, wì, gún - which is precisely where "the word you typed is also a name for
+// this other word" has something to say. The entry that owns the spelling is
+// claimed by a hard tier first and cannot be displaced (see rankQuery), so the
+// declaring entry can only ever appear below it.
+function buildSynonymTier(tier) {
+  const spellings = [...tier.keys()].sort();
+  return {
+    spellings,
+    postings: Object.fromEntries(
+      spellings.map((key) => [
+        key,
+        [...tier.get(key).entries()].map(([id, sense]) => ({ id, sense })),
+      ])
+    ),
+  };
+}
+
 export function buildSearchIndex(entries) {
+  const byId = new Map(entries.map((e) => [e.id, e]));
+  const synonymData = senseSynonymData(entries, byId);
   const formsByEntry = new Map(entries.map((e) => [e.id, searchableForms(e)]));
   const ortho = buildSortedTierIndex(entries, 'orthographyInsensitive', formsByEntry);
   return {
@@ -252,8 +453,10 @@ export function buildSearchIndex(entries) {
       tone: buildSortedTierIndex(entries, 'toneInsensitive', formsByEntry),
       ortho,
       dialect: buildDialectTier(entries, ortho),
+      synonym: buildSynonymTier(synonymData.tier),
     },
-    english: buildEnglishIndex(entries),
+    english: buildEnglishIndex(entries, synonymData.inherited),
     components: buildComponentIndex(entries),
+    synonymReport: synonymData.report,
   };
 }
