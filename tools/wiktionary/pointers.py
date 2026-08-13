@@ -154,15 +154,23 @@ that word. Everything else is reference material and is ignored.
 """
 
 
-def render(parent, names, items):
+def render(parent, names, items, definitions_by_section=None):
+    # The names alone are not enough to choose between. Most of these compounds
+    # arrive blank, and deciding one means knowing what each etymology actually
+    # means - which otherwise sends you to the etymid worksheet or the page.
+    definitions_by_section = definitions_by_section or {}
+    width = max((len(n) for n in names.values()), default=0)
+    listed = []
+    for number, name in sorted(names.items(), key=lambda kv: int(kv[0])):
+        covers = " / ".join(definitions_by_section.get(number) or [])
+        listed.append(
+            f"    {number}. {name.ljust(width)}" + (f"   {covers}" if covers else "")
+        )
     lines = [
         HEADER.format(
             parent=parent,
             language=LANGUAGE,
-            names="\n".join(
-                f"    {number}. {name}" for number, name in sorted(names.items(), key=lambda kv: int(kv[0]))
-            )
-            or "    (none — run etymid.py on this page first)",
+            names="\n".join(listed) or "    (none — run etymid.py on this page first)",
         )
     ]
     for item in items:
@@ -415,6 +423,9 @@ def main():
     entry_sections = {
         e["id"]: e["etymologyNumber"] for e in by_page.get(parent, []) if e.get("etymologyNumber")
     }
+    definitions_by_section = {
+        number: data.definitions_for(by_page.get(parent, []), number) for number in names
+    }
     items = collect(task, names, by_page, entry_sections)
 
     if mode == "propose":
@@ -433,7 +444,9 @@ def main():
                 pywikibot.info(
                     f"  kept {len(previous)} id: line(s) from the existing worksheet"
                 )
-        path.write_text(render(parent, names, items), encoding="utf-8")
+        path.write_text(
+            render(parent, names, items, definitions_by_section), encoding="utf-8"
+        )
         ready = sum(1 for i in items if i["name"])
         pywikibot.info(
             f"  {len(items)} compounds: {ready} with a name, {len(items) - ready} needing you"
