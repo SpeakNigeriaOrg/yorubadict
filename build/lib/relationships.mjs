@@ -696,13 +696,13 @@ export function synthesizeRelationships(entries) {
         // Which of the source's meanings named this word. Carried so the pill
         // can read "listed as another word for sun - to roast" instead of just
         // naming sun, which on a word with eleven meanings says almost nothing.
+        //
+        // The index, not the text. The browser already holds the source entry, so
+        // shipping the meaning too would duplicate a string it can look up -
+        // 2,100 of them, which measured 34 KB brotli on a first-load artifact.
         const senseIndex = sourceIds.get(chosen);
-        if (senseIndex !== null && senseIndex !== undefined) {
-          const sourceSense = byId.get(chosen).senses?.[senseIndex];
-          if (sourceSense) {
-            relation.sourceSenseIndex = senseIndex;
-            relation.sourceMeaning = senseMeaning(sourceSense);
-          }
+        if (senseIndex !== null && senseIndex !== undefined && byId.get(chosen).senses?.[senseIndex]) {
+          relation.sourceSenseIndex = senseIndex;
         }
 
         target.synthesizedRelations.push(relation);

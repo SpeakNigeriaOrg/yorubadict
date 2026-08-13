@@ -27,7 +27,8 @@
 //   public/data/search-index.json
 //   build/validation-report.json
 
-import { mkdirSync, writeFileSync, statSync } from 'node:fs';
+import { mkdirSync, writeFileSync, statSync, readFileSync } from 'node:fs';
+import { brotliCompressSync, constants } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -71,21 +72,81 @@ const BROWSER_OMITS_SENSE = new Set([
   'altOf', // nothing renders alt-of; see the data-quality report instead
 ]);
 
+// Sense-level relation lists all render, so none of them can be dropped - but
+// kaikki-yoruba emits all seven on every sense whether or not there is anything
+// in them, because the canonical artifact is a contract and a consumer should not
+// need a guard to read `sense.synonyms.length`. Here size is what matters, and
+// only 3,655 of 8,162 senses carry any relation at all, so the empty ones are
+// 45,000-odd bare arrays. Dropping them saves 12.6 KB brotli and 835 KB of raw
+// parse work on first load.
+//
+// Trimming the ITEMS was measured and rejected. Dropping roman/lang/langCode/type
+// and the null englishes recovers 7.2 KB of the 93.5 KB the lists add - 8% - in
+// exchange for an item shape relationPillsHtml would have to special-case. Same
+// result the note above records for key names generally: brotli already collapses
+// exactly the repetition that makes JSON look wasteful.
+const BROWSER_OMITS_SENSE_WHEN_EMPTY = new Set([
+  'synonyms', 'antonyms', 'derivedTerms', 'relatedTerms',
+  'coordinateTerms', 'hyponyms', 'hypernyms',
+]);
+
 function forBrowser(entry) {
   const out = {};
   for (const [key, value] of Object.entries(entry)) {
     if (BROWSER_OMITS_ENTRY.has(key)) continue;
+    if (BROWSER_OMITS_SENSE_WHEN_EMPTY.has(key) && Array.isArray(value) && value.length === 0) continue;
     out[key] = value;
   }
   out.senses = (entry.senses || []).map((sense) => {
     const s = {};
     for (const [key, value] of Object.entries(sense)) {
       if (BROWSER_OMITS_SENSE.has(key)) continue;
+      if (BROWSER_OMITS_SENSE_WHEN_EMPTY.has(key) && Array.isArray(value) && value.length === 0) continue;
       s[key] = value;
     }
     return s;
   });
   return out;
+}
+
+// What the two first-load artifacts are allowed to weigh, compressed the way a
+// host actually serves them. Both are fetched before the dictionary is usable, so
+// this is the number that decides how the site feels on a slow connection - and
+// it is invisible from the raw byte count, which is why it gets an assertion
+// rather than a log line. Failing the build is the same choice
+// assertBuildingBlocksAreUsable makes: better than shipping it and finding out.
+//
+// entries.json measures 883 KB, up from 759 KB before sense-level relations - a
+// 125 KB rise, 16%, for 9,344 relation items on 3,337 entries where the artifact
+// previously carried 2 synonyms and no antonyms at all. Trimming the items was
+// measured rather than assumed: dropping every null english/lang/langCode/roman
+// and the constant `type` removes 59,135 keys and saves 11.7 KB, and dropping the
+// homograph `resolution` saves 2.4 more. 14 KB for a shape relationPillsHtml
+// would have to special-case is not a trade worth making, and it is the same
+// answer the note above records for key names generally.
+//
+// Raise these only with a note saying what was added and what it bought.
+const MAX_BROTLI_KB = { 'entries.json': 950, 'search-index.json': 620 };
+
+function assertShippedSizes(paths) {
+  for (const p of paths) {
+    const name = path.basename(p);
+    const limit = MAX_BROTLI_KB[name];
+    if (!limit) continue;
+    const compressed = brotliCompressSync(readFileSync(p), {
+      params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
+    });
+    const kb = compressed.length / 1024;
+    if (kb > limit) {
+      throw new Error(
+        `${name} is ${kb.toFixed(1)} KB brotli, over its ${limit} KB budget. ` +
+          `It is fetched on first load, so this is what a slow connection pays. ` +
+          `Either trim what was just added, or raise MAX_BROTLI_KB in build/normalize.mjs ` +
+          `with a note on what the extra weight buys.`
+      );
+    }
+    console.log(`      ${name} ${kb.toFixed(1)} KB brotli (budget ${limit} KB)`);
+  }
 }
 
 const outEntriesPath = path.join(rootDir, 'public', 'data', 'entries.json');
@@ -172,6 +233,7 @@ async function main() {
   writeFileSync(outTasksPath, JSON.stringify(tasks));
 
   const sizeOf = (p) => (statSync(p).size / 1024).toFixed(1);
+  assertShippedSizes([outEntriesPath, outIndexPath]);
 
   console.log('\nDone.');
   console.log(`  entries.json size  ${sizeOf(outEntriesPath)} KB`);

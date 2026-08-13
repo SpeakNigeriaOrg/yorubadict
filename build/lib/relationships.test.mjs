@@ -166,7 +166,10 @@ test('a synonym reciprocal carries the meaning it was listed under, not just the
   // Without this, the pill reads "listed as a synonym of sun" and cannot say
   // which of sun's meanings - the attribution this change exists to keep.
   assert.equal(back.sourceSenseIndex, 0);
-  assert.equal(back.sourceMeaning, 'to roast');
+  // The index, not the text: the browser holds sun already and looks the meaning
+  // up, rather than the artifact shipping 2,100 duplicated strings.
+  assert.equal('sourceMeaning' in back, false);
+  assert.equal(sun.senses[back.sourceSenseIndex].glosses.join('; '), 'to roast');
 });
 
 test('no reciprocal is synthesized when the target already declares the relation itself', () => {
@@ -211,7 +214,7 @@ test('a sense-level derived term still teaches the root that it is a root', () =
 
   assert.ok(back, 'ibùsùn should learn it comes from sun');
   assert.equal(back.text, 'sun');
-  assert.equal(back.sourceMeaning, 'to sleep');
+  assert.equal(back.sourceSenseIndex, 0);
 });
 
 test('an entry with no sense-level relation fields at all still builds (older release)', () => {
