@@ -23,26 +23,6 @@ function tokenize(text, { keepStopwords = false } = {}) {
     .filter((t) => t && t.length > 1 && (keepStopwords || !STOPWORDS.has(t)));
 }
 
-// Glosses are short, curated definitions, not free prose - for a real
-// Yoruba conjunction/demonstrative, the entire correct gloss can just be
-// "that"/"this"/"and"/"or" (confirmed: 10 real entries corpus-wide), so
-// stopword-filtering must not apply there or those words become
-// permanently unsearchable by their own definition. It's still correct for
-// example-sentence translations, genuine natural-language prose where
-// stopwords really are just noise.
-function englishTextForEntry(entry) {
-  const glossParts = [];
-  const exampleParts = [];
-  for (const sense of entry.senses) {
-    glossParts.push(...(sense.glosses || []));
-    glossParts.push(...(sense.rawGlosses || []));
-    for (const ex of sense.examples) {
-      if (ex.translation) exampleParts.push(ex.translation);
-    }
-  }
-  return { glossText: glossParts.join(' '), exampleText: exampleParts.join(' ') };
-}
-
 // Every searchable spelling for an entry - headword, canonical form, and
 // each alt form Wiktionary lists (e.g. iná's alt form uná) - each with its
 // own exact/toneInsensitive/orthographyInsensitive tiers, all pointing back
@@ -128,11 +108,22 @@ function buildEnglishIndex(entries) {
   // first pass at this put dẹ̀ ("to be soft in texture"), mu ("to drink") and akọ ("male") into the
   // top ten for "child", purely because each has an example sentence with a child in it. An example
   // is evidence that a word appears NEAR the query, not that it means it.
+  // Glosses keep stopwords. They are short, curated definitions, not free prose: for a real Yoruba
+  // conjunction or demonstrative the entire correct definition can just be "that"/"this"/"and"/"or"
+  // (confirmed: 10 real entries corpus-wide), so stopword-filtering there makes those words
+  // permanently unsearchable by their own meaning. It stays correct for example translations, which
+  // are genuine natural-language prose where stopwords really are noise.
+  //
+  // rawGlosses are NOT indexed, though they were until this was measured. They are the same string
+  // with a grammar-tag prefix - "(transitive, intransitive) to pull" against "to pull" - so indexing
+  // both gave every sense two near-identical documents (glossDocCount was 16,326 for 8,162 gloss
+  // strings, exactly 2x) and doubled the postings payload for nothing. Worse, it made grammar
+  // metadata searchable as if it were meaning: clausesOfGloss strips parenthesis characters but not
+  // their contents, so "(transitive) to buy" yielded the clause "transitive", which then earned the
+  // full exact-clause bonus. Querying "transitive" returned rà, lọ̀ and gbò.
   for (const entry of entries) {
     for (const sense of entry.senses) {
-      // Glosses keep stopwords, for the reason englishTextForEntry documents: a real Yoruba
-      // demonstrative's entire correct gloss can be "that".
-      for (const gloss of [...(sense.glosses || []), ...(sense.rawGlosses || [])]) {
+      for (const gloss of sense.glosses || []) {
         addDoc(entry.id, tokenize(gloss, { keepStopwords: true }), clausesOfGloss(gloss));
       }
     }

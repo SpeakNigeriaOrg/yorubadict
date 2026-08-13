@@ -63,7 +63,10 @@ const BROWSER_OMITS_ENTRY = new Set([
   'langCode', // 'yo' on all 6,272 of them
 ]);
 const BROWSER_OMITS_SENSE = new Set([
-  'rawGlosses', // near-duplicate of glosses, which is what renders
+  // Same string as the matching gloss with a grammar-tag prefix. Nothing renders it, and since the
+  // measurement written up in search-index.mjs nothing indexes it either - so at this point no code
+  // in this repo reads it. kaikki-yoruba's release still carries it, which is where it belongs.
+  'rawGlosses',
   'links', // bare strings, never turned into links
   'altOf', // nothing renders alt-of; see the data-quality report instead
 ]);
