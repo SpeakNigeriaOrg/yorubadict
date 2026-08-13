@@ -63,7 +63,12 @@ const POINTER_DEFINITION =
 //
 // So: split the definition into its alternatives, and require the meaning to
 // match a WHOLE alternative rather than a prefix of one.
-const stripLead = (s) => (s || '').toLowerCase().replace(/^to\s+/, '').trim();
+// trim BEFORE stripping "to ": splitting "to return, to come here" on the
+// comma leaves " to come here" with a leading space, so /^to\s+/ never matched
+// and every alternative after the first kept its "to". The two sides usually
+// cancelled - "to arrive" matched "to arrive" - but a meaning written without
+// the "to" could never match one written with it.
+const stripLead = (s) => (s || '').trim().toLowerCase().replace(/^to\s+/, '');
 function alternatives(definition) {
   return (definition || '')
     .split(/[;,]/)
@@ -143,6 +148,46 @@ function sectionsMatching(meaning, sections) {
   }
   const seen = new Set();
   return hits.filter((h) => !seen.has(h.section.number) && seen.add(h.section.number));
+}
+
+// Why a meaning failed to match, for the tier that matched nothing.
+//
+// B2 used to carry one hardcoded example of a prefix near-miss, printed on
+// every reference whether or not that was what happened - useless for
+// iṣu-nìkàn-kọ́niyán, whose "not" shares nothing at all with "a negation
+// particle". What a reader needs is the closest section THIS reference had and
+// what stopped it, so they can judge it rather than re-derive it.
+function nearestMiss(meaning, sections) {
+  const given = alternatives(meaning);
+  const content = new Set([...words(meaning)].filter((w) => !FILLER.has(w)));
+  let best = null;
+  for (const section of sections) {
+    for (const entry of section.entries) {
+      for (const sense of entry.senses || []) {
+        for (const definition of sense.glosses || []) {
+          if (POINTER_DEFINITION.test(definition)) continue;
+          for (const offered of alternatives(definition)) {
+            // "come" inside "come here": the meaning is part of an
+            // alternative rather than the whole of it. This is the near-miss
+            // worth naming, and the one the strict rule exists to refuse.
+            const partial = given.find(
+              (g) => offered !== g && (offered.startsWith(`${g} `) || offered.endsWith(` ${g}`))
+            );
+            if (partial && (!best || best.kind !== 'partial')) {
+              best = { kind: 'partial', section: section.number, definition, offered, given: partial };
+              continue;
+            }
+            if (best) continue;
+            const shared = [...content].filter((w) => words(offered).has(w));
+            if (shared.length) {
+              best = { kind: 'shared', section: section.number, definition, shared };
+            }
+          }
+        }
+      }
+    }
+  }
+  return best;
 }
 
 // The template as we understand it. Shown for context only - the proposal
@@ -285,6 +330,12 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           meaning,
           template: renderTemplate(tpl),
           matchCount: matches.length,
+          // Only the sections this spelling can actually reach: a near-miss on
+          // a section the tone rules out would send a reader at the wrong word.
+          nearestMiss:
+            matches.length === 0 && meaning
+              ? nearestMiss(meaning, target.sections.filter(reachable))
+              : null,
           matchedSection: matches.length === 1 ? matches[0].section.number : null,
           matchedDefinition: matches.length === 1 ? matches[0].definition : null,
           // The meaning belongs to a section spelled differently from what the
@@ -347,7 +398,15 @@ export function buildWiktionaryTasks(entries, anchorTable) {
                   // reading "to return, to come here, to arrive". Matching
                   // prefixes is what put 18 words on the wrong section of di,
                   // so this stays a question for a person.
-                  : `its own etymology calls this component “${ref.meaning}”, which matches no section here. A meaning has to match a whole alternative in a definition, not part of one — “come” is not “come here”`,
+                  : (() => {
+                      const head = `its own etymology calls this component “${ref.meaning}”, which matches no section here`;
+                      const miss = ref.nearestMiss;
+                      if (!miss) return `${head} and shares no wording with one`;
+                      if (miss.kind === 'partial') {
+                        return `${head}. The closest is Etymology ${miss.section}, “${miss.definition}” — but “${miss.given}” is only part of “${miss.offered}”, and a meaning has to match a whole alternative`;
+                      }
+                      return `${head}. The closest is Etymology ${miss.section}, “${miss.definition}”, which shares only “${miss.shared.join('”, “')}”`;
+                    })(),
         }));
 
       return {
