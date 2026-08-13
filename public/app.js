@@ -1278,8 +1278,8 @@ to recite           kọrin, "to sing"</pre>
 
   const TIER_LABEL = {
     A: 'suggested — check it',
-    B1: 'you choose',
-    B2: 'you choose',
+    B1: 'several sections match',
+    B2: 'no section matches',
     S: 'tone looks wrong',
     C: 'needs a Yorùbá speaker',
   };

@@ -284,6 +284,7 @@ export function buildWiktionaryTasks(entries, anchorTable) {
           component: form,
           meaning,
           template: renderTemplate(tpl),
+          matchCount: matches.length,
           matchedSection: matches.length === 1 ? matches[0].section.number : null,
           matchedDefinition: matches.length === 1 ? matches[0].definition : null,
           // The meaning belongs to a section spelled differently from what the
@@ -335,7 +336,18 @@ export function buildWiktionaryTasks(entries, anchorTable) {
                 ? `it writes this component as “${ref.component}” and calls it “${ref.meaning}” — but that meaning belongs to ${ref.spelledElsewhere.spelling}, a differently toned word. The tone here looks wrong, and that has to be settled before any pointer is added.`
               : ref.tier === 'C'
                 ? 'its etymology gives no meaning for this component, so somebody has to know the word'
-                : `its own etymology calls this component “${ref.meaning}”, which does not single out one section`,
+                : ref.matchCount > 1
+                  ? `its own etymology calls this component “${ref.meaning}”, which matches ${ref.matchCount} of the sections here, so it does not single one out`
+                  // B2 is the zero-match case, and saying "does not single out
+                  // one section" made it sound like several matched - which
+                  // sent a reader hunting for a conflict that was not there.
+                  // The usual cause is a meaning that is a PREFIX of a
+                  // definition's alternative rather than the whole of it:
+                  // bọ's àbọ̀dé calls its component "to come" against a section
+                  // reading "to return, to come here, to arrive". Matching
+                  // prefixes is what put 18 words on the wrong section of di,
+                  // so this stays a question for a person.
+                  : `its own etymology calls this component “${ref.meaning}”, which matches no section here. A meaning has to match a whole alternative in a definition, not part of one — “come” is not “come here”`,
         }));
 
       return {
