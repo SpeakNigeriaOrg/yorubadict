@@ -155,6 +155,7 @@ def collect(task, entries, parsed):
                 "existing": existing,
                 "definitions": definitions,
                 "page_definitions": wikitext.definition_lines(span),
+                "senseids": wikitext.existing_senseids(span, LANG_CODE),
                 "pointed_at_by": pointers.get(number, []),
                 **data.identity_of(entries, number),
             }
@@ -217,10 +218,23 @@ def verify(items):
             "there is no evidence the numbering still lines up. Refusing to write."
         )
 
+    # etymid and senseid share one namespace per page and language, so a name
+    # already used by a senseid anywhere on the page is taken.
+    taken_by_senses = set()
+    for item in items:
+        taken_by_senses |= item.get("senseids") or set()
+
     seen = {}
     for item in items:
         if not item["name"]:
             continue
+        if item["status"] == "proposed" and item["name"] in taken_by_senses:
+            problems.append(
+                f'Etymology {item["number"]}: "{item["name"]}" is already a '
+                f"{{{{senseid}}}} on this page. They share one namespace, so the "
+                f"etymology needs a different name - sun uses \"to roast, burn\" "
+                f"where its senses took \"to roast\" and \"to burn\"."
+            )
         if item["status"] == "proposed":
             for problem in wikitext.validate_name(item["name"]):
                 problems.append(

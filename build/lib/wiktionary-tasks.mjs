@@ -86,7 +86,7 @@ function proposeSlug(definition, taken) {
     .replace(/\(.*?\)/g, ' ')
     .replace(/^to\s+/, '')
     .split(/[;,]/)[0]
-    .replace(/[^a-z0-9\s'-]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '') // no apostrophe: see validateName
     .trim()
     .split(/\s+/)
     .filter(Boolean);

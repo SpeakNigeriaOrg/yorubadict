@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-04T18:53:42.798Z",
-  "totalEntries": 6272,
+  "generatedAt": "2026-08-13T15:56:34.386Z",
+  "totalEntries": 6273,
   "parseErrors": [],
   "inferredCanonicalForms": [
     {
@@ -14086,11 +14086,6 @@
     {
       "sourceEntryId": "en-fa-yo-verb-TQg-F1fi",
       "relationType": "derivedTerms",
-      "text": "ẹ̀fá"
-    },
-    {
-      "sourceEntryId": "en-fa-yo-verb-TQg-F1fi",
-      "relationType": "derivedTerms",
       "text": "fági"
     },
     {
@@ -14111,11 +14106,6 @@
     {
       "sourceEntryId": "en-fa-yo-verb-TQg-F1fi",
       "relationType": "derivedTerms",
-      "text": "ìfá"
-    },
-    {
-      "sourceEntryId": "en-fa-yo-verb-TQg-F1fi",
-      "relationType": "derivedTerms",
       "text": "ìfábẹ̀lá"
     },
     {
@@ -14129,34 +14119,9 @@
       "text": "dèmọ́lẹ̀"
     },
     {
-      "sourceEntryId": "en-de-yo-verb-AVeqjNGn",
-      "relationType": "derivedTerms",
-      "text": "ìdè"
-    },
-    {
-      "sourceEntryId": "en-de-yo-verb-nn3OgLQE",
-      "relationType": "derivedTerms",
-      "text": "ìdè"
-    },
-    {
       "sourceEntryId": "en-de-yo-verb-MaosAbO4",
       "relationType": "derivedTerms",
       "text": "dénú"
-    },
-    {
-      "sourceEntryId": "en-de-yo-verb-MaosAbO4",
-      "relationType": "derivedTerms",
-      "text": "àdé"
-    },
-    {
-      "sourceEntryId": "en-de-yo-verb-MaosAbO4",
-      "relationType": "derivedTerms",
-      "text": "ìdé"
-    },
-    {
-      "sourceEntryId": "en-de-yo-verb-4yzOzUrV",
-      "relationType": "derivedTerms",
-      "text": "ìdé"
     },
     {
       "sourceEntryId": "en-sun-yo-verb-yo:to_roast",
@@ -14211,17 +14176,7 @@
     {
       "sourceEntryId": "en-win-yo-verb-BsVCin63",
       "relationType": "derivedTerms",
-      "text": "ìwín"
-    },
-    {
-      "sourceEntryId": "en-win-yo-verb-BsVCin63",
-      "relationType": "derivedTerms",
       "text": "wínwó"
-    },
-    {
-      "sourceEntryId": "en-win-yo-verb-FlRLHntn",
-      "relationType": "derivedTerms",
-      "text": "ìwín"
     },
     {
       "sourceEntryId": "en-ao-yo-noun-kTSBn1MX",
@@ -14251,17 +14206,7 @@
     {
       "sourceEntryId": "en-ao-yo-noun-kTSBn1MX",
       "relationType": "relatedTerms",
-      "text": "Ịfá"
-    },
-    {
-      "sourceEntryId": "en-ao-yo-noun-kTSBn1MX",
-      "relationType": "relatedTerms",
       "text": "ilé-awo"
-    },
-    {
-      "sourceEntryId": "en-to-yo-verb-Tvot62ME",
-      "relationType": "derivedTerms",
-      "text": "atò"
     },
     {
       "sourceEntryId": "en-to-yo-verb-Tvot62ME",
@@ -14277,11 +14222,6 @@
       "sourceEntryId": "en-to-yo-verb-Tvot62ME",
       "relationType": "derivedTerms",
       "text": "ètò"
-    },
-    {
-      "sourceEntryId": "en-to-yo-verb-Tvot62ME",
-      "relationType": "derivedTerms",
-      "text": "ìtò"
     },
     {
       "sourceEntryId": "en-to-yo-verb-yY2oI1eV",
@@ -14327,16 +14267,6 @@
       "sourceEntryId": "en-pupa-yo-verb-ewzJsmrq",
       "relationType": "derivedTerms",
       "text": "pupabẹ̀lẹ̀jẹ̀"
-    },
-    {
-      "sourceEntryId": "en-gun-yo-verb-BUmCZS6m",
-      "relationType": "derivedTerms",
-      "text": "ìgùn"
-    },
-    {
-      "sourceEntryId": "en-gun-yo-verb-JNDZ1G7y",
-      "relationType": "derivedTerms",
-      "text": "ìgùn"
     },
     {
       "sourceEntryId": "en-gun-yo-verb-JNDZ1G7y",
@@ -14404,39 +14334,14 @@
       "text": "rírè"
     },
     {
-      "sourceEntryId": "en-re-yo-verb-gNM9bcDR",
-      "relationType": "derivedTerms",
-      "text": "ìrè"
-    },
-    {
       "sourceEntryId": "en-re-yo-verb-PmRoxDEP",
       "relationType": "derivedTerms",
       "text": "rírè"
     },
     {
-      "sourceEntryId": "en-re-yo-verb-PmRoxDEP",
-      "relationType": "derivedTerms",
-      "text": "ìrè"
-    },
-    {
-      "sourceEntryId": "en-re-yo-verb-PmRoxDEP",
-      "relationType": "derivedTerms",
-      "text": "arè"
-    },
-    {
       "sourceEntryId": "en-re-yo-verb-hEIeb4Ue",
       "relationType": "derivedTerms",
       "text": "rírè"
-    },
-    {
-      "sourceEntryId": "en-re-yo-verb-hEIeb4Ue",
-      "relationType": "derivedTerms",
-      "text": "ìrè"
-    },
-    {
-      "sourceEntryId": "en-re-yo-verb-hEIeb4Ue",
-      "relationType": "derivedTerms",
-      "text": "arè"
     },
     {
       "sourceEntryId": "en-re-yo-verb-vFbXe0tI",
@@ -14519,31 +14424,6 @@
       "text": "ya wèrè"
     },
     {
-      "sourceEntryId": "en-sin-yo-verb-iZ0JqjtP",
-      "relationType": "derivedTerms",
-      "text": "ìsìn"
-    },
-    {
-      "sourceEntryId": "en-sin-yo-verb-Cv1amlpa",
-      "relationType": "derivedTerms",
-      "text": "ìsìn"
-    },
-    {
-      "sourceEntryId": "en-sin-yo-verb-rH6XF44N",
-      "relationType": "derivedTerms",
-      "text": "ìsìn"
-    },
-    {
-      "sourceEntryId": "en-sin-yo-verb-6z0-iU8K",
-      "relationType": "derivedTerms",
-      "text": "ìsín"
-    },
-    {
-      "sourceEntryId": "en-sin-yo-verb-JUxVk9B-",
-      "relationType": "derivedTerms",
-      "text": "ìsín"
-    },
-    {
       "sourceEntryId": "en-run-yo-verb-rEVsnxqd",
       "relationType": "derivedTerms",
       "text": "èérún"
@@ -14571,11 +14451,6 @@
     {
       "sourceEntryId": "en-bi-yo-verb-lvCUO4a5",
       "relationType": "derivedTerms",
-      "text": "Abíọ̀nà"
-    },
-    {
-      "sourceEntryId": "en-bi-yo-verb-lvCUO4a5",
-      "relationType": "derivedTerms",
       "text": "Abíọ́lá"
     },
     {
@@ -14592,11 +14467,6 @@
       "sourceEntryId": "en-bi-yo-verb-lvCUO4a5",
       "relationType": "derivedTerms",
       "text": "bímọ"
-    },
-    {
-      "sourceEntryId": "en-bi-yo-verb-lvCUO4a5",
-      "relationType": "derivedTerms",
-      "text": "obí"
     },
     {
       "sourceEntryId": "en-bi-yo-verb-lvCUO4a5",
@@ -14736,11 +14606,6 @@
     {
       "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
       "relationType": "derivedTerms",
-      "text": "sílé"
-    },
-    {
-      "sourceEntryId": "en-ile-yo-noun-VQM0lVeW",
-      "relationType": "derivedTerms",
       "text": "túnlé ṣe"
     },
     {
@@ -14867,11 +14732,6 @@
       "sourceEntryId": "en-ni-yo-prep-sMSnxPOE",
       "relationType": "derivedTerms",
       "text": "nígbàkugbà"
-    },
-    {
-      "sourceEntryId": "en-ni-yo-prep-sMSnxPOE",
-      "relationType": "derivedTerms",
-      "text": "nílẹ̀"
     },
     {
       "sourceEntryId": "en-ni-yo-prep-sMSnxPOE",
@@ -15006,11 +14866,6 @@
     {
       "sourceEntryId": "en-ga-yo-verb-zFlAfZok",
       "relationType": "derivedTerms",
-      "text": "gàga"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-zFlAfZok",
-      "relationType": "derivedTerms",
       "text": "gbólóhùn gígà"
     },
     {
@@ -15026,17 +14881,7 @@
     {
       "sourceEntryId": "en-ga-yo-verb-xQmFj09V",
       "relationType": "derivedTerms",
-      "text": "agá"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-xQmFj09V",
-      "relationType": "derivedTerms",
       "text": "gígá"
-    },
-    {
-      "sourceEntryId": "en-ga-yo-verb-xQmFj09V",
-      "relationType": "derivedTerms",
-      "text": "ìgá"
     },
     {
       "sourceEntryId": "en-ge-yo-verb-q6PbqrDa",
@@ -15047,11 +14892,6 @@
       "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
       "relationType": "derivedTerms",
       "text": "oúnjẹ sísè"
-    },
-    {
-      "sourceEntryId": "en-se-yo-verb-qUY3OFDp",
-      "relationType": "derivedTerms",
-      "text": "sísè"
     },
     {
       "sourceEntryId": "en-se-yo-verb-w1pq3OKF",
@@ -15097,11 +14937,6 @@
       "sourceEntryId": "en-ho-yo-verb-yG~NxbN7",
       "relationType": "derivedTerms",
       "text": "èhó"
-    },
-    {
-      "sourceEntryId": "en-ho-yo-verb-yG~NxbN7",
-      "relationType": "derivedTerms",
-      "text": "ìhó"
     },
     {
       "sourceEntryId": "en-pa-yo-verb-Ps~5DR-I",
@@ -15221,42 +15056,12 @@
     {
       "sourceEntryId": "en-da-yo-verb-E9hwbPOi",
       "relationType": "derivedTerms",
-      "text": "ìdà"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-E9hwbPOi",
-      "relationType": "derivedTerms",
       "text": "ẹ̀dìdà"
     },
     {
       "sourceEntryId": "en-da-yo-verb-E9hwbPOi",
       "relationType": "derivedTerms",
       "text": "dàtọ̀"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-yXoWRwlp",
-      "relationType": "derivedTerms",
-      "text": "ìdà"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-rVNKmJ5~",
-      "relationType": "derivedTerms",
-      "text": "ìdà"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-XEscM15L",
-      "relationType": "derivedTerms",
-      "text": "ìdà"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-8ae1DQCT",
-      "relationType": "derivedTerms",
-      "text": "ìdà"
-    },
-    {
-      "sourceEntryId": "en-da-yo-verb-BjwJ49f6",
-      "relationType": "derivedTerms",
-      "text": "ìdà"
     },
     {
       "sourceEntryId": "en-da-yo-verb-eiqUdpIS",
@@ -15406,47 +15211,12 @@
     {
       "sourceEntryId": "en-ja-yo-verb-V02xpc1t",
       "relationType": "derivedTerms",
-      "text": "ajà"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-V02xpc1t",
-      "relationType": "derivedTerms",
       "text": "jàkadì"
     },
     {
       "sourceEntryId": "en-ja-yo-verb-V02xpc1t",
       "relationType": "derivedTerms",
       "text": "jíjà"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-0NaWQCaQ",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-3ssykXt-",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-XWKZn91g",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-3qcVzTKH",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-s~cSALK8",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
-    },
-    {
-      "sourceEntryId": "en-ja-yo-verb-MHvHcI2g",
-      "relationType": "derivedTerms",
-      "text": "ìjá"
     },
     {
       "sourceEntryId": "en-odi-yo-noun-cLVL~cxg",
@@ -15482,11 +15252,6 @@
       "sourceEntryId": "en-apa-yo-noun-Y70jcLf4",
       "relationType": "derivedTerms",
       "text": "ìwà àpà"
-    },
-    {
-      "sourceEntryId": "en-dan-yo-verb-bIUQhMt9",
-      "relationType": "derivedTerms",
-      "text": "adán"
     },
     {
       "sourceEntryId": "en-dan-yo-verb-bIUQhMt9",
@@ -15641,11 +15406,6 @@
     {
       "sourceEntryId": "en-odo-yo-noun-X1qO2PE5",
       "relationType": "derivedTerms",
-      "text": "olódò"
-    },
-    {
-      "sourceEntryId": "en-odo-yo-noun-X1qO2PE5",
-      "relationType": "derivedTerms",
       "text": "rúkèrúdò"
     },
     {
@@ -15771,11 +15531,6 @@
     {
       "sourceEntryId": "en-din-yo-verb-awEIUS8f",
       "relationType": "derivedTerms",
-      "text": "adín"
-    },
-    {
-      "sourceEntryId": "en-din-yo-verb-awEIUS8f",
-      "relationType": "derivedTerms",
       "text": "dínsí"
     },
     {
@@ -15809,16 +15564,6 @@
       "text": "òpó-abo òdòdó"
     },
     {
-      "sourceEntryId": "en-aba-yo-noun-iKGIHwAl",
-      "relationType": "derivedTerms",
-      "text": "ababa"
-    },
-    {
-      "sourceEntryId": "en-aba-yo-noun-iKGIHwAl",
-      "relationType": "derivedTerms",
-      "text": "abaye"
-    },
-    {
       "sourceEntryId": "en-ko-yo-verb-MTxq6TkK",
       "relationType": "derivedTerms",
       "text": "ìkówójẹ"
@@ -15846,27 +15591,12 @@
     {
       "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
       "relationType": "derivedTerms",
-      "text": "kára ó le"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-2oBj8IPs",
-      "relationType": "derivedTerms",
       "text": "líle"
     },
     {
       "sourceEntryId": "en-le-yo-verb-O03hXP68",
       "relationType": "derivedTerms",
       "text": "èlé"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-jpIqB2v7",
-      "relationType": "derivedTerms",
-      "text": "ìlé"
-    },
-    {
-      "sourceEntryId": "en-le-yo-verb-6GbHQpBr",
-      "relationType": "derivedTerms",
-      "text": "ìlé"
     },
     {
       "sourceEntryId": "en-ode-yo-noun-MSB6IGX0",
@@ -15912,11 +15642,6 @@
       "sourceEntryId": "en-aye-yo-noun-SG6kYiTR",
       "relationType": "derivedTerms",
       "text": "Ayéyẹmí"
-    },
-    {
-      "sourceEntryId": "en-aye-yo-noun-SG6kYiTR",
-      "relationType": "derivedTerms",
-      "text": "jàde láyé"
     },
     {
       "sourceEntryId": "en-aye-yo-noun-SG6kYiTR",
@@ -16109,16 +15834,6 @@
       "text": "ọ̀gụ̀nrụ̀nká"
     },
     {
-      "sourceEntryId": "en-ki-yo-verb-5q95hAip",
-      "relationType": "derivedTerms",
-      "text": "èkìkì"
-    },
-    {
-      "sourceEntryId": "en-ki-yo-verb-TxwfPHdj",
-      "relationType": "derivedTerms",
-      "text": "ìki"
-    },
-    {
       "sourceEntryId": "en-ki-yo-verb-TxwfPHdj",
       "relationType": "derivedTerms",
       "text": "kíki"
@@ -16157,11 +15872,6 @@
       "sourceEntryId": "en-ya-yo-verb-rtx~nu5B",
       "relationType": "derivedTerms",
       "text": "bó pẹ́ bó yá"
-    },
-    {
-      "sourceEntryId": "en-ya-yo-verb-rtx~nu5B",
-      "relationType": "derivedTerms",
-      "text": "yára"
     },
     {
       "sourceEntryId": "en-ya-yo-verb-rtx~nu5B",
@@ -16279,24 +15989,9 @@
       "text": "késo"
     },
     {
-      "sourceEntryId": "en-ka-yo-verb-Um3bFKDq",
-      "relationType": "derivedTerms",
-      "text": "ìká"
-    },
-    {
-      "sourceEntryId": "en-ka-yo-verb-w6dJaP34",
-      "relationType": "derivedTerms",
-      "text": "ìká"
-    },
-    {
       "sourceEntryId": "en-ka-yo-verb-w6dJaP34",
       "relationType": "derivedTerms",
       "text": "kápá"
-    },
-    {
-      "sourceEntryId": "en-ka-yo-verb-sKfy-6Mm",
-      "relationType": "derivedTerms",
-      "text": "ìká"
     },
     {
       "sourceEntryId": "en-koko-yo-noun-JR~s1ZLl",
@@ -16386,11 +16081,6 @@
     {
       "sourceEntryId": "en-ibo-yo-noun-YIV2SlU4",
       "relationType": "derivedTerms",
-      "text": "díbò"
-    },
-    {
-      "sourceEntryId": "en-ibo-yo-noun-YIV2SlU4",
-      "relationType": "derivedTerms",
       "text": "olùdìbò"
     },
     {
@@ -16446,11 +16136,6 @@
     {
       "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
       "relationType": "derivedTerms",
-      "text": "olórí"
-    },
-    {
-      "sourceEntryId": "en-ori-yo-noun-ny5tM6Nx",
-      "relationType": "derivedTerms",
       "text": "olórí burúkú"
     },
     {
@@ -16491,62 +16176,12 @@
     {
       "sourceEntryId": "en-gan-yo-verb-EaW2Y~-0",
       "relationType": "derivedTerms",
-      "text": "agán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-EaW2Y~-0",
-      "relationType": "derivedTerms",
-      "text": "ìgán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-EaW2Y~-0",
-      "relationType": "derivedTerms",
       "text": "gángbó"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-tADKsB7F",
-      "relationType": "derivedTerms",
-      "text": "agán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-tADKsB7F",
-      "relationType": "derivedTerms",
-      "text": "ìgán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-31~ZLuvB",
-      "relationType": "derivedTerms",
-      "text": "agán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-31~ZLuvB",
-      "relationType": "derivedTerms",
-      "text": "ìgán"
     },
     {
       "sourceEntryId": "en-gan-yo-verb-31~ZLuvB",
       "relationType": "derivedTerms",
       "text": "gángbó"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-ie3U7xiI",
-      "relationType": "derivedTerms",
-      "text": "agán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-ie3U7xiI",
-      "relationType": "derivedTerms",
-      "text": "ìgán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-SGzNsYK~",
-      "relationType": "derivedTerms",
-      "text": "agán"
-    },
-    {
-      "sourceEntryId": "en-gan-yo-verb-SGzNsYK~",
-      "relationType": "derivedTerms",
-      "text": "ìgán"
     },
     {
       "sourceEntryId": "en-pako-yo-noun-th2fjP-9",
@@ -16856,11 +16491,6 @@
     {
       "sourceEntryId": "en-apo-yo-noun-Knt4RC9F",
       "relationType": "derivedTerms",
-      "text": "àpòlá"
-    },
-    {
-      "sourceEntryId": "en-apo-yo-noun-Knt4RC9F",
-      "relationType": "derivedTerms",
       "text": "àpòòyẹ̀fun-òdòdó"
     },
     {
@@ -17006,11 +16636,6 @@
     {
       "sourceEntryId": "en-olu-yo-noun-xRdnl~my",
       "relationType": "derivedTerms",
-      "text": "olúwa"
-    },
-    {
-      "sourceEntryId": "en-olu-yo-noun-xRdnl~my",
-      "relationType": "derivedTerms",
       "text": "Olú"
     },
     {
@@ -17059,11 +16684,6 @@
       "text": "ṣàlejò"
     },
     {
-      "sourceEntryId": "en-raye-yo-verb-ShH-nA5c",
-      "relationType": "derivedTerms",
-      "text": "ìrayè"
-    },
-    {
       "sourceEntryId": "en-nian-yo-verb--mBnzzJx",
       "relationType": "derivedTerms",
       "text": "ìnían"
@@ -17079,39 +16699,9 @@
       "text": "ían"
     },
     {
-      "sourceEntryId": "en-wu-yo-verb-kJpMH7qY",
-      "relationType": "derivedTerms",
-      "text": "ìwù"
-    },
-    {
-      "sourceEntryId": "en-wu-yo-verb-pa1quFzM",
-      "relationType": "derivedTerms",
-      "text": "ìwù"
-    },
-    {
-      "sourceEntryId": "en-wu-yo-verb-ael8RP89",
-      "relationType": "derivedTerms",
-      "text": "ìwù"
-    },
-    {
-      "sourceEntryId": "en-wu-yo-verb-UY803YQ4",
-      "relationType": "derivedTerms",
-      "text": "ìwù"
-    },
-    {
-      "sourceEntryId": "en-wu-yo-verb-e~N08iE~",
-      "relationType": "derivedTerms",
-      "text": "ìwú"
-    },
-    {
       "sourceEntryId": "en-wu-yo-verb-e~N08iE~",
       "relationType": "derivedTerms",
       "text": "wúnilórí"
-    },
-    {
-      "sourceEntryId": "en-wu-yo-verb-sH8UXsse",
-      "relationType": "derivedTerms",
-      "text": "ìwú"
     },
     {
       "sourceEntryId": "en-wu-yo-verb-sH8UXsse",
@@ -17719,11 +17309,6 @@
       "text": "bọ̀jinná"
     },
     {
-      "sourceEntryId": "en-bọ-yo-verb-yG~NxbN7",
-      "relationType": "derivedTerms",
-      "text": "ìbọ̀"
-    },
-    {
       "sourceEntryId": "en-bọ-yo-verb-tQtsdnoO",
       "relationType": "derivedTerms",
       "text": "bọbẹ́rẹ́"
@@ -17751,11 +17336,6 @@
     {
       "sourceEntryId": "en-họ-yo-verb-VeRMyz3C",
       "relationType": "derivedTerms",
-      "text": "ìhọ"
-    },
-    {
-      "sourceEntryId": "en-họ-yo-verb-VeRMyz3C",
-      "relationType": "derivedTerms",
       "text": "ahọ"
     },
     {
@@ -17767,11 +17347,6 @@
       "sourceEntryId": "en-họ-yo-verb-VeRMyz3C",
       "relationType": "derivedTerms",
       "text": "họmú"
-    },
-    {
-      "sourceEntryId": "en-họ-yo-verb-DggLfg53",
-      "relationType": "derivedTerms",
-      "text": "ìhọ"
     },
     {
       "sourceEntryId": "en-họ-yo-verb-DggLfg53",
@@ -17872,11 +17447,6 @@
       "sourceEntryId": "en-odu-yo-noun-NSB8vOB1",
       "relationType": "derivedTerms",
       "text": "igbódù"
-    },
-    {
-      "sourceEntryId": "en-odu-yo-noun-NSB8vOB1",
-      "relationType": "derivedTerms",
-      "text": "Òdù Ifá"
     },
     {
       "sourceEntryId": "en-aala-yo-noun-7kxmML7i",
@@ -18369,21 +17939,6 @@
       "text": "Òsì Balógun"
     },
     {
-      "sourceEntryId": "en-lẹ-yo-verb-K5XGaUkD",
-      "relationType": "derivedTerms",
-      "text": "ìlẹ̀"
-    },
-    {
-      "sourceEntryId": "en-lẹ-yo-verb-qQrsWhvV",
-      "relationType": "derivedTerms",
-      "text": "ìlẹ̀"
-    },
-    {
-      "sourceEntryId": "en-lẹ-yo-verb-YpNYoz65",
-      "relationType": "derivedTerms",
-      "text": "ìlẹ̀"
-    },
-    {
       "sourceEntryId": "en-aajo-yo-noun-rzRWhFFw",
       "relationType": "derivedTerms",
       "text": "aájò-ẹwà"
@@ -18431,11 +17986,6 @@
     {
       "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
       "relationType": "derivedTerms",
-      "text": "ọmọ ẹgbẹ́"
-    },
-    {
-      "sourceEntryId": "en-ọmọ-yo-noun-3cnmaRlC",
-      "relationType": "derivedTerms",
       "text": "ọmọ ìka ẹsẹ̀"
     },
     {
@@ -18472,11 +18022,6 @@
       "sourceEntryId": "en-rọ-yo-verb-yfTxpyUJ",
       "relationType": "derivedTerms",
       "text": "ìrọ̀rùn"
-    },
-    {
-      "sourceEntryId": "en-Oro-yo-name-k2FaZynI",
-      "relationType": "derivedTerms",
-      "text": "olórò"
     },
     {
       "sourceEntryId": "en-Oro-yo-name-k2FaZynI",
@@ -18746,22 +18291,12 @@
     {
       "sourceEntryId": "en-kọ-yo-verb-LIho60Gm",
       "relationType": "derivedTerms",
-      "text": "kọ́lé"
-    },
-    {
-      "sourceEntryId": "en-kọ-yo-verb-LIho60Gm",
-      "relationType": "derivedTerms",
       "text": "ìwẹ́kọ̀ọ́"
     },
     {
       "sourceEntryId": "en-fọ-yo-verb-JbLBqz~N",
       "relationType": "derivedTerms",
       "text": "abọ́máfọ̀ọ́"
-    },
-    {
-      "sourceEntryId": "en-fọ-yo-verb-JbLBqz~N",
-      "relationType": "derivedTerms",
-      "text": "afọ́"
     },
     {
       "sourceEntryId": "en-fọ-yo-verb-JbLBqz~N",
@@ -18789,19 +18324,9 @@
       "text": "fífọ́"
     },
     {
-      "sourceEntryId": "en-fọ-yo-verb-JbLBqz~N",
-      "relationType": "derivedTerms",
-      "text": "ìfọ́"
-    },
-    {
       "sourceEntryId": "en-fọ-yo-verb-rn2csRW1",
       "relationType": "derivedTerms",
       "text": "fífọ́"
-    },
-    {
-      "sourceEntryId": "en-fọ-yo-verb-rn2csRW1",
-      "relationType": "derivedTerms",
-      "text": "ìfọ́"
     },
     {
       "sourceEntryId": "en-fọ-yo-verb-9GlyCDtf",
@@ -18809,34 +18334,14 @@
       "text": "fífọ́"
     },
     {
-      "sourceEntryId": "en-fọ-yo-verb-9GlyCDtf",
-      "relationType": "derivedTerms",
-      "text": "ìfọ́"
-    },
-    {
       "sourceEntryId": "en-fọ-yo-verb-Wc0gp-Lx",
       "relationType": "derivedTerms",
       "text": "fífọ́"
-    },
-    {
-      "sourceEntryId": "en-fọ-yo-verb-Wc0gp-Lx",
-      "relationType": "derivedTerms",
-      "text": "ìfọ́"
-    },
-    {
-      "sourceEntryId": "en-wure-yo-verb-jTkWERdW",
-      "relationType": "derivedTerms",
-      "text": "ìwuré"
     },
     {
       "sourceEntryId": "en-aghan-yo-pron-Lvq2uu65",
       "relationType": "relatedTerms",
       "text": "ara mi"
-    },
-    {
-      "sourceEntryId": "en-aghan-yo-pron-Lvq2uu65",
-      "relationType": "relatedTerms",
-      "text": "wé"
     },
     {
       "sourceEntryId": "en-aghan-yo-pron-Lvq2uu65",
@@ -19031,11 +18536,6 @@
     {
       "sourceEntryId": "en-aṣẹ-yo-noun-G5VkZD8~",
       "relationType": "derivedTerms",
-      "text": "aláṣẹ"
-    },
-    {
-      "sourceEntryId": "en-aṣẹ-yo-noun-G5VkZD8~",
-      "relationType": "derivedTerms",
       "text": "apàṣẹ"
     },
     {
@@ -19067,11 +18567,6 @@
       "sourceEntryId": "en-aṣẹ-yo-noun-G5VkZD8~",
       "relationType": "derivedTerms",
       "text": "àṣẹkáṣẹ"
-    },
-    {
-      "sourceEntryId": "en-wọn-yo-verb-xWzpz9h6",
-      "relationType": "derivedTerms",
-      "text": "ọ̀wọ́n"
     },
     {
       "sourceEntryId": "en-wọn-yo-verb-xWzpz9h6",
@@ -19152,11 +18647,6 @@
       "sourceEntryId": "en-ọsan-yo-noun-8ADAoNmF",
       "relationType": "derivedTerms",
       "text": "ọsán ìwérùn"
-    },
-    {
-      "sourceEntryId": "en-ọsan-yo-noun-8ADAoNmF",
-      "relationType": "derivedTerms",
-      "text": "ọsán já ọrun dọ̀pá"
     },
     {
       "sourceEntryId": "en-alẹ-yo-noun-IueUTUNa",
@@ -19509,11 +18999,6 @@
       "text": "ẹ̀wà-ahun"
     },
     {
-      "sourceEntryId": "en-ẹwa-yo-noun-nE9am9gN",
-      "relationType": "relatedTerms",
-      "text": "ẹwẹ"
-    },
-    {
       "sourceEntryId": "en-gaasi-yo-noun-L-hA4TJE",
       "relationType": "derivedTerms",
       "text": "onígáàsì"
@@ -19631,11 +19116,6 @@
     {
       "sourceEntryId": "en-ogun-yo-num-fCxN90D3",
       "relationType": "derivedTerms",
-      "text": "ológún"
-    },
-    {
-      "sourceEntryId": "en-ogun-yo-num-fCxN90D3",
-      "relationType": "derivedTerms",
       "text": "ọgọ́fà"
     },
     {
@@ -19657,11 +19137,6 @@
       "sourceEntryId": "en-ogun-yo-num-fCxN90D3",
       "relationType": "derivedTerms",
       "text": "ọgọ́wàá ()"
-    },
-    {
-      "sourceEntryId": "en-ẹja-yo-noun-tHSpmicF",
-      "relationType": "derivedTerms",
-      "text": "ẹja àpátámajà"
     },
     {
       "sourceEntryId": "en-ọkin-yo-noun-0UbX-QtR",
@@ -19966,11 +19441,6 @@
     {
       "sourceEntryId": "en-oogun-yo-noun-RPNFWV3z",
       "relationType": "derivedTerms",
-      "text": "òògùn apakòkòrò"
-    },
-    {
-      "sourceEntryId": "en-oogun-yo-noun-RPNFWV3z",
-      "relationType": "derivedTerms",
       "text": "òògùn apakòkòròrun"
     },
     {
@@ -20022,11 +19492,6 @@
       "sourceEntryId": "en-oogun-yo-noun-RPNFWV3z",
       "relationType": "derivedTerms",
       "text": "òògùn ìpara"
-    },
-    {
-      "sourceEntryId": "en-gbe-yo-verb-VvBDcrKw",
-      "relationType": "derivedTerms",
-      "text": "gbẹ́sẹ̀"
     },
     {
       "sourceEntryId": "en-gbe-yo-verb-VvBDcrKw",
@@ -20274,11 +19739,6 @@
       "text": "ẹlẹ́ẹẹ́rà"
     },
     {
-      "sourceEntryId": "en-iṣu-yo-noun-ArOn-fVY",
-      "relationType": "relatedTerms",
-      "text": "ọdún Ìjẹ̀ṣu"
-    },
-    {
       "sourceEntryId": "en-idẹ-yo-noun-M6KLxPWC",
       "relationType": "derivedTerms",
       "text": "aago idẹ"
@@ -20321,11 +19781,6 @@
     {
       "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
       "relationType": "derivedTerms",
-      "text": "alátìlẹyìn"
-    },
-    {
-      "sourceEntryId": "en-ẹyin-yo-adv-sbiGzl9X",
-      "relationType": "derivedTerms",
       "text": "eegun ẹ̀yìn"
     },
     {
@@ -20357,11 +19812,6 @@
       "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
       "relationType": "derivedTerms",
       "text": "àtọwọ́dọ́wọ́"
-    },
-    {
-      "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
-      "relationType": "derivedTerms",
-      "text": "ìbọwọ́"
     },
     {
       "sourceEntryId": "en-ọwọ-yo-noun-GwAXBqQY",
@@ -20654,11 +20104,6 @@
       "text": "gbòmìnira"
     },
     {
-      "sourceEntryId": "en-gba-yo-verb-~hEWKNsI",
-      "relationType": "derivedTerms",
-      "text": "agbá"
-    },
-    {
       "sourceEntryId": "en-gba-yo-verb-VAsl51P3",
       "relationType": "derivedTerms",
       "text": "bọ́ọ̀lù aláfọwọ́gbá"
@@ -20679,11 +20124,6 @@
       "text": "gbápo"
     },
     {
-      "sourceEntryId": "en-gba-yo-verb-r65cwzFX",
-      "relationType": "derivedTerms",
-      "text": "agbá"
-    },
-    {
       "sourceEntryId": "en-eepinni-yo-noun-X4OZTxSV",
       "relationType": "derivedTerms",
       "text": "eléépìnnì"
@@ -20692,11 +20132,6 @@
       "sourceEntryId": "en-akamara-yo-noun-SjWHigcu",
       "relationType": "derivedTerms",
       "text": "ayé àkámarà"
-    },
-    {
-      "sourceEntryId": "en-apatamaja-yo-noun-~CLvHgMw",
-      "relationType": "synonyms",
-      "text": "ẹja àpátámàjà"
     },
     {
       "sourceEntryId": "en-ṣeto-yo-verb-70W9dh4k",
@@ -20737,11 +20172,6 @@
       "sourceEntryId": "en-ẹgbẹ-yo-noun-4Fbs-JEg",
       "relationType": "derivedTerms",
       "text": "ẹlẹgbẹ́"
-    },
-    {
-      "sourceEntryId": "en-ẹgbẹ-yo-noun-4Fbs-JEg",
-      "relationType": "derivedTerms",
-      "text": "ọmọ ẹgbẹ́"
     },
     {
       "sourceEntryId": "en-ẹgbẹ-yo-noun-T~4dAuF~",
@@ -20816,17 +20246,7 @@
     {
       "sourceEntryId": "en-wẹ-yo-verb-cXzGunx4",
       "relationType": "derivedTerms",
-      "text": "awẹ́"
-    },
-    {
-      "sourceEntryId": "en-wẹ-yo-verb-cXzGunx4",
-      "relationType": "derivedTerms",
       "text": "Awẹ́lẹ́wà"
-    },
-    {
-      "sourceEntryId": "en-ọfọ-yo-noun-aIzBan0Z",
-      "relationType": "derivedTerms",
-      "text": "fọfọ̀"
     },
     {
       "sourceEntryId": "en-ọfọ-yo-noun-aIzBan0Z",
@@ -21109,11 +20529,6 @@
       "text": "agbada ìwẹ̀"
     },
     {
-      "sourceEntryId": "en-iwẹ-yo-noun-uCYuhuC8",
-      "relationType": "derivedTerms",
-      "text": "ilé ìwẹ̀"
-    },
-    {
       "sourceEntryId": "en-ṣọwọn-yo-verb-4Y5lbmT0",
       "relationType": "derivedTerms",
       "text": "ìṣọ̀wọ́n"
@@ -21311,11 +20726,6 @@
     {
       "sourceEntryId": "en-gbo-yo-verb-xFuq9GTP",
       "relationType": "derivedTerms",
-      "text": "ogbó"
-    },
-    {
-      "sourceEntryId": "en-gbo-yo-verb-xFuq9GTP",
-      "relationType": "derivedTerms",
       "text": "ògbólógbòó"
     },
     {
@@ -21486,22 +20896,7 @@
     {
       "sourceEntryId": "en-yọ-yo-verb-tnTX8jyu",
       "relationType": "derivedTerms",
-      "text": "ìyọ̀"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-tnTX8jyu",
-      "relationType": "derivedTerms",
       "text": "yọ̀ṣubú"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-T369rCwi",
-      "relationType": "derivedTerms",
-      "text": "ìyọ̀"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-mOJ7Us9J",
-      "relationType": "derivedTerms",
-      "text": "ẹ̀yọ"
     },
     {
       "sourceEntryId": "en-yọ-yo-verb-mOJ7Us9J",
@@ -21517,11 +20912,6 @@
       "sourceEntryId": "en-yọ-yo-verb-mOJ7Us9J",
       "relationType": "derivedTerms",
       "text": "yíyọ"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-X5Xi8Dn9",
-      "relationType": "derivedTerms",
-      "text": "ẹ̀yọ"
     },
     {
       "sourceEntryId": "en-yọ-yo-verb-X5Xi8Dn9",
@@ -21544,29 +20934,14 @@
       "text": "yíyọ́"
     },
     {
-      "sourceEntryId": "en-yọ-yo-verb-tyAY6AaO",
-      "relationType": "derivedTerms",
-      "text": "ìyọ́"
-    },
-    {
       "sourceEntryId": "en-yọ-yo-verb-lKzxxhi7",
-      "relationType": "derivedTerms",
-      "text": "yíyọ́"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-lKzxxhi7",
-      "relationType": "derivedTerms",
-      "text": "ìyọ́"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-MsEJ-1gy",
       "relationType": "derivedTerms",
       "text": "yíyọ́"
     },
     {
       "sourceEntryId": "en-yọ-yo-verb-MsEJ-1gy",
       "relationType": "derivedTerms",
-      "text": "ìyọ́"
+      "text": "yíyọ́"
     },
     {
       "sourceEntryId": "en-yọ-yo-verb-RKdCb7fV",
@@ -21577,11 +20952,6 @@
       "sourceEntryId": "en-yọ-yo-verb-VB2MvTMA",
       "relationType": "derivedTerms",
       "text": "yíyọ́"
-    },
-    {
-      "sourceEntryId": "en-yọ-yo-verb-VB2MvTMA",
-      "relationType": "derivedTerms",
-      "text": "ìyọ́"
     },
     {
       "sourceEntryId": "en-ọpọn-yo-noun-hHbs6Fe2",
@@ -21627,16 +20997,6 @@
       "sourceEntryId": "en-gbẹ-yo-verb-QGgbGZpz",
       "relationType": "derivedTerms",
       "text": "fàgbẹ"
-    },
-    {
-      "sourceEntryId": "en-gbẹ-yo-verb-QGgbGZpz",
-      "relationType": "derivedTerms",
-      "text": "ìgbẹ"
-    },
-    {
-      "sourceEntryId": "en-gbẹ-yo-verb-X9gQhP-U",
-      "relationType": "derivedTerms",
-      "text": "ìgbẹ"
     },
     {
       "sourceEntryId": "en-gbẹ-yo-verb-9IDWFOGH",
@@ -21757,11 +21117,6 @@
       "sourceEntryId": "en-ibale-yo-noun-jRrmJo5T",
       "relationType": "derivedTerms",
       "text": "jábàálé"
-    },
-    {
-      "sourceEntryId": "en-ibale-yo-noun-jRrmJo5T",
-      "relationType": "relatedTerms",
-      "text": "ọbitun"
     },
     {
       "sourceEntryId": "en-adiitu-yo-noun-Tw2eXy0V",
@@ -21907,11 +21262,6 @@
       "sourceEntryId": "en-ugba-yo-noun-hM0UoDdM",
       "relationType": "derivedTerms",
       "text": "lúgbà"
-    },
-    {
-      "sourceEntryId": "en-ugba-yo-noun-hM0UoDdM",
-      "relationType": "derivedTerms",
-      "text": "ùgbàfẹ́"
     },
     {
       "sourceEntryId": "en-awiṣẹ-yo-noun-wny-CQop",
@@ -22201,11 +21551,6 @@
     {
       "sourceEntryId": "en-yẹra-yo-verb-TbbOozrZ",
       "relationType": "relatedTerms",
-      "text": "dákun"
-    },
-    {
-      "sourceEntryId": "en-yẹra-yo-verb-TbbOozrZ",
-      "relationType": "relatedTerms",
       "text": "ɡáfárà"
     },
     {
@@ -22242,11 +21587,6 @@
       "sourceEntryId": "en-rẹjẹ-yo-verb-0a3wdKh3",
       "relationType": "derivedTerms",
       "text": "arẹ́jẹ"
-    },
-    {
-      "sourceEntryId": "en-rẹjẹ-yo-verb-0a3wdKh3",
-      "relationType": "relatedTerms",
-      "text": "réjẹ"
     },
     {
       "sourceEntryId": "en-tanjẹ-yo-verb-h59Nf52t",
@@ -22309,11 +21649,6 @@
       "text": "Ìbùkúnolúwa"
     },
     {
-      "sourceEntryId": "en-ọgụrọ-yo-noun-HMvpwGPb",
-      "relationType": "relatedTerms",
-      "text": "emu"
-    },
-    {
       "sourceEntryId": "en-ṣigidi-yo-noun-Yld21J4Y",
       "relationType": "derivedTerms",
       "text": "Ṣìgìdì"
@@ -22344,11 +21679,6 @@
       "text": "àìsọ"
     },
     {
-      "sourceEntryId": "en-isọ-yo-noun-ZiaQQiti",
-      "relationType": "relatedTerms",
-      "text": "ẹ̀sọ"
-    },
-    {
       "sourceEntryId": "en-okunkun-yo-noun-FCcr02HJ",
       "relationType": "derivedTerms",
       "text": "olókùnkùn"
@@ -22364,16 +21694,6 @@
       "text": "ọjà-òkùnkùn"
     },
     {
-      "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
-      "relationType": "derivedTerms",
-      "text": "agbọ́"
-    },
-    {
-      "sourceEntryId": "en-gbọ-yo-verb-jqEb34OJ",
-      "relationType": "derivedTerms",
-      "text": "ìgbọ́"
-    },
-    {
       "sourceEntryId": "en-dẹ-yo-verb-DP8ug5mf",
       "relationType": "derivedTerms",
       "text": "dẹlẹ̀fún"
@@ -22382,11 +21702,6 @@
       "sourceEntryId": "en-dẹ-yo-verb-DP8ug5mf",
       "relationType": "derivedTerms",
       "text": "dẹ̀dẹ̀mùdẹ̀mù"
-    },
-    {
-      "sourceEntryId": "en-dẹ-yo-verb-DP8ug5mf",
-      "relationType": "derivedTerms",
-      "text": "ìdẹ̀"
     },
     {
       "sourceEntryId": "en-dẹ-yo-verb-vVYafK00",
@@ -22407,11 +21722,6 @@
       "sourceEntryId": "en-dẹ-yo-verb-vVYafK00",
       "relationType": "derivedTerms",
       "text": "Ọdẹ"
-    },
-    {
-      "sourceEntryId": "en-dẹ-yo-verb-vVYafK00",
-      "relationType": "derivedTerms",
-      "text": "ìdẹ"
     },
     {
       "sourceEntryId": "en-tọ-yo-verb-R-TdBK9s",
@@ -22439,16 +21749,6 @@
       "text": "wọ́tọ̀"
     },
     {
-      "sourceEntryId": "en-tọ-yo-verb-XEeertNC",
-      "relationType": "derivedTerms",
-      "text": "ìtọ́"
-    },
-    {
-      "sourceEntryId": "en-tọ-yo-verb-izbf0t0t",
-      "relationType": "derivedTerms",
-      "text": "ìtọ́"
-    },
-    {
       "sourceEntryId": "en-tọ-yo-verb-izbf0t0t",
       "relationType": "derivedTerms",
       "text": "fọwọ́tọ́"
@@ -22457,11 +21757,6 @@
       "sourceEntryId": "en-tọ-yo-verb-izbf0t0t",
       "relationType": "derivedTerms",
       "text": "fitọ́"
-    },
-    {
-      "sourceEntryId": "en-tọ-yo-verb-zqXMP7Oy",
-      "relationType": "derivedTerms",
-      "text": "ìtọ́"
     },
     {
       "sourceEntryId": "en-tọ-yo-verb-zqXMP7Oy",
@@ -22476,27 +21771,12 @@
     {
       "sourceEntryId": "en-tọ-yo-verb-cEAo~cP~",
       "relationType": "derivedTerms",
-      "text": "ìtọ́"
-    },
-    {
-      "sourceEntryId": "en-tọ-yo-verb-cEAo~cP~",
-      "relationType": "derivedTerms",
       "text": "fitọ́"
     },
     {
       "sourceEntryId": "en-tọ-yo-verb-cEAo~cP~",
       "relationType": "derivedTerms",
       "text": "tọ́sọ́nà"
-    },
-    {
-      "sourceEntryId": "en-tọ-yo-verb-G~Mocwof",
-      "relationType": "derivedTerms",
-      "text": "ìtọ́"
-    },
-    {
-      "sourceEntryId": "en-tọ-yo-verb-5xl7JMyy",
-      "relationType": "derivedTerms",
-      "text": "ìtọ́"
     },
     {
       "sourceEntryId": "en-tọ-yo-verb-5xl7JMyy",
@@ -22522,16 +21802,6 @@
       "sourceEntryId": "en-gẹ-yo-verb-7Kr1gTH9",
       "relationType": "derivedTerms",
       "text": "ìgẹ̀"
-    },
-    {
-      "sourceEntryId": "en-gẹ-yo-verb-bTXEJqex",
-      "relationType": "derivedTerms",
-      "text": "agẹ"
-    },
-    {
-      "sourceEntryId": "en-gẹ-yo-verb-bTXEJqex",
-      "relationType": "derivedTerms",
-      "text": "gẹdè"
     },
     {
       "sourceEntryId": "en-gẹ-yo-verb-bTXEJqex",
@@ -22607,11 +21877,6 @@
       "sourceEntryId": "en-balẹ-yo-verb-CuhUEC8d",
       "relationType": "derivedTerms",
       "text": "ìfọkànbalẹ̀"
-    },
-    {
-      "sourceEntryId": "en-gbọn-yo-verb-p8R9n899",
-      "relationType": "derivedTerms",
-      "text": "ẹ̀gbọ̀n"
     },
     {
       "sourceEntryId": "en-gbọn-yo-verb-p8R9n899",
@@ -23037,11 +22302,6 @@
       "sourceEntryId": "en-ọwọn-yo-pron-Lvq2uu65",
       "relationType": "relatedTerms",
       "text": "mèé"
-    },
-    {
-      "sourceEntryId": "en-ọwọn-yo-pron-Lvq2uu65",
-      "relationType": "relatedTerms",
-      "text": "wé"
     },
     {
       "sourceEntryId": "en-ọwọn-yo-pron-Lvq2uu65",
@@ -23472,11 +22732,6 @@
       "sourceEntryId": "en-ṣẹ-yo-verb-Sy0e7T7T",
       "relationType": "derivedTerms",
       "text": "dẹ́ṣẹ̀"
-    },
-    {
-      "sourceEntryId": "en-ṣẹ-yo-verb-Sy0e7T7T",
-      "relationType": "derivedTerms",
-      "text": "ẹ̀ṣẹ̀"
     },
     {
       "sourceEntryId": "en-ṣẹ-yo-verb-5u2vbnWW",
@@ -23927,11 +23182,6 @@
       "sourceEntryId": "en-orilẹ-yo-noun-cOCzn~lH",
       "relationType": "derivedTerms",
       "text": "orílẹ̀ Yorùbá"
-    },
-    {
-      "sourceEntryId": "en-orilẹ-yo-noun-cOCzn~lH",
-      "relationType": "relatedTerms",
-      "text": "orílé"
     },
     {
       "sourceEntryId": "en-orilẹ-yo-noun-cOCzn~lH",
@@ -24469,16 +23719,6 @@
       "text": "olósírìgì"
     },
     {
-      "sourceEntryId": "en-akete-yo-noun-z7hm43Bm",
-      "relationType": "relatedTerms",
-      "text": "ìbùsùn"
-    },
-    {
-      "sourceEntryId": "en-akete-yo-noun-z7hm43Bm",
-      "relationType": "relatedTerms",
-      "text": "oíbáà"
-    },
-    {
       "sourceEntryId": "en-okuku-yo-noun-XhyC8Sec",
       "relationType": "derivedTerms",
       "text": "olókùkù"
@@ -24660,88 +23900,9 @@
       "target": "wiktionary",
       "why": "These references match an existing word once tone marks are ignored, so the intended target is already known — the reference just carries different tone marks from the entry it means. Every one of them is a link the reader currently does not get.",
       "fix": "On the listed Wiktionary page, correct the tone marks on the reference to match the entry it points at (or, if the reference is right, fix the tone on the target entry).",
-      "count": 149,
-      "pageCount": 76,
+      "count": 33,
+      "pageCount": 27,
       "pages": [
-        {
-          "page": "fa",
-          "editUrl": "https://en.wiktionary.org/wiki/fa#Yoruba",
-          "entryIds": [
-            "en-fa-yo-verb-TQg-F1fi"
-          ],
-          "details": [
-            "derivedTerms “ẹ̀fá” — the dictionary has “ẹfa”, “ẹ̀fà”",
-            "derivedTerms “ìfá” — the dictionary has “ifa”, “ìfà”, “Ifa”"
-          ]
-        },
-        {
-          "page": "de",
-          "editUrl": "https://en.wiktionary.org/wiki/de#Yoruba",
-          "entryIds": [
-            "en-de-yo-verb-AVeqjNGn",
-            "en-de-yo-verb-nn3OgLQE",
-            "en-de-yo-verb-MaosAbO4",
-            "en-de-yo-verb-4yzOzUrV"
-          ],
-          "details": [
-            "derivedTerms “ìdè” — the dictionary has “idé”",
-            "derivedTerms “ìdè” — the dictionary has “idé”",
-            "derivedTerms “àdé” — the dictionary has “ade”, “adé”",
-            "derivedTerms “ìdé” — the dictionary has “idé”",
-            "derivedTerms “ìdé” — the dictionary has “idé”"
-          ]
-        },
-        {
-          "page": "win",
-          "editUrl": "https://en.wiktionary.org/wiki/win#Yoruba",
-          "entryIds": [
-            "en-win-yo-verb-BsVCin63",
-            "en-win-yo-verb-FlRLHntn"
-          ],
-          "details": [
-            "derivedTerms “ìwín” — the dictionary has “iwin”, “iwín”",
-            "derivedTerms “ìwín” — the dictionary has “iwin”, “iwín”"
-          ]
-        },
-        {
-          "page": "gun",
-          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
-          "entryIds": [
-            "en-gun-yo-verb-BUmCZS6m",
-            "en-gun-yo-verb-JNDZ1G7y"
-          ],
-          "details": [
-            "derivedTerms “ìgùn” — the dictionary has “igun”, “igún”",
-            "derivedTerms “ìgùn” — the dictionary has “igun”, “igún”"
-          ]
-        },
-        {
-          "page": "re",
-          "editUrl": "https://en.wiktionary.org/wiki/re#Yoruba",
-          "entryIds": [
-            "en-re-yo-verb-gNM9bcDR",
-            "en-re-yo-verb-PmRoxDEP",
-            "en-re-yo-verb-hEIeb4Ue"
-          ],
-          "details": [
-            "derivedTerms “ìrè” — the dictionary has “ire”, “ìre”, “ìré”",
-            "derivedTerms “ìrè” — the dictionary has “ire”, “ìre”, “ìré”",
-            "derivedTerms “arè” — the dictionary has “are”, “àre”, “aré”",
-            "derivedTerms “ìrè” — the dictionary has “ire”, “ìre”, “ìré”",
-            "derivedTerms “arè” — the dictionary has “are”, “àre”, “aré”"
-          ]
-        },
-        {
-          "page": "bi",
-          "editUrl": "https://en.wiktionary.org/wiki/bi#Yoruba",
-          "entryIds": [
-            "en-bi-yo-verb-lvCUO4a5"
-          ],
-          "details": [
-            "derivedTerms “Abíọ̀nà” — the dictionary has “Abiọna”, “Abíọ́nà”",
-            "derivedTerms “obí” — the dictionary has “obi”, “òbí”, “obì”"
-          ]
-        },
         {
           "page": "ta",
           "editUrl": "https://en.wiktionary.org/wiki/ta#Yoruba",
@@ -24750,19 +23911,6 @@
           ],
           "details": [
             "derivedTerms “tàpá” — the dictionary has “Tapa”, “Tápà”"
-          ]
-        },
-        {
-          "page": "ga",
-          "editUrl": "https://en.wiktionary.org/wiki/ga#Yoruba",
-          "entryIds": [
-            "en-ga-yo-verb-zFlAfZok",
-            "en-ga-yo-verb-xQmFj09V"
-          ],
-          "details": [
-            "derivedTerms “gàga” — the dictionary has “gaga”, “gágà”",
-            "derivedTerms “agá” — the dictionary has “aga”, “agà”, “àga”",
-            "derivedTerms “ìgá” — the dictionary has “iga”, “ìgà”"
           ]
         },
         {
@@ -24776,58 +23924,6 @@
           ]
         },
         {
-          "page": "ho",
-          "editUrl": "https://en.wiktionary.org/wiki/ho#Yoruba",
-          "entryIds": [
-            "en-ho-yo-verb-yG~NxbN7"
-          ],
-          "details": [
-            "derivedTerms “ìhó” — the dictionary has “iho”, “ihò”"
-          ]
-        },
-        {
-          "page": "da",
-          "editUrl": "https://en.wiktionary.org/wiki/da#Yoruba",
-          "entryIds": [
-            "en-da-yo-verb-E9hwbPOi",
-            "en-da-yo-verb-yXoWRwlp",
-            "en-da-yo-verb-rVNKmJ5~",
-            "en-da-yo-verb-XEscM15L",
-            "en-da-yo-verb-8ae1DQCT",
-            "en-da-yo-verb-BjwJ49f6"
-          ],
-          "details": [
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”",
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”",
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”",
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”",
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”",
-            "derivedTerms “ìdà” — the dictionary has “ida”, “idà”, “ìdá”"
-          ]
-        },
-        {
-          "page": "ja",
-          "editUrl": "https://en.wiktionary.org/wiki/ja#Yoruba",
-          "entryIds": [
-            "en-ja-yo-verb-V02xpc1t",
-            "en-ja-yo-verb-0NaWQCaQ",
-            "en-ja-yo-verb-3ssykXt-",
-            "en-ja-yo-verb-XWKZn91g",
-            "en-ja-yo-verb-3qcVzTKH",
-            "en-ja-yo-verb-s~cSALK8",
-            "en-ja-yo-verb-MHvHcI2g"
-          ],
-          "details": [
-            "derivedTerms “ajà” — the dictionary has “aja”, “ajá”, “àjà”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”",
-            "derivedTerms “ìjá” — the dictionary has “ija”, “ìjà”, “ìja”"
-          ]
-        },
-        {
           "page": "akin",
           "editUrl": "https://en.wiktionary.org/wiki/akin#Yoruba",
           "entryIds": [
@@ -24835,26 +23931,6 @@
           ],
           "details": [
             "derivedTerms “Akin” — the dictionary has “akin”"
-          ]
-        },
-        {
-          "page": "dan",
-          "editUrl": "https://en.wiktionary.org/wiki/dan#Yoruba",
-          "entryIds": [
-            "en-dan-yo-verb-bIUQhMt9"
-          ],
-          "details": [
-            "derivedTerms “adán” — the dictionary has “adan”, “àdán”"
-          ]
-        },
-        {
-          "page": "odo",
-          "editUrl": "https://en.wiktionary.org/wiki/odo#Yoruba",
-          "entryIds": [
-            "en-odo-yo-noun-X1qO2PE5"
-          ],
-          "details": [
-            "derivedTerms “olódò” — the dictionary has “olodo”, “olódo”, “olódó”"
           ]
         },
         {
@@ -24868,73 +23944,6 @@
           ]
         },
         {
-          "page": "din",
-          "editUrl": "https://en.wiktionary.org/wiki/din#Yoruba",
-          "entryIds": [
-            "en-din-yo-verb-awEIUS8f"
-          ],
-          "details": [
-            "derivedTerms “adín” — the dictionary has “adin”, “àdín”"
-          ]
-        },
-        {
-          "page": "aba",
-          "editUrl": "https://en.wiktionary.org/wiki/aba#Yoruba",
-          "entryIds": [
-            "en-aba-yo-noun-iKGIHwAl"
-          ],
-          "details": [
-            "derivedTerms “ababa” — the dictionary has “àbábá”",
-            "derivedTerms “abaye” — the dictionary has “àbáyé”"
-          ]
-        },
-        {
-          "page": "le",
-          "editUrl": "https://en.wiktionary.org/wiki/le#Yoruba",
-          "entryIds": [
-            "en-le-yo-verb-2oBj8IPs",
-            "en-le-yo-verb-jpIqB2v7",
-            "en-le-yo-verb-6GbHQpBr"
-          ],
-          "details": [
-            "derivedTerms “kára ó le” — the dictionary has “kara o le”",
-            "derivedTerms “ìlé” — the dictionary has “ile”, “ilé”",
-            "derivedTerms “ìlé” — the dictionary has “ile”, “ilé”"
-          ]
-        },
-        {
-          "page": "aye",
-          "editUrl": "https://en.wiktionary.org/wiki/aye#Yoruba",
-          "entryIds": [
-            "en-aye-yo-noun-SG6kYiTR"
-          ],
-          "details": [
-            "derivedTerms “jàde láyé” — the dictionary has “jade laye”, “jáde layé”"
-          ]
-        },
-        {
-          "page": "ki",
-          "editUrl": "https://en.wiktionary.org/wiki/ki#Yoruba",
-          "entryIds": [
-            "en-ki-yo-verb-5q95hAip",
-            "en-ki-yo-verb-TxwfPHdj"
-          ],
-          "details": [
-            "derivedTerms “èkìkì” — the dictionary has “ekiki”, “èkikì”",
-            "derivedTerms “ìki” — the dictionary has “iki”, “ikì”"
-          ]
-        },
-        {
-          "page": "ya",
-          "editUrl": "https://en.wiktionary.org/wiki/ya#Yoruba",
-          "entryIds": [
-            "en-ya-yo-verb-rtx~nu5B"
-          ],
-          "details": [
-            "derivedTerms “yára” — the dictionary has “yara”, “yàrá”"
-          ]
-        },
-        {
           "page": "elu",
           "editUrl": "https://en.wiktionary.org/wiki/elu#Yoruba",
           "entryIds": [
@@ -24945,109 +23954,13 @@
           ]
         },
         {
-          "page": "ka",
-          "editUrl": "https://en.wiktionary.org/wiki/ka#Yoruba",
-          "entryIds": [
-            "en-ka-yo-verb-Um3bFKDq",
-            "en-ka-yo-verb-w6dJaP34",
-            "en-ka-yo-verb-sKfy-6Mm"
-          ],
-          "details": [
-            "derivedTerms “ìká” — the dictionary has “ika”, “ìka”, “ìkà”",
-            "derivedTerms “ìká” — the dictionary has “ika”, “ìka”, “ìkà”",
-            "derivedTerms “ìká” — the dictionary has “ika”, “ìka”, “ìkà”"
-          ]
-        },
-        {
-          "page": "ibo",
-          "editUrl": "https://en.wiktionary.org/wiki/ibo#Yoruba",
-          "entryIds": [
-            "en-ibo-yo-noun-YIV2SlU4"
-          ],
-          "details": [
-            "derivedTerms “díbò” — the dictionary has “dibo”, “dìbò”"
-          ]
-        },
-        {
-          "page": "ori",
-          "editUrl": "https://en.wiktionary.org/wiki/ori#Yoruba",
-          "entryIds": [
-            "en-ori-yo-noun-ny5tM6Nx"
-          ],
-          "details": [
-            "derivedTerms “olórí” — the dictionary has “olori”, “olorì”"
-          ]
-        },
-        {
-          "page": "gan",
-          "editUrl": "https://en.wiktionary.org/wiki/gan#Yoruba",
-          "entryIds": [
-            "en-gan-yo-verb-EaW2Y~-0",
-            "en-gan-yo-verb-tADKsB7F",
-            "en-gan-yo-verb-31~ZLuvB",
-            "en-gan-yo-verb-ie3U7xiI",
-            "en-gan-yo-verb-SGzNsYK~"
-          ],
-          "details": [
-            "derivedTerms “agán” — the dictionary has “agan”, “àgàn”",
-            "derivedTerms “ìgán” — the dictionary has “igán”",
-            "derivedTerms “agán” — the dictionary has “agan”, “àgàn”",
-            "derivedTerms “ìgán” — the dictionary has “igán”",
-            "derivedTerms “agán” — the dictionary has “agan”, “àgàn”",
-            "derivedTerms “ìgán” — the dictionary has “igán”",
-            "derivedTerms “agán” — the dictionary has “agan”, “àgàn”",
-            "derivedTerms “ìgán” — the dictionary has “igán”"
-          ]
-        },
-        {
-          "page": "apo",
-          "editUrl": "https://en.wiktionary.org/wiki/apo#Yoruba",
-          "entryIds": [
-            "en-apo-yo-noun-Knt4RC9F"
-          ],
-          "details": [
-            "derivedTerms “àpòlá” — the dictionary has “apola”, “àpólà”"
-          ]
-        },
-        {
           "page": "olu",
           "editUrl": "https://en.wiktionary.org/wiki/olu#Yoruba",
           "entryIds": [
             "en-olu-yo-noun-xRdnl~my"
           ],
           "details": [
-            "derivedTerms “olúwa” — the dictionary has “Oluwa”, “Olúwa”, “oluwa”",
             "derivedTerms “Olú” — the dictionary has “olu”, “olú”, “òlú”"
-          ]
-        },
-        {
-          "page": "raye",
-          "editUrl": "https://en.wiktionary.org/wiki/raye#Yoruba",
-          "entryIds": [
-            "en-raye-yo-verb-ShH-nA5c"
-          ],
-          "details": [
-            "derivedTerms “ìrayè” — the dictionary has “iráyé”"
-          ]
-        },
-        {
-          "page": "wu",
-          "editUrl": "https://en.wiktionary.org/wiki/wu#Yoruba",
-          "entryIds": [
-            "en-wu-yo-verb-kJpMH7qY",
-            "en-wu-yo-verb-pa1quFzM",
-            "en-wu-yo-verb-ael8RP89",
-            "en-wu-yo-verb-UY803YQ4",
-            "en-wu-yo-verb-e~N08iE~",
-            "en-wu-yo-verb-sH8UXsse"
-          ],
-          "details": [
-            "derivedTerms “ìwù” — the dictionary has “iwú”, “iwu”",
-            "derivedTerms “ìwù” — the dictionary has “iwú”, “iwu”",
-            "derivedTerms “ìwù” — the dictionary has “iwú”, “iwu”",
-            "derivedTerms “ìwù” — the dictionary has “iwú”, “iwu”",
-            "derivedTerms “ìwú” — the dictionary has “iwú”, “iwu”",
-            "derivedTerms “ìwú” — the dictionary has “iwú”, “iwu”"
           ]
         },
         {
@@ -25091,16 +24004,6 @@
           ]
         },
         {
-          "page": "odu",
-          "editUrl": "https://en.wiktionary.org/wiki/odu#Yoruba",
-          "entryIds": [
-            "en-odu-yo-noun-NSB8vOB1"
-          ],
-          "details": [
-            "derivedTerms “Òdù Ifá” — the dictionary has “Odu Ifa”, “Odù Ifá”"
-          ]
-        },
-        {
           "page": "Ayan",
           "editUrl": "https://en.wiktionary.org/wiki/Ayan#Yoruba",
           "entryIds": [
@@ -25122,56 +24025,6 @@
           ]
         },
         {
-          "page": "lẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/l%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-lẹ-yo-verb-K5XGaUkD",
-            "en-lẹ-yo-verb-qQrsWhvV",
-            "en-lẹ-yo-verb-YpNYoz65"
-          ],
-          "details": [
-            "derivedTerms “ìlẹ̀” — the dictionary has “ilẹ̀”, “ilẹ”",
-            "derivedTerms “ìlẹ̀” — the dictionary has “ilẹ̀”, “ilẹ”",
-            "derivedTerms “ìlẹ̀” — the dictionary has “ilẹ̀”, “ilẹ”"
-          ]
-        },
-        {
-          "page": "ọmọ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dm%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-ọmọ-yo-noun-3cnmaRlC"
-          ],
-          "details": [
-            "derivedTerms “ọmọ ẹgbẹ́” — the dictionary has “ọmọ ẹgbẹ”"
-          ]
-        },
-        {
-          "page": "fọ",
-          "editUrl": "https://en.wiktionary.org/wiki/f%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-fọ-yo-verb-JbLBqz~N",
-            "en-fọ-yo-verb-rn2csRW1",
-            "en-fọ-yo-verb-9GlyCDtf",
-            "en-fọ-yo-verb-Wc0gp-Lx"
-          ],
-          "details": [
-            "derivedTerms “ìfọ́” — the dictionary has “ifọ”, “ifọ̀”",
-            "derivedTerms “ìfọ́” — the dictionary has “ifọ”, “ifọ̀”",
-            "derivedTerms “ìfọ́” — the dictionary has “ifọ”, “ifọ̀”",
-            "derivedTerms “ìfọ́” — the dictionary has “ifọ”, “ifọ̀”"
-          ]
-        },
-        {
-          "page": "wure",
-          "editUrl": "https://en.wiktionary.org/wiki/wure#Yoruba",
-          "entryIds": [
-            "en-wure-yo-verb-jTkWERdW"
-          ],
-          "details": [
-            "derivedTerms “ìwuré” — the dictionary has “iwure”, “ìwúre”"
-          ]
-        },
-        {
           "page": "saraki",
           "editUrl": "https://en.wiktionary.org/wiki/saraki#Yoruba",
           "entryIds": [
@@ -25179,26 +24032,6 @@
           ],
           "details": [
             "relatedTerms “Sàràkí” — the dictionary has “saraki”, “sàràkí”"
-          ]
-        },
-        {
-          "page": "wọn",
-          "editUrl": "https://en.wiktionary.org/wiki/w%E1%BB%8Dn#Yoruba",
-          "entryIds": [
-            "en-wọn-yo-verb-xWzpz9h6"
-          ],
-          "details": [
-            "derivedTerms “ọ̀wọ́n” — the dictionary has “ọ̀wọ̀n”, “ọ̀wọn”, “ọwọn”"
-          ]
-        },
-        {
-          "page": "ọsan",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dsan#Yoruba",
-          "entryIds": [
-            "en-ọsan-yo-noun-8ADAoNmF"
-          ],
-          "details": [
-            "derivedTerms “ọsán já ọrun dọ̀pá” — the dictionary has “ọsan ja ọrun dọpa”"
           ]
         },
         {
@@ -25222,26 +24055,6 @@
           ]
         },
         {
-          "page": "ogun",
-          "editUrl": "https://en.wiktionary.org/wiki/ogun#Yoruba",
-          "entryIds": [
-            "en-ogun-yo-num-fCxN90D3"
-          ],
-          "details": [
-            "derivedTerms “ológún” — the dictionary has “ologun”, “ológun”"
-          ]
-        },
-        {
-          "page": "ẹja",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9ja#Yoruba",
-          "entryIds": [
-            "en-ẹja-yo-noun-tHSpmicF"
-          ],
-          "details": [
-            "derivedTerms “ẹja àpátámajà” — the dictionary has “ẹja apatamaja”"
-          ]
-        },
-        {
           "page": "ilẹ",
           "editUrl": "https://en.wiktionary.org/wiki/il%E1%BA%B9#Yoruba",
           "entryIds": [
@@ -25252,86 +24065,13 @@
           ]
         },
         {
-          "page": "oogun",
-          "editUrl": "https://en.wiktionary.org/wiki/oogun#Yoruba",
-          "entryIds": [
-            "en-oogun-yo-noun-RPNFWV3z"
-          ],
-          "details": [
-            "derivedTerms “òògùn apakòkòrò” — the dictionary has “oogun apakokoro”, “oògùn apakòkòrò”"
-          ]
-        },
-        {
-          "page": "iṣu",
-          "editUrl": "https://en.wiktionary.org/wiki/i%E1%B9%A3u#Yoruba",
-          "entryIds": [
-            "en-iṣu-yo-noun-ArOn-fVY"
-          ],
-          "details": [
-            "relatedTerms “ọdún Ìjẹ̀ṣu” — the dictionary has “ọdun Ijẹṣu”, “ọdún Ìjẹṣu”"
-          ]
-        },
-        {
-          "page": "ẹyin",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9yin#Yoruba",
-          "entryIds": [
-            "en-ẹyin-yo-adv-sbiGzl9X"
-          ],
-          "details": [
-            "derivedTerms “alátìlẹyìn” — the dictionary has “alatilẹyin”, “alátìlẹ́yìn”"
-          ]
-        },
-        {
-          "page": "ọwọ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dw%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-ọwọ-yo-noun-GwAXBqQY"
-          ],
-          "details": [
-            "derivedTerms “ìbọwọ́” — the dictionary has “ibọwọ”, “ìbọ̀wọ̀”, “ìbọ̀wọ́”"
-          ]
-        },
-        {
-          "page": "gba",
-          "editUrl": "https://en.wiktionary.org/wiki/gba#Yoruba",
-          "entryIds": [
-            "en-gba-yo-verb-~hEWKNsI",
-            "en-gba-yo-verb-r65cwzFX"
-          ],
-          "details": [
-            "derivedTerms “agbá” — the dictionary has “agba”, “àgbà”, “àgbá”",
-            "derivedTerms “agbá” — the dictionary has “agba”, “àgbà”, “àgbá”"
-          ]
-        },
-        {
-          "page": "apatamaja",
-          "editUrl": "https://en.wiktionary.org/wiki/apatamaja#Yoruba",
-          "entryIds": [
-            "en-apatamaja-yo-noun-~CLvHgMw"
-          ],
-          "details": [
-            "synonyms “ẹja àpátámàjà” — the dictionary has “ẹja apatamaja”"
-          ]
-        },
-        {
           "page": "ẹgbẹ",
           "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9gb%E1%BA%B9#Yoruba",
           "entryIds": [
             "en-ẹgbẹ-yo-noun-4Fbs-JEg"
           ],
           "details": [
-            "derivedTerms “Ẹgbẹ́” — the dictionary has “ẹgbẹ”, “ẹ̀gbẹ”, “ẹgbẹ́”",
-            "derivedTerms “ọmọ ẹgbẹ́” — the dictionary has “ọmọ ẹgbẹ”"
-          ]
-        },
-        {
-          "page": "ọfọ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Df%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-ọfọ-yo-noun-aIzBan0Z"
-          ],
-          "details": [
-            "derivedTerms “fọfọ̀” — the dictionary has “fọfọ”, “fọ́fọ́”"
+            "derivedTerms “Ẹgbẹ́” — the dictionary has “ẹgbẹ”, “ẹ̀gbẹ”, “ẹgbẹ́”"
           ]
         },
         {
@@ -25352,72 +24092,6 @@
           ],
           "details": [
             "derivedTerms “sábẹ́” — the dictionary has “Sábẹ́”"
-          ]
-        },
-        {
-          "page": "gbo",
-          "editUrl": "https://en.wiktionary.org/wiki/gbo#Yoruba",
-          "entryIds": [
-            "en-gbo-yo-verb-xFuq9GTP"
-          ],
-          "details": [
-            "derivedTerms “ogbó” — the dictionary has “ogbo”, “ògbo”"
-          ]
-        },
-        {
-          "page": "yọ",
-          "editUrl": "https://en.wiktionary.org/wiki/y%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-yọ-yo-verb-tnTX8jyu",
-            "en-yọ-yo-verb-T369rCwi",
-            "en-yọ-yo-verb-mOJ7Us9J",
-            "en-yọ-yo-verb-X5Xi8Dn9",
-            "en-yọ-yo-verb-tyAY6AaO",
-            "en-yọ-yo-verb-lKzxxhi7",
-            "en-yọ-yo-verb-MsEJ-1gy",
-            "en-yọ-yo-verb-VB2MvTMA"
-          ],
-          "details": [
-            "derivedTerms “ìyọ̀” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”",
-            "derivedTerms “ìyọ̀” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”",
-            "derivedTerms “ẹ̀yọ” — the dictionary has “ẹyọ”, “Ẹyọ”, “Ẹ̀yọ̀”",
-            "derivedTerms “ẹ̀yọ” — the dictionary has “ẹyọ”, “Ẹyọ”, “Ẹ̀yọ̀”",
-            "derivedTerms “ìyọ́” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”",
-            "derivedTerms “ìyọ́” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”",
-            "derivedTerms “ìyọ́” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”",
-            "derivedTerms “ìyọ́” — the dictionary has “iyọ”, “iyọ̀”, “ìyọ”"
-          ]
-        },
-        {
-          "page": "gbẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-gbẹ-yo-verb-QGgbGZpz",
-            "en-gbẹ-yo-verb-X9gQhP-U"
-          ],
-          "details": [
-            "derivedTerms “ìgbẹ” — the dictionary has “igbẹ”, “ìgbẹ́”",
-            "derivedTerms “ìgbẹ” — the dictionary has “igbẹ”, “ìgbẹ́”"
-          ]
-        },
-        {
-          "page": "ugba",
-          "editUrl": "https://en.wiktionary.org/wiki/ugba#Yoruba",
-          "entryIds": [
-            "en-ugba-yo-noun-hM0UoDdM"
-          ],
-          "details": [
-            "derivedTerms “ùgbàfẹ́” — the dictionary has “ùgbafẹ́”, “ugbafẹ”"
-          ]
-        },
-        {
-          "page": "yẹra",
-          "editUrl": "https://en.wiktionary.org/wiki/y%E1%BA%B9ra#Yoruba",
-          "entryIds": [
-            "en-yẹra-yo-verb-TbbOozrZ"
-          ],
-          "details": [
-            "relatedTerms “dákun” — the dictionary has “dakun”"
           ]
         },
         {
@@ -25444,43 +24118,10 @@
           "page": "dẹ",
           "editUrl": "https://en.wiktionary.org/wiki/d%E1%BA%B9#Yoruba",
           "entryIds": [
-            "en-dẹ-yo-verb-DP8ug5mf",
             "en-dẹ-yo-verb-vVYafK00"
           ],
           "details": [
-            "derivedTerms “ìdẹ̀” — the dictionary has “idẹ”",
-            "derivedTerms “Ọdẹ” — the dictionary has “ọdẹ”, “ọ̀dẹ̀”",
-            "derivedTerms “ìdẹ” — the dictionary has “idẹ”"
-          ]
-        },
-        {
-          "page": "tọ",
-          "editUrl": "https://en.wiktionary.org/wiki/t%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-tọ-yo-verb-XEeertNC",
-            "en-tọ-yo-verb-izbf0t0t",
-            "en-tọ-yo-verb-zqXMP7Oy",
-            "en-tọ-yo-verb-cEAo~cP~",
-            "en-tọ-yo-verb-G~Mocwof",
-            "en-tọ-yo-verb-5xl7JMyy"
-          ],
-          "details": [
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”",
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”",
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”",
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”",
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”",
-            "derivedTerms “ìtọ́” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”"
-          ]
-        },
-        {
-          "page": "gbọn",
-          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BB%8Dn#Yoruba",
-          "entryIds": [
-            "en-gbọn-yo-verb-p8R9n899"
-          ],
-          "details": [
-            "derivedTerms “ẹ̀gbọ̀n” — the dictionary has “ẹgbọn”, “ẹ̀gbọ́n”"
+            "derivedTerms “Ọdẹ” — the dictionary has “ọdẹ”, “ọ̀dẹ̀”"
           ]
         },
         {
@@ -25541,323 +24182,6 @@
           ],
           "details": [
             "derivedTerms “Òpómúléró” — the dictionary has “opomulero”, “òpómúléró”"
-          ]
-        },
-        {
-          "page": "akete",
-          "editUrl": "https://en.wiktionary.org/wiki/akete#Yoruba",
-          "entryIds": [
-            "en-akete-yo-noun-z7hm43Bm"
-          ],
-          "details": [
-            "relatedTerms “ìbùsùn” — the dictionary has “ibusun”, “ibùsùn”",
-            "relatedTerms “oíbáà” — the dictionary has “oibaa”, “oíbàà”"
-          ]
-        }
-      ],
-      "pagesOmitted": 0
-    },
-    {
-      "kind": "reference-underdot-typo",
-      "title": "Cross-reference with a missing or extra underdot",
-      "severity": "high",
-      "effort": "easy",
-      "target": "wiktionary",
-      "why": "Same as the tone typos, one dimension over: these match once underdots (ẹ ọ ṣ) are ignored, so the intended target is known.",
-      "fix": "Correct the underdots on the reference so it matches the entry it means.",
-      "count": 40,
-      "pageCount": 27,
-      "pages": [
-        {
-          "page": "ao",
-          "editUrl": "https://en.wiktionary.org/wiki/ao#Yoruba",
-          "entryIds": [
-            "en-ao-yo-noun-kTSBn1MX"
-          ],
-          "details": [
-            "relatedTerms “Ịfá” — the dictionary has “ifa”, “ìfà”, “Ifa”"
-          ]
-        },
-        {
-          "page": "to",
-          "editUrl": "https://en.wiktionary.org/wiki/to#Yoruba",
-          "entryIds": [
-            "en-to-yo-verb-Tvot62ME"
-          ],
-          "details": [
-            "derivedTerms “atò” — the dictionary has “atọ”, “àtọ̀”, “atọ́”",
-            "derivedTerms “ìtò” — the dictionary has “itọ”, “ìtọ̀”, “itọ́”"
-          ]
-        },
-        {
-          "page": "gun",
-          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
-          "entryIds": [
-            "en-gun-yo-verb-JNDZ1G7y"
-          ],
-          "details": [
-            "derivedTerms “ẹ̀gùn” — the dictionary has “Egun”, “Ègùn”"
-          ]
-        },
-        {
-          "page": "sin",
-          "editUrl": "https://en.wiktionary.org/wiki/sin#Yoruba",
-          "entryIds": [
-            "en-sin-yo-verb-iZ0JqjtP",
-            "en-sin-yo-verb-Cv1amlpa",
-            "en-sin-yo-verb-rH6XF44N",
-            "en-sin-yo-verb-6z0-iU8K",
-            "en-sin-yo-verb-JUxVk9B-"
-          ],
-          "details": [
-            "derivedTerms “ìsìn” — the dictionary has “iṣin”",
-            "derivedTerms “ìsìn” — the dictionary has “iṣin”",
-            "derivedTerms “ìsìn” — the dictionary has “iṣin”",
-            "derivedTerms “ìsín” — the dictionary has “iṣin”",
-            "derivedTerms “ìsín” — the dictionary has “iṣin”"
-          ]
-        },
-        {
-          "page": "ile",
-          "editUrl": "https://en.wiktionary.org/wiki/ile#Yoruba",
-          "entryIds": [
-            "en-ile-yo-noun-VQM0lVeW"
-          ],
-          "details": [
-            "derivedTerms “sílé” — the dictionary has “ṣile”, “ṣílè”, “Ṣile”"
-          ]
-        },
-        {
-          "page": "ni",
-          "editUrl": "https://en.wiktionary.org/wiki/ni#Yoruba",
-          "entryIds": [
-            "en-ni-yo-prep-sMSnxPOE"
-          ],
-          "details": [
-            "derivedTerms “nílẹ̀” — the dictionary has “nile”, “nílé”"
-          ]
-        },
-        {
-          "page": "se",
-          "editUrl": "https://en.wiktionary.org/wiki/se#Yoruba",
-          "entryIds": [
-            "en-se-yo-verb-qUY3OFDp"
-          ],
-          "details": [
-            "derivedTerms “sísè” — the dictionary has “ṣiṣẹ”, “ṣiṣẹ́”, “ṣiṣe”"
-          ]
-        },
-        {
-          "page": "bọ",
-          "editUrl": "https://en.wiktionary.org/wiki/b%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-bọ-yo-verb-yG~NxbN7"
-          ],
-          "details": [
-            "derivedTerms “ìbọ̀” — the dictionary has “ibo”, “ìbò”, “ìbó”"
-          ]
-        },
-        {
-          "page": "họ",
-          "editUrl": "https://en.wiktionary.org/wiki/h%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-họ-yo-verb-VeRMyz3C",
-            "en-họ-yo-verb-DggLfg53"
-          ],
-          "details": [
-            "derivedTerms “ìhọ” — the dictionary has “iho”, “ihò”",
-            "derivedTerms “ìhọ” — the dictionary has “iho”, “ihò”"
-          ]
-        },
-        {
-          "page": "Oro",
-          "editUrl": "https://en.wiktionary.org/wiki/Oro#Yoruba",
-          "entryIds": [
-            "en-Oro-yo-name-k2FaZynI"
-          ],
-          "details": [
-            "derivedTerms “olórò” — the dictionary has “ọlọrọ”, “ọlọ́rọ̀”"
-          ]
-        },
-        {
-          "page": "kọ",
-          "editUrl": "https://en.wiktionary.org/wiki/k%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-kọ-yo-verb-LIho60Gm"
-          ],
-          "details": [
-            "derivedTerms “kọ́lé” — the dictionary has “kolẹ”, “kólẹ̀”"
-          ]
-        },
-        {
-          "page": "fọ",
-          "editUrl": "https://en.wiktionary.org/wiki/f%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-fọ-yo-verb-JbLBqz~N"
-          ],
-          "details": [
-            "derivedTerms “afọ́” — the dictionary has “afó”"
-          ]
-        },
-        {
-          "page": "aghan",
-          "editUrl": "https://en.wiktionary.org/wiki/aghan#Yoruba",
-          "entryIds": [
-            "en-aghan-yo-pron-Lvq2uu65"
-          ],
-          "details": [
-            "relatedTerms “wé” — the dictionary has “wẹ”, “wẹ̀”, “wẹ́”"
-          ]
-        },
-        {
-          "page": "aṣẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/a%E1%B9%A3%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-aṣẹ-yo-noun-G5VkZD8~"
-          ],
-          "details": [
-            "derivedTerms “aláṣẹ” — the dictionary has “alase”, “alásè”"
-          ]
-        },
-        {
-          "page": "ẹwa",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9wa#Yoruba",
-          "entryIds": [
-            "en-ẹwa-yo-noun-nE9am9gN"
-          ],
-          "details": [
-            "relatedTerms “ẹwẹ” — the dictionary has “ewe”, “ewé”, “èwe”"
-          ]
-        },
-        {
-          "page": "gbe",
-          "editUrl": "https://en.wiktionary.org/wiki/gbe#Yoruba",
-          "entryIds": [
-            "en-gbe-yo-verb-VvBDcrKw"
-          ],
-          "details": [
-            "derivedTerms “gbẹ́sẹ̀” — the dictionary has “gbèsè”, “gbese”"
-          ]
-        },
-        {
-          "page": "wẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/w%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-wẹ-yo-verb-cXzGunx4"
-          ],
-          "details": [
-            "derivedTerms “awẹ́” — the dictionary has “awe”, “àwé”"
-          ]
-        },
-        {
-          "page": "iwẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/iw%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-iwẹ-yo-noun-uCYuhuC8"
-          ],
-          "details": [
-            "derivedTerms “ilé ìwẹ̀” — the dictionary has “ilé ìwé”"
-          ]
-        },
-        {
-          "page": "ibale",
-          "editUrl": "https://en.wiktionary.org/wiki/ibale#Yoruba",
-          "entryIds": [
-            "en-ibale-yo-noun-jRrmJo5T"
-          ],
-          "details": [
-            "relatedTerms “ọbitun” — the dictionary has “ọbịtụn”, “ọ̀bị́tụ̀n”"
-          ]
-        },
-        {
-          "page": "rẹjẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/r%E1%BA%B9j%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-rẹjẹ-yo-verb-0a3wdKh3"
-          ],
-          "details": [
-            "relatedTerms “réjẹ” — the dictionary has “rẹjẹ”, “rẹ́jẹ”"
-          ]
-        },
-        {
-          "page": "ọgụrọ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dg%E1%BB%A5r%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-ọgụrọ-yo-noun-HMvpwGPb"
-          ],
-          "details": [
-            "relatedTerms “emu” — the dictionary has “ẹmu”, “ẹmụ”"
-          ]
-        },
-        {
-          "page": "isọ",
-          "editUrl": "https://en.wiktionary.org/wiki/is%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-isọ-yo-noun-ZiaQQiti"
-          ],
-          "details": [
-            "relatedTerms “ẹ̀sọ” — the dictionary has “eso”, “èso”, “ẹ̀ṣọ́”"
-          ]
-        },
-        {
-          "page": "gbọ",
-          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-gbọ-yo-verb-jqEb34OJ"
-          ],
-          "details": [
-            "derivedTerms “agbọ́” — the dictionary has “agbo”, “àgbò”, “àgbo”",
-            "derivedTerms “ìgbọ́” — the dictionary has “igbo”, “ìgbò”, “igbó”"
-          ]
-        },
-        {
-          "page": "gẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/g%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-gẹ-yo-verb-pApCq1ey",
-            "en-gẹ-yo-verb-DtdvGv~A",
-            "en-gẹ-yo-verb-ECfnsWbe",
-            "en-gẹ-yo-verb-7Kr1gTH9",
-            "en-gẹ-yo-verb-bTXEJqex"
-          ],
-          "details": [
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “agẹ” — the dictionary has “age”, “àgé”",
-            "derivedTerms “gẹdè” — the dictionary has “gede”",
-            "derivedTerms “ìgẹ” — the dictionary has “Ige”, “Ìgè”"
-          ]
-        },
-        {
-          "page": "ọwọn",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dw%E1%BB%8Dn#Yoruba",
-          "entryIds": [
-            "en-ọwọn-yo-pron-Lvq2uu65"
-          ],
-          "details": [
-            "relatedTerms “wé” — the dictionary has “wẹ”, “wẹ̀”, “wẹ́”"
-          ]
-        },
-        {
-          "page": "ṣẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-ṣẹ-yo-verb-Sy0e7T7T"
-          ],
-          "details": [
-            "derivedTerms “ẹ̀ṣẹ̀” — the dictionary has “ese”, “esé”, “èse”"
-          ]
-        },
-        {
-          "page": "orilẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/oril%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-orilẹ-yo-noun-cOCzn~lH"
-          ],
-          "details": [
-            "relatedTerms “orílé” — the dictionary has “orilẹ”, “orílẹ̀”"
           ]
         }
       ],
@@ -25944,6 +24268,48 @@
           ],
           "details": [
             "points at “nominalizing prefix” on ọ̀, which has no such name"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
+    },
+    {
+      "kind": "reference-underdot-typo",
+      "title": "Cross-reference with a missing or extra underdot",
+      "severity": "high",
+      "effort": "easy",
+      "target": "wiktionary",
+      "why": "Same as the tone typos, one dimension over: these match once underdots (ẹ ọ ṣ) are ignored, so the intended target is known.",
+      "fix": "Correct the underdots on the reference so it matches the entry it means.",
+      "count": 6,
+      "pageCount": 2,
+      "pages": [
+        {
+          "page": "gun",
+          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
+          "entryIds": [
+            "en-gun-yo-verb-JNDZ1G7y"
+          ],
+          "details": [
+            "derivedTerms “ẹ̀gùn” — the dictionary has “Egun”, “Ègùn”"
+          ]
+        },
+        {
+          "page": "gẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/g%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-gẹ-yo-verb-pApCq1ey",
+            "en-gẹ-yo-verb-DtdvGv~A",
+            "en-gẹ-yo-verb-ECfnsWbe",
+            "en-gẹ-yo-verb-7Kr1gTH9",
+            "en-gẹ-yo-verb-bTXEJqex"
+          ],
+          "details": [
+            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
+            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
+            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
+            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
+            "derivedTerms “ìgẹ” — the dictionary has “Ige”, “Ìgè”"
           ]
         }
       ],
@@ -30038,8 +28404,8 @@
       "target": "wiktionary",
       "why": "Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé (\"to meet\") look like it comes from pa (\"to kill\").",
       "fix": "Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page \"de\". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.",
-      "count": 52,
-      "pageCount": 52,
+      "count": 51,
+      "pageCount": 51,
       "pages": [
         {
           "page": "fa",
@@ -30352,16 +28718,6 @@
           ]
         },
         {
-          "page": "oyin",
-          "editUrl": "https://en.wiktionary.org/wiki/oyin#Yoruba",
-          "entryIds": [
-            "en-oyin-yo-noun-YsuBtZBK"
-          ],
-          "details": [
-            "2 etymology sections, none of them named"
-          ]
-        },
-        {
           "page": "ẹ",
           "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9#Yoruba",
           "entryIds": [
@@ -30572,8 +28928,8 @@
       "target": "wiktionary",
       "why": "Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.",
       "fix": "Move the derived term to the etymology section it truly belongs to, or add a short definition to it in the derived-terms list (e.g. “|gbígbá<t:beating>”) so its meaning is recoverable.",
-      "count": 11,
-      "pageCount": 10,
+      "count": 21,
+      "pageCount": 19,
       "pages": [
         {
           "page": "are",
@@ -30583,6 +28939,56 @@
           ],
           "details": [
             "listed as a derived term by 5 separate “ré” entries; its own etymology says “From the same root as eré, iré, and uré, see Proto-Yoruba *V-ré”"
+          ]
+        },
+        {
+          "page": "ile",
+          "editUrl": "https://en.wiktionary.org/wiki/ile#Yoruba",
+          "entryIds": [
+            "en-ile-yo-noun-VQM0lVeW"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “lé” entries; its own etymology says “Proposed to be derived from Proto-Yoruboid *ú-lí. Cognates include Ifè ilé, Itsekiri ulí, ”"
+          ]
+        },
+        {
+          "page": "ika",
+          "editUrl": "https://en.wiktionary.org/wiki/ika#Yoruba",
+          "entryIds": [
+            "en-ika-yo-noun-e-5aJtNz"
+          ],
+          "details": [
+            "listed as a derived term by 3 separate “ká” entries; its own etymology says “Doublet of ẹ̀ka”"
+          ]
+        },
+        {
+          "page": "ire",
+          "editUrl": "https://en.wiktionary.org/wiki/ire#Yoruba",
+          "entryIds": [
+            "en-ire-yo-noun-ViOLsFKk"
+          ],
+          "details": [
+            "listed as a derived term by 3 separate “rè” entries; its own etymology says “Compare with oore (“blessing”) and rere (“goodness”)”"
+          ]
+        },
+        {
+          "page": "iho",
+          "editUrl": "https://en.wiktionary.org/wiki/iho#Yoruba",
+          "entryIds": [
+            "en-iho-yo-noun-Oe5FUZcH"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “họ” entries; its own etymology says “From Proto-Yoruboid *á-wò or Proto-Yoruboid *ú-wò, cognate with Igala áwò. The transition ”"
+          ]
+        },
+        {
+          "page": "agan",
+          "editUrl": "https://en.wiktionary.org/wiki/agan#Yoruba",
+          "entryIds": [
+            "en-agan-yo-noun-1j6qCXG-"
+          ],
+          "details": [
+            "listed as a derived term by 5 separate “gán” entries; its own etymology says “Compare with Igbo àgà”"
           ]
         },
         {
@@ -30606,6 +29012,26 @@
           ]
         },
         {
+          "page": "ija",
+          "editUrl": "https://en.wiktionary.org/wiki/ija#Yoruba",
+          "entryIds": [
+            "en-ija-yo-noun-CHkbEVVB"
+          ],
+          "details": [
+            "listed as a derived term by 6 separate “já” entries; its own etymology says “From ì- (“nominalizing prefix”) + jà (“to fight”)”"
+          ]
+        },
+        {
+          "page": "igun",
+          "editUrl": "https://en.wiktionary.org/wiki/igun#Yoruba",
+          "entryIds": [
+            "en-igun-yo-noun-vZH3~UPk"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “gùn” entries; its own etymology says “From Proto-Yoruboid *ú-gwṹnú, cognates include Igala úgwúnú and potential cognates include”"
+          ]
+        },
+        {
           "page": "alẹ",
           "editUrl": "https://en.wiktionary.org/wiki/al%E1%BA%B9#Yoruba",
           "entryIds": [
@@ -30613,6 +29039,17 @@
           ],
           "details": [
             "listed as a derived term by 3 separate “lẹ̀” entries; its own etymology says “Cognate with Igala ánẹ̀ and possibly Igbo ala, Igbo ànị̀, Igbo ànà, proposed to be derived”"
+          ]
+        },
+        {
+          "page": "ewu",
+          "editUrl": "https://en.wiktionary.org/wiki/ewu#Yoruba",
+          "entryIds": [
+            "en-ewu-yo-noun-OLvORTUL"
+          ],
+          "details": [
+            "listed as a derived term by 3 separate “wù” entries; its own etymology says “From Proto-Yoruba *i-ɣú, Proto-Yoruboid *í-ɓṹ, possibly cognate with Igala ímú.”",
+            "listed as a derived term by 2 separate “wú” entries; its own etymology says “From Proto-Yoruba *i-ɣú, Proto-Yoruboid *í-ɓṹ, possibly cognate with Igala ímú.”"
           ]
         },
         {
@@ -30626,13 +29063,14 @@
           ]
         },
         {
-          "page": "ilẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/il%E1%BA%B9#Yoruba",
+          "page": "iyọ",
+          "editUrl": "https://en.wiktionary.org/wiki/iy%E1%BB%8D#Yoruba",
           "entryIds": [
-            "en-ilẹ-yo-noun-3j-~5Sdn"
+            "en-iyọ-yo-noun-Y0ea1poJ"
           ],
           "details": [
-            "listed as a derived term by 3 separate “lẹ̀” entries; its own etymology says “Cognate with Igala ìlẹ̀ (“land”)”"
+            "listed as a derived term by 2 separate “yọ̀” entries; its own etymology says “A much newer term for salt, to see more historic and older forms for salt, see Yoruba oghu”",
+            "listed as a derived term by 4 separate “yọ́” entries; its own etymology says “A much newer term for salt, to see more historic and older forms for salt, see Yoruba oghu”"
           ]
         },
         {
@@ -30646,6 +29084,16 @@
           ]
         },
         {
+          "page": "ifọ",
+          "editUrl": "https://en.wiktionary.org/wiki/if%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-ifọ-yo-noun-BfthetVD"
+          ],
+          "details": [
+            "listed as a derived term by 4 separate “fọ́” entries; its own etymology says “From i- (“nominalizing prefix”) + fọ̀ (“to speak”).”"
+          ]
+        },
+        {
           "page": "ẹyọ",
           "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9y%E1%BB%8D#Yoruba",
           "entryIds": [
@@ -30656,25 +29104,23 @@
           ]
         },
         {
-          "page": "ugba",
-          "editUrl": "https://en.wiktionary.org/wiki/ugba#Yoruba",
+          "page": "Odu Ifa",
+          "editUrl": "https://en.wiktionary.org/wiki/Odu%20Ifa#Yoruba",
           "entryIds": [
-            "en-ugba-yo-noun-hM0UoDdM",
-            "en-ugba-yo-noun--dQ5W7RU"
+            "en-Odu_Ifa-yo-name-C58ytSi4"
           ],
           "details": [
-            "listed as a derived term by 2 separate “gbà” entries; its own etymology says “Cognate with Igala ùgbà”",
-            "listed as a derived term by 2 separate “gbà” entries; its own etymology says “From Proto-Yoruboid *ʊ-gbá, cognate with Yoruba igbá, Igbo ụgbā.”"
+            "listed as a derived term by 2 separate “odù” entries; its own etymology says “From Odù + Ifá, compare with Igbo Ọ́dụ́ Afa”"
           ]
         },
         {
-          "page": "igbẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/igb%E1%BA%B9#Yoruba",
+          "page": "itọ",
+          "editUrl": "https://en.wiktionary.org/wiki/it%E1%BB%8D#Yoruba",
           "entryIds": [
-            "en-igbẹ-yo-noun-2zSxieF7"
+            "en-itọ-yo-noun-g1O-oXKf"
           ],
           "details": [
-            "listed as a derived term by 2 separate “gbẹ́” entries; its own etymology says “Possibly from Etymology 1 as a euphemistic meaning since the bush was where defecation oft”"
+            "listed as a derived term by 6 separate “tọ́” entries; its own etymology says “From ì- (“nominalizing prefix”) + tọ̀ (“to urinate”), cognate with Igala ìtọ̀.”"
           ]
         }
       ],
@@ -30688,9 +29134,19 @@
       "target": "wiktionary",
       "why": "Another page claims this word is derived from it, but this word's own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary's back-links are meant to expose.",
       "fix": "Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root's derived-terms list instead.",
-      "count": 9,
-      "pageCount": 5,
+      "count": 15,
+      "pageCount": 12,
       "pages": [
+        {
+          "page": "are",
+          "editUrl": "https://en.wiktionary.org/wiki/are#Yoruba",
+          "entryIds": [
+            "en-are-yo-noun-ekHBv3jd"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “rè” entries"
+          ]
+        },
         {
           "page": "ire",
           "editUrl": "https://en.wiktionary.org/wiki/ire#Yoruba",
@@ -30699,6 +29155,16 @@
           ],
           "details": [
             "listed as a derived term by 5 separate “ré” entries"
+          ]
+        },
+        {
+          "page": "ida",
+          "editUrl": "https://en.wiktionary.org/wiki/ida#Yoruba",
+          "entryIds": [
+            "en-ida-yo-noun-pExHse4k"
+          ],
+          "details": [
+            "listed as a derived term by 6 separate “dà” entries"
           ]
         },
         {
@@ -30712,15 +29178,54 @@
           ]
         },
         {
+          "page": "ede",
+          "editUrl": "https://en.wiktionary.org/wiki/ede#Yoruba",
+          "entryIds": [
+            "en-ede-yo-noun-iX05kmKf"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “dè” entries",
+            "listed as a derived term by 2 separate “dé” entries"
+          ]
+        },
+        {
+          "page": "agba",
+          "editUrl": "https://en.wiktionary.org/wiki/agba#Yoruba",
+          "entryIds": [
+            "en-agba-yo-noun-MZqi52Y-"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “gbá” entries"
+          ]
+        },
+        {
+          "page": "iwin",
+          "editUrl": "https://en.wiktionary.org/wiki/iwin#Yoruba",
+          "entryIds": [
+            "en-iwin-yo-noun-04d5gJCR"
+          ],
+          "details": [
+            "listed as a derived term by 2 separate “wín” entries"
+          ]
+        },
+        {
           "page": "igba",
           "editUrl": "https://en.wiktionary.org/wiki/igba#Yoruba",
           "entryIds": [
-            "en-igba-yo-noun-X5e1ESLu",
-            "en-igba-yo-noun-0XZGKVJc"
+            "en-igba-yo-noun-X5e1ESLu"
           ],
           "details": [
-            "listed as a derived term by 5 separate “gbá” entries",
             "listed as a derived term by 5 separate “gbá” entries"
+          ]
+        },
+        {
+          "page": "igọn",
+          "editUrl": "https://en.wiktionary.org/wiki/ig%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-igọn-yo-noun-9loktRDY"
+          ],
+          "details": [
+            "listed as a derived term by 5 separate “gán” entries"
           ]
         },
         {
@@ -30730,6 +29235,7 @@
             "en-igbẹ-yo-noun-OsrRmpXK"
           ],
           "details": [
+            "listed as a derived term by 2 separate “gbẹ” entries",
             "listed as a derived term by 2 separate “gbẹ́” entries"
           ]
         },
@@ -30737,16 +29243,21 @@
           "page": "afọn",
           "editUrl": "https://en.wiktionary.org/wiki/af%E1%BB%8Dn#Yoruba",
           "entryIds": [
-            "en-afọn-yo-noun-OmK7~cKz",
-            "en-afọn-yo-noun-1Qzg-mR4",
-            "en-afọn-yo-noun-P9EbMvGI",
-            "en-afọn-yo-noun-uEIDPlD9"
+            "en-afọn-yo-noun-OmK7~cKz"
           ],
           "details": [
-            "listed as a derived term by 2 separate “fọn” entries",
-            "listed as a derived term by 2 separate “fọn” entries",
-            "listed as a derived term by 2 separate “fọn” entries",
             "listed as a derived term by 2 separate “fọn” entries"
+          ]
+        },
+        {
+          "page": "iṣin",
+          "editUrl": "https://en.wiktionary.org/wiki/i%E1%B9%A3in#Yoruba",
+          "entryIds": [
+            "en-iṣin-yo-noun-i1yhhMaQ"
+          ],
+          "details": [
+            "listed as a derived term by 3 separate “sìn” entries",
+            "listed as a derived term by 2 separate “sín” entries"
           ]
         }
       ],
@@ -32235,19 +30746,19 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 198,
+      "easy": 48,
       "mechanical": 375,
-      "expertise": 1893,
+      "expertise": 1908,
       "info": 2258
     },
     "byTarget": {
-      "wiktionary": 4723,
+      "wiktionary": 4588,
       "pipeline": 1
     },
-    "actionable": 2466,
-    "easyWins": 198
+    "actionable": 2331,
+    "easyWins": 48
   },
-  "kaikkiSourceDate": "2026-08-03",
-  "kaikkiReleaseTag": "build-9",
+  "kaikkiSourceDate": "2026-08-10",
+  "kaikkiReleaseTag": "build-10",
   "kaikkiParseErrorCount": 0
 }

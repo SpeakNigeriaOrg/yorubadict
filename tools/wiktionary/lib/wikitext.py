@@ -102,6 +102,24 @@ def existing_etymid(content, lang_code):
     return None
 
 
+def existing_senseids(content, lang_code):
+    """Every {{senseid}} value in this span.
+
+    etymid and senseid share one namespace: the documentation says IDs "should
+    be unique for each invocation of either {{senseid}} or {{etymid}} per
+    language section". sun shows the rule being worked around in practice - its
+    etymology 2 is named "to roast, burn" because "to roast" and "to burn" were
+    already taken by senseids on the same page.
+    """
+    found = set()
+    for template in mwparserfromhell.parse(content).filter_templates():
+        if template.name.strip() != "senseid":
+            continue
+        if len(template.params) >= 2 and str(template.params[0]).strip() == lang_code:
+            found.add(str(template.params[1]).strip())
+    return found
+
+
 def insert_etymid(content, lang_code, name):
     """Put the name on the line directly after the heading.
 
@@ -143,6 +161,14 @@ def validate_name(name):
     the argument.
     """
     problems = []
+    # Template:senseid's documentation, which etymid defers to: "Apostrophes
+    # have been known not to work for link resolution, at least in some
+    # browsers. Thus, please favor (for example) 'sorcerer_s apprentice'".
+    # Spaces are fine and explicitly allowed - "This can be anything, and can
+    # include spaces" - and the etymid docs' own worked example, bun, uses
+    # names like "probably from bottom-referent origins".
+    if "'" in name or "\u2019" in name:
+        problems.append("contains an apostrophe, which breaks link resolution")
     if not name.strip():
         problems.append("is empty")
     if name != name.strip():
