@@ -57,7 +57,9 @@ contributing, auditing data quality, or just curious how it works.
 ## Quick start
 
 ```
-npm run serve     # serves public/ at http://localhost:8080, using the data already built
+npm run serve         # serves public/ at http://localhost:8080, using the data already built
+npm test              # node --test over build/lib/*.test.mjs
+npm run check:search  # runs the real scorer against build/fixtures/search_agreement.json
 ```
 
 To rebuild from [`kaikki-yoruba`](https://github.com/SpeakNigeriaOrg/kaikki-yoruba)'s
@@ -222,11 +224,14 @@ kaikki-yoruba's entries.json (already-normalized entries, incl. resolved
                                     kaikki-yoruba's latest GitHub Release
   -> build/lib/relationships.mjs  Stage 2: alias resolution + reciprocal
                                     synthesis for derivedTerms/relatedTerms/
-                                    synonyms/antonyms/descendants (the *other*
+                                    synonyms/antonyms/descendants, at BOTH the
+                                    entry level and the sense level (the *other*
                                     relation types - not etymology morphemes,
                                     which arrive already resolved)
   -> build/lib/validator.mjs      Stage 3: diagnostic report (never mutates data)
-  -> build/lib/search-index.mjs   Stage 4: sorted Yorùbá tiers + English BM25 index
+  -> build/lib/mentioned-words.mjs Stage 4: words 2+ entries name and this
+                                    dictionary has no entry for
+  -> build/lib/search-index.mjs   Stage 5: sorted Yorùbá tiers + English BM25 index
   -> public/data/*.json           Static browser assets
 ```
 
@@ -236,7 +241,7 @@ morpheme extraction/resolution) used to happen here - that's now
 kaikki-yoruba's job, shared with `yoruba_student_dict_platform`. See its
 README for what it owns and why.
 
-`build/normalize.mjs` orchestrates all four stages. Run against
+`build/normalize.mjs` orchestrates every stage. Run against
 kaikki-yoruba's current published data (6,272 entries - Kaikki assigns the
 same sense id to two structurally different records for one rare spelling,
 `gọlọmiṣọ`, so one silently overwrites the other; a known, upstream data
@@ -245,20 +250,29 @@ quirk, not a bug in this pipeline), it produces:
 - **777 entries** with an inferred rather than explicitly-tagged canonical
   spelling (see below).
 - **374 entries** with no IPA in the source data.
-- **2,111 unresolved relationship references** — a derived/related/synonym
-  points to a spelling that isn't in this extract. (Was 2,762 before the
-  flattened dialect tables stopped being counted as relations, and 2,363
-  before descendants stopped being matched against the Yorùbá index — every
+- **6,329 unresolved relationship references** — a derived/related/synonym
+  points to a spelling that isn't in this extract. (Was 2,111 before Wiktionary's
+  sense-level relation lists were read at all; those lists are three quarters of
+  the relation data in the source, so this number roughly tripled the moment they
+  arrived. The gaps were always there — nothing was reading them. Before that it
+  was 2,762, when flattened dialect tables were still counted as relations, and
+  2,363 before descendants stopped being matched against the Yorùbá index: every
   descendant in the corpus carries a non-Yorùbá `langCode`, so resolving them
-  here could only ever produce a false positive, and it did: English *dodo*
-  was resolving to eight Yorùbá *dòdò* homographs.)
+  here could only ever produce a false positive, and it did — English *dodo* was
+  resolving to eight Yorùbá *dòdò* homographs.)
 
-  These are triaged rather than listed flat, because "2,111 problems" isn't
-  something anyone can start on. **189 are diacritic typos** where the
-  intended target is already known (a reference to `ẹ̀fá` where the entry is
-  `ẹfa`); 679 are multi-word phrases that were never going to have entries;
-  the remaining **1,046 are the real content gap** — words Wiktionary
-  genuinely doesn't have yet.
+  These are triaged rather than listed flat, because "6,329 problems" isn't
+  something anyone can start on. **102 are diacritic typos** the pipeline could
+  not settle itself; 2,152 are multi-word phrases that were never going to have
+  entries; the remaining **3,502 are the real content gap** — words Wiktionary
+  genuinely doesn't have yet, of which **157 are named by two or more entries**
+  and get a page of their own (see "Words with no entry" below).
+
+  Another 482 references that used to sit in this list now resolve, because a
+  reference written with the wrong tone marks or a missing underdot is matched
+  against tone- and underdot-insensitive alias tiers before being given up on.
+  The validator had been *reporting* those near-misses for a long time without
+  resolution ever using what it knew.
 - **6,426 dialect terms** across 138 entries, imported from Wiktionary's own
   dialect-synonym modules — see "Dialect tables" below.
 - **1,579 spellings** shared by more than one homograph once tone marks and
@@ -275,8 +289,8 @@ to fix — `easy` (the right answer is already known), `mechanical` (no judgment
 just volume), `expertise` (needs someone who knows Yorùbá), `info` (not a
 defect) — whether it's ours to fix or Wiktionary's, a one-line statement of
 why it matters, a concrete instruction, and a deep link to the section to edit.
-Issues sort easiest-first, so the 189 items where we already know the intended
-word come before the 1,046 that need new entries written. Two of the current
+Issues sort easiest-first, so the 102 items where we already know the intended
+word come before the 3,502 that need new entries written. Two of the current
 items are ours: descendants being matched against the Yorùbá index (fixed), and
 kaikki-yoruba reading `t1`/`t2` for reduplication glosses when every
 `{{reduplication}}` template in the corpus passes a bare `t` — silently
@@ -330,7 +344,16 @@ Some Yorùbá Wiktionary entries carry regional-dialect comparison tables.
 Kaikki renders those tables and flattens them to text, emitting every text run
 — caption, footnotes, body cells — as a separate "synonym", with cells glued
 together by a separator. Measured on the corpus: of the 57 entries that had any
-synonyms, **55 were table dumps**, and exactly 2 had a real synonym.
+entry-level synonyms, **55 were table dumps**, and exactly 2 had a real synonym.
+
+That is also why this dictionary appeared to have almost no synonyms for so
+long, and the appearance was misleading. Wiktionary attaches synonyms to
+individual *definitions* at least as often as to the word as a whole, and those
+sense-level lists were being dropped before they ever reached this repo:
+**6,064 synonym items on 2,062 headwords**, plus derived, related, antonym,
+hypernym, hyponym and coordinate-term lists — 11,084 items in all. So the
+57-entry figure above was measuring the smaller, more damaged half of the data.
+See "Relations that belong to one meaning" below.
 
 That text can't be repaired, because the separator is an arbitrary Wiktionary
 page title substituted by an expansion-index desync, and it changes every
@@ -361,14 +384,94 @@ and fabricate links. Instead they get their own lowest-priority search tier
 (searching `ababuton` finds **ọpọlọ**, labelled `Oǹdó`) and, where a dialect
 form has an entry of its own, a synthesized `dialectOf` back-link on it.
 
+### Relations that belong to one meaning
+
+Wiktionary attaches synonyms, antonyms and the rest to individual
+*definitions* at least as often as to the word as a whole, and for a long
+time this pipeline read only the entry-level lists. Sense-level lists are
+most of the data:
+
+| list | on senses | entry-level equivalent |
+|---|---|---|
+| `synonyms` | **6,064** items, 2,062 headwords | 57 records (55 of them table dumps) |
+| `derived` | 2,814 | 661 records |
+| `related` | 1,888 | 169 records |
+| `antonyms` | 112 | **0** records |
+| `coordinate_terms` | 101 | 33 |
+| `hyponyms` | 95 | 14 |
+| `hypernyms` | 10 | 19 |
+
+11,084 items, all dropped. The visible symptom was a **Synonyms** section
+that rendered for 2 of 6,272 entries and an **Antonyms** section that never
+rendered at all. 9,346 items survive kaikki-yoruba's table-text filter, on
+3,338 entries — 53% of the dictionary.
+
+They render **with the meaning they belong to**, inside the definitions list,
+because that is the distinction the source draws and pooling them destroys
+it. `sun`'s second etymology means both "to roast" and "to burn; to set on
+fire", and their synonym sets have nothing in common — *yan* and *wì* against
+*jó*, *jóná* and *dáná sun*. One list at the bottom of the page would claim
+*yan* is a word for setting fires. Inline labels are plain words ("Similar
+words", "Built from this meaning", "A kind of") rather than the bottom
+sections' titles, both because entry-level and sense-level `derivedTerms`
+genuinely co-occur on one page and because a reader should not need the word
+"hypernym".
+
+#### Words with no entry
+
+About half of the sense-level synonym items name a word this extract has no
+entry for. Most are named once — as likely a typo or a variety-specific term
+as a real gap — but **157 are named by two or more independent entries**, and
+that convergence is a different kind of evidence:
+
+| word | named by | agreeing on |
+|---|---|---|
+| `eginrin` | 7 entries | corn, maize |
+| `kòbókò` | 6 | whip |
+| `màámi` | 6 | mother |
+| `ìhà` | 5 | rib, side |
+| `aginjù` | 4 | desert, jungle, wilderness |
+
+Each gets a page at `#/mentioned/<word>` listing who names it and with which
+meaning. It is **not a stub entry** and the page says so throughout: a "no
+entry yet" badge, and no invented part of speech, pronunciation, etymology or
+definition. A guessed lexicographic fact presented as an entry would be worse
+than the dead end it replaces — the same line `wiktionary-tasks.mjs` draws
+about never writing to Wiktionary unchecked. In search the page is offered as
+a row after the results, never inside them, and it is kept out of `rankQuery`
+entirely so no ranking constant can promote a non-entry above an entry.
+
 ### Relationship synthesis and its honest limits
 
-`derived`/`related`/`synonyms`/`antonyms`/`descendants` are resolved against
-an alias index (spelling → entry ids) built from every entry's headword,
-canonical form, and alternative forms. Unresolved references are kept —
-tagged `resolved: false` and logged to the validation report — rather than
-silently dropped; the UI renders them as dashed, non-clickable pills instead
-of broken links.
+`derived`/`related`/`synonyms`/`antonyms`/`descendants`/`coordinateTerms`/
+`hyponyms`/`hypernyms` are resolved against an alias index (spelling → entry
+ids) built from every entry's headword, canonical form, and alternative forms,
+at both levels. Unresolved references are kept — tagged `resolved: false` and
+logged to the validation report — rather than silently dropped; the UI renders
+them as dashed pills, clickable only for the 157 words above.
+
+The alias index carries **three tiers**, not one. Exact spelling wins; failing
+that, a reference is matched tone-insensitively, then underdot-insensitively,
+and the item records `matchedBy` so an inferred link can be shown as inferred.
+That recovers **482 references** which pointed at words the dictionary does
+have and were rendered as dead ends over one tone mark.
+
+The fallback requires **capitalization to agree**, and symmetrically. Yorùbá
+forms given names from common nouns systematically — *Akin* from *akin*, *Olú*
+from *olú*, *Ẹ̀bùn* from *ẹ̀bùn* — so lowercasing to compare makes a name
+collide with its own root. Allowing a case difference produced 86 further
+matches and every direction was wrong: *ẹ̀gún* (thorn) reached *Ègùn* (the Ogu
+people), *èrò* (thought) reached *Èró* (a town), and 31 made a word derive from
+itself because the name *is* the derived term — which alone took circular
+derivations from 1 to 17. A dozen genuine sentence-case references go with
+them, and stay in the report as the easy Wiktionary fixes they are.
+
+Where a sense-level reference is a spelling several homographs share, the
+meaning it was listed under is scored against each candidate
+(`pickByDiscriminatingMeaning`, the same scorer the etymology pass uses). That
+settles 744 of 1,443 and moves the winner to the front, where the UI links it;
+the rest keep the existing "we've linked to the first" badge rather than being
+guessed at.
 
 Because Wiktionary is crowdsourced, which side of a relationship gets
 documented is inconsistent — sometimes the parent lists the derived word,
@@ -598,10 +701,10 @@ frontend build step just to share code.
 
 Priority order (`public/english-relevance.js`, `rankQuery`): exact Yorùbá match
 → tone-insensitive → orthography-insensitive → dialect, deduped by id,
-first-seen tier wins; then prefix and English BM25 **merged by score**. This is
-what makes "search both directions at once" work without a special-cased merge
-step — it's just running the Yorùbá tiers and the English index over one `seen`
-set.
+first-seen tier wins; then prefix, the synonym tier and English BM25 **merged by
+score**. This is what makes "search both directions at once" work without a
+special-cased merge step — it's just running the Yorùbá tiers and the English
+index over one `seen` set.
 
 The ranking lives in `english-relevance.js` rather than in `app.js`'s `search()`
 so something outside a browser can reach it: `build/check-search-agreement.mjs`
@@ -648,6 +751,83 @@ are built from gets a minor, damped, capped lift — so `ọmọ` benefits from
 `ọmọdé`, `ọmọkọ́mọ` and `ọmọ àlè` also matching. That bonus counts only other
 members of the same result set, which is what keeps it minor: searching
 "wheelbarrow" finds `ọmọlan̄ke` without dragging `ọmọ` along.
+
+#### A declared synonym is searchable in both directions
+
+A sense saying "another word for this meaning is X" supports two different
+claims, and which applies depends on whether X has an entry.
+
+**X has no entry** (1,833 items). Searching X finds nothing at all today, and
+the useful answer is the entry that named it. A new soft tier keyed
+orthography-insensitively — someone recalling a word they heard called a synonym
+is the least likely to have the tone marks. `jona`, `abara`, `laagun`, `teere`,
+`ayiri`, `seje`, `nawo`, `jera` and `ofe` all returned nothing before and now
+reach the entry whose definition names them.
+
+`SYNONYM_TIER_SCORE = 10` is soft, not hard, because the claim is semantic —
+"the word you typed means roughly what this other entry means" — and belongs
+where semantics compete. It sits above every achievable prefix score (coverage
+is always under 1, so a prefix cannot reach `PREFIX_SCALE = 9`) and below a
+typical third-place English score (median 11.6 over the 400 most common
+definition clauses). Unlike the dialect tier it deliberately does **not** skip
+keys the ortho tier already resolves: that would keep `yan` and lose the 1,375
+keys colliding with a real spelling — `jó`, `wì`, `gún` — which is exactly where
+this has something to say. The word you typed is claimed by a hard tier first
+and cannot be displaced, so the declaring entry can only appear below it:
+`wi` → `wí`, `wí`, `wi`, `wì`, then `sun`.
+
+**X has an entry** (2,736 items). Then searching X already finds X, and what is
+new is that X can be reached by what the *naming* meaning says. `oró` means
+"venom, poison, sting" and calls `májèlé` another word for it, so `májèlé` gets
+an extra document reading "venom, poison, sting" and becomes findable by
+"venom", which its own definition ("poison") never says. The direction is easy
+to get backwards and backwards is useless — indexing the target's own
+definitions under the target just re-indexes what is already there. 1,866
+documents; measured wins include `stomach` → `ikùn`, `venom` → `májèlé`,
+`burrow` → `ihò`, `mad person` → `asínwín`, `to roast` → `wì`, none of which
+were reachable before.
+
+Three constraints keep that from disturbing what already worked, and each is
+asserted arithmetically in `check-search-agreement.mjs` rather than trusted:
+
+1. **Corpus statistics are frozen before the inherited band.** BM25 divides by
+   `avgDocLength` and weighs tokens by `df`, so appending documents changes
+   every query — including queries with no synonym evidence, which should be
+   untouched. Appending them at *weight zero* still moved one top result and
+   pushed 25 entries into a top-ten slot across 400 queries, purely because
+   `avgDocLength` fell 6.045 → 5.881. Frozen, the feature is provably inert for
+   anything it has nothing to say about.
+2. **Inherited documents cannot earn the exact-clause bonus.** That +2 means
+   "this word *is* the query"; inherited text only says a word this word is a
+   synonym of is. `oṣù` ("month") is a declared synonym of `òṣùpá` ("moon") and
+   took the bonus for the clause "moon", beating the actual word for moon.
+3. **The root bonus counts direct matches only.** It is defined over "this
+   result set", and inherited documents quietly widen that to entries the query
+   never touched.
+
+Which words may inherit is guarded too: a single candidate or one the naming
+meaning itself picked out (343 ambiguous items skipped — without this, `iyè`
+"mind; consciousness" is findable by "mother"); never a proper name (157);
+never a definition that merely points elsewhere (92, or `ìgò` "bottle" inherits
+"grass, weed"). Only synonyms feed it — `sun` "to sleep" lists `kòríkòsùn`
+("close friend") as a *derived* term, and a derived term is built from the root
+rather than meaning it. Inheritance is depth-1 and never reversed: the asymmetry
+carries information, and the "mother" cluster is already ten mutually-linked
+nodes at depth 1, so chaining collapses meaning clusters.
+
+`SYNONYM_DOC_WEIGHT = 0.4`, one notch above the example weight, because a
+declared synonym is stronger evidence than appearing near the query in a
+sentence and still second-hand. Over 422 queries against the pre-change
+baseline, two top results move — both intended — and no former top-five result
+falls out of the new top-ten anywhere. Raising it to 1.0 starts lifting `èwe`
+("adolescent, youth") on "child", which is what the fixture's `child` assertion
+is a tripwire for.
+
+Because a row can now be reached by something that is not its own spelling or
+its own definition, `renderResults` shows the meaning that actually matched
+(via `docSenseIdx`) and says how the row got there — "Listed here as a similar
+word", or "Another way to say inú". Without that, `stomach` finds `ikùn` and
+displays "abdomen, belly", which reads as an error.
 
 Example translations stay searchable but at **0.3 weight**. Once documents are
 per-gloss they are short, and a three-word example sentence mentioning a child
@@ -779,7 +959,15 @@ build/
                                      synthesis for the relation types this
                                      repo still owns)
     validator.mjs                  Stage 3 (diagnostic report)
-    search-index.mjs               Stage 4 (Yorùbá tiers + English BM25 index)
+    mentioned-words.mjs            Stage 4 (words 2+ entries name and this
+                                     dictionary has no entry for)
+    search-index.mjs               Stage 5 (Yorùbá tiers + English BM25 index,
+                                     incl. the synonym tier and inherited
+                                     English documents)
+    *.test.mjs                     node --test; run with `npm test`
+  fixtures/
+    search_agreement.json          queries both engines must agree on
+  check-search-agreement.mjs       runs the real scorer against that fixture
   validation-report.json          (generated, pretty-printed copy for local inspection)
 public/                            <- deploy this directory as-is
   index.html
@@ -787,8 +975,10 @@ public/                            <- deploy this directory as-is
   _tokens.css                     shared design tokens (also used by speaknigeria.org)
   favicon.svg
   app.js
+  english-relevance.js            the ranking, shared by the browser and the checker
   data/                            (generated: entries.json, search-index.json,
-                                     validation-report.json)
+                                     validation-report.json, building-blocks.json,
+                                     wiktionary-tasks.json, mentioned-words.json)
 server/
   dev-server.mjs                  local-testing-only static file server
 ```

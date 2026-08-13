@@ -164,6 +164,18 @@ for (const item of fixture.inheritedMeaningMustNotSurface || []) {
   else fail(label, `${mustNotContain} appeared at #${forms.indexOf(nfc(mustNotContain)) + 1}`);
 }
 
+// Two guards on mechanisms only this engine has, so they stay out of the shared
+// sections the platform reads.
+console.log('\nSynonym evidence stays subordinate to a real English match:');
+for (const group of ['synonymTierMustNotDisplaceEnglish', 'rootBonusCountsDirectMatchesOnly']) {
+  for (const { query, form, withinTop } of fixture[group] || []) {
+    const forms = formsFor(query, 40);
+    const label = `"${query}" -> ${form} in the top ${withinTop}`;
+    if (forms.slice(0, withinTop).includes(nfc(form))) pass(label);
+    else fail(label, `got ${forms.slice(0, 5).join(', ') || '(nothing)'}`);
+  }
+}
+
 console.log('\nThe root bonus never promotes a word the query did not match:');
 for (const { query, mustNotContain } of fixture.rootBonusMustNotPromote) {
   const forms = formsFor(query, 100);

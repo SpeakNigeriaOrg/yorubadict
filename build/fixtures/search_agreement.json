@@ -79,16 +79,6 @@
     {
       "query": "book",
       "form": "ìwé"
-    },
-    {
-      "query": "abode",
-      "form": "ilé",
-      "note": "Guards the synonym tier being SOFT rather than hard. ilé ('house, home') is a real English match for abode; àbọ̀dè and àbọ̀dé win on spelling, which is right. Two further entries merely list 'abode' in a synonym list, and if the tier were hard they would outrank ilé and push it to #5 - an entry that names your query outranking one that means it."
-    },
-    {
-      "query": "to wear a hat",
-      "form": "àkẹtẹ̀",
-      "note": "Guards the root bonus counting only entries the query matched ITSELF. Entries reached through someone else's synonym list are scored but must not vote on another word's root bonus, since the bonus is defined over 'this result set'. Let them vote and àkẹtẹ̀ (a hat) drops behind ètú. Small effect - 6 of 10,111 definition clauses reorder - but silent, so it gets a tripwire."
     }
   ],
   "rootBonusMustNotPromote": [
@@ -242,6 +232,22 @@
       "mustNotContain": "koríko",
       "withinTop": 40,
       "note": "A definition reading 'alternative form of X' points at another entry rather than saying anything about meaning, so it is never inherited - otherwise ìgò ('bottle') would carry 'grass, weed'."
+    }
+  ],
+  "synonymTierMustNotDisplaceEnglish": [
+    {
+      "query": "abode",
+      "form": "ilé",
+      "withinTop": 3,
+      "note": "Guards the synonym tier being SOFT rather than hard. ilé ('house, home') is a real English match for abode; àbọ̀dè and àbọ̀dé win on spelling, which is right. Two further entries merely list 'abode' in a synonym list, and if the tier were hard they would outrank ilé and push it to #5 - an entry that names your query outranking one that means it. yorubadict only: the platform has no synonym tier."
+    }
+  ],
+  "rootBonusCountsDirectMatchesOnly": [
+    {
+      "query": "to wear a hat",
+      "form": "àkẹtẹ̀",
+      "withinTop": 3,
+      "note": "Guards the root bonus counting only entries the query matched ITSELF. Entries reached through someone else's synonym list are scored but must not vote on another word's root bonus, since the bonus is defined over 'this result set'. Let them vote and àkẹtẹ̀ (a hat) drops behind ètú. Small effect - 6 of 10,111 definition clauses reorder - but silent, so it gets a tripwire. yorubadict only: the platform indexes no inherited documents."
     }
   ]
 }

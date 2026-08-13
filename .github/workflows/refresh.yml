@@ -28,6 +28,16 @@ jobs:
       - name: Rebuild from kaikki-yoruba's latest release
         run: node build/normalize.mjs
 
+      # Both gate the commit below. The size assertion inside normalize.mjs has
+      # already run by this point; these cover the two things it cannot see -
+      # that the resolution logic still behaves, and that the ranking has not
+      # drifted from the fixture both engines share.
+      - name: Run the unit tests
+        run: npm test
+
+      - name: Check the ranking against the shared fixture
+        run: npm run check:search
+
       - name: Sanity-check the rebuilt entry count
         run: |
           count=$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('public/data/entries.json','utf8'))).length)")
