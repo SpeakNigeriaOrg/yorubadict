@@ -157,7 +157,7 @@ Everything else is reference material and is ignored.
 """
 
 
-def render(parent, names, items, definitions_by_section=None, spelling_by_section=None):
+def render(parent, names, items, definitions_by_section=None, spellings_by_section=None):
     # The names alone are not enough to choose between. Most of these compounds
     # arrive blank, and deciding one means knowing what each etymology actually
     # means - which otherwise sends you to the etymid worksheet or the page.
@@ -165,17 +165,24 @@ def render(parent, names, items, definitions_by_section=None, spelling_by_sectio
     # Grouped by spelling because tone decides what a compound may point at,
     # and a flat list hid that: bọ's six names cover three different words -
     # bọ̀, bọ and bọ́ - and nothing said so at the moment of choosing.
+    #
+    # A section appears under EVERY spelling it is written with, which is what
+    # makes this agree with the "can point at" lines below. `o` etymology 1 is
+    # the letter (`o`) and the letter's name (`ó`), and listing it under `o`
+    # alone said a compound writing `ó` could not reach it, while the entry for
+    # that compound said - correctly - that it could.
     definitions_by_section = definitions_by_section or {}
-    spelling_by_section = spelling_by_section or {}
+    spellings_by_section = spellings_by_section or {}
     width = max((len(n) for n in names.values()), default=0)
     groups = {}
-    for number, name in names.items():
-        groups.setdefault(spelling_by_section.get(number) or parent, []).append(number)
+    for number in names:
+        for spelling in spellings_by_section.get(number) or [parent]:
+            groups.setdefault(spelling, []).append(number)
     listed = []
     for spelling in sorted(groups, key=lambda s: min(int(n) for n in groups[s])):
         listed.append(f"    {spelling}")
         for number in sorted(groups[spelling], key=int):
-            covers = " / ".join(definitions_by_section.get(number) or [])
+            covers = " / ".join(definitions_by_section.get((number, spelling)) or [])
             listed.append(
                 f"      {number}. {names[number].ljust(width)}"
                 + (f"   {covers}" if covers else "")
@@ -456,12 +463,18 @@ def main():
     entry_sections = {
         e["id"]: e["etymologyNumber"] for e in by_page.get(parent, []) if e.get("etymologyNumber")
     }
-    definitions_by_section = {
-        number: data.definitions_for(by_page.get(parent, []), number) for number in names
-    }
-    spelling_by_section = {
-        number: data.identity_of(by_page.get(parent, []), number)["spelling"]
+    # Keyed by (section, spelling), not by section. An etymology is a shared
+    # origin rather than a shared spelling, and two of `o`'s seven sections hold
+    # both an `o` entry and an `ó` one - so a section can belong under two
+    # headings, and under each it should show only the meanings written that way.
+    spellings_by_section = {
+        number: data.spellings_of(by_page.get(parent, []), number) or [parent]
         for number in names
+    }
+    definitions_by_section = {
+        (number, spelling): data.definitions_for(by_page.get(parent, []), number, spelling)
+        for number, spellings in spellings_by_section.items()
+        for spelling in spellings
     }
     items = collect(task, names, by_page, entry_sections)
 
@@ -482,7 +495,7 @@ def main():
                     f"  kept {len(previous)} id: line(s) from the existing worksheet"
                 )
         path.write_text(
-            render(parent, names, items, definitions_by_section, spelling_by_section),
+            render(parent, names, items, definitions_by_section, spellings_by_section),
             encoding="utf-8",
         )
         ready = sum(1 for i in items if i["name"])
