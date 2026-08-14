@@ -1,0 +1,51 @@
+{
+  "job": "etymid",
+  "page": "ibi",
+  "hostPage": "ibi",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T20:46:24.556933+00:00",
+  "finishedAt": "2026-08-13T20:46:29.810720+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 8 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "pushing"
+    },
+    {
+      "etymology": "2",
+      "name": "questioning"
+    },
+    {
+      "etymology": "3",
+      "name": "ancestry"
+    },
+    {
+      "etymology": "4",
+      "name": "birth"
+    },
+    {
+      "etymology": "5",
+      "name": "here"
+    },
+    {
+      "etymology": "6",
+      "name": "place"
+    },
+    {
+      "etymology": "7",
+      "name": "placenta"
+    },
+    {
+      "etymology": "8",
+      "name": "evil"
+    }
+  ],
+  "oldrevid": 91783022,
+  "newrevid": 91982317,
+  "realizedDiff": "@@ -229,4 +229,5 @@\n ===Etymology 1===\n+{{etymid|yo|pushing}}\n ====Pronunciation====\n@@ -243,4 +244,5 @@\n ===Etymology 2===\n+{{etymid|yo|questioning}}\n {{prefix|yo|ì-|bi|t1=nominalizing prefix|id1=nominalizing prefix|t2=to question, enquire}}\n@@ -258,4 +260,5 @@\n ===Etymology 3===\n+{{etymid|yo|ancestry}}\n ====Pronunciation====\n@@ -273,4 +276,5 @@\n ===Etymology 4===\n+{{etymid|yo|birth}}\n From {{af|yo|ì-|bí|t1=nominalizing prefix|id1=nominalizing prefix|t2=to give birth to}}\n@@ -290,4 +294,5 @@\n ===Etymology 5===\n+{{etymid|yo|here}}\n ====Pronunciation====\n@@ -304,4 +309,5 @@\n ===Etymology 6===\n+{{etymid|yo|place}}\n ====Pronunciation====\n@@ -326,4 +332,5 @@\n ===Etymology 7===\n+{{etymid|yo|placenta}}\n ====Pronunciation====\n@@ -338,4 +345,5 @@\n ===Etymology 8===\n+{{etymid|yo|evil}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -229,4 +229,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|pushing}}\n \n ====Pronunciation====\n@@ -243,4 +244,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|questioning}}\n {{prefix|yo|ì-|bi|t1=nominalizing prefix|id1=nominalizing prefix|t2=to question, enquire}}\n \n@@ -258,4 +260,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|ancestry}}\n \n ====Pronunciation====\n@@ -273,4 +276,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|birth}}\n From {{af|yo|ì-|bí|t1=nominalizing prefix|id1=nominalizing prefix|t2=to give birth to}}\n \n@@ -290,4 +294,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|here}}\n \n ====Pronunciation====\n@@ -304,4 +309,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|place}}\n \n ====Pronunciation====\n@@ -326,4 +332,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|placenta}}\n \n ====Pronunciation====\n@@ -338,4 +345,5 @@\n \n ===Etymology 8===\n+{{etymid|yo|evil}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

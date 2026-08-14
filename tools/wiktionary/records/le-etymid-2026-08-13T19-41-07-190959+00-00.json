@@ -1,0 +1,55 @@
+{
+  "job": "etymid",
+  "page": "le",
+  "hostPage": "le",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T19:41:01.915734+00:00",
+  "finishedAt": "2026-08-13T19:41:07.190959+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 9 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "can"
+    },
+    {
+      "etymology": "2",
+      "name": "hard"
+    },
+    {
+      "etymology": "3",
+      "name": "strong"
+    },
+    {
+      "etymology": "4",
+      "name": "erection"
+    },
+    {
+      "etymology": "5",
+      "name": "exceed"
+    },
+    {
+      "etymology": "6",
+      "name": "distinct"
+    },
+    {
+      "etymology": "7",
+      "name": "on"
+    },
+    {
+      "etymology": "8",
+      "name": "pursue"
+    },
+    {
+      "etymology": "9",
+      "name": "swell"
+    }
+  ],
+  "oldrevid": 91968956,
+  "newrevid": 91981945,
+  "realizedDiff": "@@ -1473,4 +1473,5 @@\n ===Etymology 1===\n+{{etymid|yo|can}}\n ====Verb====\n@@ -1486,4 +1487,5 @@\n ===Etymology 2===\n+{{etymid|yo|hard}}\n ====Verb====\n@@ -1507,4 +1509,5 @@\n ===Etymology 3===\n+{{etymid|yo|strong}}\n ====Verb====\n@@ -1519,4 +1522,5 @@\n ===Etymology 4===\n+{{etymid|yo|erection}}\n ====Verb====\n@@ -1531,4 +1535,5 @@\n ===Etymology 5===\n+{{etymid|yo|exceed}}\n ====Verb====\n@@ -1542,4 +1547,5 @@\n ===Etymology 6===\n+{{etymid|yo|distinct}}\n ====Verb====\n@@ -1553,4 +1559,5 @@\n ===Etymology 7===\n+{{etymid|yo|on}}\n ====Preposition====\n@@ -1567,4 +1574,5 @@\n ===Etymology 8===\n+{{etymid|yo|pursue}}\n ====Verb====\n@@ -1578,4 +1586,5 @@\n ===Etymology 9===\n+{{etymid|yo|swell}}\n ====Verb====",
+  "intendedDiff": "--- \n+++ \n@@ -1473,4 +1473,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|can}}\n \n ====Verb====\n@@ -1486,4 +1487,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|hard}}\n \n ====Verb====\n@@ -1507,4 +1509,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|strong}}\n \n ====Verb====\n@@ -1519,4 +1522,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|erection}}\n \n ====Verb====\n@@ -1531,4 +1535,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|exceed}}\n \n ====Verb====\n@@ -1542,4 +1547,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|distinct}}\n \n ====Verb====\n@@ -1553,4 +1559,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|on}}\n \n ====Preposition====\n@@ -1567,4 +1574,5 @@\n \n ===Etymology 8===\n+{{etymid|yo|pursue}}\n \n ====Verb====\n@@ -1578,4 +1586,5 @@\n \n ===Etymology 9===\n+{{etymid|yo|swell}}\n \n ====Verb====",
+  "realizedMatchesIntended": true
+}

@@ -28,7 +28,12 @@ user_agent_description = (
 #
 # It is also honest. Every edit here is supposed to be read by a person before
 # it is sent; a minute is nearer the truth than ten seconds.
-put_throttle = 60
+#
+# Worth revisiting as the account ages: the filter is watching pace against
+# standing, and an account with a hundred edits behind it is not the one that
+# got caught at sixteen. Come down in steps rather than in one go, and check
+# `account.py` after a run - autoconfirmed going missing is the signal.
+put_throttle = 40
 
 # Where the bot password lives. See user-password.py.example - a bot password
 # is a scoped credential on your own account, not a bot account, and it keeps

@@ -1,0 +1,39 @@
+{
+  "job": "etymid",
+  "page": "ọwọ",
+  "hostPage": "ọwọ",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-13T21:18:55.525049+00:00",
+  "finishedAt": "2026-08-13T21:19:03.397554+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 5 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "broom"
+    },
+    {
+      "etymology": "2",
+      "name": "respect"
+    },
+    {
+      "etymology": "3",
+      "name": "Brillantaisia"
+    },
+    {
+      "etymology": "4",
+      "name": "hand, side"
+    },
+    {
+      "etymology": "5",
+      "name": "group"
+    }
+  ],
+  "oldrevid": 85712044,
+  "newrevid": 91982684,
+  "realizedDiff": "@@ -59,4 +59,5 @@\n ===Etymology 1===\n+{{etymid|yo|broom}}\n Cognate with {{cog|igl|ọ́wọ̀}}, ultimately proposed to derive from {{inh|yo|alv-yrd-pro|*ɔ́-ɓɔ́}}, equivalent to {{af|alv-yrd-pro|*ɔ́-|*ɓɔ́|t1=nominalizing prefix|id1=nominalizing prefix|nocat=1}}\n@@ -71,4 +72,5 @@\n ===Etymology 2===\n+{{etymid|yo|respect}}\n Compare with {{cog|bin|ọghọ}}, {{cog|urh|ọghọ}}, {{cog|igl|ọ̀wọ̀|t=Islam}}\n@@ -94,4 +96,5 @@\n ===Etymology 3===\n+{{etymid|yo|Brillantaisia}}\n [[Image:Papiliorama.4838.JPG|thumb|right|Ewé '''ọ̀wọ̀''' (Brillantaisia lamium)]]\n@@ -108,4 +111,5 @@\n ===Etymology 4===\n+{{etymid|yo|hand, side}}\n [[Image:Blessed hands.jpg|thumb|right|'''Ọwọ́''']]\n@@ -159,4 +163,5 @@\n ===Etymology 5===\n+{{etymid|yo|group}}\n [[Image:Pride of lions.JPG|thumb|right|'''Ọ̀wọ́''' kìnnìún]]\n Cognate with {{cog|igl|ọ̀wọ́|t=to be multiple, to be a group}}",
+  "intendedDiff": "--- \n+++ \n@@ -59,4 +59,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|broom}}\n Cognate with {{cog|igl|ọ́wọ̀}}, ultimately proposed to derive from {{inh|yo|alv-yrd-pro|*ɔ́-ɓɔ́}}, equivalent to {{af|alv-yrd-pro|*ɔ́-|*ɓɔ́|t1=nominalizing prefix|id1=nominalizing prefix|nocat=1}}\n \n@@ -71,4 +72,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|respect}}\n Compare with {{cog|bin|ọghọ}}, {{cog|urh|ọghọ}}, {{cog|igl|ọ̀wọ̀|t=Islam}}\n \n@@ -94,4 +96,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|Brillantaisia}}\n [[Image:Papiliorama.4838.JPG|thumb|right|Ewé '''ọ̀wọ̀''' (Brillantaisia lamium)]]\n \n@@ -108,4 +111,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|hand, side}}\n [[Image:Blessed hands.jpg|thumb|right|'''Ọwọ́''']]\n \n@@ -159,4 +163,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|group}}\n [[Image:Pride of lions.JPG|thumb|right|'''Ọ̀wọ́''' kìnnìún]]\n Cognate with {{cog|igl|ọ̀wọ́|t=to be multiple, to be a group}}",
+  "realizedMatchesIntended": true
+}
