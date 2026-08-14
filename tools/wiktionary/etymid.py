@@ -49,7 +49,7 @@ import pywikibot
 from pywikibot import config
 from pywikibot.bot import ExistingPageBot
 
-from lib import align, data, issues, record, wikitext, worksheet
+from lib import align, data, issues, pages, record, wikitext, worksheet
 
 LANGUAGE = "Yoruba"
 LANG_CODE = "yo"
@@ -58,50 +58,6 @@ LANG_CODE = "yo"
 # ---------------------------------------------------------------------------
 # Locating the section
 # ---------------------------------------------------------------------------
-
-
-def resolve_host_page(site, title):
-    """The page that actually holds the Yoruba section.
-
-    Usually the page you asked for. Not always: en.wiktionary splits oversized
-    entries into "<page>/languages A to L" and "<page>/languages M to Z",
-    transcluded under a ==More languages== heading. Page `a` therefore contains
-    no Yoruba section at all, and editing it by section index would change
-    something else entirely.
-    """
-    page = pywikibot.Page(site, title)
-    if not page.exists():
-        raise SystemExit(f'"{title}" does not exist on en.wiktionary.')
-    parsed = wikitext.parse_page(page.text, site)
-    start, _ = wikitext.language_span(parsed.sections, LANGUAGE)
-    if start is not None:
-        return page
-
-    # en.wiktionary calls these "mammoth pages": once an entry gets too large,
-    # the smaller languages move to "<page>/languages A to L" and
-    # "<page>/languages M to Z" and are transcluded back under a generated
-    # ==More languages== heading. That heading is not in the wikitext, so there
-    # is nothing on the page itself to detect - the marker is a
-    # {{mammoth page footer}} template, and rather than depend on that name we
-    # just look for the subpages.
-    subpages = list(site.allpages(prefix=f"{title}/languages", namespace=0))
-    if not subpages:
-        raise SystemExit(
-            f'No {LANGUAGE} section on "{title}". The page exists but has no '
-            f"{LANGUAGE} entry, or it is spelled differently there."
-        )
-    for subpage in subpages:
-        sub_parsed = wikitext.parse_page(subpage.text, site)
-        if wikitext.language_span(sub_parsed.sections, LANGUAGE)[0] is not None:
-            pywikibot.info(
-                f'  note      "{title}" is split across subpages; the {LANGUAGE} '
-                f'section is on "{subpage.title()}"'
-            )
-            return subpage
-    raise SystemExit(
-        f'"{title}" is split across subpages and none of them holds a '
-        f"{LANGUAGE} section."
-    )
 
 
 # ---------------------------------------------------------------------------
@@ -365,7 +321,7 @@ def report(problems, notes, misplaced, superseded):
 
 
 def cmd_propose(site, task, entries, regenerate):
-    page = resolve_host_page(site, task["page"])
+    page = pages.resolve_host_page(site, task["page"], LANGUAGE, pywikibot.info)
     parsed = wikitext.parse_page(page.text, site)
     collected = collect(task, entries, parsed)
 
@@ -567,7 +523,7 @@ def cmd_submit(site, task, entries, always=False):
         raise SystemExit(f'\n  No worksheet for "{task["page"]}". Run -propose first.\n')
     header, chosen = worksheet.parse(path.read_text(encoding="utf-8"))
 
-    page = resolve_host_page(site, task["page"])
+    page = pages.resolve_host_page(site, task["page"], LANGUAGE, pywikibot.info)
     bot = EtymidBot(
         task,
         entries,

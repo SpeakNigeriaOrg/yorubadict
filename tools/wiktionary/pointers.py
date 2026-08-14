@@ -47,7 +47,7 @@ from pywikibot import config
 from pywikibot.bot import ExistingPageBot
 from pywikibot.exceptions import AbuseFilterDisallowedError
 
-from lib import components, data, issues, record, wikitext, worksheet
+from lib import components, data, issues, pages, record, wikitext, worksheet
 
 LANGUAGE = "Yoruba"
 LANG_CODE = "yo"
@@ -450,7 +450,13 @@ def main():
     path = directory / "pointers.md"
 
     pywikibot.info("")
-    parent_page = pywikibot.Page(site, parent)
+    # Not pywikibot.Page(site, parent). An oversized entry is split into
+    # "<page>/languages A to L" and "<page>/languages M to Z", so `a` holds no
+    # Yoruba section at all and reading it found no names - the run died with
+    # 'No Yoruba section on "a"' straight after etymid.py had just written three
+    # names to the subpage. etymid.py already resolved this; both go through the
+    # same function now rather than one of them knowing and the other not.
+    parent_page = pages.resolve_host_page(site, parent, LANGUAGE, pywikibot.info)
     names = live_names(parent_page, site)
     pywikibot.info(
         f'  {parent}: {len(names)} of its etymologies are named on Wiktionary right now'
