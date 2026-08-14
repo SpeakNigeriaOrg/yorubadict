@@ -305,13 +305,28 @@ class PointerBot(ExistingPageBot):
             pywikibot.warning(f'{page.title()}: no {LANGUAGE} section - skipped')
             return
 
-        section = "".join(
-            parsed.sections[i].title + parsed.sections[i].content for i in range(start, end)
-        )
         replacements, applied = {}, []
+
+        # Rebuilt from `replacements` each time round, not computed once. Two
+        # pointers can land on the SAME template: káràkátà is kí a rà kí a tà
+        # ("let us buy, let us sell"), so its component `a` sits at positional 3
+        # and again at 6, and the queue asks for id2 and id5 on one {{com}}.
+        #
+        # Reading the pristine page for the second one meant its before_template
+        # still lacked the id2 just added, so it matched nothing in the haystack
+        # - which had been updated - and the change could not be placed. The page
+        # then saved anyway with only the first pointer, because one item failing
+        # does not empty `applied`. Half-written and reported as an error, which
+        # is the worst of the three possible outcomes.
+        def current_section():
+            return "".join(
+                parsed.sections[i].title + replacements.get(i, parsed.sections[i].content)
+                for i in range(start, end)
+            )
+
         for item in items:
             template, problem = components.find_template(
-                section, item["template_name"], item["argument"],
+                current_section(), item["template_name"], item["argument"],
                 item["component"], item.get("meaning"),
             )
             if problem:
@@ -346,8 +361,23 @@ class PointerBot(ExistingPageBot):
                     placed = True
                     break
             if not placed:
-                pywikibot.error(f'{page.title()} / {item["word"]}: could not place the change.')
-                continue
+                # Should be unreachable now that current_section() keeps the text
+                # we search in step with the text we searched from. If it does
+                # happen, our model of the page has diverged from the page, and
+                # the honest response is to write nothing here rather than the
+                # part we still believe in - the other items were matched against
+                # the same text this one just proved we cannot trust.
+                #
+                # The other errors above are per-item on purpose: a reference
+                # that has been rewritten, or a name that is not on the parent,
+                # says nothing about the rest of the page.
+                pywikibot.error(
+                    f'{page.title()} / {item["word"]}: could not place the change. '
+                    f"Nothing written to this page - the text we are editing no "
+                    f"longer matches the text we read."
+                )
+                return
+
             applied.append((item, before_template, after_template))
 
         if not applied:
