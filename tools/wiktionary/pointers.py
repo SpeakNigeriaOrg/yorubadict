@@ -60,6 +60,27 @@ def yoruba_section(page, site):
     return (parsed, start, end) if start is not None else (None, None, None)
 
 
+def worksheet_names(parent):
+    """The names you chose in the etymid worksheet but have not uploaded yet.
+
+    For -propose only, and only when the page carries no names at all. Writing a
+    pointer still demands a name that exists on Wiktionary - see live_names -
+    but there is no reason the worksheet cannot be prepared first, and the
+    alternative was a hard stop that made you upload before you could think
+    about the compounds.
+
+    These are your decisions, not the build's proposals. The distinction is the
+    reason this reads work/<parent>/worksheet.md rather than proposedValue: our
+    snapshot proposes "build" for kọ's etymology 2 and the page says "teach",
+    because a person read the evidence and chose better.
+    """
+    path = data.work_dir_for(parent) / "worksheet.md"
+    if not path.exists():
+        return {}
+    _, names = worksheet.parse(path.read_text(encoding="utf-8"))
+    return {number: name for number, name in names.items() if name}
+
+
 def live_names(parent_page, site):
     """The {{etymid}} names on the parent, keyed by etymology number.
 
@@ -145,9 +166,11 @@ parent:   {parent}
 language: {language}
 ```
 
-Names that exist on **{parent}** right now, grouped by how the meaning is
-spelled. Tone is part of the word: a compound that writes its component `bọ`
-cannot point at a meaning spelled `bọ̀`, however well the definition fits.
+{provenance}
+
+Grouped by how the meaning is spelled. Tone is part of the word: a compound
+that writes its component `bọ` cannot point at a meaning spelled `bọ̀`,
+however well the definition fits.
 
 {names}
 
@@ -157,7 +180,20 @@ Everything else is reference material and is ignored.
 """
 
 
-def render(parent, names, items, definitions_by_section=None, spellings_by_section=None):
+LIVE_PROVENANCE = "Names that exist on **{parent}** right now."
+
+# Said on the worksheet itself, not only in the terminal, because the worksheet
+# is what you come back to tomorrow.
+PROVISIONAL_PROVENANCE = """Names you chose in the etymid worksheet for **{parent}**, and have NOT put on
+Wiktionary yet. Nothing can point at a name that is not there, so this
+worksheet is for preparing your choices only: run `etymid.py -page:{parent}` to
+upload the names, and this becomes usable as it stands."""
+
+
+def render(
+    parent, names, items, definitions_by_section=None, spellings_by_section=None,
+    provisional=False,
+):
     # The names alone are not enough to choose between. Most of these compounds
     # arrive blank, and deciding one means knowing what each etymology actually
     # means - which otherwise sends you to the etymid worksheet or the page.
@@ -192,6 +228,9 @@ def render(parent, names, items, definitions_by_section=None, spellings_by_secti
         HEADER.format(
             parent=parent,
             language=LANGUAGE,
+            provenance=(PROVISIONAL_PROVENANCE if provisional else LIVE_PROVENANCE).format(
+                parent=parent
+            ),
             names="\n".join(listed) or "    (none — run etymid.py on this page first)",
         )
     ]
@@ -491,6 +530,25 @@ def main():
     pywikibot.info(
         f'  {parent}: {len(names)} of its etymologies are named on Wiktionary right now'
     )
+
+    # Nothing on the page yet, but you may already have chosen the names in the
+    # etymid worksheet. Preparing this worksheet from those costs nothing and
+    # saves a round trip; writing against them is still refused further down,
+    # where every name is checked against the live page again.
+    #
+    # Only when the page has NO names. A mixed list - some live, some not -
+    # would look like one list of equally usable choices and is worth more
+    # thought than it is worth saving.
+    provisional = False
+    if not names and mode == "propose":
+        names = worksheet_names(parent)
+        provisional = bool(names)
+        if provisional:
+            pywikibot.info(
+                f"  using {len(names)} name(s) from your etymid worksheet, not yet "
+                f"uploaded — this worksheet is for preparation only"
+            )
+
     if not names:
         raise SystemExit(
             f'\n  Nothing to point at. Run `etymid.py -page:{parent}` first.\n'
@@ -531,7 +589,10 @@ def main():
                     f"  kept {len(previous)} id: line(s) from the existing worksheet"
                 )
         path.write_text(
-            render(parent, names, items, definitions_by_section, spellings_by_section),
+            render(
+                parent, names, items, definitions_by_section, spellings_by_section,
+                provisional=provisional,
+            ),
             encoding="utf-8",
         )
         ready = sum(1 for i in items if i["name"])
