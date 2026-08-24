@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T09:32:14.624Z",
+  "generatedAt": "2026-08-24T09:37:54.572Z",
   "totalEntries": 6273,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -32237,7 +32237,7 @@
     "actionable": 2465,
     "easyWins": 198
   },
-  "kaikkiSourceDate": "2026-08-17",
-  "kaikkiReleaseTag": "build-11",
+  "kaikkiSourceDate": "2026-08-24",
+  "kaikkiReleaseTag": "build-12",
   "kaikkiParseErrorCount": 0
 }
