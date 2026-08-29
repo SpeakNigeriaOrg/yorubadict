@@ -171,7 +171,7 @@ function jsonLdFor(entry, canonical) {
  * entries must already carry `path` - see build/lib/slugs.mjs, which is also
  * what refuses to let two of them share one.
  */
-export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = {}) {
+export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [], provisional = new Set() } = {}) {
   const template = readTemplate(path.join(publicDir, 'index.html'));
   const byId = Object.fromEntries(entries.map((entry) => [entry.id, entry]));
 
@@ -211,7 +211,12 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
   // pushState in app.js - so the files follow that rather than the reverse.
   // Built the other way round, all 7,109 pages cost a redirect before they
   // answer, and all 7,109 canonicals name a URL that redirects.
-  const write = (urlPath, html) => {
+  // Written and swept like any other page, but absent from the sitemap. Kept as
+  // a set of paths rather than a third list so `written` stays the one answer to
+  // "what pages exist", which is what the sweep needs.
+  const unlisted = new Set();
+  const write = (urlPath, html, { listed = true } = {}) => {
+    if (!listed) unlisted.add(urlPath);
     const file =
       urlPath === '/'
         ? path.join(publicDir, 'index.html')
@@ -223,6 +228,11 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
 
   for (const entry of entries) {
     const canonical = ORIGIN + entry.path;
+    // A provisional address is a rule's guess at a word nobody has read yet,
+    // and it is meant to be replaced. The page is written and served; it is the
+    // sitemap it stays out of, so the guess is not advertised for indexing
+    // before it settles. See build/lib/slugs.mjs.
+    const listed = !provisional.has(entry.id);
     write(
       entry.path,
       fill(template, {
@@ -234,7 +244,8 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
           jsonLd: jsonLdFor(entry, canonical),
         }),
         body: renderer.entryHtml(entry),
-      })
+      }),
+      { listed }
     );
   }
 
@@ -365,11 +376,15 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
     })
   );
 
-  writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap(written));
+  writeFileSync(
+    path.join(publicDir, 'sitemap.xml'),
+    sitemap(written.filter((w) => !unlisted.has(w.path)))
+  );
   writeFileSync(path.join(publicDir, '_redirects'), redirectsFile(redirects));
 
   return {
     written,
+    unlisted: unlisted.size,
     spellingPages,
     forwarded: forwarded.length,
     removed,

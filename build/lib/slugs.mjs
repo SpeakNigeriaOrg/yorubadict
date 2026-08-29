@@ -10,15 +10,27 @@
 // the rewording. tools/slugs/ is what writes it, offline, with a person reading
 // every one.
 //
-// So a missing or stale ledger is a build failure, not something to paper over
-// with a fallback. A fallback here would be a silent address change, which is
-// the exact failure the ledger exists to prevent.
+// So a ledger that DISAGREES with itself or with address.mjs is a build failure,
+// not something to paper over: changing the word for an entry that already has
+// one is a silent address change, which is the exact failure the ledger exists
+// to prevent.
+//
+// An entry the ledger has never seen is a different case, and used to be treated
+// the same. kaikki-yoruba republishes weekly and Wiktionary gains words, so a
+// new entry would fail the deploy - the whole site stuck on one unnamed word
+// until somebody noticed. There is no address to change there, because there
+// has never been one. It gets a rule-derived name marked provisional, which the
+// ledger's own rules already say may be replaced without minting a redirect.
+//
+// Provisional pages are served but kept out of the sitemap. The name is a guess
+// meant to be replaced, and advertising a guess you intend to change is how a
+// moved page gets indexed - the thing this file exists to stop.
 
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-import { groupBySpelling, RESERVED, pathFor } from './address.mjs';
+import { groupBySpelling, RESERVED, pathFor, foldWord, wordFromDefinition } from './address.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LEDGER_PATH = path.resolve(__dirname, '../../data/url-slugs.json');
@@ -47,6 +59,34 @@ export function loadLedger(ledgerPath = LEDGER_PATH) {
  *
  * Returns what the caller needs to write the redirects and the sitemap.
  */
+
+/**
+ * A first address for an entry the ledger has never seen.
+ *
+ * An {{etymid}} first, where one exists: it is a name a person already chose for
+ * this etymology on Wiktionary, which beats anything derived from prose here. It
+ * is also rare - 74 entries carry one - so the definition rule does most of the
+ * work, and does it badly enough that the result is marked provisional rather
+ * than trusted.
+ *
+ * `taken` is the words already used inside this one spelling, which is where
+ * addresses collide: /yo/gbe holds fifteen words and every one has to differ.
+ */
+function provisionalWord(entry, taken) {
+  const etymid = (entry.etymologyTemplates || []).find((t) => t.name === 'etymid');
+  const named = etymid ? foldWord((etymid.args || {})['2'] || '') : '';
+  const definition = (entry.senses || [])
+    .map((sense) => (sense.glosses || [])[0])
+    .find(Boolean);
+  const base = named || foldWord(wordFromDefinition(definition || '')) || 'word';
+
+  let word = base;
+  let n = 2;
+  while (taken.has(word)) word = `${base}-${n++}`;
+  taken.add(word);
+  return { word, source: named ? 'etymid' : 'rule' };
+}
+
 export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   const ledger = loadLedger(ledgerPath);
   const records = ledger.entries || {};
@@ -69,9 +109,17 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   }
 
   const missing = [];
+  const newcomers = [];
   const drifted = [];
   const shadowing = [];
   const claimed = new Map();
+  // Words already spoken for inside one spelling. A provisional name has to
+  // differ from them, and they are only known after every record is read.
+  const takenIn = new Map();
+  const takenFor = (spelling) => {
+    if (!takenIn.has(spelling)) takenIn.set(spelling, new Set());
+    return takenIn.get(spelling);
+  };
 
   for (const entry of entries) {
     const record = records[entry.id];
@@ -99,15 +147,34 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
       );
     }
     claimed.set(address, entry.id);
+    takenFor(spelling).add(record.word);
     entry.path = address;
   }
 
-  if (missing.length) {
-    throw new Error(
-      `${missing.length} entries have no address in the ledger, starting with ` +
-        `${missing.slice(0, 5).map((e) => `${e.id} (${(e.canonicalForm || {}).value})`).join(', ')}.\n` +
-        `An entry with no address has no page.\n${HOW_TO_FIX}`
-    );
+  // Entries the ledger has never seen - a word Wiktionary gained since it was
+  // last written. Named by rule and marked provisional rather than failing the
+  // deploy: see the note at the top of this file for why this is not the silent
+  // address change the ledger forbids.
+  const provisional = new Set();
+  for (const entry of missing) {
+    const spelling = spellingOf.get(entry.id);
+    if (RESERVED.has(spelling)) {
+      shadowing.push(`${entry.id}: /${spelling}/ would shadow a page of the site`);
+      continue;
+    }
+    const { word, source } = provisionalWord(entry, takenFor(spelling));
+    const address = pathFor(spelling, word);
+    if (claimed.has(address)) {
+      // takenFor should have prevented this. If it has not, the numbering rule
+      // is wrong and silently dropping one of the two would hide it.
+      throw new Error(
+        `Provisional address ${address} for ${entry.id} is already ${claimed.get(address)}.`
+      );
+    }
+    claimed.set(address, entry.id);
+    entry.path = address;
+    provisional.add(entry.id);
+    newcomers.push({ id: entry.id, address, source, spelling: (entry.canonicalForm || {}).value });
   }
   if (drifted.length) {
     throw new Error(
@@ -134,11 +201,17 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   const approved = Object.values(records).filter((r) => r.approved).length;
   return {
     addresses: claimed,
+    provisional,
+    newcomers,
     redirects,
     stats: {
       total: entries.length,
       approved,
-      provisional: Object.values(records).filter((r) => r.provisional).length,
+      // Both kinds: a record the ledger itself marks as a placeholder, and an
+      // entry with no record at all. Counting only the first said "0 still
+      // placeholders" on a build that had just invented three addresses.
+      provisional:
+        Object.values(records).filter((r) => r.provisional).length + newcomers.length,
     },
   };
 }

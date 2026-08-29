@@ -238,12 +238,26 @@ async function main() {
   // Addresses first, because entry.path travels with the browser artifact: the
   // app reads it to build every internal link, and a second file to fetch and
   // keep in step would be one more thing that can disagree with the pages on
-  // disk. attachAddresses throws rather than guess - see build/lib/slugs.mjs.
-  const { redirects, stats } = attachAddresses(linkedEntries);
+  // disk. See build/lib/slugs.mjs for what it will and will not guess.
+  const { redirects, stats, provisional, newcomers } = attachAddresses(linkedEntries);
   console.log(
     `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
       `${stats.provisional} still placeholders, ${redirects.length} retired`
   );
+  if (newcomers.length) {
+    // Loud, because these are the only addresses on the site nobody has read.
+    // They are served and deliberately absent from the sitemap, so nothing is
+    // broken by naming them late - but they keep the rule's guess until then.
+    console.log(
+      `      ${newcomers.length} new since the ledger was written, named by rule and ` +
+        `kept out of the sitemap:`
+    );
+    for (const n of newcomers.slice(0, 10)) {
+      console.log(`        ${n.address}  (${n.source}, ${n.spelling || '?'})`);
+    }
+    if (newcomers.length > 10) console.log(`        ...and ${newcomers.length - 10} more`);
+    console.log('        Name them:  python3 tools/slugs/seed.py && python3 tools/slugs/review.py');
+  }
 
   // Entries are shipped to the browser as an id-keyed object for O(1) lookup.
   const linkedEntriesById = Object.fromEntries(
@@ -277,7 +291,7 @@ async function main() {
 
   // A real HTML file per word. This is what makes the dictionary readable
   // without JavaScript, and therefore findable at all - see build/lib/prerender.mjs.
-  const pages = prerender(linkedEntries, { redirects });
+  const pages = prerender(linkedEntries, { redirects, provisional });
   console.log(
     `      ${pages.written.length} pages, ${(pages.bytes / 1024 / 1024).toFixed(1)} MB, ` +
       `sitemap.xml, _redirects (${pages.redirects})` +

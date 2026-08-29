@@ -312,3 +312,34 @@ test('a spelling that gains a second word becomes a list, and joins the sitemap'
     'and appear in the sitemap with no other action'
   );
 });
+
+test('a provisional page is served but kept out of the sitemap', () => {
+  // Its address is a rule's guess at a word nobody has read, and it is meant to
+  // be replaced. Serving it costs nothing; listing it invites indexing of a URL
+  // that is going to move, which is the failure the ledger exists to prevent.
+  const dir = fixtureSite();
+  const guessed = SAMPLE[0];
+  const result = prerender(SAMPLE, { publicDir: dir, provisional: new Set([guessed.id]) });
+
+  const file = path.join(dir, `${guessed.path.replace(/^\//, '')}.html`);
+  assert.ok(fs.existsSync(file), 'the page is written and served');
+
+  const sitemap = fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8');
+  assert.ok(
+    !sitemap.includes(`<loc>https://yorubadict.com${guessed.path}</loc>`),
+    'and absent from the sitemap'
+  );
+  for (const other of SAMPLE.slice(1)) {
+    assert.ok(
+      sitemap.includes(`<loc>https://yorubadict.com${other.path}</loc>`),
+      'while every settled address stays listed'
+    );
+  }
+  assert.equal(result.unlisted, 1);
+
+  // And it survives the sweep, which keys off `written` - it is in that list,
+  // it is only the sitemap it is filtered out of.
+  const second = prerender(SAMPLE, { publicDir: dir, provisional: new Set([guessed.id]) });
+  assert.ok(fs.existsSync(file));
+  assert.deepEqual(second.removed, []);
+});
