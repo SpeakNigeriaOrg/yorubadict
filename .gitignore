@@ -16,17 +16,19 @@ __pycache__/
 
 .DS_Store
 
-# Prerendered pages, written by build/lib/prerender.mjs on every build: ~6,280
-# HTML files, about 66 MB. Generated, so not committed - Cloudflare Pages runs
-# `npm run build` and writes them at deploy time. The shell they are built from,
-# public/index.html, IS committed, and so is everything else at the top level.
+# Prerendered pages, written by build/lib/prerender.mjs on every build: ~7,110
+# HTML files, about 75 MB. Generated, so not committed - Cloudflare Pages runs
+# `npm run build` and writes them at deploy time.
 #
-# Two depths, because there are two shapes: a word is /gba/take/index.html and a
-# written page is /about/index.html. Ignoring only the deeper one meant About,
-# Contribute and the other four would have been committed.
-/public/*/index.html
-/public/*/*/index.html
-/public/*/*/*/index.html
+# One .html per address: /yo/gba/take is public/yo/gba/take.html and /about is
+# public/about.html. Three depths because addresses are at most three segments
+# deep. public/index.html is the shell they are all built from and is the one
+# .html in git, so it is excepted below - the rule above it would otherwise
+# start ignoring the template and the build would lose its own source.
+/public/*.html
+!/public/index.html
+/public/*/*.html
+/public/*/*/*.html
 /public/sitemap.xml
 /public/_redirects
 /public/data/version.json

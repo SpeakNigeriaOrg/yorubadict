@@ -196,11 +196,19 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
 
   const written = [];
 
+  // <path>.html, not <path>/index.html. Cloudflare Pages resolves both, but not
+  // to the same address: a directory holding an index.html is served at
+  // /yo/gba/take/ and /yo/gba/take is a 308 to it, while take.html is served at
+  // /yo/gba/take itself. The form without the slash is the one this project
+  // already commits to everywhere else - the canonical tag, the sitemap, the
+  // pushState in app.js - so the files follow that rather than the reverse.
+  // Built the other way round, all 7,109 pages cost a redirect before they
+  // answer, and all 7,109 canonicals name a URL that redirects.
   const write = (urlPath, html) => {
     const file =
       urlPath === '/'
         ? path.join(publicDir, 'index.html')
-        : path.join(publicDir, urlPath.replace(/^\//, ''), 'index.html');
+        : path.join(publicDir, `${urlPath.replace(/^\//, '')}.html`);
     mkdirSync(path.dirname(file), { recursive: true });
     writeFileSync(file, html);
     written.push({ path: urlPath, bytes: html.length });
@@ -278,6 +286,33 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
 
   const removed = removeStalePages(publicDir, new Set(written.map((w) => w.path)));
 
+  // Cloudflare Pages serves this for any address that has no file, and serves
+  // it with a real 404. Without it Pages falls back to index.html at status
+  // 200, so every typo and every retired address answered as though it were a
+  // page - a soft 404. That is worse than a missing page: a crawler is told the
+  // front page exists at thousands of addresses, and the duplicates compete
+  // with the real ones.
+  //
+  // Not in `written`, so it stays out of the sitemap. noindex because a 404
+  // that gets indexed is the same problem wearing a different status code.
+  writeFileSync(
+    path.join(publicDir, '404.html'),
+    fill(template, {
+      urlPath: '/404',
+      head: [
+        '<title>No such page — Sọ̀rọ̀ Sókè</title>',
+        '<meta name="robots" content="noindex" />',
+      ].join('\n'),
+      body:
+        '<article class="entry">' +
+        '<h1>No such page</h1>' +
+        '<p>There is no word at this address. It may have been mistyped, or ' +
+        'it may be a link to a word this dictionary does not have.</p>' +
+        '<p><a href="/">Search the dictionary</a></p>' +
+        '</article>',
+    })
+  );
+
   writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap(written));
   writeFileSync(path.join(publicDir, '_redirects'), redirectsFile(redirects));
 
@@ -300,42 +335,61 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
  * them never fires because there is a real file in the way. Two of gbà's nine
  * addresses were already like this after a handful of builds.
  *
- * Deliberately narrow: only a directory whose sole contents are an index.html
- * this renderer would have written, and never anything at the top level except
- * the seven written pages' own directories. data/ and every committed file are
- * left alone.
+ * Deliberately narrow: only .html files, only ones this renderer would have
+ * written, and never data/ or the two at the root that are not pages. Every
+ * committed file is left alone - public/index.html is the only .html in git.
  */
 function removeStalePages(publicDir, keep) {
   const removed = [];
-  // Checked at every level, because a directory can be both a page and a parent:
-  // /yo/gba/ has its own index.html AND a directory per word under it. Treating
+  // Checked at every level, because a name can be both a page and a parent:
+  // /yo/gba is gba.html AND a directory gba/ holding a file per word. Treating
   // "has children" as "is not a page" meant a stale spelling page could never be
   // reached by the cleanup.
   const walk = (dir, urlPath) => {
-    const contents = readdirSync(dir);
-
-    if (contents.includes('index.html') && urlPath && !keep.has(urlPath)) {
-      rmSync(path.join(dir, 'index.html'));
-      removed.push(urlPath);
-    }
-
-    // Re-read rather than reuse `contents`: the index.html above may have just
-    // been deleted, and stat-ing it from the stale listing throws.
     for (const name of readdirSync(dir)) {
+      if (name.startsWith('.')) continue;
       const child = path.join(dir, name);
-      if (name.startsWith('.') || !statSync(child).isDirectory()) continue;
-      walk(child, `${urlPath}/${name}`);
+      if (statSync(child).isDirectory()) {
+        walk(child, `${urlPath}/${name}`);
+        continue;
+      }
+      if (!name.endsWith('.html')) continue;
+      // The two at the root that are not pages: index.html is the shell this
+      // build read its own template from, and 404.html is deliberately not in
+      // `written` because it must stay out of the sitemap.
+      if (!urlPath && (name === 'index.html' || name === '404.html')) continue;
+      const pagePath = `${urlPath}/${name.slice(0, -5)}`;
+      if (keep.has(pagePath)) continue;
+      rmSync(child);
+      removed.push(pagePath);
     }
 
-    // A directory left holding nothing was only ever scaffolding for pages that
-    // are gone. Never the deploy root.
     if (urlPath && readdirSync(dir).length === 0) rmSync(dir, { recursive: true });
   };
 
-  for (const first of readdirSync(publicDir)) {
-    const firstPath = path.join(publicDir, first);
-    if (first === 'data' || first.startsWith('.') || !statSync(firstPath).isDirectory()) continue;
-    walk(firstPath, `/${first}`);
+  // The root is walked as a page directory in its own right, not just descended
+  // into. /about is public/about.html now, a file at the top level, so a loop
+  // that only recursed into subdirectories could never retire one of the seven
+  // written pages. data/ is the one subtree held back - it is build output of a
+  // different kind and holds no pages.
+  const skip = new Set(['data']);
+  const rootWalk = (dir, urlPath) => walk(dir, urlPath);
+  for (const name of readdirSync(publicDir)) {
+    if (skip.has(name) || name.startsWith('.')) continue;
+    const child = path.join(publicDir, name);
+    if (statSync(child).isDirectory()) rootWalk(child, `/${name}`);
+  }
+  // Then the root's own files, after its directories, so an emptied directory
+  // is already gone before the root is considered.
+  for (const name of readdirSync(publicDir)) {
+    if (skip.has(name) || name.startsWith('.')) continue;
+    const child = path.join(publicDir, name);
+    if (statSync(child).isDirectory() || !name.endsWith('.html')) continue;
+    if (name === 'index.html' || name === '404.html') continue;
+    const pagePath = `/${name.slice(0, -5)}`;
+    if (keep.has(pagePath)) continue;
+    rmSync(child);
+    removed.push(pagePath);
   }
   return removed;
 }

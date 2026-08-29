@@ -53,14 +53,16 @@ const server = http.createServer(async (req, res) => {
       st = null;
     }
 
-    // A directory means the page inside it. The build writes every word to
-    // public/<spelling>/<word>/index.html, so /gba/take is a directory here,
-    // and so is /about.
-    if (st && st.isDirectory()) {
-      const inside = path.join(filePath, 'index.html');
+    // /yo/gba/take is the file public/yo/gba/take.html, and /yo/gba is
+    // public/yo/gba.html even though public/yo/gba/ also exists as a directory.
+    // Cloudflare Pages resolves the extension the same way, which is the whole
+    // reason the build writes <path>.html rather than <path>/index.html - see
+    // the note on `write` in build/lib/prerender.mjs.
+    if (!st || st.isDirectory()) {
+      const asFile = urlPath === '/' ? path.join(publicDir, 'index.html') : `${filePath}.html`;
       try {
-        await stat(inside);
-        filePath = inside;
+        await stat(asFile);
+        filePath = asFile;
         st = { isDirectory: () => false };
       } catch {
         st = null;
@@ -76,14 +78,15 @@ const server = http.createServer(async (req, res) => {
     // reads as a real page. Cloudflare Pages serves its own 404 for a path with
     // no file, so this matches what deployment does.
     if (!st) {
-      const notFound = await readFile(path.join(publicDir, 'index.html')).catch(() => null);
+      const notFound = await readFile(path.join(publicDir, '404.html')).catch(() => null);
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      // The same 404.html Pages serves, so what is checked locally is what
+      // ships. Falls back only if the build has not run yet.
       res.end(
-        notFound
-          ? `<!doctype html><meta charset="utf-8"><title>Not found</title>` +
-              `<p>Nothing is served at <code>${urlPath.replace(/[<&]/g, '')}</code>.` +
-              `<p><a href="/">Back to the dictionary</a>`
-          : 'Not found'
+        notFound ||
+          `<!doctype html><meta charset="utf-8"><title>Not found</title>` +
+            `<p>Nothing is served at <code>${urlPath.replace(/[<&]/g, '')}</code>.` +
+            `<p><a href="/">Back to the dictionary</a>`
       );
       return;
     }
