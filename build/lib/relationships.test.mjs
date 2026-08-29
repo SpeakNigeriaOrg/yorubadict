@@ -223,3 +223,89 @@ test('an entry with no sense-level relation fields at all still builds (older re
 
   assert.doesNotThrow(() => synthesizeRelationships([old]));
 });
+
+// --- A back-link settling an ambiguous morpheme -------------------------
+//
+// nítorí in miniature: two entries spelled ní, an etymology that names the
+// spelling without saying which one it means, and a preposition that lists
+// nítorí among its own derived terms. The list is the only thing in the data
+// that names one of them.
+
+const morpheme = (form, entryIds, gloss = null) => ({
+  form,
+  gloss,
+  resolved: true,
+  entryIds,
+  bound: false,
+  analysis: 0,
+  analysisTemplate: 'compound',
+});
+
+test('a back-link settles a morpheme the etymology left ambiguous', () => {
+  const letter = entry('ni-letter', 'ní', ['the name of the Latin script letter N'], { pos: 'character' });
+  const prep = entry('ni-prep', 'ní', ['at, in'], { pos: 'prep' });
+  const nitori = entry('nitori-1', 'nítorí', ['because'], { pos: 'conj' });
+  // The letter first, so first-in-the-list is the wrong answer.
+  nitori.etymologyMorphemes = [morpheme('ní', ['ni-letter', 'ni-prep'])];
+  prep.derivedTerms = [term('nítorí')];
+
+  const { entries, morphemesSettledByBackLink } = synthesizeRelationships([letter, prep, nitori]);
+  const m = entries.find((e) => e.id === 'nitori-1').etymologyMorphemes[0];
+
+  assert.equal(m.chosenBy, 'backLink');
+  assert.equal(m.chosenEntryId, 'ni-prep', 'the preposition, not whichever came first');
+  assert.equal(morphemesSettledByBackLink, 1);
+});
+
+test('a back-link torn between the same candidates settles nothing', () => {
+  const letter = entry('ni-letter', 'ní', ['the name of the Latin script letter N'], { pos: 'character' });
+  const prep = entry('ni-prep', 'ní', ['at, in'], { pos: 'prep' });
+  const nitori = entry('nitori-1', 'nítorí', ['because'], { pos: 'conj' });
+  nitori.etymologyMorphemes = [morpheme('ní', ['ni-letter', 'ni-prep'])];
+  // Both claim it, which is the state we were already in.
+  letter.derivedTerms = [term('nítorí')];
+  prep.derivedTerms = [term('nítorí')];
+
+  const { entries, morphemesSettledByBackLink } = synthesizeRelationships([letter, prep, nitori]);
+  const m = entries.find((e) => e.id === 'nitori-1').etymologyMorphemes[0];
+
+  assert.equal(m.chosenBy, 'noMeaning', 'still a guess, and still says so');
+  assert.equal(morphemesSettledByBackLink, 0);
+});
+
+test('a back-link does not overrule an etymology that said which meaning', () => {
+  const letter = entry('ni-letter', 'ní', ['the name of the Latin script letter N'], { pos: 'character' });
+  const prep = entry('ni-prep', 'ní', ['at, in'], { pos: 'prep' });
+  const nitori = entry('nitori-1', 'nítorí', ['because'], { pos: 'conj' });
+  nitori.etymologyMorphemes = [morpheme('ní', ['ni-letter', 'ni-prep'], 'at, in')];
+  // The wrong one claims it. The etymology's own meaning outranks the claim.
+  letter.derivedTerms = [term('nítorí')];
+
+  const { entries, morphemesSettledByBackLink } = synthesizeRelationships([letter, prep, nitori]);
+  const m = entries.find((e) => e.id === 'nitori-1').etymologyMorphemes[0];
+
+  assert.equal(m.chosenBy, 'meaning');
+  assert.equal(m.chosenEntryId, 'ni-prep');
+  assert.equal(morphemesSettledByBackLink, 0);
+});
+
+test('a morpheme settled by a back-link is attributed, not left in the hedge list', () => {
+  const letter = entry('ni-letter', 'ní', ['the name of the Latin script letter N'], { pos: 'character' });
+  const prep = entry('ni-prep', 'ní', ['at, in'], { pos: 'prep' });
+  const nitori = entry('nitori-1', 'nítorí', ['because'], { pos: 'conj' });
+  nitori.etymologyMorphemes = [morpheme('ní', ['ni-letter', 'ni-prep'])];
+  prep.derivedTerms = [term('nítorí')];
+
+  const { entries } = synthesizeRelationships([letter, prep, nitori]);
+  const settledTo = entries.find((e) => e.id === 'ni-prep');
+  const other = entries.find((e) => e.id === 'ni-letter');
+
+  assert.deepEqual(
+    settledTo.usedInCompounds.map((c) => c.entryId),
+    ['nitori-1'],
+    'the preposition builds it, and says so as a fact'
+  );
+  assert.deepEqual(settledTo.possiblyUsedIn, [], 'and not also as a maybe');
+  assert.deepEqual(other.possiblyUsedIn, [], 'the letter stops claiming it at all');
+  assert.deepEqual(other.usedInCompounds, []);
+});

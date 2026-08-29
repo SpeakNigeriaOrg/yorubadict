@@ -575,6 +575,59 @@ that the derivation is false — it means nobody has written one, which is
 exactly the gap these back-links exist to expose. Those are reported as
 `derived-without-etymology`, a different action item from `ambiguous-derivation`.
 
+#### The other side of the page is a second opinion
+
+A word's parts and the words that claim it are two readings of one fact, and
+for a long time only one of them could settle an argument. `nítorí` decomposed
+to a morpheme spelled `ní`, four entries share that spelling, its etymology
+gave no meaning to tell them apart, and so the pill linked to whichever came
+first — the entry for *the name of the Latin script letter N*. Meanwhile the
+preposition `ní` "at, in" listed `nítorí` in its own derived terms, on a
+different page, in a structured list an editor filled in by hand. The answer
+was already in the data, one section further down the same rendered page.
+
+`settleMorphemesByBackLink` runs after the reciprocal pass that creates those
+back-links and before `attributeUsedIn`, which files compounds by the meaning a
+morpheme resolved to. Where a back-link names **exactly one** of the candidates
+a morpheme was choosing between, it decides:
+
+| | |
+|---|---|
+| morphemes it settles | 20 |
+| of those, confirming the pick | 12 — the badge comes off a choice two sources agree on |
+| of those, changing where the link points | 8 — `nítorí`'s `ní` from the letter N to the preposition; `bàlágà`'s `agà` from a tree hyrax to a ladder |
+
+Only `meaningTied` and `noMeaning` morphemes are touched — the ones that were
+already admitting to a guess. An `{{etymid}}` anchor is a statement somebody
+made about that exact word and outranks a back-link inferred from another page,
+and a morpheme the etymology's own meaning already settled is not reopened. A
+back-link torn between the same candidates settles nothing, rather than being
+collapsed to its own first pick, which would launder a guess into an answer.
+
+Two things move downstream. `attributeUsedIn` files a compound by the meaning
+its morpheme resolved to, and its test for "settled" was a list of the two ways
+that could happen — so without adding `backLink` to it the pass would have
+stamped the new confidence on the item and then filed it under every candidate
+anyway, settled in name only. With it, 16 compounds move from *Possibly used
+in* to *Used in* under one meaning, and 65 hedged listings disappear from the
+meanings they never belonged to (452 compounds still hedged, down from 468).
+And `ní` builds 40 words rather than 39, because `nítorí` is now credited to
+the preposition instead of the letter.
+
+**And the section stops repeating the decomposition.** 489 of the 586 "Derived
+from" items on a page that also decomposes named an entry a *Component words*
+pill already linked — the same word, the same meaning, twice on one page. A
+back-link is dropped where it points at an entry the decomposition already
+links (497 pills once the 8 settled morphemes agree too), which empties the
+section on 434 pages and leaves 236 pills across 219.
+
+What survives is what the decomposition doesn't say: an intermediate step
+(`ìwúre` decomposes to `ì- + wú + ire` and is derived from `wúre`), a tone or
+case variant, a genuinely different claim — and the 132 entries that have a
+back-link and no decomposition at all, where it is the only origin the page
+has. A back-link naming a *different* meaning of the same spelling also stays,
+because that is a second reading rather than a repeat.
+
 ### Etymology decomposition: Component words
 
 Yorùbá habitually builds larger words out of smaller ones — `àmọ̀tẹ́kùn`
@@ -698,8 +751,8 @@ result by how it was picked:
 
 | field | when | today |
 |---|---|---|
-| `usedInCompounds` | only one candidate existed, or an `{{etymid}}` anchor or a meaning match chose it | 3,327 items, one root each |
-| `possiblyUsedIn` | the pick was a tiebreak or a fallback | 1,933 items — the same 562 compounds listed under **every** candidate |
+| `usedInCompounds` | only one candidate existed, or an `{{etymid}}` anchor, a meaning match or a back-link chose it | 3,346 items, one root each |
+| `possiblyUsedIn` | the pick was a tiebreak or a fallback | 1,864 items — the same 452 compounds listed under **every** candidate |
 
 Filing a guess under one meaning does two harms at once: the word appears
 under a meaning it doesn't belong to, *and* disappears from the one it does.

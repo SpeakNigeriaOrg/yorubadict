@@ -327,6 +327,60 @@ function annotateMorphemeConfidence(entries, byId, anchorTable, danglingLog) {
   }
 }
 
+// A word's parts and its parents are two readings of one fact, and until now
+// only one of them could settle an argument.
+//
+// A morpheme left on 'meaningTied' or 'noMeaning' is a guess: several entries
+// share the spelling and the etymology's own meaning did not separate them, so
+// the pill links to whichever came first. But the reciprocal pass has often
+// just recorded, from a completely different place in Wiktionary, which entry
+// claims this word as derived from it - an editor's structured list rather than
+// our reading of an etymology template. Where that back-link names exactly one
+// of the candidates we were choosing between, it is better evidence than
+// first-in-the-list, so it decides.
+//
+// It moves 20 morphemes. 12 confirm the pick, and those matter as much as the
+// rest: the pill stops apologising for a choice two sources agree on. The other
+// 8 change where the link points - nítorí's ní was the Latin letter N and is
+// now the preposition "at, in"; bàlágà's agà was a tree hyrax and is now a
+// ladder.
+//
+// Only an unsettled morpheme is touched. An {{etymid}} anchor is a statement
+// somebody made about this exact word and outranks a back-link inferred from
+// another page, so 'anchor' and 'anchorTied' are left alone - as is 'meaning',
+// where the etymology already said which one it was.
+function settleMorphemesByBackLink(entries, byId) {
+  let settled = 0;
+
+  for (const entry of entries) {
+    const backLinks = (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom');
+    if (!backLinks.length) continue;
+
+    for (const m of entry.etymologyMorphemes || []) {
+      if (m.chosenBy !== 'meaningTied' && m.chosenBy !== 'noMeaning') continue;
+      const ids = (m.entryIds || []).filter((id) => byId.has(id));
+      if (ids.length < 2) continue;
+
+      // Every candidate any back-link names, not just the one each chose to
+      // link. A back-link that is itself torn between two of our candidates
+      // has not told us anything, and collapsing it to its own first pick
+      // would launder that into an answer.
+      const named = new Set();
+      for (const rel of backLinks) {
+        const candidates = rel.entryIds && rel.entryIds.length ? rel.entryIds : [rel.entryId];
+        for (const id of candidates) if (ids.includes(id)) named.add(id);
+      }
+      if (named.size !== 1) continue;
+
+      m.chosenEntryId = [...named][0];
+      m.chosenBy = 'backLink';
+      settled += 1;
+    }
+  }
+
+  return settled;
+}
+
 function meaningWords(text) {
   return new Set(
     (text || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean)
@@ -425,7 +479,16 @@ function attributeUsedIn(entries, byId) {
       // from the one it does. So a guess is shown under every candidate,
       // labelled as uncertain, which is what the fan-out accidentally achieved
       // and the only part of it worth keeping.
-      const settled = ids.length === 1 || m.chosenBy === 'meaning' || m.chosenBy === 'anchor';
+      // 'backLink' belongs here for the same reason the other two do: another
+      // entry's own derived list named exactly one of these candidates, so the
+      // word is attributed on evidence rather than on where it sat in a list.
+      // Leaving it out would stamp the new confidence onto the item and then
+      // file it under every candidate anyway - settled in name only.
+      const settled =
+        ids.length === 1 ||
+        m.chosenBy === 'meaning' ||
+        m.chosenBy === 'anchor' ||
+        m.chosenBy === 'backLink';
       if (settled) {
         add(certain, ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0], entry, m);
       } else {
@@ -714,11 +777,24 @@ export function synthesizeRelationships(entries) {
   const anchorTable = buildAnchorTable(entries);
   const danglingAnchors = [];
   annotateMorphemeConfidence(entries, byId, anchorTable, danglingAnchors);
+  // After the reciprocal pass above, which is what makes the back-links exist,
+  // and before attributeUsedIn, which files compounds by the meaning a morpheme
+  // was resolved to - so a morpheme this settles is filed under the entry it
+  // was settled to.
+  const morphemesSettledByBackLink = settleMorphemesByBackLink(entries, byId);
   attributeUsedIn(entries, byId);
 
   const dialect = synthesizeDialectRelations(entries, aliasIndex, byId);
 
-  return { entries, unresolved, aliasIndex, dialect, anchorTable, danglingAnchors };
+  return {
+    entries,
+    unresolved,
+    aliasIndex,
+    dialect,
+    anchorTable,
+    danglingAnchors,
+    morphemesSettledByBackLink,
+  };
 }
 
 // A dialect synonym is a different lexeme used in a place, not another

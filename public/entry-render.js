@@ -485,12 +485,35 @@ export function createEntryRenderer(ctx) {
           label: m.form,
           hint: m.gloss || '',
           searchForm: m.form,
-          uncertain: ids.length > 1 && m.chosenBy !== 'meaning' && m.chosenBy !== 'anchor',
+          // 'backLink': another entry's own derived list named exactly one of
+          // these candidates, which is a second source agreeing, not a guess.
+          uncertain:
+            ids.length > 1 &&
+            m.chosenBy !== 'meaning' &&
+            m.chosenBy !== 'anchor' &&
+            m.chosenBy !== 'backLink',
           note: morphemeNote(m, ids.length),
         });
       }
     }
     return `<span class="pill-group"><span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span></span>`;
+  }
+
+  // Where a Component words pill actually points - the only thing a "Derived
+  // from" pill can be redundant with. It mirrors morphemePillHtml's own pick
+  // rather than reading chosenEntryId straight off the morpheme, because that
+  // field can name an entry this artifact doesn't have and the pill falls back
+  // to the first candidate when it does. A set that disagreed with the pills
+  // beside it would drop the wrong words.
+  function morphemeLinkTargets(entry) {
+    const targets = new Set();
+    for (const m of entry.etymologyMorphemes || []) {
+      if (m.bound || !m.resolved || !m.entryIds) continue;
+      const ids = m.entryIds.filter((id) => ctx.entries[id]);
+      if (!ids.length) continue;
+      targets.add(ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0]);
+    }
+    return targets;
   }
 
   function legacyFlatMorphemesHtml(morphemes) {
@@ -581,9 +604,22 @@ export function createEntryRenderer(ctx) {
     const synonymsHtml = relationPillsHtml(entry.synonyms, [], entry);
     const antonymsHtml = relationPillsHtml(entry.antonyms, [], entry);
     const descendantsHtml = relationPillsHtml(entry.descendants, [], entry);
+    // A word's parts and the words that claim it are one fact from two sides,
+    // and 489 of the 586 "Derived from" items on a page that also decomposes
+    // named an entry a Component words pill already linked - the same word, the
+    // same meaning, twice on one page.
+    //
+    // Dropped only where the two point at the same entry. A back-link naming a
+    // different meaning of the same spelling is a second reading, not a repeat,
+    // and keeping it is the whole reason the section still exists - along with
+    // the intermediate steps (ìwúre decomposes to ì- + wú + ire and is derived
+    // from wúre) and the words whose decomposition we don't have at all.
+    const componentTargets = morphemeLinkTargets(entry);
     const derivedFromHtml = relationPillsHtml(
       [],
-      (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom'),
+      (entry.synthesizedRelations || [])
+        .filter((r) => r.type === 'derivedFrom')
+        .filter((r) => !componentTargets.has(r.entryId)),
       entry
     );
     const coordinateHtml = relationPillsHtml(entry.coordinateTerms || [], [], entry);
