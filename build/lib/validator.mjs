@@ -39,7 +39,7 @@ const MAX_PAGES_PER_ISSUE = 120;
 const wiktionaryUrl = (headword) =>
   `https://en.wiktionary.org/wiki/${encodeURIComponent(headword)}#Yoruba`;
 
-export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null, danglingAnchors = []) {
+export function buildValidationReport(entries, unresolvedRelations, parseErrors, dialect = null, danglingAnchors = [], newcomers = []) {
   const report = {
     generatedAt: new Date().toISOString(),
     totalEntries: entries.length,
@@ -165,7 +165,7 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
   }
   report.circularDerivations = cycles;
 
-  report.issues = buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors });
+  report.issues = buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors, newcomers });
   report.summary = summarize(report.issues);
 
   return report;
@@ -175,7 +175,7 @@ export function buildValidationReport(entries, unresolvedRelations, parseErrors,
 // The work queue
 // ---------------------------------------------------------------------------
 
-function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors = [] }) {
+function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingAnchors = [], newcomers = [] }) {
   const issues = [];
 
   // -- Failed cross-references, split by what it would actually take to fix --
@@ -212,6 +212,17 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
   }
 
   issues.push(
+    issue({
+      kind: 'address-unnamed',
+      title: 'Live at a name nobody has chosen',
+      severity: 'high',
+      effort: 'easy',
+      target: 'pipeline',
+      why:
+        'These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.',
+      fix: 'Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.',
+      pages: unnamedAddresses(newcomers),
+    }),
     issue({
       kind: 'reference-tone-typo',
       title: 'Cross-reference with the wrong tone marks',
@@ -485,6 +496,29 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
     .sort(
       (a, b) => EFFORT_ORDER[a.effort] - EFFORT_ORDER[b.effort] || b.count - a.count
     );
+}
+
+/**
+ * Newcomers as report rows, grouped by the page they are written on.
+ *
+ * The same shape pushPage builds, because issue() reduces over `details` and an
+ * array of anything else throws there rather than where it was written.
+ */
+function unnamedAddresses(newcomers) {
+  const rows = new Map();
+  for (const n of newcomers) {
+    const page = n.spelling || n.id;
+    if (!rows.has(page)) {
+      rows.set(page, { page, editUrl: wiktionaryUrl(page), entryIds: [], details: [] });
+    }
+    const row = rows.get(page);
+    if (!row.entryIds.includes(n.id)) row.entryIds.push(n.id);
+    row.details.push(
+      `${n.address} — named by ` +
+        (n.source === 'etymid' ? 'an etymid from Wiktionary' : 'the definition rule')
+    );
+  }
+  return rows;
 }
 
 function pushPage(map, entry, detail) {

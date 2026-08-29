@@ -197,7 +197,41 @@ async function main() {
   );
 
   console.log('[3/5] Building validation report ...');
-  const validationReport = buildValidationReport(linkedEntries, unresolved, [], dialect, danglingAnchors);
+  // Addresses first, because entry.path travels with the browser artifact: the
+  // app reads it to build every internal link, and a second file to fetch and
+  // keep in step would be one more thing that can disagree with the pages on
+  // disk. See build/lib/slugs.mjs for what it will and will not guess.
+  const { redirects, stats, provisional, newcomers } = attachAddresses(linkedEntries);
+  console.log(
+    `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
+      `${stats.provisional} still placeholders, ${redirects.length} retired`
+  );
+  if (newcomers.length) {
+    // Loud, because these are the only addresses on the site nobody has read.
+    // They are served and deliberately absent from the sitemap, so nothing is
+    // broken by naming them late - but they keep the rule's guess until then.
+    console.log(
+      `      ${newcomers.length} new since the ledger was written, named by rule and ` +
+        `kept out of the sitemap:`
+    );
+    for (const n of newcomers.slice(0, 10)) {
+      console.log(`        ${n.address}  (${n.source}, ${n.spelling || '?'})`);
+    }
+    if (newcomers.length > 10) console.log(`        ...and ${newcomers.length - 10} more`);
+    console.log('        Name them:  python3 tools/slugs/seed.py && python3 tools/slugs/review.py');
+  }
+
+  const validationReport = buildValidationReport(
+    linkedEntries,
+    unresolved,
+    [],
+    dialect,
+    danglingAnchors,
+    // Moved above the report rather than passed backwards into it: an entry
+    // with an address nobody has read is a thing needing a person, which is
+    // what this report is for.
+    newcomers
+  );
   validationReport.kaikkiSourceDate = kaikkiSourceDate;
   validationReport.kaikkiReleaseTag = kaikkiReleaseTag;
   validationReport.kaikkiParseErrorCount = kaikkiParseErrorCount;
@@ -234,30 +268,6 @@ async function main() {
 
   mkdirSync(path.dirname(outEntriesPath), { recursive: true });
   mkdirSync(path.dirname(outValidationPath), { recursive: true });
-
-  // Addresses first, because entry.path travels with the browser artifact: the
-  // app reads it to build every internal link, and a second file to fetch and
-  // keep in step would be one more thing that can disagree with the pages on
-  // disk. See build/lib/slugs.mjs for what it will and will not guess.
-  const { redirects, stats, provisional, newcomers } = attachAddresses(linkedEntries);
-  console.log(
-    `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
-      `${stats.provisional} still placeholders, ${redirects.length} retired`
-  );
-  if (newcomers.length) {
-    // Loud, because these are the only addresses on the site nobody has read.
-    // They are served and deliberately absent from the sitemap, so nothing is
-    // broken by naming them late - but they keep the rule's guess until then.
-    console.log(
-      `      ${newcomers.length} new since the ledger was written, named by rule and ` +
-        `kept out of the sitemap:`
-    );
-    for (const n of newcomers.slice(0, 10)) {
-      console.log(`        ${n.address}  (${n.source}, ${n.spelling || '?'})`);
-    }
-    if (newcomers.length > 10) console.log(`        ...and ${newcomers.length - 10} more`);
-    console.log('        Name them:  python3 tools/slugs/seed.py && python3 tools/slugs/review.py');
-  }
 
   // Entries are shipped to the browser as an id-keyed object for O(1) lookup.
   const linkedEntriesById = Object.fromEntries(
