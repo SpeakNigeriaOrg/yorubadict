@@ -280,3 +280,42 @@ test('an old #/about link is redirected to /about', async () => {
   await settle(() => location.pathname === '/about', 20);
   assert.equal(location.pathname, '/about');
 });
+
+test('every URL the client builds is rooted, not relative to the page', () => {
+  // The whole site used to live at one address, so fetch('data/entries.json')
+  // always resolved to /data/entries.json and relative was indistinguishable
+  // from absolute. Under path routing they differ on every page but the front
+  // one: from /yo/gba/take that fetch asks for /yo/gba/data/entries.json, gets
+  // HTML back, and the app dies on `Unexpected token '<'`. It shipped that way.
+  //
+  // Checked by reading the source rather than by booting, because the failure
+  // is in what the string resolves against - which a stub DOM does not model.
+  const files = ['app.js', 'entry-render.js', 'page-render.js', 'sw.js'];
+  const offenders = [];
+  for (const name of files) {
+    const source = fs.readFileSync(path.join(publicDir, name), 'utf8');
+    source.split('\n').forEach((line, i) => {
+      // A data/ URL in quotes that does not start with / or a scheme.
+      for (const m of line.matchAll(/["'`(=]\s*(data\/[A-Za-z0-9._/-]+)/g)) {
+        offenders.push(`${name}:${i + 1}  ${m[1]}`);
+      }
+    });
+  }
+  assert.deepEqual(offenders, [], `relative data URLs break every page below the root:\n${offenders.join('\n')}`);
+});
+
+test('the shell loads its scripts and styles from the root', () => {
+  // Same failure, earlier: a relative <script src="app.js"> on /yo/gba/take
+  // asks for /yo/gba/app.js and the app never starts at all.
+  // Comments stripped first: index.html explains an <img src="favicon.svg"> it
+  // deliberately does not use, and a scanner that cannot tell prose from markup
+  // reports the explanation as the bug.
+  const html = fs
+    .readFileSync(path.join(publicDir, 'index.html'), 'utf8')
+    .replace(/<!--[\s\S]*?-->/g, '');
+  const refs = [...html.matchAll(/\b(?:src|href)="([^"]+)"/g)].map((m) => m[1]);
+  const bad = refs.filter(
+    (r) => !/^([a-z]+:|\/|#|data:)/i.test(r) && !r.startsWith('mailto:')
+  );
+  assert.deepEqual(bad, [], `these resolve against the current page, not the root: ${bad.join(', ')}`);
+});

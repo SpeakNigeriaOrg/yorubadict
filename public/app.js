@@ -470,7 +470,7 @@ import { createPageRenderer } from './page-render.js';
       return;
     }
     shell('<p>Loading…</p>');
-    fetch('data/mentioned-words.json')
+    fetch('/data/mentioned-words.json')
       .then((r) => r.json())
       .then((data) => {
         state.mentionedWords = data;
@@ -606,9 +606,9 @@ import { createPageRenderer } from './page-render.js';
     setDescription(page.description);
 
     const needs = page.name === 'building-blocks'
-      ? { file: 'data/building-blocks.json', key: 'buildingBlocks', host: 'blocks-list', list: pages.buildingBlocksListHtml }
+      ? { file: '/data/building-blocks.json', key: 'buildingBlocks', host: 'blocks-list', list: pages.buildingBlocksListHtml }
       : page.name === 'contribute'
-        ? { file: 'data/wiktionary-tasks.json', key: 'tasks', host: 'tasks-list', list: pages.contributeListHtml }
+        ? { file: '/data/wiktionary-tasks.json', key: 'tasks', host: 'tasks-list', list: pages.contributeListHtml }
         : null;
     if (!needs || state[needs.key]) return;
     fetch(needs.file)
@@ -820,7 +820,7 @@ import { createPageRenderer } from './page-render.js';
         These describe the Wiktionary data this dictionary is built from, not bugs in this site. Almost everything here is fixed by editing the word on Wiktionary itself, and we pick that up automatically the next time we refresh — each item below links straight to the section to edit. A few are ours to fix, and say so.
       </div>
       ${groups}
-      <a class="quality-download" href="data/validation-report.json" download="yorubadict-quality-report.json">
+      <a class="quality-download" href="/data/validation-report.json" download="yorubadict-quality-report.json">
         Download the full report (JSON) — every word affected, not just the first ${escapeHtml(String(120))}
       </a>
     `;
@@ -980,7 +980,7 @@ import { createPageRenderer } from './page-render.js';
       els.qualityPanel.classList.remove('hidden');
       if (!state.validation) {
         els.qualityContent.innerHTML = '<div class="quality-note">Loading the report…</div>';
-        state.validation = await fetch('data/validation-report.json')
+        state.validation = await fetch('/data/validation-report.json')
           .then((r) => r.json())
           .catch(() => null);
         if (!state.validation) {
@@ -1130,8 +1130,8 @@ import { createPageRenderer } from './page-render.js';
     // report is over half a megabyte and nothing on the reading path needs it,
     // so it waits until the panel is opened.
     const [entries, index] = await Promise.all([
-      fetch('data/entries.json').then((r) => r.json()),
-      fetch('data/search-index.json').then((r) => r.json()),
+      fetch('/data/entries.json').then((r) => r.json()),
+      fetch('/data/search-index.json').then((r) => r.json()),
     ]);
     state.entries = entries;
     state.index = index;
