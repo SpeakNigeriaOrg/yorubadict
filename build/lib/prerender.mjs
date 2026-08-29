@@ -195,6 +195,13 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
   });
 
   const written = [];
+  // Pages that exist but are not destinations. Kept apart from `written`
+  // because that one list feeds two different things - the sitemap and the
+  // stale-page sweep - and these belong in exactly one of them. In the sitemap
+  // they would be 3,514 URLs asking to be indexed on their way somewhere else;
+  // outside the sweep's keep-set they would be deleted by the build that wrote
+  // them, which is what happened to 404.html until it was excepted by name.
+  const forwarded = [];
 
   // <path>.html, not <path>/index.html. Cloudflare Pages resolves both, but not
   // to the same address: a directory holding an index.html is served at
@@ -233,6 +240,45 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
 
   // A page for each spelling more than one word is written with.
   //
+  // A spelling only one word is written with. /yo/amala is not a page in its own
+  // right - there is nothing to disambiguate, and a list of one word would say
+  // nothing the word's own page does not while competing with it for the same
+  // search. But it should not be a dead end either: it is what somebody gets by
+  // trimming /yo/amala/pudding back, and 3,514 of the 4,343 spellings are like
+  // this, so leaving them to 404 makes most of the second segment unusable.
+  //
+  // So it forwards. The canonical names the word's own page, which is the tag
+  // that decides which of the two is the real one. No noindex: that would say
+  // "nothing here worth having" while the canonical says "the content is over
+  // there", and a crawler reading both has been told two different things.
+  //
+  // A redirect proper would be better and is not available - Cloudflare Pages
+  // caps static redirects at 2,000 and there are 3,514 of these. The meta
+  // refresh is what a static host can do; the visible link is what a reader
+  // gets if it does not fire.
+  const forwardSpelling = (spelling, entry) => {
+    const urlPath = spellingPathFor(spelling);
+    const target = entry.path;
+    const word = (entry.canonicalForm || {}).value || spelling;
+    const file =
+      path.join(publicDir, `${urlPath.replace(/^\//, '')}.html`);
+    const html = fill(template, {
+      urlPath,
+      head: [
+        `<title>${escapeAttr(word)} — Sọ̀rọ̀ Sókè</title>`,
+        `<link rel="canonical" href="${escapeAttr(ORIGIN + target)}" />`,
+        `<meta http-equiv="refresh" content="0; url=${escapeAttr(target)}" />`,
+      ].join('\n'),
+      body:
+        `<article class="entry"><p>One Yorùbá word is written ` +
+        `<b lang="yo">${escapeAttr(spelling)}</b>: ` +
+        `<a href="${escapeAttr(target)}" lang="yo">${escapeAttr(word)}</a>.</p></article>`,
+    });
+    mkdirSync(path.dirname(file), { recursive: true });
+    writeFileSync(file, html);
+    forwarded.push(urlPath);
+  };
+
   // /yo/gba/ used to 404 - a directory with no index.html - and that was a wasted
   // URL, because nine different words are spelled gba and the list of them is
   // exactly what somebody truncating the address or searching "gba meaning"
@@ -240,9 +286,12 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
   // nothing the word's own page does not, and would compete with it.
   let spellingPages = 0;
   for (const [spelling, members] of groupBySpelling(entries).groups) {
-    if (members.length < 2) continue;
     const listed = members.map(({ entry }) => entry).filter((entry) => entry.path);
-    if (listed.length < 2) continue;
+    if (listed.length === 0) continue;
+    if (listed.length === 1) {
+      forwardSpelling(spelling, listed[0]);
+      continue;
+    }
     const urlPath = spellingPathFor(spelling);
     spellingPages += 1;
     write(
@@ -284,7 +333,10 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
     );
   }
 
-  const removed = removeStalePages(publicDir, new Set(written.map((w) => w.path)));
+  const removed = removeStalePages(
+    publicDir,
+    new Set([...written.map((w) => w.path), ...forwarded])
+  );
 
   // Cloudflare Pages serves this for any address that has no file, and serves
   // it with a real 404. Without it Pages falls back to index.html at status
@@ -319,6 +371,7 @@ export function prerender(entries, { publicDir = PUBLIC_DIR, redirects = [] } = 
   return {
     written,
     spellingPages,
+    forwarded: forwarded.length,
     removed,
     bytes: written.reduce((n, w) => n + w.bytes, 0),
     redirects: redirects.length,

@@ -234,3 +234,81 @@ test('pages are files, so an address serves without a redirect', () => {
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
   assert.ok(!canonical.endsWith('/'), `canonical must name the file's own address, got ${canonical}`);
 });
+
+test('a spelling only one word uses forwards to that word', () => {
+  // 3,514 of the 4,343 spellings have exactly one word. They used to 404, which
+  // made most of the second segment a dead end for anyone trimming an address.
+  const dir = fixtureSite();
+  const result = prerender(SAMPLE, { publicDir: dir });
+
+  const spellingOf = (e) => e.path.split('/')[2];
+  const lone = SAMPLE.find(
+    (e) => SAMPLE.filter((o) => spellingOf(o) === spellingOf(e)).length === 1
+  );
+  assert.ok(lone, 'the fixture needs a spelling used by exactly one entry');
+
+  const spellingPath = `/yo/${spellingOf(lone)}`;
+  const html = fs.readFileSync(path.join(dir, `${spellingPath.replace(/^\//, '')}.html`), 'utf8');
+
+  assert.match(html, new RegExp(`content="0; url=${lone.path}"`), 'it should forward');
+  assert.match(
+    html,
+    new RegExp(`rel="canonical" href="https://yorubadict.com${lone.path}"`),
+    'the canonical must name the word, which is what decides the two are one page'
+  );
+  assert.ok(html.includes(`href="${lone.path}"`), 'and a visible link, for when the refresh does not fire');
+  assert.ok(!html.includes('noindex'), 'noindex would contradict the canonical');
+
+  assert.ok(
+    !result.written.some((w) => w.path === spellingPath),
+    'a forwarding page is not a destination and does not belong in the sitemap'
+  );
+  assert.ok(
+    !fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8').includes(`<loc>https://yorubadict.com${spellingPath}</loc>`)
+  );
+});
+
+test('a forwarding page survives the sweep that keeps the sitemap honest', () => {
+  // It is deliberately absent from `written`, and `written` is what the sweep
+  // keeps - so without its own keep-set entry the build would delete every one
+  // of these on the run that wrote them.
+  const dir = fixtureSite();
+  prerender(SAMPLE, { publicDir: dir });
+  const second = prerender(SAMPLE, { publicDir: dir });
+
+  const lonePath = SAMPLE.map((e) => `/yo/${e.path.split('/')[2]}`).find(
+    (p) => SAMPLE.filter((e) => `/yo/${e.path.split('/')[2]}` === p).length === 1
+  );
+  assert.ok(fs.existsSync(path.join(dir, `${lonePath.replace(/^\//, '')}.html`)), 'still there after a second build');
+  assert.deepEqual(second.removed, [], 'and not reported as retired');
+});
+
+test('a spelling that gains a second word becomes a list, and joins the sitemap', () => {
+  // The case the question is really about: a new Wiktionary entry lands on a
+  // spelling that had only one word. Both kinds live at the same address, so
+  // the list overwrites the forward - and because the list goes into `written`
+  // and the forward does not, it enters the sitemap on the same build.
+  const dir = fixtureSite();
+  const lone = SAMPLE.find(
+    (e) => SAMPLE.filter((o) => o.path.split('/')[2] === e.path.split('/')[2]).length === 1
+  );
+  assert.ok(lone, 'the fixture needs a spelling used by exactly one entry');
+  const spelling = lone.path.split('/')[2];
+  const spellingPath = `/yo/${spelling}`;
+  const file = path.join(dir, `${spellingPath.replace(/^\//, '')}.html`);
+
+  prerender(SAMPLE, { publicDir: dir });
+  assert.match(fs.readFileSync(file, 'utf8'), /http-equiv="refresh"/, 'one word: a forward');
+
+  const arrival = { ...lone, id: `${lone.id}-2`, path: `${spellingPath}/newcomer` };
+  const after = prerender([...SAMPLE, arrival], { publicDir: dir });
+
+  const html = fs.readFileSync(file, 'utf8');
+  assert.ok(!html.includes('http-equiv="refresh"'), 'two words: no longer a forward');
+  assert.match(html, /2 Yorùbá words/, 'it should now list them');
+  assert.ok(after.written.some((w) => w.path === spellingPath), 'and be a destination');
+  assert.ok(
+    fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8').includes(`<loc>https://yorubadict.com${spellingPath}</loc>`),
+    'and appear in the sitemap with no other action'
+  );
+});
