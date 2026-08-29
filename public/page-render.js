@@ -207,7 +207,7 @@ export function createPageRenderer(ctx) {
 
         <h2>Yorùbá words are built from other words</h2>
         <p><a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> means home. <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> means life. Together they make <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a>, which means Earth.</p>
-        <p>Yorùbá does this constantly, and it is one of the most useful things a learner can see. So entries here show it in both directions. Open <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> and its two parts are listed under <em>Component words</em>. Open <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> and the 56 words built from it are listed under <em>Used in</em>.</p>
+        <p>Yorùbá does this constantly, and it is one of the most useful things a learner can see. So entries here show it in both directions. Open <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> and its two parts are listed under <em>Component words</em>. Open <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> and every word built from it is listed under <em>Used in</em>.</p>
 
         <h2>Where that breaks down</h2>
         <p>To show it, we have to know which word a part came from. Usually that is clear. Sometimes it is not, because Yorùbá has many words spelled exactly alike.</p>
