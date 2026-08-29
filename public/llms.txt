@@ -8,19 +8,47 @@ A Speak Nigeria project. Live at https://yorubadict.com
 
 ## How the site is organised
 
-Routing is hash-based, so a word's page is `https://yorubadict.com/#/entry/<id>`
-where `<id>` is that entry's Kaikki sense id, e.g. `en-gba-yo-verb-VAsl51P3`.
-Those fragments are never sent to the server and are not separately crawlable;
-to read an entry you need to run the page's JavaScript, or read the data
-directly (below), which is usually easier.
+Every word has its own address under `/yo/`: the spelling with tone marks and
+underdots removed, then one English word.
 
-- `/#/about` — what the dictionary is and where the data comes from
-- `/#/entry/<id>` — one entry
+    https://yorubadict.com/yo/gba/take
+    https://yorubadict.com/yo/ile/home
+    https://yorubadict.com/yo/owo/money
+
+Tone is dropped from the address only, never from the page. `gbà` and `gbá` are
+different words and both are shown with their tone marks; the English word is
+what tells the two addresses apart, which is why several words spelled `gba`
+have addresses like /yo/gba/take, /yo/gba/rescue and /yo/gba/hit.
+
+The `/yo/` segment keeps the root free for pages that are not dictionary
+entries. Without it the dictionary would occupy 4,343 top-level names and every
+future page would have to avoid all of them.
+
+Each address is a real HTML file with the definitions already in it, so nothing
+has to be executed to read one. Full list at https://yorubadict.com/sitemap.xml
+(7,109 pages).
+
+- `/` — the front page
+- `/yo/<spelling>/<word>` — one entry
+- `/yo/<spelling>` — the words written that way, where more than one is. 836 of
+  these. A spelling written by only one word has no such page.
+- `/about`, `/learners`, `/teachers`, `/building-blocks`, `/contribute`,
+  `/speak-nigeria` — pages this project wrote itself
+- `/yo/ajami/…`, `/yo/ajami-letter/…`, `/yo/tone-mark/…` — Yorùbá written in the
+  Arabic script, the Ajami alphabet's own letters, and the tone marks
 - Data quality report — in-app panel, source at `/data/validation-report.json`
+
+Addresses do not move. The English word in each one is recorded in
+data/url-slugs.json in the source repository rather than recomputed, so a
+reworded definition upstream cannot change where a page lives. Where one does
+have to change, the old address redirects.
 
 ## Reading the data directly
 
-- `/data/entries.json` — every entry, keyed by id
+Reading the pages is now usually easier, but the whole dictionary is still one
+file if you want it:
+
+- `/data/entries.json` — every entry, keyed by id, each carrying its own `path`
 - `/data/search-index.json` — prebuilt Yorùbá tiers and an English inverted index
 - `/data/validation-report.json` — a triaged list of problems in the underlying
   Wiktionary data, each with what it would take to fix and a link to the page

@@ -3,16 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Everything between these markers is written per page by
+     build/lib/prerender.mjs. What is checked in here is the front page's
+     version, which is also what the template starts from. Do not hand-edit one
+     without the other: the copy for each page lives in page-render.js. -->
+<!--PRERENDER-HEAD-->
 <title>Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary · Speak Nigeria</title>
-<meta name="description" content="Sọ̀rọ̀ Sókè, The People’s Yorùbá Dictionary — a free Yorùbá dictionary built from Wiktionary data. Search Yorùbá or English, in either direction, with tone marks or without. A Speak Nigeria project." />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="A free Yorùbá–English dictionary built from Wiktionary. Search Yorùbá or English, in either direction, with tone marks or without." />
+<link rel="canonical" href="https://yorubadict.com/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Sọ̀rọ̀ Sókè" />
+<meta property="og:title" content="Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary · Speak Nigeria" />
+<meta property="og:description" content="A free Yorùbá–English dictionary built from Wiktionary. Search Yorùbá or English, in either direction, with tone marks or without." />
+<meta property="og:url" content="https://yorubadict.com/" />
+<!--/PRERENDER-HEAD-->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/manifest.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Both local sheets as their own <link> so they download in parallel;
      _tokens.css used to be an @import inside style.css, which meant it
      couldn't even be discovered until style.css had arrived. -->
-<link rel="stylesheet" href="_tokens.css" />
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="/_tokens.css" />
+<link rel="stylesheet" href="/style.css" />
 <!-- The font stylesheet is third-party and was blocking first paint for
      859ms. Every rule using it already has a local fallback and the request
      carries display=swap, so nothing depends on it being there at paint
@@ -30,7 +43,7 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="wordmark-group">
-      <a href="#/" class="wordmark">
+      <a href="/" class="wordmark">
         <span class="wordmark-yo">Sọ̀rọ̀ Sókè</span><span class="wordmark-en">The People’s<br class="wordmark-break" /> Yorùbá Dictionary</span>
       </a>
     </div>
@@ -60,12 +73,12 @@
            desktop with two buttons (see the note by the header media query in
            style.css); six is not a question. -->
       <div id="header-menu" class="header-menu">
-        <a href="#/building-blocks" class="ghost-btn">Building blocks</a>
-        <a href="#/contribute" class="ghost-btn">Contribute</a>
-        <a href="#/learners" class="ghost-btn">For learners</a>
-        <a href="#/teachers" class="ghost-btn">For teachers</a>
-        <a href="#/about" class="ghost-btn">About the dictionary</a>
-        <a href="#/speak-nigeria" class="ghost-btn">About Speak Nigeria</a>
+        <a href="/building-blocks" class="ghost-btn">Building blocks</a>
+        <a href="/contribute" class="ghost-btn">Contribute</a>
+        <a href="/learners" class="ghost-btn">For learners</a>
+        <a href="/teachers" class="ghost-btn">For teachers</a>
+        <a href="/about" class="ghost-btn">About the dictionary</a>
+        <a href="/speak-nigeria" class="ghost-btn">About Speak Nigeria</a>
         <button id="data-quality-toggle" class="ghost-btn" type="button">Data quality</button>
       </div>
     </div>
@@ -89,7 +102,17 @@
       <span class="sheet-grip" aria-hidden="true"></span>
       <span class="sr-only">Scroll to the definition</span>
     </button>
-    <div id="entry-content"></div>
+    <!-- Filled in per page by build/lib/prerender.mjs, so the definition is in
+         the HTML before any JavaScript runs. data-prerendered tells app.js to
+         leave the first render alone rather than blank this and redraw it once
+         the dictionary has downloaded. -->
+    <div id="entry-content" data-prerendered="/"><!--PRERENDER-BODY-->
+      <div class="entry-welcome">
+        <h1>Ẹ káàbọ̀.</h1>
+        <p>Search for a Yorùbá word with or without tone marks and underdots. Or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
+        <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
+      </div>
+    <!--/PRERENDER-BODY--></div>
   </section>
 </main>
 
@@ -129,7 +152,11 @@
 <!-- defer, so parsing it never holds up first paint. It sits at the end of
      <body> and so already runs after the DOM is built; the difference is that
      the parser no longer stops for it while it downloads. -->
-<script src="english-relevance.js" defer></script>
-<script src="app.js" defer></script>
+<!-- app.js is a module: it imports the entry renderer, which the build also
+     imports to write a real HTML file per word. english-relevance.js stays a
+     classic script and still runs first - deferred classic scripts go before
+     deferred modules - so its global is in place when app.js starts. -->
+<script src="/english-relevance.js" defer></script>
+<script type="module" src="/app.js"></script>
 </body>
 </html>

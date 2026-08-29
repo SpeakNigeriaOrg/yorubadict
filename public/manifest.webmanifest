@@ -1,0 +1,19 @@
+{
+  "name": "Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary",
+  "short_name": "Sọ̀rọ̀ Sókè",
+  "description": "A free Yorùbá–English dictionary built from Wiktionary. Search Yorùbá or English, in either direction, with tone marks or without.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#21295C",
+  "theme_color": "#21295C",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

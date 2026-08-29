@@ -8,10 +8,14 @@ Allow: /
 
 # The dictionary itself: several megabytes of JSON that render nothing on
 # their own, and whose content is already reachable as normal pages.
+#
+# This used to be a much bigger deal than it looked. When every word lived at a
+# hash route the only way to read one was to run the page's JavaScript, and that
+# JavaScript fetches this directory - so a crawler that renders JS was blocked
+# here and captured the page mid-load, showing "Loading the dictionary…". Both
+# halves of that are gone: each word now has its own address under /yo/ and its
+# own HTML file with the definitions already in it, and nothing has to be
+# executed to read one. Keeping this closed costs a crawler nothing now.
 Disallow: /data/
 
-# No Sitemap line on purpose. Every word lives at a hash route
-# (#/entry/<id>), which is not a separately crawlable URL, so a sitemap could
-# only ever list the front page. /sitemap.xml currently answers 200 with
-# index.html via the SPA fallback, so pointing at it would promise a sitemap
-# that isn't one.
+Sitemap: https://yorubadict.com/sitemap.xml

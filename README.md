@@ -43,7 +43,7 @@ rest:
 - **Everything runs in your browser.** No search requests leave your device
   after the page loads.
 
-See the in-app [About page](public/index.html) (`#/about`) for the
+See the in-app [About page](public/page-render.js) (`/about`) for the
 user-facing version of this pitch.
 
 **Status:** live at `yorubadict.com`, deployed via Cloudflare Pages -
@@ -107,31 +107,46 @@ rendering, routing — locally:
 | `data/validation-report.json` | ~580 KB | data-quality work queue (below), **not fetched on boot** |
 | `data/building-blocks.json` | ~19 KB | the Key Building Block Words list, **not fetched on boot** |
 
-That's roughly 14 MB fetched up front for ~6,270 entries. This is a
-deliberate tradeoff for simplicity and a genuinely offline-after-load
-experience, but it hasn't been tested at meaningfully larger scale. Neither
+That's roughly 14 MB fetched up front for ~6,270 entries. It no longer holds up
+first paint of an entry: `build/lib/prerender.mjs` writes the definitions into the
+HTML, so a reader arriving on a word sees it immediately and the dictionary
+downloads behind them, for search. Offline is genuine now too, via `public/sw.js`
+— see Deployment below for what that claim used to mean. Still untested at
+meaningfully larger scale. Neither
 the quality report nor the building-block list is part of it: nothing on the
 reading path needs either, so each is fetched the first time someone opens the
 page that shows it.
 
 ## The pages we write ourselves
 
-Everything else here comes from Wiktionary. These five don't, and they live as
-render functions in `public/app.js` dispatched from a `STATIC_ROUTES` table:
+Everything else here comes from Wiktionary. These don't. They live in
+`public/page-render.js`, which exports each one as a value — a path, a title, a
+one-line description for its `<meta>` tag, and a function returning the markup:
 
-| Route | Page |
+| Address | Page |
 |---|---|
-| `#/about` | About the Dictionary — what this is and where the data comes from |
-| `#/speak-nigeria` | About Speak Nigeria — the nonprofit behind it |
-| `#/learners` | For Learners — learn roots, then read what they build |
-| `#/teachers` | For Teachers — curriculum sequencing, and *when* to explain a compound |
-| `#/building-blocks` | Key Building Block Words — **generated**, see below |
-| `#/contribute` | A Wiktionary work queue — **generated**, see below |
+| `/` | The welcome screen |
+| `/about` | About the Dictionary — what this is and where the data comes from |
+| `/speak-nigeria` | About Speak Nigeria — the nonprofit behind it |
+| `/learners` | For Learners — learn roots, then read what they build |
+| `/teachers` | For Teachers — curriculum sequencing, and *when* to explain a compound |
+| `/building-blocks` | Key Building Block Words — **generated**, see below |
+| `/contribute` | A Wiktionary work queue — **generated**, see below |
 
-They render from markup already in `app.js`, so they paint on first load
-without the dictionary — `boot()` calls `handleRoute()` before fetching it for
-exactly this reason. Any new page must keep that property, and must set its own
-`document.title` and call `onEntryRendered()`.
+They return strings rather than writing to the document, because the same markup
+is needed twice: once by the page you are looking at, and once by
+`build/lib/prerender.mjs`, which writes each one to a real HTML file. A page whose
+text only exists after JavaScript runs reads as empty to a search engine, and
+About is the page that says where the data comes from and who made it.
+
+The two generated ones take their data as an argument, and are called with
+nothing when prerendered: the surrounding prose is the part worth reading and the
+part that keeps, and the list is only current when fetched. `app.js` fetches it on
+first visit and patches it into the element the page names by id — a contract
+asserted in `test/page-render.test.mjs`, because it broke once and broke silently.
+
+Any new page must still paint without the dictionary. Add it to the `PAGES` array
+and everything else — routing, the sitemap, the prerendered file — follows.
 
 **Voice:** simple sentences, concrete vocabulary, and an example rather than a
 description of one. Every claim about how Yorùbá builds words is followed by a
@@ -432,7 +447,7 @@ that convergence is a different kind of evidence:
 | `ìhà` | 5 | rib, side |
 | `aginjù` | 4 | desert, jungle, wilderness |
 
-Each gets a page at `#/mentioned/<word>` listing who names it and with which
+Each gets a page at `/mentioned/<word>` listing who names it and with which
 meaning. It is **not a stub entry** and the page says so throughout: a "no
 entry yet" badge, and no invented part of speech, pronunciation, etymology or
 definition. A guessed lexicographic fact presented as an entry would be worse
@@ -510,7 +525,7 @@ Yorùbá has 533 multi-etymology pages and 16 of them carry any anchor at all.
 `agbẹjọro` is the shape of the gap: someone wrote `gbà id=take`, `ẹjọ́ id=law`,
 `rò id=think` — exactly right — and no page ever got the matching
 `{{etymid}}`. Three careful references pointing at nothing. That is what
-`#/contribute` exists to fix; see "Contribute" below.
+`/contribute` exists to fix; see "Contribute" below.
 
 Two details worth knowing if you touch this. Anchors are keyed on every
 spelling an entry answers to (`spellingsForEntry`), not the page title — the
@@ -678,7 +693,7 @@ visible to the reader rather than hidden. It also keeps the two lists worth
 different amounts: "Used in" can be read as a fact.
 
 Anchoring an etymology on Wiktionary moves items from the second list to the
-first, permanently. That is what `#/contribute` asks people to do.
+first, permanently. That is what `/contribute` asks people to do.
 
 ### Orthographic normalization
 
@@ -853,19 +868,89 @@ correct gloss can legitimately just be "that"/"this"/"and"/"or" — filtering
 those out as noise words meant the word was defined correctly on the page
 but could never be found by searching for its own definition.
 
-### Entry IDs and routing
+### Entry IDs and web addresses
 
 Each entry's id is its first sense's Kaikki-assigned sense id (e.g.
 `en-fa-yo-verb-OFVmd8R8`) — a stable, source-derived identifier that doesn't
 depend on our own spelling-normalization decisions, and stays stable across
-rebuilds even if a headword's canonical spelling changes.
+rebuilds even if a headword's canonical spelling changes. It is still the id
+everything internal keys on, and it is still printed at the bottom of every page.
 
-Routing is hash-based (`#/entry/<id>`, `#/about`) rather than path-based.
-Two reasons: spellings aren't unique — many homographs share a spelling —
-so an id-based route is more correct regardless of URL style; and hash
-routes need zero server-side rewrite configuration on any static host,
-keeping the "fully static, zero backend" property airtight. Deep links,
-bookmarks, and the back button all work.
+It is no longer the address. **Every word has its own address under `/yo/`:**
+
+```
+/yo/gba/take     /yo/ile/home     /yo/ro/ache     /yo/owo/money
+```
+
+After the prefix comes the spelling with tone marks and underdots removed, then
+one English word. `build/lib/address.mjs` decides the spelling and
+`data/url-slugs.json` records the word — see `tools/slugs/README.md` for why that
+word is written down rather than worked out on each build.
+
+#### Why the `/yo/` prefix
+
+The addresses were `/gba/take` for a while. That reads better and it hands the
+entire root namespace to the dictionary: **4,343 top-level segments taken**, and
+every page the site might ever want — `/donate`, `/blog`, `/api` — has to
+negotiate with all of them. The build does fail loudly on a collision, but
+loudly arrives after somebody has decided to add the page, and by then the word
+got there first and moving it costs a redirect against a hard limit of 2,000.
+
+Flattening instead — `/yo/gba-take` — does not work. 576 spellings contain a
+hyphen and so do 1,534 words, so `/yo/aso-oke-cloth` cannot be split back into a
+spelling and a word; 252 addresses have hyphens on both sides.
+
+So: one reserved segment, two after it. The root stays free permanently, `/yo/`
+is somewhere real to put an index, and if the dictionary ever runs the other
+direction it has an obvious home.
+
+#### `/yo/<spelling>` — the words written one way
+
+`/yo/gba` lists the nine different words spelled `gba`, each linking to its own
+entry. Written only where more than one word shares a spelling — **836 pages** —
+because a page listing a single word says nothing that word's own page does not,
+and would compete with it in a search index. A spelling written by one word has
+no such page and answers 404.
+
+It exists because that URL used to 404 while holding obvious content: somebody
+who truncates an address, or searches "gba meaning", wants exactly that list.
+
+Dropping tone from the *address* loses a real distinction, since `gbà` and `gbá`
+are different words. The English word is what carries it back, which is why the
+word is chosen per spelling group rather than per entry: the nine entries spelled
+`gba` are named against each other, so they cannot collide. Measured over the
+whole dictionary, 4,343 groups hold 6,273 entries and the largest holds 37.
+
+Tone is never dropped from the page. Both spellings are shown with their marks.
+
+#### What this replaced, and why
+
+Routing used to be hash-based — `#/entry/<id>`, `#/about`. That was a defensible
+choice for a static host and a bad one for a dictionary, in a way that took a
+while to see. A fragment is never sent to a server, so all 6,273 words answered
+at **one URL**, and the only page a search engine could see was the front one.
+Google's `#!`-crawling scheme was removed in 2015.
+
+Three more things compounded it, and each alone was enough:
+
+- A crawler that *does* run JavaScript was locked out too. `robots.txt` disallows
+  `/data/`, which is where the dictionary is, so a renderer got as far as
+  "Loading the dictionary…" and captured that.
+- Search results were `<button>`s with click handlers, so there was no link graph
+  to follow at all. The only crawlable word links anywhere were ~30 ids written
+  by hand into prose pages.
+- Only `document.title` changed per word. No description, no canonical, no
+  sitemap, and `<html lang="en">` never switched for Yorùbá content.
+
+So the fix is not only the address. `build/lib/prerender.mjs` writes a real HTML
+file per word — definitions in the markup, the word's own title and description, a
+canonical URL, Schema.org `DefinedTerm`, and ordinary `<a>` links — and search
+results are `<a>`s now.
+
+Old hash links still work. They can only be redirected in the page, because a
+fragment never reaches a server, so `redirectLegacyHash*` in `public/app.js` does
+it and should stay there indefinitely: those links are in other people's pages and
+messages, and they were the only kind this dictionary had for its first year.
 
 ## Staying fresh: this build is not automated (kaikki-yoruba's is)
 
@@ -899,10 +984,18 @@ fixture going forward - generated by running kaikki-yoruba's own
 ## Deployment: Cloudflare Pages
 
 Live at `yorubadict.com`. There's no backend, no server-side routing, no
-environment variables, and no secrets. Because routing is hash-based, the
-URL fragment never reaches the server, so deployment is just "serve
-`public/` as static files" — no `_redirects` rewrite rule needed, unlike a
-typical single-page app using `history.pushState`.
+environment variables, and no secrets. Deployment is still just "serve `public/`
+as static files" — and it stays that way with path-based addresses, because every
+address has a real file behind it. `public/_redirects` holds only 301s for
+addresses that have been retired.
+
+There is deliberately **no catch-all rewrite** (`/* /index.html 200`). It is the
+usual thing to add for a `pushState` app, and it would be wrong here: every real
+address has a file, so a catch-all would answer every typo with 200 and an empty
+shell — a soft 404, which a crawler reads as a page. Unknown paths should 404, and
+Cloudflare Pages does that on its own. `server/dev-server.mjs` was fixed to match;
+it used to answer any unknown path with 200 and `index.html`, which would have
+hidden a missing prerendered page.
 
 `public/_headers` puts every file on `max-age=0, must-revalidate`, replacing
 the `max-age=14400` Pages applies to static assets by default. **Nothing here
@@ -920,25 +1013,38 @@ filenames *first* and then use `max-age=31536000, immutable`; lengthening the
 window without fingerprints just widens the blast radius of a bad deploy. The
 file itself explains the trade in full.
 
-**Currently configured**: Cloudflare Pages' build command is none, output
-directory `public/` - it auto-deploys on every push to `main`, serving
-exactly whatever `public/data/*.json` is committed at that point. This
-means a fresh `npm run build` + commit + push is still a manual step (see
-"Staying fresh" above) - pushing is what triggers the deploy, but nothing
-currently triggers *that* push on its own.
+**Build command: `npm run build`**, output directory `public/`. This changed
+when prerendering arrived and it had to: the build now writes ~6,280 HTML files,
+about 66 MB, and committing that would mean thousands of churned files in every
+data refresh and a repository that grows each week. They are gitignored and
+Cloudflare writes them at deploy time.
 
-**Alternative not currently used**: set the build command to `npm run build`
-so Cloudflare regenerates `public/data` on every deploy by fetching
-kaikki-yoruba's latest release directly, instead of relying on a committed
-snapshot. This would need the build environment to have outbound network
-access to GitHub (true of Cloudflare Pages' build environment) - a real new
-dependency the old, pre-retargeting build never had (it only ever read a
-locally committed file).
+The cost of that, stated plainly: **publishing can now fail in a way it could
+not before.** The build fetches kaikki-yoruba's latest release from GitHub, so if
+that fetch fails the deploy fails, where previously it only ever copied committed
+files. In exchange the pages can never be stale against the data they were built
+from. If that trade ever stops being worth it, the alternative is to commit
+`public/*/*/index.html` and set the build command back to none.
 
-If you ever want path-based URLs instead of hash routes, that mainly means
-adding a rewrite rule on your host (e.g. `/* /index.html 200` on Cloudflare
-Pages) and swapping `location.hash` for `history.pushState` in `app.js` —
-the entry-rendering code itself doesn't change.
+### Offline
+
+`public/sw.js` caches the shell and the three data files on a first visit, and
+answers a word it has no file for with the shell — `app.js` then renders that word
+from the cached dictionary. So one visit makes **every** word work offline,
+including ones never opened.
+
+Before this there was no service worker and no manifest, and `_headers` puts every
+file on `max-age=0, must-revalidate`. What "offline-after-load" actually meant was
+"an open tab keeps working, because the dictionary is in memory"; reloading offline
+got the browser's error page.
+
+The version check in `sw.js` is not optional, and the comment at the top of that
+file explains why at length. `_headers` exists to stop a visitor holding old
+JavaScript against a new dictionary; a service worker is a cache with no expiry,
+which is that same problem with the volume turned up. So the cache is named after
+`data/version.json`'s build stamp, the stamp is fetched from the network on every
+activation, and a changed stamp throws the whole set away rather than refreshing
+part of it.
 
 ## Project layout
 

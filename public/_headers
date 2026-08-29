@@ -28,6 +28,22 @@
 # has to fetch them regardless.
 #
 # ---------------------------------------------------------------------------
+# The service worker holds the same line
+# ---------------------------------------------------------------------------
+# public/sw.js caches the shell and the data so the dictionary works offline,
+# and a service-worker cache has no expiry at all - which is the problem above
+# with the volume turned up. So it does not get to decide for itself when its
+# copy is stale: the cache is named after data/version.json's build stamp, that
+# stamp is fetched from the network on every activation, and a changed stamp
+# throws the whole set away rather than refreshing part of it. Never a partial
+# update, for the same reason as everything above: app.js and entries.json ship
+# as a matched pair.
+#
+# sw.js and data/version.json are covered by the /* rule below, which is what
+# has to happen - a cached service worker or a cached build stamp is a cache
+# that cannot be told it is wrong.
+#
+# ---------------------------------------------------------------------------
 # When to change this
 # ---------------------------------------------------------------------------
 # If repeat-visit latency ever matters enough to want real caching, lengthen

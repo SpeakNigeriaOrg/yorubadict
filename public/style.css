@@ -297,6 +297,10 @@ a { color: inherit; }
   .results-pane { border-right: none; border-bottom: 1px solid var(--border-subtle); }
 }
 
+/* An <a> since the search pane started producing real links - it was a
+   <button>, which meant no link graph for a crawler and no middle-click or
+   "copy link address" for a reader. The two declarations a button did not need:
+   without them every row is underlined and browser-blue. */
 .result-item {
   display: block;
   width: 100%;
@@ -307,6 +311,8 @@ a { color: inherit; }
   cursor: pointer;
   border-left: 3px solid transparent;
   font-family: var(--font-body);
+  text-decoration: none;
+  color: inherit;
 }
 
 .result-item:hover, .result-item.active {

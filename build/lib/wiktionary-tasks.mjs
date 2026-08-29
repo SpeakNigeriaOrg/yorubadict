@@ -21,6 +21,7 @@
 // first hour of editing worth far more than the tenth.
 
 import { toneInsensitiveForm } from './orthography.mjs';
+import { wordFromDefinition, FILLER } from './address.mjs';
 
 const MAX_REFERENCES_PER_PAGE = 60;
 const MAX_PAGES = 120;
@@ -43,7 +44,6 @@ const firstDefinition = (entry) => {
 const words = (text) =>
   new Set((text || '').toLowerCase().match(/[a-z0-9]+/g) || []);
 
-const FILLER = new Set(['to', 'a', 'an', 'the', 'of', 'be', 'in', 'on', 'or', 'and', 'is']);
 
 // A definition that only points at another entry says nothing about meaning,
 // so it can never be evidence for a match. It is still a real section and can
@@ -85,24 +85,21 @@ function meaningMatchesDefinition(meaning, definition) {
 // uses: tie down, deputize, wait, arrive, cover. Short, from the first
 // definition, and stable - the docs are explicit that changing an id later
 // breaks every reference pointing at it.
+//
+// The word itself comes from build/lib/address.mjs, which names the site's own
+// pages by the same rule. One rule, because the two jobs answer the same
+// question - what is the shortest honest English word for this meaning - and
+// keeping two copies of it meant fixing one and not the other. It did: the copy
+// that used to live here deleted punctuation instead of splitting on it, so
+// "he/she/it" became "hesheit", and that name is on en.wiktionary now, on o's
+// third etymology. An {{etymid}} is a permanent contract once anyone links to
+// it, so a bad one is worth this much care.
+//
+// What stays here is the shape Wiktionary wants: names with spaces rather than
+// hyphens ("tie down", not "tie-down"), and page-scoped uniqueness.
 function proposeSlug(definition, taken) {
-  let parts = (definition || '')
-    .toLowerCase()
-    .replace(/\(.*?\)/g, ' ')
-    .replace(/^to\s+/, '')
-    .split(/[;,]/)[0]
-    .replace(/[^a-z0-9\s-]/g, '') // no apostrophe: see validateName
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  // Leading articles and trailing prepositions make for bad names: "the place
-  // of" and "use something to" were both proposed before this. The id is a
-  // permanent contract once anyone links to it, so it should read like one.
-  while (parts.length > 1 && ['the', 'a', 'an'].includes(parts[0])) parts.shift();
-  parts = parts.slice(0, 3);
-  while (parts.length > 1 && FILLER.has(parts[parts.length - 1])) parts.pop();
-  const base = parts.join(' ').trim();
-  let slug = base || 'sense';
+  const base = wordFromDefinition(definition).replace(/-/g, ' ') || 'sense';
+  let slug = base;
   let n = 2;
   while (taken.has(slug)) slug = `${base} ${n++}`;
   taken.add(slug);

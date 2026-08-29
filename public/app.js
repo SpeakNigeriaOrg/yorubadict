@@ -3,6 +3,13 @@
 // Runtime responsibilities (per spec section 3.2): load the prebuilt
 // browser-ready assets, perform all searches locally, render entries,
 // navigate between entries. No network requests after initial load.
+//
+// The markup for an entry is not here any more - it is in entry-render.mjs,
+// which the build also imports so it can write a real HTML file per word. This
+// file is what turns those strings into a page you can click around.
+
+import { createEntryRenderer } from './entry-render.js';
+import { createPageRenderer } from './page-render.js';
 
 (function () {
   'use strict';
@@ -57,6 +64,56 @@
       .replace(UNDERDOT_MARKS, '')
       .normalize('NFC')
       .toLowerCase();
+  }
+
+  // ---------------------------------------------------------------
+  // The entry renderer
+  //
+  // Built once, used for every page. The entry map is handed over as a getter
+  // rather than a value because it is null right now: boot() paints the page
+  // before the dictionary arrives, deliberately, so a link to a word does not
+  // show a blank while 12 MB downloads.
+  // ---------------------------------------------------------------
+
+  const renderer = createEntryRenderer({
+    get entries() {
+      return state.entries || {};
+    },
+    get mentionedByKey() {
+      return (state.index && state.index.mentioned && state.index.mentioned.byKey) || {};
+    },
+    pathFor: (entryId) => pathForEntry(entryId),
+    mentionedPath: (spelling) => `/mentioned/${encodeURIComponent(spelling)}`,
+    pagePath: (name) => (name === 'welcome' ? '/' : `/${name}`),
+    orthographyInsensitive,
+  });
+
+
+  const {
+    entryHtml,
+    titleFor,
+    section,
+    escapeHtml,
+    firstGloss,
+    relationPillsHtml,
+    mentionedPathFor,
+  } = renderer;
+
+  // After the destructure above, because it is handed escapeHtml by value.
+  const pages = createPageRenderer({
+    pathFor: (entryId) => pathForEntry(entryId),
+    pagePath: (name) => (name === 'welcome' ? '/' : `/${name}`),
+    escapeHtml,
+  });
+
+  // A prerendered page already holds its entry. handleRoute leaves the first
+  // route alone so the markup that arrived is the markup that stays; see there.
+  let hydrated = false;
+
+  /** Put an entry on the page. The markup itself comes from entry-render.js. */
+  function renderEntry(entry) {
+    els.entryContent.innerHTML = entryHtml(entry);
+    document.title = titleFor(entry);
   }
 
   // ---------------------------------------------------------------
@@ -216,12 +273,6 @@
   // Rendering: results list
   // ---------------------------------------------------------------
 
-  function firstGloss(entry) {
-    for (const sense of entry.senses) {
-      if (sense.glosses && sense.glosses[0]) return sense.glosses[0];
-    }
-    return '';
-  }
 
   function renderResults(results) {
     state.activeResults = results;
@@ -246,9 +297,20 @@
     els.resultsList.setAttribute('role', 'listbox');
 
     results.forEach((entry, i) => {
-      const btn = document.createElement('button');
+      // An <a>, not a <button>. These were buttons with click handlers, which
+      // meant the search pane produced no links at all - so on top of every word
+      // living at one URL, there was no link graph for a crawler to follow even
+      // if there had been. It also cost readers the ordinary things a link does:
+      // middle-click, copy link address, open in a new tab.
+      //
+      // role="option" is kept, and so is the keyboard handling in
+      // onSearchKeydown: this is a listbox to a screen reader, and being a link
+      // does not change that. Navigation itself is handled by the delegated
+      // click listener in interceptLinks, like every other internal link.
+      const btn = document.createElement('a');
       btn.className = 'result-item';
       btn.setAttribute('role', 'option');
+      btn.href = pathForEntry(entry.id);
       btn.dataset.index = String(i);
       // A dialect-tier hit isn't a spelling of this headword - it's a word a
       // variety uses for it - so the row says which varieties matched instead
@@ -272,7 +334,6 @@
         ${dialectNote}
         ${relationNote}
       `;
-      btn.addEventListener('click', () => navigateTo(entry.id));
       els.resultsList.appendChild(btn);
     });
 
@@ -319,11 +380,6 @@
   // Rendering: entry detail
   // ---------------------------------------------------------------
 
-  function escapeHtml(s) {
-    return String(s || '').replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-    }[c]));
-  }
 
   // ---------------------------------------------------------------
   // Dialect synonyms
@@ -336,77 +392,8 @@
   // bury the definition.
   // ---------------------------------------------------------------
 
-  function dialectTermHtml(term) {
-    const label = escapeHtml(term.term);
-    const notes = [term.gloss, term.qualifier].filter(Boolean).join('; ');
-    return `<span class="dialect-term">${label}${notes ? ` <span class="dialect-term-gloss">${escapeHtml(notes)}</span>` : ''}</span>`;
-  }
 
-  function dialectSynonymsHtml(entry) {
-    const sets = entry.dialectSynonyms || [];
-    if (sets.length === 0) return '';
 
-    return sets.map((set) => {
-      const varietyCount = set.groups.reduce((n, g) => n + g.varieties.length, 0);
-      const wiktionaryUrl = `https://en.wiktionary.org/wiki/${encodeURIComponent(entry.headword)}#Yoruba`;
-
-      const groupsHtml = set.groups.map((group) => `
-        <div class="dialect-group">
-          ${group.group ? `<h4 class="dialect-group-name">${escapeHtml(group.group)}</h4>` : ''}
-          <dl class="dialect-rows">
-            ${group.varieties.map((v) => `
-              <dt>${escapeHtml(v.display || v.name)}</dt>
-              <dd>${v.terms.map(dialectTermHtml).join('<span class="dialect-sep" aria-hidden="true">·</span>')}</dd>
-            `).join('')}
-          </dl>
-        </div>
-      `).join('');
-
-      return `
-        <details class="dialect-panel">
-          <summary>
-            <span class="dialect-summary-label">Dialectal synonyms</span>
-            ${set.gloss ? `<span class="dialect-summary-gloss">“${escapeHtml(set.gloss)}”</span>` : ''}
-            <span class="dialect-summary-count">${varietyCount} varieties</span>
-          </summary>
-          <div class="dialect-body">
-            ${groupsHtml}
-            <a class="dialect-source" href="${wiktionaryUrl}" target="_blank" rel="noopener noreferrer">
-              View the dialect map on Wiktionary ↗
-            </a>
-          </div>
-        </details>
-      `;
-    }).join('');
-  }
-
-  // The reverse view, on an entry that *is* a dialect form of something else.
-  // Deliberately distinct from Wiktionary's own "alternative form of" sense:
-  // an alt form claims two spellings are the same word, a dialect synonym
-  // claims a variety uses a different word. An entry can be both, and then
-  // both are shown.
-  function dialectOfHtmlFor(entry) {
-    const rels = (entry.synthesizedRelations || []).filter((r) => r.type === 'dialectOf');
-    if (rels.length === 0) return '';
-
-    const lines = rels.map((rel) => {
-      const target = state.entries[rel.entryId];
-      if (!target) return '';
-      const varieties = (rel.varieties || []).join(', ');
-      return `
-        <div class="dialect-of-line">
-          <span class="dialect-of-varieties">${escapeHtml(varieties)}</span>
-          <span class="dialect-of-verb">dialect form of</span>
-          <a class="relation-pill" href="#/entry/${encodeURIComponent(rel.entryId)}">
-            ${escapeHtml(target.canonicalForm.value)}
-            <span class="pos-hint">${escapeHtml(target.pos || '')}</span>
-          </a>
-        </div>
-      `;
-    }).filter(Boolean).join('');
-
-    return lines ? section('Dialect', `<div class="dialect-of">${lines}</div>`) : '';
-  }
 
   // A pill stands for one word, not one database row. Where several entries
   // share a spelling we have to pick one to link to, and that pick is
@@ -417,173 +404,16 @@
   // identical "dá verb" pills); rendering one pill and saying nothing hides a
   // wrong guess behind a confident link. So: one pill, with every alternative
   // reachable from it and the reason we're unsure stated in words.
-  let pillGroupSeq = 0;
 
-  function ambiguityPillHtml(chosenId, candidateIds, opts) {
-    const o = opts || {};
-    const target = state.entries[chosenId];
-    if (!target) return '';
 
-    const label = o.label != null ? o.label : target.canonicalForm.value;
-    const hint = o.hint != null ? o.hint : target.pos || '';
-    const cls = o.synthesized ? 'relation-pill synthesized' : 'relation-pill';
-    const searchAttr = o.searchForm ? ` data-search-form="${escapeHtml(o.searchForm)}"` : '';
-    const pill =
-      `<a class="${cls}" href="#/entry/${encodeURIComponent(chosenId)}"${searchAttr}>${escapeHtml(label)}` +
-      `${hint ? `<span class="pos-hint">${escapeHtml(hint)}</span>` : ''}</a>`;
 
-    // A badge marks doubt, not homography. Where we had evidence and it
-    // settled the question, the pill is a plain link: if it's still wrong,
-    // the entry it lands on lists its own siblings, so the way back exists on
-    // every page whether or not we flagged it here. Badging every shared
-    // spelling instead put a badge on 22% of all pages, and a warning that
-    // common stops being read as a warning.
-    const all = (candidateIds && candidateIds.length ? candidateIds : [chosenId]).filter(
-      (id) => state.entries[id]
-    );
-    if (all.length < 2 || !o.uncertain) return `<span class="pill-group">${pill}</span>`;
 
-    const panelId = `pill-alts-${++pillGroupSeq}`;
-    const rows = all
-      .map((id) => {
-        const alt = state.entries[id];
-        return `<a class="sibling-row${id === chosenId ? ' current' : ''}" href="#/entry/${encodeURIComponent(id)}">
-          <span class="sibling-word">${escapeHtml(alt.canonicalForm.value)}</span>
-          <span class="sibling-meta">${escapeHtml(alt.pos || '')}${alt.etymologyNumber ? ` · etym. ${escapeHtml(alt.etymologyNumber)}` : ''}</span>
-          <span class="sibling-gloss">${escapeHtml(firstGloss(alt))}</span>
-        </a>`;
-      })
-      .join('');
 
-    return `<span class="pill-group has-alts">
-      ${pill}
-      <button type="button" class="pill-more" aria-expanded="false" aria-controls="${panelId}"
-        title="${escapeHtml(o.note || `${all.length} entries share this spelling`)}">${all.length}</button>
-      <span class="pill-alternatives" id="${panelId}" hidden>
-        <span class="pill-alternatives-note">${escapeHtml(o.note || `${all.length} entries share this spelling. We link to the first.`)}</span>
-        ${rows}
-      </span>
-    </span>`;
-  }
-
-  // Several relations pointing at entries that share a spelling and part of
-  // speech render as indistinguishable pills, so they're folded into one
-  // group. Relations pointing at different spellings are different words (a
-  // compound is derived from each of its components) and keep their own pills.
-  function groupBySpelling(items) {
-    const groups = new Map();
-    for (const item of items || []) {
-      const ids = (item.entryIds && item.entryIds.length ? item.entryIds : [item.entryId]).filter(
-        (id) => state.entries[id]
-      );
-      if (!ids.length) continue;
-      const target = state.entries[ids[0]];
-      const key = `${target.forms.exact} ${target.pos || ''}`;
-      if (!groups.has(key)) {
-        groups.set(key, { chosen: ids.includes(item.entryId) ? item.entryId : ids[0], ids: [], resolution: item.resolution });
-      }
-      const g = groups.get(key);
-      for (const id of ids) if (!g.ids.includes(id)) g.ids.push(id);
-    }
-    return [...groups.values()];
-  }
-
-  function ambiguityNote(count, spelling) {
-    return `Wiktionary lists this word under ${count} separate “${spelling}” entries and does not say which one it comes from. Any of these could be the root.`;
-  }
-
-  // Why a component word links where it does. Only ever shown when we
-  // couldn't settle it, so it never has to explain a pick that was right.
-  function morphemeNote(morpheme, count) {
-    const spelling = morpheme.form;
-    if (morpheme.chosenBy === 'meaningTied') {
-      return `${count} entries are spelled “${spelling}”. The etymology calls it “${morpheme.gloss}”, but that isn't enough to tell them apart — we've linked to the first.`;
-    }
-    return `${count} entries are spelled “${spelling}”, and the etymology doesn't say which one this word is built from — we've linked to the first.`;
-  }
-
-  function relationPillsHtml(list, extraSynthesized, currentEntry) {
-    const elements = [];
-    const selfId = currentEntry ? currentEntry.id : null;
-
-    for (const rel of list || []) {
-      // Flattened dialect tables used to arrive here as debris, with a
-      // synthetic "external_link" item standing in for whatever had been
-      // dropped. They're now imported from Wiktionary's own source modules
-      // and rendered by renderDialectSynonyms instead, so both are gone.
-      if (rel.type === 'external_link') continue;
-
-      // A descendant in another language has no Yoruba entry to link to by
-      // definition. It used to be matched against the Yoruba index anyway,
-      // which turned English "dodo" into eight Yoruba dòdò pills.
-      if (rel.foreign) {
-        elements.push(`<span class="pill-group"><span class="relation-pill foreign">${escapeHtml(rel.text)}${
-          rel.lang ? `<span class="pos-hint">${escapeHtml(rel.lang)}</span>` : ''
-        }</span></span>`);
-        continue;
-      }
-
-      if (rel.resolved && rel.entryIds && rel.entryIds.length > 0) {
-        const ids = rel.entryIds.filter((id) => state.entries[id] && id !== selfId);
-        if (!ids.length) continue;
-        const spelling = state.entries[ids[0]].forms.exact;
-        // Nothing in a declared relation list says which homograph is meant,
-        // so a multi-candidate one is always a guess.
-        elements.push(
-          ambiguityPillHtml(ids[0], ids, {
-            uncertain: ids.length > 1,
-            note: `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
-          })
-        );
-      } else {
-        // A word with no entry is still a dead end unless enough other entries
-        // name it to be worth a page of its own. 157 of them clear that bar.
-        const mentionedHref = mentionedPathFor(rel.text);
-        elements.push(
-          mentionedHref
-            ? `<span class="pill-group"><a class="relation-pill unresolved mentioned" href="${mentionedHref}" title="No entry yet - see which words name it">${escapeHtml(rel.text)}</a></span>`
-            : `<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`
-        );
-      }
-    }
-
-    for (const group of groupBySpelling(extraSynthesized)) {
-      const ids = group.ids.filter((id) => id !== selfId);
-      if (!ids.length) continue;
-      const chosen = ids.includes(group.chosen) ? group.chosen : ids[0];
-      const spelling = state.entries[chosen].forms.exact;
-      // Two different reasons a group holds more than one entry, and only one
-      // of them is doubt. A "Derived from" group is competing readings of a
-      // single claim, settled or not (resolution.method). A "Used in" group is
-      // several genuinely distinct compounds that happen to share a spelling —
-      // nothing is uncertain there, but collapsing them would hide real words,
-      // so the count has to stay.
-      const method = group.resolution && group.resolution.method;
-      const uncertain = ids.length > 1 && method !== 'glossOverlap' && method !== 'unique';
-      elements.push(
-        ambiguityPillHtml(chosen, ids, {
-          synthesized: true,
-          uncertain,
-          note: method
-            ? ambiguityNote(ids.length, spelling)
-            : `${ids.length} different words are spelled “${spelling}”, and this word is part of each of them.`,
-        })
-      );
-    }
-
-    return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
-  }
 
   // ---------------------------------------------------------------
   // Words other entries name, and this dictionary has no page for
   // ---------------------------------------------------------------
 
-  /** The landing-page path for a word, or '' if it has no page. */
-  function mentionedPathFor(text) {
-    const byKey = (state.index && state.index.mentioned && state.index.mentioned.byKey) || {};
-    const key = orthographyInsensitive(text || '');
-    return byKey[key] ? `#/mentioned/${encodeURIComponent(byKey[key])}` : '';
-  }
 
   // Deliberately not an entry, and it has to keep saying so. Nothing here invents
   // a part of speech, a pronunciation, an etymology or a definition - it reports
@@ -653,780 +483,233 @@
       });
   }
 
-  // Wiktionary attaches these to a single MEANING, not to the word, so they render
-  // with the meaning they belong to. sun's second etymology means both "to roast"
-  // and "to burn; to set on fire", and the two have completely different sets:
-  // yan and wì against jó, jóná and dáná sun. Pooling them into one list at the
-  // bottom of the page - which is all the entry-level sections could ever do -
-  // would claim yan is a word for setting fires.
-  //
-  // Plain-word labels rather than the bottom sections' titles. Entry-level
-  // derivedTerms genuinely co-occurs with sense-level ones on the same page, and
-  // two blocks both headed "Derived terms" reads as a mistake. These also say what
-  // the relationship is to someone who has never met the word "hypernym".
-  const SENSE_RELATION_LABELS = [
-    ['synonyms', 'Similar words'],
-    ['antonyms', 'Opposites'],
-    ['derivedTerms', 'Built from this meaning'],
-    ['relatedTerms', 'Related words'],
-    ['hypernyms', 'A kind of'],
-    ['hyponyms', 'Kinds of this'],
-    ['coordinateTerms', 'Others in the same set'],
-  ];
 
-  function senseRelationsHtml(sense, entry) {
-    const rows = [];
-    for (const [field, label] of SENSE_RELATION_LABELS) {
-      // `|| []` throughout: an artifact published before sense relations existed
-      // has none of these keys, and the site has to keep working against it while
-      // the two repos' refresh workflows land hours apart.
-      const pills = relationPillsHtml(sense[field] || [], [], entry);
-      if (!pills) continue;
-      rows.push(
-        `<div class="sense-relation"><span class="sense-relation-label">${label}</span>${pills}</div>`
-      );
-    }
-    return rows.length ? `<div class="sense-relations">${rows.join('')}</div>` : '';
-  }
 
-  // "wì is another word for sun, in its 'to roast' meaning" - the reverse of a
-  // link sun declared and wì never did. Naming the meaning is the whole point: sun
-  // has eleven of them across seven etymologies, so "listed as a synonym of sun"
-  // on its own says almost nothing.
-  //
-  // The meaning is looked up rather than shipped. The build sends sourceSenseIndex
-  // and the browser already holds the source entry.
-  function namedByHtml(entry, type) {
-    const rows = (entry.synthesizedRelations || []).filter((r) => r.type === type);
-    if (!rows.length) return '';
-    const items = rows.map((rel) => {
-      const source = state.entries[rel.entryId];
-      if (!source) return '';
-      const meaning =
-        rel.sourceSenseIndex !== undefined && source.senses[rel.sourceSenseIndex]
-          ? (source.senses[rel.sourceSenseIndex].glosses || []).join('; ')
-          : '';
-      const pill = relationPillsHtml([], [rel], entry);
-      return `<div class="named-by-row">${pill}${
-        meaning ? `<span class="named-by-meaning">${escapeHtml(meaning)}</span>` : ''
-      }</div>`;
-    });
-    return items.filter(Boolean).join('');
-  }
 
-  // 943 entries carry more than one competing etymology, and the sections are
-  // flattened into a single list of parts. Where two analyses overlap, the
-  // shared part is listed once per analysis: nìtorí is recorded both as
-  // ní + ìtorí and as ní + ti + orí, so "ní" appeared twice — once bare and
-  // once glossed "on, at" — reading as though the word had five parts, two of
-  // them the same. Only the copies are folded together, never two parts that
-  // carry different meanings: àmọ̀tẹ́kùn really is à- + mọ̀ + tó ("that") +
-  // tó ("is equal to") + ẹkùn, and both tó belong there.
-  //
-  // Done here rather than in the build because the duplicate is in the source
-  // and the pipeline's rule is to supplement it, never to drop from it.
-  function foldRepeatedMorphemes(morphemes) {
-    const out = [];
-    for (const m of morphemes) {
-      const twinIndex = out.findIndex(
-        (o) => o.form === m.form && !(o.gloss && m.gloss && o.gloss !== m.gloss)
-      );
-      if (twinIndex === -1) {
-        out.push(m);
-      } else if (!out[twinIndex].gloss && m.gloss) {
-        out[twinIndex] = m; // keep whichever copy actually says what it means
-      }
-    }
-    return out;
-  }
 
-  // A word's parts, one line per decomposition. 81 entries record more than
-  // one way of breaking the same word down, and they are alternatives rather
-  // than parts of a single longer word: nìtorí is ní + ìtorí *or*
-  // ní + ti + orí, and mùwé is mọ̀ + ùwé in Èkìtì and Oǹdó *or* mù + ùwé in
-  // Ìjẹ̀bú. Run together in one list they read as a four-part word that
-  // nobody has ever proposed - and joining them with "+" is what makes the
-  // section teach anything, since the structure is the point.
-  function morphemesHtml(allMorphemes) {
-    const morphemes = allMorphemes || [];
-    if (!morphemes.length) return '';
 
-    // Grouping comes from upstream (see kaikki-yoruba's extractEtymologyMorphemes,
-    // where it is the only place the template boundaries are still visible).
-    // Data published before that lands has no `analysis`, so it keeps the old
-    // flat rendering, with repeats folded to hide the worst of the confusion.
-    if (morphemes.every((m) => typeof m.analysis === 'number')) {
-      const groups = [];
-      for (const m of morphemes) {
-        const g = groups.find((x) => x.analysis === m.analysis);
-        if (g) g.items.push(m);
-        else groups.push({ analysis: m.analysis, items: [m] });
-      }
-      const note =
-        groups.length > 1
-          ? `<div class="morpheme-note">Wiktionary records ${groups.length} different ways of breaking this word down. Each line is one of them, not a further part.</div>`
-          : '';
-      return (
-        note +
-        groups
-          .map(
-            (g) =>
-              `<div class="morpheme-analysis">${g.items
-                .map(morphemePillHtml)
-                .join('<span class="morpheme-plus" aria-hidden="true">+</span>')}</div>`
-          )
-          .join('')
-      );
-    }
 
-    return legacyFlatMorphemesHtml(foldRepeatedMorphemes(morphemes));
-  }
 
-  // Exactly one element per morpheme, regardless of how many entries share
-  // its spelling: every entryId on a morpheme refers to the SAME text from the
-  // SAME etymology template, so one pill per entryId would just repeat
-  // identical text. The upstream resolver's tone-exact filter can only narrow
-  // to the tone group, never within it, so on a shared spelling this shows one
-  // candidate — badged when choosing it was a guess.
-  function morphemePillHtml(m) {
-    const glossHtml = m.gloss ? `<span class="pos-hint">${escapeHtml(m.gloss)}</span>` : '';
-    if (m.bound) {
-      return `<span class="pill-group"><span class="relation-pill unresolved" title="Word part — not used on its own">${escapeHtml(m.form)}${glossHtml}</span></span>`;
-    }
-    if (m.resolved && m.entryIds && m.entryIds.length > 0) {
-      const ids = m.entryIds.filter((id) => state.entries[id]);
-      if (ids.length) {
-        const chosen = ids.includes(m.chosenEntryId) ? m.chosenEntryId : ids[0];
-        return ambiguityPillHtml(chosen, ids, {
-          label: m.form,
-          hint: m.gloss || '',
-          searchForm: m.form,
-          uncertain: ids.length > 1 && m.chosenBy !== 'meaning' && m.chosenBy !== 'anchor',
-          note: morphemeNote(m, ids.length),
-        });
-      }
-    }
-    return `<span class="pill-group"><span class="relation-pill unresolved" title="Not yet in this dictionary">${escapeHtml(m.form)}${glossHtml}</span></span>`;
-  }
 
-  function legacyFlatMorphemesHtml(morphemes) {
-    if (!morphemes.length) return '';
-    return `<div class="relation-list">${morphemes.map(morphemePillHtml).join('')}</div>`;
-  }
 
-  // Entries sharing an exact, tone-marked spelling are the same written word
-  // carrying different senses, and nothing on the page used to say so - you
-  // could read one of eleven dá entries and never learn the other ten existed.
-  function siblingsHtml(entry) {
-    const ids = (entry.siblingEntryIds || []).filter((id) => state.entries[id]);
-    if (!ids.length) return '';
-    const rows = ids
-      .map((id) => {
-        const s = state.entries[id];
-        return `<a class="sibling-row" href="#/entry/${encodeURIComponent(id)}">
-          <span class="sibling-word">${escapeHtml(s.canonicalForm.value)}</span>
-          <span class="sibling-meta">${escapeHtml(s.pos || '')}${s.etymologyNumber ? ` · etym. ${escapeHtml(s.etymologyNumber)}` : ''}</span>
-          <span class="sibling-gloss">${escapeHtml(firstGloss(s))}</span>
-        </a>`;
-      })
-      .join('');
-    return `<div class="sibling-note">Wiktionary records ${ids.length + 1} entries spelled “${escapeHtml(entry.canonicalForm.value)}”. You're reading one of them; here are the others.</div>
-      <div class="sibling-list">${rows}</div>`;
-  }
 
-  function section(title, innerHtml, infoHtml) {
-    if (!innerHtml) return '';
-    if (!infoHtml) {
-      return `<div class="entry-section">
-        <div class="entry-section-title">${escapeHtml(title)}</div>
-        ${innerHtml}
-      </div>`;
-    }
-    // A heading that needs explaining gets a button, not a title= tooltip:
-    // hover doesn't exist on a phone, and this is the section people are most
-    // likely to disbelieve.
-    const noteId = `section-info-${++pillGroupSeq}`;
-    return `<div class="entry-section">
-      <div class="entry-section-title">
-        ${escapeHtml(title)}
-        <button type="button" class="info-toggle" aria-expanded="false" aria-controls="${noteId}"
-          aria-label="Why is this uncertain?">i</button>
-      </div>
-      <div class="info-note" id="${noteId}" hidden>${infoHtml}</div>
-      ${innerHtml}
-    </div>`;
-  }
 
-  function renderEntry(entry) {
-    const ipaHtml = entry.ipa.length
-      ? entry.ipa.map((s) => `<span class="entry-ipa">${escapeHtml(s.ipa)}</span>${s.note ? ` <span class="sense-tag">${escapeHtml(s.note)}</span>` : ''}`).join('  ')
-      : '';
 
-    const inferredBadge = entry.canonicalForm.inferenceMethod !== 'explicit_canonical_tag'
-      ? `<span class="entry-inferred-badge" title="Wiktionary didn't mark which spelling is the main one, so we show its own spelling as-is (“${escapeHtml(entry.canonicalForm.originalValue)}”).">spelling unconfirmed</span>`
-      : '';
 
-    const sensesHtml = entry.senses.length
-      ? `<ol class="sense-list">${entry.senses.map((sense) => `
-          <li class="sense-item">
-            <span class="sense-gloss">${escapeHtml((sense.glosses || []).join('; '))}</span>
-            ${sense.tags && sense.tags.length ? `<span class="sense-tags">${sense.tags.map((t) => `<span class="sense-tag">${escapeHtml(t)}</span>`).join('')}</span>` : ''}
-            ${(sense.examples || []).map((ex) => `
-              <div class="sense-example">
-                ${ex.text ? `<span class="yo-text">${escapeHtml(ex.text)}</span>` : ''}
-                ${ex.translation ? `<span class="en-text">${escapeHtml(ex.translation)}</span>` : ''}
-              </div>
-            `).join('')}
-            ${senseRelationsHtml(sense, entry)}
-          </li>
-        `).join('')}</ol>`
-      : '';
 
-    const altFormsHtml = entry.altForms && entry.altForms.length
-      ? `<div class="alt-forms">${entry.altForms.map((f) => `${escapeHtml(f.form)}${f.tags.length ? ` <span class="form-tag">(${escapeHtml(f.tags.join(', '))})</span>` : ''}`).join(', ')}</div>`
-      : '';
 
-    const etymologyHtml = entry.etymologyText
-      ? `<div class="etymology-text">${escapeHtml(entry.etymologyText)}</div>`
-      : '';
-    const morphemesHtmlStr = morphemesHtml(entry.etymologyMorphemes);
 
-    const dialectHtml = dialectSynonymsHtml(entry);
-    const dialectOfHtml = dialectOfHtmlFor(entry);
-    const derivedHtml = relationPillsHtml(entry.derivedTerms, [], entry);
-    const relatedHtml = relationPillsHtml(entry.relatedTerms, [], entry);
-    const synonymsHtml = relationPillsHtml(entry.synonyms, [], entry);
-    const antonymsHtml = relationPillsHtml(entry.antonyms, [], entry);
-    const descendantsHtml = relationPillsHtml(entry.descendants, [], entry);
-    const derivedFromHtml = relationPillsHtml(
-      [],
-      (entry.synthesizedRelations || []).filter((r) => r.type === 'derivedFrom'),
-      entry
-    );
-    const coordinateHtml = relationPillsHtml(entry.coordinateTerms || [], [], entry);
-    const hyponymsHtml = relationPillsHtml(entry.hyponyms || [], [], entry);
-    const hypernymsHtml = relationPillsHtml(entry.hypernyms || [], [], entry);
-    // The other side of a link this word never declared. Kept apart from the
-    // declared Synonyms/Antonyms sections so the page never presents something we
-    // worked out as something the source said.
-    const namedSynonymHtml = namedByHtml(entry, 'synonyms');
-    const namedAntonymHtml = namedByHtml(entry, 'antonyms');
-    const namedByNote = `
-      <p>These words list this one in their own definitions. This word does not list them back, so Wiktionary records the link in one direction only.</p>
-      <p>The meaning shown next to each is the one that named this word.</p>`;
-    const usedInHtml = relationPillsHtml([], entry.usedInCompounds || [], entry);
-    const maybeUsedInHtml = relationPillsHtml([], entry.possiblyUsedIn || [], entry);
-    const maybeUsedInNote = `
-      <p>Wiktionary says these words were built from a word spelled like this one. It does not say which meaning.</p>
-      <p>So we show each word under every meaning it could have come from. Some of them belong to a different entry, and we don't know which.</p>
-      <p>Naming each meaning on Wiktionary fixes this, one word at a time. <a href="#/contribute">How to help</a>.</p>`;
-    const siblingsHtmlStr = siblingsHtml(entry);
 
-    els.entryContent.innerHTML = `
-      <div class="entry-header">
-        <span class="entry-headword">${escapeHtml(entry.canonicalForm.value)}</span>
-        ${entry.pos ? `<span class="entry-pos">${escapeHtml(entry.pos)}</span>` : ''}
-        ${ipaHtml}
-        ${inferredBadge}
-      </div>
-      ${altFormsHtml}
-      <div class="tone-rule divider" aria-hidden="true"><span></span><span></span><span></span></div>
 
-      ${section('Definitions', sensesHtml)}
-      ${section('Other entries with this spelling', siblingsHtmlStr)}
-      ${dialectOfHtml}
-      ${section('Etymology', etymologyHtml)}
-      ${section('Component words', morphemesHtmlStr)}
-      ${dialectHtml}
-      ${section('Used in', usedInHtml)}
-      ${section('Possibly used in', maybeUsedInHtml, maybeUsedInNote)}
-      ${section('Derived terms', derivedHtml)}
-      ${section('Derived from', derivedFromHtml)}
-      ${section('Related terms', relatedHtml)}
-      ${section('Synonyms', synonymsHtml)}
-      ${section('Antonyms', antonymsHtml)}
-      ${section('Listed as a similar word by', namedSynonymHtml, namedByNote)}
-      ${section('Listed as an opposite by', namedAntonymHtml, namedByNote)}
-      ${section('A kind of', hypernymsHtml)}
-      ${section('Kinds of this', hyponymsHtml)}
-      ${section('Others in the same set', coordinateHtml)}
-      ${section('Descendants', descendantsHtml)}
 
-      <div class="entry-provenance-note">
-        Source: Wiktionary${entry.etymologyNumber ? ` · etymology ${escapeHtml(entry.etymologyNumber)}` : ''},
-        where this word is spelled “${escapeHtml(entry.headword)}”.
-        Reference: <code>${escapeHtml(entry.id)}</code>
-      </div>
-    `;
-
-    document.title = `${entry.canonicalForm.value} — Sọ̀rọ̀ Sókè`;
-  }
-
-  function renderWelcome() {
-    els.entryContent.innerHTML = `
-      <div class="entry-welcome">
-        <h1>Ẹ káàbọ̀.</h1>
-        <p>Search for a Yorùbá word with or without tone marks and underdots. Or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
-        <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
-      </div>
-    `;
-    document.title = 'Sọ̀rọ̀ Sókè — The People’s Yorùbá Dictionary · Speak Nigeria';
-  }
-
-  function renderAbout() {
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>About the Dictionary</h1>
-        <p class="about-lede">Wiktionary's crowdsourced Yorùbá dictionary is one of the best resources online for learning Yorùbá. Not only does it have more defined words than most Yorùbá dictionaries, but it also includes details of how longer words are constructed from shorter words. Learning to recognize these compound words is a core part of learning the language. The Wiktionary website itself, though, is poorly matched to language learners, whether in terms of quick single-word lookups or language exploration. This project keeps the data and rebuilds the user experience.</p>
-
-        <h2>Why care about etymology?</h2>
-        <p>We can build a deep, comprehensive, and growing dictionary through the use of Wiktionary. We hope to not only make it easier to navigate, but encourage people to contribute — if you can't find a word in our dictionary, add it to Wiktionary! Beyond that, Yorùbá is fundamentally different from English in how it builds larger words out of smaller building-block words. People often think of etymology as an academic curiosity, but in languages like Yorùbá, being able to recognize compound words is part of fluency. It's also fun — one of the things students in our own classes love most about the language is learning how words combine to create new ones. Wiktionary is not comprehensive in these breakdowns, but it's a better source for them than anywhere else online. We make it easier to find and explore these links.</p>
-
-        <h2>Where Wiktionary falls short</h2>
-        <p>Wiktionary's own site is difficult to use. To reliably find a word in Yorùbá, you generally want to type it without tone marks, but with underdots. Other combinations generally don't work. Wiktionary will then search every one of its languages for words with that spelling, and present every single result, with definitions, etymology, informative tables, and other details for every matching word in every language. Yorùbá, starting at Y, will be down at the bottom of that page. Not very fun for language learners! Furthermore, because Wiktionary is crowdsourced, it can be messy. Key details like etymology links between words are incredibly valuable to language learners but inconsistent in their entry and presentation. Sometimes a parent word documents the words derived from it, sometimes only the derived word documents where it came from, sometimes both, sometimes neither, depending entirely on which page a contributor happened to edit. Tracing a family of related words means guessing which page has the link and searching for it by hand.</p>
-
-        <h2>What we changed</h2>
-        <ul>
-          <li><strong>Cleaned and reorganized.</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing. With crowdsourced data, this will always be a work in progress, so let us know if you spot any quirks.</li>
-          <li><strong>Searchable.</strong> With or without tone marks, with or without underdots, in English or Yorùbá.</li>
-          <li><strong>Restructured relationships.</strong> Whichever side of a relationship Wiktionary happens to document — parent or derived word — we automatically synthesize the missing reverse link, turning its inconsistent, crowdsourced etymology links into a real, two-way, navigable path through the language.</li>
-        </ul>
-
-        <h2>Part of Speak Nigeria</h2>
-        <p>This dictionary is a project of <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Speak Nigeria</a>, a nonprofit building free games and resources so children can learn and keep Nigerian heritage languages. If you're learning Yorùbá, our structured courses might also be a good fit.</p>
-
-        <div class="about-actions">
-          <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
-          <a class="about-btn ghost" href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Visit speaknigeria.org ↗</a>
-        </div>
-
-        <h2>Read next</h2>
-        <ul>
-          <li><a href="#/building-blocks">Key building block words</a> — the 25 roots that build the most other words in this dictionary.</li>
-          <li><a href="#/learners">For learners</a> — how to learn roots and read the words built from them.</li>
-          <li><a href="#/teachers">For teachers</a> — sequencing a curriculum around roots, and when to explain a compound.</li>
-          <li><a href="#/speak-nigeria">About Speak Nigeria</a> — the nonprofit behind this.</li>
-        </ul>
-      </div>
-    `;
-    document.title = 'About the Dictionary — Sọ̀rọ̀ Sókè';
-  }
-
-  function renderSpeakNigeria() {
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>About Speak Nigeria</h1>
-        <p class="about-lede">Speak Nigeria is a nonprofit. We make free tools for learning Nigerian heritage languages.</p>
-
-        <h2>Why we exist</h2>
-        <p>Many children in Nigerian families grow up speaking only English. Parents who want to teach their own language often have nothing to teach from: no course at the right level, no games, and no dictionary a child can use.</p>
-        <p>We build those and publish them free.</p>
-
-        <h2>What we make</h2>
-        <ul>
-          <li><strong>Courses.</strong> Yorùbá from the beginning, in a set order.</li>
-          <li><strong>Games.</strong> Practice for children learning on their own.</li>
-          <li><strong>This dictionary.</strong> Every word, searchable with or without tone marks, and where each word came from.</li>
-        </ul>
-
-        <h2>How this dictionary fits</h2>
-        <p>The courses teach words in a set order. The dictionary is for looking something up. It also shows where a word came from, because in Yorùbá the answer is usually another word.</p>
-        <p><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> means Earth. It is <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home) and <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). A learner who knows those two words can read the third without being taught it.</p>
-
-        <div class="about-actions">
-          <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
-          <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play the games ↗</a>
-        </div>
-      </div>
-    `;
-    document.title = 'About Speak Nigeria — Sọ̀rọ̀ Sókè';
-  }
-
-  function renderLearners() {
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>For learners</h1>
-        <p class="about-lede">Yorùbá builds long words from short ones. If you know the short words, you can often work out a long word you have not been taught.</p>
-
-        <h2>Look for the words inside a word</h2>
-        <p><a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> means home. Two words built from it:</p>
-        <ul>
-          <li><a href="#/entry/en-ile-iwe-yo-noun-1k3r2ULX">ilé-ìwé</a> — school. From <em>ilé</em> (home) and <em>ìwé</em> (book).</li>
-          <li><a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> — Earth. From <em>ilé</em> (home) and <em>ayé</em> (life).</li>
-        </ul>
-        <p>Both are made of words you can look up separately. Each entry in this dictionary lists its parts under "Component words", and lists the words built from it under "Used in".</p>
-
-        <h2>Guess before you look it up</h2>
-        <p>When you meet a long word, find a word inside it that you already know. Decide what you think the whole word means. Then check.</p>
-        <p><a href="#/entry/en-ṣe-yo-verb-IXZV9I3e">ṣe</a> means to do. <a href="#/entry/en-ṣiṣẹ-yo-verb-5qTsaA0x">ṣiṣẹ́</a> means work. <a href="#/entry/en-ṣalaye-yo-verb-cgQ~Nwbp">ṣàlàyé</a> means to explain.</p>
-        <p>Some of these are easy to predict and some are not. Either way you will remember the word better than if you had read it in a list.</p>
-
-        <h2>Learn tone marks with the word</h2>
-        <p><a href="#/entry/en-gba-yo-verb-DCZgzqX2">gbà</a> means to rescue. <a href="#/entry/en-gba-yo-verb-VAsl51P3">gbá</a> means to hit. The letters are the same and the tone marks are not, and they are two different words. A word learned without its tone marks is incomplete.</p>
-        <p>You can still search without them. Type <em>gba</em> and you will get all eight words spelled that way, with their meanings, so you can find the one you want.</p>
-
-        <h2>Where to go next</h2>
-        <ul>
-          <li><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words in this dictionary, with examples of what each one builds.</li>
-          <li>Our <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">courses</a> teach Yorùbá in a set order.</li>
-          <li>Our <a href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">games</a> are for practice.</li>
-        </ul>
-
-        <div class="about-actions">
-          <a class="about-btn primary" href="#/building-blocks">See the building block words</a>
-        </div>
-      </div>
-    `;
-    document.title = 'For Learners — Sọ̀rọ̀ Sókè';
-  }
-
-  function renderTeachers() {
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>For teachers</h1>
-        <p class="about-lede">Two decisions shape how much vocabulary a student can use: which words you choose to teach, and when you explain how those words are built.</p>
-
-        <h2>Choose roots, not a flat word list</h2>
-        <p>Teach <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> (home). Then <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> (Earth). Then <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> (life). The student now has three words and can see how the middle one is made.</p>
-        <p>Teaching <em>ayé</em> without connecting it to <em>ilé ayé</em> leaves the student with two separate facts to memorise instead.</p>
-        <p><a href="#/building-blocks">Key building block words</a> lists the 25 roots that build the most words in this dictionary, with examples of each. <em>ilé</em> alone appears in 56 of them.</p>
-
-        <h2>Explain the parts the first time the word appears</h2>
-        <p>Do not define <em>ilé ayé</em> as "Earth" and stop. It is two words, and a student can see it is two words. Say which two.</p>
-        <p>The same applies to single words, where it is more often skipped. <a href="#/entry/en-sọrọ-yo-verb-SuqWjjbe">sọ̀rọ̀</a> means to speak. It is a contraction of <em>sọ</em> ("to say") and <em>ọ̀rọ̀</em> ("word"). <a href="#/entry/en-sọrọ_soke-yo-verb-zjLiM20R">sọ̀rọ̀ sókè</a> is a calque of English <em>speak up</em>: <em>sọ</em> ("to say") + <em>ọ̀rọ̀</em> ("word") + <em>sí</em> ("to") + <em>òkè</em> ("heights").</p>
-
-        <h3>Ask the class first</h3>
-        <p>Give them two words they already know and ask what the two together will mean. Take answers before you give yours.</p>
-        <p>Some combinations are predictable and some are not. <em>ilé</em> and <em>ayé</em> giving Earth is not obvious in advance.</p>
-
-        <h2>Leave the rules of combination until later</h2>
-        <p>Yorùbá has rules for how words combine and for how combining changes pronunciation. Early students do not need them.</p>
-        <p>What they need is to keep meeting combinations in words they already use. After enough examples, students begin to predict which words combine and how the sounds change, before anyone states a rule. Teach the rules after that, not before.</p>
-
-        <h2>Check a breakdown before teaching it</h2>
-        <p>Look the word up here first. This dictionary comes from Wiktionary, which is crowdsourced and uneven — many words have no breakdown at all. It is still more complete than any structured Yorùbá source we know of, so it is worth checking your own knowledge against.</p>
-        <p>Where the source does not say which meaning a word was built from, the entry says so rather than picking one. If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here after the next refresh. The <a href="#/contribute">Contribute</a> page lists the cases where the missing piece is already identified.</p>
-
-        <h2>Teach students to compare sources</h2>
-        <p>There is no single authority for Yorùbá, and students should know that before they start looking things up.</p>
-        <ul>
-          <li><strong>This dictionary</strong> for lookups and for how words are built.</li>
-          <li><strong><a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a></strong> to compare several dictionaries side by side.</li>
-          <li><strong>Google Translate</strong> is unreliable for Yorùbá. It is usable for a rough idea and not for anything you are teaching.</li>
-        </ul>
-        <p>Students who are confident online are often still poor at judging which source to trust. Show them how you decide.</p>
-
-        <div class="about-actions">
-          <a class="about-btn primary" href="#/building-blocks">See the building block words</a>
-          <a class="about-btn ghost" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Our courses ↗</a>
-        </div>
-      </div>
-    `;
-    document.title = 'For Teachers — Sọ̀rọ̀ Sókè';
-  }
-
-  // The one generated page. Its list is computed at build time by
-  // build/lib/building-blocks.mjs; see data/frequency/README.md for why
-  // choosing the examples needs frequency data rather than signals from our
-  // own corpus. Fetched on first visit rather than at boot - nothing on the
-  // reading path needs it.
-  function renderBuildingBlocks() {
-    document.title = 'Key Building Block Words — Sọ̀rọ̀ Sókè';
-    const listHtml = state.buildingBlocks
-      ? buildingBlocksListHtml(state.buildingBlocks)
-      : '<p>Loading the list…</p>';
-
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>Key building block words</h1>
-        <p class="about-lede">These 25 words build more other words than any others in this dictionary. Learn one and you can read several more.</p>
-        <p>Each root below is a single meaning, not a spelling. <em>gbá</em> ("to hit") and <em>gbà</em> ("to accept") are different words, and they build different families, so they are counted separately.</p>
-        <div id="blocks-list">${listHtml}</div>
-        <p class="blocks-note">Chosen automatically from the etymologies in this dictionary, counting how many words each root builds. Example words are picked using Yorùbá word frequencies from the <a href="https://wortschatz.uni-leipzig.de/en/download" target="_blank" rel="noopener noreferrer">Leipzig Corpora Collection</a> (CC BY 4.0), so they favour words you are likely to meet.</p>
-      </div>
-    `;
-
-    if (!state.buildingBlocks) {
-      fetch('data/building-blocks.json')
-        .then((r) => r.json())
-        .then((data) => {
-          state.buildingBlocks = data;
-          // Only patch the list if the reader is still on this page.
-          const host = document.getElementById('blocks-list');
-          if (host) host.innerHTML = buildingBlocksListHtml(data);
-        })
-        .catch(() => {
-          const host = document.getElementById('blocks-list');
-          if (host) host.innerHTML = '<p>The list could not be loaded.</p>';
-        });
-    }
-  }
-
-  // The work queue, as edits rather than complaints. Generated by
-  // build/lib/wiktionary-tasks.mjs; fetched on first visit like the quality
-  // report, never on boot.
-  function renderContribute() {
-    document.title = 'Contribute — Sọ̀rọ̀ Sókè';
-    const listHtml = state.tasks ? contributeListHtml(state.tasks) : '<p>Loading the list…</p>';
-
-    els.entryContent.innerHTML = `
-      <div class="about-content">
-        <h1>Contribute</h1>
-        <p class="about-lede">Some entries in this dictionary cannot say which word they came from. This page explains why, and lists the specific edits that would fix it.</p>
-
-        <h2>Yorùbá words are built from other words</h2>
-        <p><a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> means home. <a href="#/entry/en-aye-yo-noun-SG6kYiTR">ayé</a> means life. Together they make <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a>, which means Earth.</p>
-        <p>Yorùbá does this constantly, and it is one of the most useful things a learner can see. So entries here show it in both directions. Open <a href="#/entry/en-ile_aye-yo-noun-t8m1zNPj">ilé ayé</a> and its two parts are listed under <em>Component words</em>. Open <a href="#/entry/en-ile-yo-noun-VQM0lVeW">ilé</a> and the 56 words built from it are listed under <em>Used in</em>.</p>
-
-        <h2>Where that breaks down</h2>
-        <p>To show it, we have to know which word a part came from. Usually that is clear. Sometimes it is not, because Yorùbá has many words spelled exactly alike.</p>
-        <p>Seven different words are spelled <a href="#/entry/en-pa-yo-verb-Ps~5DR-I">pa</a>. They mean to kill, to tell, to rub, to gain, to be in a state, to be tight, and to be bald. Fifty-four words in this dictionary are built from one of those seven, and Wiktionary does not record which one.</p>
-        <p>When that happens we show the first, and the first is often wrong. It is why <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a>, which means to meet, currently appears here as built from <em>pa</em> meaning to kill.</p>
-
-        <h2>What would fix it</h2>
-        <p>Two pieces of information are missing, and both have to be written down on Wiktionary.</p>
-        <p><strong>First, each of the seven meanings of <em>pa</em> needs a name.</strong> At the moment they are only "the first section", "the second section", and so on, which is nothing a word can point at.</p>
-        <p><strong>Second, each word built from <em>pa</em> needs to say which of those names it means.</strong></p>
-        <p>Neither piece is difficult. Both are one short line of text. What makes them a pair is that neither works alone: a name nothing points at has no effect, and a pointer to a name that does not exist has no effect either. That is why each page below lists both.</p>
-
-        <h2>How the two lines are written</h2>
-        <p>A name goes at the top of an etymology section, using the <code>etymid</code> template:</p>
-        <p><code>{{etymid|yo|kill}}</code></p>
-        <p>A word built from that meaning then names it, using <code>id1</code>, <code>id2</code> and so on to say which of its parts it is talking about:</p>
-        <p><code>{{compound|yo|pa|kó|t1=kill, clear|id1=kill}}</code></p>
-        <p>The page for <a href="https://en.wiktionary.org/wiki/de#Yoruba" target="_blank" rel="noopener noreferrer">de</a> is already done, if you want to see a finished one. Its five meanings are named <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em> and <em>cover</em>.</p>
-
-        <h2>Choosing a name for a meaning</h2>
-        <p>The name is yours to pick. It identifies one etymology section, so it does not have to describe every meaning in that section, and it only has to be unique within its own page.</p>
-        <ul>
-          <li><strong>One or two plain words, lowercase.</strong> On <em>de</em>: <em>tie down</em>, <em>deputize</em>, <em>wait</em>, <em>arrive</em>, <em>cover</em>.</li>
-          <li><strong>Enough to tell it from the other meanings on the same page.</strong> On <em>pa</em>, <em>kill</em> and <em>tell</em> are enough. <em>verb</em> would not be.</li>
-          <li><strong>Broad enough for the whole section.</strong> The names suggested below come from each section's first definition, which is a starting point rather than a rule. Section 6 of <em>ta</em> covers "to shoot", "to sting", "to be spicy", "to kick" and "to pick" — <em>shoot</em> works, but a broader name would be better.</li>
-          <li><strong>Hard to change later.</strong> Renaming breaks every pointer aimed at it, and nothing warns you. Pick something that will still fit if the meaning is written up more fully one day.</li>
-          <li><strong>Read by other people.</strong> Wiktionary keeps lists of words that share a part — one such list is "Yoruba terms prefixed with a-". Naming a meaning splits that list by meaning, so words built from the <em>nominalizing prefix</em> sense are gathered separately from the others. Your name is what appears on the list, so read it back that way before you settle on it.</li>
-        </ul>
-
-        <h2>Checking the suggestions below</h2>
-        <p>Where we can, we suggest which name a word should point at. Each suggestion says the same thing: <em>this word records its part as meaning X, and section N of the target page covers X.</em> Open both pages and confirm that.</p>
-        <p>Two things can be wrong with it. The meaning recorded on the word may itself be vague or mistaken — it was written by someone else and we take it at face value. Or the section may contain those words incidentally rather than actually meaning them.</p>
-        <p>There is a third case, which is not a mistake in the suggestion. Sometimes the recorded meaning matches no section at all. <a href="#/entry/en-pade-yo-verb-no9flbpH">pàdé</a> records its <em>pa</em> as "to do; action verb", and none of <em>pa</em>'s seven sections says that. No pointer is right there: either the meaning written on <em>pàdé</em> is wrong, or <em>pa</em> is missing a meaning that ought to be listed. Both are worth fixing, and neither is the edit we suggest.</p>
-        <p>When you are not sure, leave it. A word with no pointer shows here as a gap. A word with the wrong pointer shows as a fact, and other tools will believe it.</p>
-
-        <h2>Wiktionary's own documentation</h2>
-        <p>These pages define what the templates do. Worth reading before a first edit.</p>
-        <ul>
-          <li><a href="https://en.wiktionary.org/wiki/Template:etymid" target="_blank" rel="noopener noreferrer">Template:etymid</a> — naming a meaning. This is the one used below.</li>
-          <li><a href="https://en.wiktionary.org/wiki/Template:senseid" target="_blank" rel="noopener noreferrer">Template:senseid</a> — naming a single definition, for when one etymology section holds several meanings and a pointer needs to tell them apart.</li>
-          <li><a href="https://en.wiktionary.org/wiki/Template:affix" target="_blank" rel="noopener noreferrer">Template:affix</a> — documents <code>id1</code>, <code>id2</code> and their effect on category names. <a href="https://en.wiktionary.org/wiki/Template:compound" target="_blank" rel="noopener noreferrer">Template:compound</a> takes the same parameters.</li>
-          <li><a href="https://en.wiktionary.org/wiki/Wiktionary:Entry_layout" target="_blank" rel="noopener noreferrer">Wiktionary:Entry layout</a> — how numbered etymology sections are structured, if you have not edited an entry before.</li>
-        </ul>
-        <p class="task-note">This site has no Wiktionary account and makes no automated edits. Everything below is text for you to check and type.</p>
-
-        <h2>A worked example: kọ</h2>
-        <p>Seven different words are spelled <a href="#/entry/en-kọ-yo-verb-GyIdbR6y">kọ</a>, separated by tone. Going through them showed two separate faults, and it is worth seeing both.</p>
-
-        <h3>The seven meanings</h3>
-        <pre class="wikitext">kọ̀   to refuse, reject
-kọ́   to build, construct · to learn, teach
-kọ́   a negation particle
-kọ́   to hang, suspend
-kọ    to write
-kọ    to stub, strike, hit
-kọ    to recite</pre>
-
-        <h3>Fault one: words attached to the wrong meaning</h3>
-        <p>Most words built from <em>kọ</em> are about writing — <em>àkọtọ́</em> (orthography), <em>àròkọ</em> (essay), <em>àkọọ́lẹ̀</em> (written record) — and those were already right.</p>
-        <p><a href="#/entry/en-ayekootọ-yo-noun-oyCCzzpN">ayékòótọ́</a>, "parrot", was not. Its etymology records the component as meaning "to reject", which is <em>kọ̀</em> — but it writes the component untoned, as <em>kọ</em>, and untoned <em>kọ</em> reaches only the write, stub and recite meanings. So it landed on "to write".</p>
-        <p>The fix is not a pointer. The tone mark is missing, and until that is settled there is nothing correct to point at. Cases like this are listed separately below, because adding a pointer would hide the problem rather than fix it.</p>
-
-        <h3>Fault two: every meaning claiming the same words</h3>
-        <p>Look at what each <em>kọ</em> listed under <em>Used in</em> before this:</p>
-        <pre class="wikitext">to write            8 words
-to stub, strike     the same 8 words
-to recite           the same 8 words</pre>
-        <p>All eight belong to <em>to write</em>. The other two meanings were showing a borrowed list, because words were being attached to a spelling rather than to a meaning. A reader looking up <em>kọ</em> "to stub, strike, hit" was told it builds <em>àròkọ</em>, "essay".</p>
-        <p>That one was ours, not Wiktionary's, and it is fixed. Six of the eight say clearly enough which meaning they came from. Those now sit under one meaning each:</p>
-        <pre class="wikitext">to write            5 words
-to stub, strike     none
-to recite           kọrin, "to sing"</pre>
-        <p>Empty is the honest answer. Nothing is yet recorded as built from <em>kọ</em> "to stub, strike, hit".</p>
-        <p>The other two — <em>ayékòótọ́</em> and <em>kọjá</em> — could belong to any of the three. We do not guess. They are listed under all three meanings, in a second section headed <em>Possibly used in</em>.</p>
-        <p>That is deliberate. Picking one meaning for a word we cannot place goes wrong twice at once: the word shows up under a meaning it does not belong to, and it vanishes from the meaning it does. Listing it under every candidate goes wrong only the first way, and the heading tells you that is what you are reading.</p>
-        <p>Adding the seven names to Wiktionary is what moves a word out of that second list for good.</p>
-
-        <h3>What is left on kọ</h3>
-        <p>Six words can be pointed at a meaning straight away, once the seven names exist. One needs its tone settled first. One — <a href="#/entry/en-kọja-yo-verb-yadZ7L6K">kọjá</a>, "to pass beyond" — records no meaning for its <em>kọ</em> at all, so it needs someone who knows the word. All eight are listed below under <em>kọ</em>.</p>
-
-        <div id="tasks-list">${listHtml}</div>
-      </div>
-    `;
-
-    if (!state.tasks) {
-      fetch('data/wiktionary-tasks.json')
-        .then((r) => r.json())
-        .then((data) => {
-          state.tasks = data;
-          const host = document.getElementById('tasks-list');
-          if (host) host.innerHTML = contributeListHtml(data);
-        })
-        .catch(() => {
-          const host = document.getElementById('tasks-list');
-          if (host) host.innerHTML = '<p>The list could not be loaded.</p>';
-        });
-    }
-  }
-
-  const TIER_LABEL = {
-    A: 'suggested — check it',
-    D: 'the page already says so',
-    X: 'the page and the wording disagree',
-    B1: 'several sections match',
-    B2: 'no section matches',
-    S: 'tone looks wrong',
-    C: 'needs a Yorùbá speaker',
-  };
-
-  function contributeListHtml(data) {
-    const t = data.totals || {};
-    const byTier = t.byTier || {};
-    const head = `<div class="tasks-summary">
-      <p>${t.references} words across ${t.pagesNeedingAnchors} pages do not record which meaning they were built from. Pages are ordered by how many words each one affects.</p>
-      <p>Of those words, ${byTier.A || 0} have a suggested answer to check, ${(byTier.B1 || 0) + (byTier.B2 || 0)} record a meaning that does not single out one section, and ${byTier.C || 0} record no meaning at all. A further ${byTier.S || 0} record a meaning belonging to a differently toned word, so the tone has to be settled before a pointer can be added.</p>
-    </div>`;
-
-    return head + (data.pages || []).slice(0, 40).map((page) => `
-      <details class="task-page">
-        <summary>
-          <span class="task-word">${escapeHtml(page.page)}</span>
-          <span class="task-count">${page.referenceCount} words</span>
-          <span class="task-anchors">${page.anchors.filter((a) => !a.alreadyPresent).length} names to add</span>
-        </summary>
-
-        <p class="task-step">1. On <a href="${escapeHtml(page.editUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(page.page)}</a>, add a name to the top of each etymology section:</p>
-        <ul class="task-anchor-list">
-          ${page.anchors.map((a) => `
-            <li>
-              <code>${escapeHtml(a.wikitext)}</code>
-              <span class="task-note">Etymology ${escapeHtml(String(a.etymologyNumber))} — ${escapeHtml(a.definition)}${a.alreadyPresent ? ' <strong>(already there)</strong>' : ''}</span>
-            </li>
-          `).join('')}
-        </ul>
-
-        <p class="task-step">2. Then add the matching pointer to each word built from it:</p>
-        <ul class="task-ref-list">
-          ${page.references.map((r) => `
-            <li class="task-ref tier-${escapeHtml(r.tier)}">
-              <div class="task-ref-head">
-                <a href="${escapeHtml(r.editUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.word)}</a>
-                <span class="task-note">${escapeHtml(r.definition)}</span>
-                <span class="tier-chip">${escapeHtml(TIER_LABEL[r.tier])}</span>
-              </div>
-              ${r.proposedValue
-                ? `<code>add ${escapeHtml(r.argument)}=${escapeHtml(r.proposedValue)}</code>`
-                : `<code>add ${escapeHtml(r.argument)}=?</code>`}
-              ${r.spelledElsewhere && r.tier !== 'S'
-                ? `<div class="task-caution">Check the tone first: <strong>${escapeHtml(r.spelledElsewhere.spelling)}</strong>, a differently toned word on the same page, is defined as “${escapeHtml(r.spelledElsewhere.definition)}” and may be what was meant.</div>`
-                : ''}
-              <div class="task-why">${escapeHtml(r.why)}${r.sectionCovers && r.sectionCovers.length > 1
-                ? `. That section also covers ${r.sectionCovers.slice(1).map((d) => `“${d}”`).join(', ')}`
-                : ''}</div>
-            </li>
-          `).join('')}
-          ${page.referencesOmitted ? `<li class="task-note">…and ${page.referencesOmitted} more on this page.</li>` : ''}
-        </ul>
-      </details>
-    `).join('');
-  }
-
-  function buildingBlocksListHtml(data) {
-    return (data.blocks || [])
-      .map((block, i) => `
-        <div class="block-card">
-          <div class="block-head">
-            <span class="block-rank">${i + 1}</span>
-            <a class="block-word" href="#/entry/${encodeURIComponent(block.entryId)}">${escapeHtml(block.form)}</a>
-            <span class="sibling-meta">${escapeHtml(block.pos || '')}</span>
-            <span class="block-def">${escapeHtml(block.definition)}</span>
-          </div>
-          <div class="block-count">builds ${block.buildsCount} words in this dictionary, including:</div>
-          <div class="sibling-list">
-            ${block.examples.map((ex) => `
-              <a class="sibling-row" href="#/entry/${encodeURIComponent(ex.entryId)}">
-                <span class="sibling-word">${escapeHtml(ex.form)}</span>
-                <span class="sibling-meta">${escapeHtml(ex.pos || '')}</span>
-                <span class="sibling-gloss">${escapeHtml(ex.definition)}</span>
-              </a>
-            `).join('')}
-          </div>
-        </div>
-      `)
-      .join('');
-  }
 
   // ---------------------------------------------------------------
-  // Routing (hash-based: works on any static host with zero
-  // server-side rewrite configuration, and every entry gets a
-  // stable, bookmarkable, back-button-friendly URL).
+  // Routing
+  //
+  // Real paths - /gba/receive - not the #/entry/<id> fragments this used to
+  // use. A fragment is never sent to a server, so every word in the dictionary
+  // answered at one URL and a search engine could only ever see the front page.
+  // The build now writes a real HTML file per word, and this navigates between
+  // them without reloading.
+  //
+  // The addresses come from data/url-slugs.json by way of build/lib/address.mjs,
+  // and each entry carries its own in `entry.path`. Old hash links still work:
+  // redirectLegacyHash below turns them into paths, in the page, because
+  // nothing else can.
   // ---------------------------------------------------------------
+
+  function pathForEntry(entryId) {
+    const entry = state.entries && state.entries[entryId];
+    // Before the dictionary lands there is nothing to look the address up in,
+    // and a link has to exist anyway. Resolved the moment the entry map arrives -
+    // see handleRoute.
+    //
+    // The underscore is load-bearing. This was /go/<id> until go, gò, gọ̀ and gọ -
+    // four real Yorùbá verbs - all landed at /go/<word> and shadowed it. A folded
+    // spelling can only ever be [a-z0-9-], so a segment containing an underscore
+    // is impossible to collide with, by construction rather than by remembering.
+    return (entry && entry.path) || `/_entry/${encodeURIComponent(entryId)}`;
+  }
 
   function navigateTo(entryId) {
-    location.hash = `#/entry/${encodeURIComponent(entryId)}`;
+    go(pathForEntry(entryId));
   }
 
-  // Written pages, plus the one generated page. All render from markup that's
-  // already in app.js, so they paint on first load without the dictionary -
-  // boot() calls handleRoute() before fetching it for exactly this reason.
-  const STATIC_ROUTES = {
-    '#/about': renderAbout,
-    '#/speak-nigeria': renderSpeakNigeria,
-    '#/learners': renderLearners,
-    '#/teachers': renderTeachers,
-    '#/building-blocks': renderBuildingBlocks,
-    '#/contribute': renderContribute,
-  };
+  /** Move to a path without reloading, and render what lives there. */
+  function go(path, { replace = false } = {}) {
+    if (path === location.pathname) return;
+    history[replace ? 'replaceState' : 'pushState']({}, '', path);
+    handleRoute();
+  }
 
-  function handleRoute() {
+  // Any click on an internal link is navigation, not a page load. Delegated
+  // from the document so it covers markup that is rewritten on every render -
+  // every relation pill, every sibling row, every link inside a written page.
+  function interceptLinks(event) {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest && event.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    // Leave alone: anything off-site, anything with a target, downloads, and
+    // plain fragment links, which the browser scrolls to on its own.
+    if (!href || !href.startsWith('/') || link.target || link.hasAttribute('download')) return;
+    if (link.origin && link.origin !== location.origin) return;
+    event.preventDefault();
+    go(href);
+  }
+
+  // Hash links from before every word had its own address. They cannot be
+  // redirected by a server - a fragment is never sent to one - so the only
+  // place this can happen is here, and it has to keep happening: those links
+  // are in other people's pages and messages, and they are the only kind of
+  // link this dictionary had for its first year.
+  //
+  // Split in two by what each needs. A link to /about can be answered before
+  // anything has downloaded; a link to a word cannot, because working out where
+  // that word lives means having the dictionary. Running both late meant an old
+  // link to About showed the welcome page for as long as the dictionary took to
+  // arrive, which on a slow connection was twelve seconds.
+  function redirectLegacyPageHash() {
     const hash = location.hash || '';
-
-    const staticPage = STATIC_ROUTES[hash];
-    if (staticPage) {
-      staticPage();
-      onEntryRendered();
-      return;
+    const pageMatch = hash.match(/^#\/([a-z-]*)$/);
+    if (pageMatch) {
+      const page = pages.byName.get(pageMatch[1] || 'welcome');
+      history.replaceState({}, '', page ? page.path : '/');
+      return true;
     }
-
     const mentionedMatch = hash.match(/^#\/mentioned\/(.+)$/);
     if (mentionedMatch) {
-      if (!state.ready) {
-        els.entryContent.innerHTML =
-          '<div class="entry-welcome"><p>Loading the dictionary…</p></div>';
-        return;
-      }
-      renderMentionedWord(decodeURIComponent(mentionedMatch[1]));
+      history.replaceState({}, '', `/mentioned/${encodeURIComponent(decodeURIComponent(mentionedMatch[1]))}`);
+      return true;
+    }
+    return false;
+  }
+
+  function redirectLegacyEntryHash() {
+    const entryMatch = (location.hash || '').match(/^#\/entry\/(.+)$/);
+    if (!entryMatch) return false;
+    const entry = state.entries && state.entries[decodeURIComponent(entryMatch[1])];
+    if (!entry) return false;
+    history.replaceState({}, '', entry.path);
+    handleRoute();
+    return true;
+  }
+
+  /** Show a written page, and fetch its list if it has one. */
+  function renderPage(page) {
+    const data = page.name === 'building-blocks' ? state.buildingBlocks
+      : page.name === 'contribute' ? state.tasks
+      : null;
+    els.entryContent.innerHTML = page.html(data);
+    document.title = page.title;
+    setDescription(page.description);
+
+    const needs = page.name === 'building-blocks'
+      ? { file: 'data/building-blocks.json', key: 'buildingBlocks', host: 'blocks-list', list: pages.buildingBlocksListHtml }
+      : page.name === 'contribute'
+        ? { file: 'data/wiktionary-tasks.json', key: 'tasks', host: 'tasks-list', list: pages.contributeListHtml }
+        : null;
+    if (!needs || state[needs.key]) return;
+    fetch(needs.file)
+      .then((r) => r.json())
+      .then((loaded) => {
+        state[needs.key] = loaded;
+        // Only patch the list if the reader is still on this page.
+        const host = document.getElementById(needs.host);
+        if (host) host.innerHTML = needs.list(loaded);
+      })
+      .catch(() => {
+        const host = document.getElementById(needs.host);
+        if (host) host.innerHTML = '<p>The list could not be loaded.</p>';
+      });
+  }
+
+  /** The one <meta name="description"> tag, kept in step with the page. */
+  function setDescription(text) {
+    const tag = document.querySelector('meta[name="description"]');
+    if (tag) tag.setAttribute('content', text || '');
+  }
+
+  function handleRoute() {
+    const path = decodeURIComponent(location.pathname);
+
+    // A prerendered page arrives with its content already in the markup. Leaving
+    // it alone on the first pass is the difference between a page that is simply
+    // there and one that blanks and redraws after 12 MB has downloaded.
+    //
+    // Only when the markup says it is THIS page. Offline, the service worker
+    // answers a word it has no file for with the cached shell, which is the
+    // welcome page - honouring the flag then would leave a reader looking at
+    // "Ẹ káàbọ̀." with the address of the word they asked for.
+    if (hydrated === false) {
+      hydrated = true;
+      const arrived = els.entryContent.getAttribute('data-prerendered');
+      els.entryContent.removeAttribute('data-prerendered');
+      if (arrived && arrived.replace(/\/$/, '') === path.replace(/\/$/, '')) return;
+    }
+
+    const page = pages.byPath.get(path);
+    if (page) {
+      renderPage(page);
       onEntryRendered();
       return;
     }
 
-    const match = hash.match(/^#\/entry\/(.+)$/);
-    if (match) {
-      // Someone arriving on a link to a word shouldn't be shown the welcome
-      // page in the meantime and left to wonder whether the link was wrong;
-      // handleRoute runs again once the dictionary lands.
-      if (!state.ready) {
-        els.entryContent.innerHTML =
-          '<div class="entry-welcome"><p>Loading the dictionary…</p></div>';
-        return;
-      }
-      const id = decodeURIComponent(match[1]);
-      const entry = state.entries[id];
+    const mentioned = path.match(/^\/mentioned\/(.+)$/);
+    if (mentioned) {
+      if (!state.ready) return showLoading();
+      renderMentionedWord(mentioned[1]);
+      onEntryRendered();
+      return;
+    }
+
+    // The placeholder a link gets when it is built before the dictionary
+    // arrives. Never a real address, so it is swapped for one the moment there
+    // is something to look it up in.
+    const pending = path.match(/^\/_entry\/(.+)$/);
+    if (pending) {
+      if (!state.ready) return showLoading();
+      const entry = state.entries[pending[1]];
+      if (entry) return go(entry.path, { replace: true });
+    }
+
+    // Someone arriving on a link to a word shouldn't be shown the welcome page
+    // in the meantime and left to wonder whether the link was wrong;
+    // handleRoute runs again once the dictionary lands.
+    //
+    // Every word lives under /yo/ so the root stays free for pages the site may
+    // want later - see build/lib/address.mjs.
+    if (/^\/yo\/[^/]+\/[^/]+\/?$/.test(path)) {
+      if (!state.ready) return showLoading();
+      const entry = state.byPath[path.replace(/\/$/, '')];
       if (entry) {
         renderEntry(entry);
         onEntryRendered();
         return;
       }
     }
-    renderWelcome();
+
+    // /yo/<spelling> lists the words written that way. Prerendered, and left to
+    // the file on disk: the app has no renderer for it, so a click arriving here
+    // falls through to the welcome page while a direct visit gets the real page.
+    if (/^\/yo\/[^/]+\/?$/.test(path)) {
+      if (els.entryContent.innerHTML.includes('sibling-list')) return;
+    }
+
+    renderPage(pages.byName.get('welcome'));
     if (mobileQuery.matches) window.scrollTo({ top: 0 });
+  }
+
+  function showLoading() {
+    els.entryContent.innerHTML =
+      '<div class="entry-welcome"><p>Loading the dictionary…</p></div>';
+  }
+
+  /** Would this path have shown "Loading the dictionary…" before the data arrived? */
+  function needsDictionary(path) {
+    if (pages.byPath.has(path)) return false;
+    return /^\/(mentioned|_entry)\//.test(path) || /^\/yo\/[^/]+\/[^/]+\/?$/.test(path);
   }
 
   // On mobile, opening an entry scrolls it up under the header so the
@@ -1672,6 +955,9 @@ to recite           kọrin, "to sing"</pre>
     // HTML at 235ms, entries.json at 12,402ms, and all three of these at
     // 12,496ms. None of them needed a byte of it.
     applySearchMode();
+    // Old #/about-style links first, so the first route below answers the page
+    // that was asked for rather than the welcome screen.
+    redirectLegacyPageHash();
     // handleRoute rather than renderWelcome, so a deep link says "Loading the
     // dictionary…" instead of showing the welcome page to someone who followed
     // a link to a word and would reasonably think the link was broken. About
@@ -1763,7 +1049,21 @@ to recite           kọrin, "to sing"</pre>
     window.addEventListener('resize', syncChromeHeights);
     // Web fonts land after first paint and change both bars' heights.
     if (document.fonts) document.fonts.ready.then(syncChromeHeights);
-    window.addEventListener('hashchange', handleRoute);
+    // Offline. Registered after everything else is wired, and never awaited: a
+    // reader who has just arrived should not wait on a cache they will only
+    // benefit from next time. See public/sw.js for why the version check in it
+    // is not optional.
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        // Offline support is the only thing lost, and the page works without it.
+      });
+    }
+
+    // popstate, not hashchange: the address is a path now. Link clicks are
+    // caught on the document so navigation covers markup rewritten on every
+    // render, which is nearly all of it.
+    window.addEventListener('popstate', handleRoute);
+    document.addEventListener('click', interceptLinks);
     initSearchMode();
 
     // Wait for the paint above to actually commit before asking for 2.1 MB.
@@ -1835,7 +1135,20 @@ to recite           kọrin, "to sing"</pre>
     ]);
     state.entries = entries;
     state.index = index;
+    // Address -> entry, so a path can be resolved without walking 6,273 entries
+    // on every click. Built here rather than shipped as a second file: it is
+    // one pass over data already in memory.
+    state.byPath = {};
+    for (const entry of Object.values(entries)) {
+      if (entry.path) state.byPath[entry.path] = entry;
+    }
     state.ready = true;
+
+    // An old #/entry/<id> link, from before every word had its own address. It
+    // can only be resolved now, because working out where that word lives means
+    // having the dictionary, and only here, because a fragment never reaches a
+    // server. Returns true if it moved us, and then the re-route below is its.
+    const moved = redirectLegacyEntryHash();
 
     // Re-route ONLY for a deep link, which was showing "Loading the
     // dictionary…" and couldn't resolve until now. Calling handleRoute()
@@ -1845,9 +1158,11 @@ to recite           kọrin, "to sing"</pre>
     // so LCP was re-recorded at whenever the dictionary happened to land.
     // Lighthouse read 14.0s against a page whose text had genuinely been on
     // screen since 227ms, and every one of those seconds was this line.
-    // Both deep-link routes, and only those: #/mentioned/ needs the dictionary too,
-    // because it renders the entries that name the word.
-    if (/^#\/(entry|mentioned)\//.test(location.hash || '')) handleRoute();
+    //
+    // Which routes need it: an entry page that arrived without its markup
+    // prerendered, /mentioned/, and the /go/<id> placeholder. A prerendered
+    // entry page needs nothing - its content has been on screen all along.
+    if (!moved && needsDictionary(location.pathname)) handleRoute();
     if (els.searchInput.value.trim()) renderResults(search(els.searchInput.value));
   }
 

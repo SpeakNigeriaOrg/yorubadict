@@ -26,6 +26,9 @@
 //   public/data/entries.json
 //   public/data/search-index.json
 //   build/validation-report.json
+//   public/yo/<spelling>/<word>/index.html   one per entry, 6,273 of them
+//   public/yo/<spelling>/index.html           the words sharing a spelling
+//   public/sitemap.xml, public/_redirects
 
 import { mkdirSync, writeFileSync, statSync, readFileSync } from 'node:fs';
 import { brotliCompressSync, constants } from 'node:zlib';
@@ -39,6 +42,8 @@ import { buildSearchIndex } from './lib/search-index.mjs';
 import { buildBuildingBlocks, assertBuildingBlocksAreUsable } from './lib/building-blocks.mjs';
 import { buildWiktionaryTasks } from './lib/wiktionary-tasks.mjs';
 import { buildMentionedWords } from './lib/mentioned-words.mjs';
+import { attachAddresses } from './lib/slugs.mjs';
+import { prerender } from './lib/prerender.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -230,6 +235,16 @@ async function main() {
   mkdirSync(path.dirname(outEntriesPath), { recursive: true });
   mkdirSync(path.dirname(outValidationPath), { recursive: true });
 
+  // Addresses first, because entry.path travels with the browser artifact: the
+  // app reads it to build every internal link, and a second file to fetch and
+  // keep in step would be one more thing that can disagree with the pages on
+  // disk. attachAddresses throws rather than guess - see build/lib/slugs.mjs.
+  const { redirects, stats } = attachAddresses(linkedEntries);
+  console.log(
+    `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
+      `${stats.provisional} still placeholders, ${redirects.length} retired`
+  );
+
   // Entries are shipped to the browser as an id-keyed object for O(1) lookup.
   const linkedEntriesById = Object.fromEntries(
     linkedEntries.map((e) => [e.id, forBrowser(e)])
@@ -242,6 +257,32 @@ async function main() {
   writeFileSync(outBlocksPath, JSON.stringify(buildingBlocks));
   writeFileSync(outTasksPath, JSON.stringify(tasks));
   writeFileSync(outMentionedPath, JSON.stringify(mentioned));
+
+  // The stamp public/sw.js names its cache after. It has to change whenever any
+  // shipped file changes, because nothing here is fingerprinted and a service
+  // worker is a cache with no expiry - the mixed-set problem public/_headers
+  // exists to prevent, with the volume turned up. The source release plus the
+  // build time is enough: a rebuild always moves it, and a redeploy of the same
+  // build always moves it too, which is the safe direction to err in.
+  const buildStamp = `${kaikkiReleaseTag || 'local'}-${new Date().toISOString().replace(/[:.]/g, '-')}`;
+  writeFileSync(
+    path.join(path.dirname(outEntriesPath), 'version.json'),
+    JSON.stringify({
+      build: buildStamp,
+      kaikkiReleaseTag: kaikkiReleaseTag || null,
+      kaikkiSourceDate: kaikkiSourceDate || null,
+      entries: linkedEntries.length,
+    })
+  );
+
+  // A real HTML file per word. This is what makes the dictionary readable
+  // without JavaScript, and therefore findable at all - see build/lib/prerender.mjs.
+  const pages = prerender(linkedEntries, { redirects });
+  console.log(
+    `      ${pages.written.length} pages, ${(pages.bytes / 1024 / 1024).toFixed(1)} MB, ` +
+      `sitemap.xml, _redirects (${pages.redirects})` +
+      (pages.removed.length ? `, ${pages.removed.length} stale pages removed` : '')
+  );
 
   const sizeOf = (p) => (statSync(p).size / 1024).toFixed(1);
   assertShippedSizes([outEntriesPath, outIndexPath]);
