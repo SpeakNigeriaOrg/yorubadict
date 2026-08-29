@@ -1054,6 +1054,17 @@ a { color: inherit; }
   margin-bottom: 4px;
 }
 
+/* One level below h3, used where a section carries two worked examples. Same
+   family as h3, without the display face, so the two do not compete. */
+.about-content h4 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand-indigo);
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
 .about-content ul,
 .about-content ol { margin-top: 10px; padding-left: 20px; }
 .about-content li { margin-top: 10px; line-height: 1.6; }
