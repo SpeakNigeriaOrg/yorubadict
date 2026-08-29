@@ -201,49 +201,36 @@ export function createEntryRenderer(ctx) {
     return `${count} entries are spelled “${spelling}”, and the etymology doesn't say which one this word is built from — we've linked to the first.`;
   }
 
+  // One section, two sources. A word lands here because an editor typed it into
+  // a Wiktionary `derived` list, or because some entry's etymology decomposes to
+  // this one, or - 499 times, across 218 pages - both, which used to print the
+  // same word twice on one page under two headings.
+  //
+  // Where the two agree, the word is rendered once, as a plain pill. The ↺ means
+  // "we worked this out, Wiktionary didn't say it", and on a word Wiktionary
+  // *did* say it is simply false - agreement between the two sources is the
+  // strongest evidence on the page, so it should not be the thing wearing the
+  // inferred mark. What survives is the synthesized group's own resolution: it
+  // knows which meaning the compound was built from, and its note counts the
+  // distinct words sharing a spelling. Handing those 514 pills wholesale to the
+  // declared list instead would print a doubt badge on 66 links etymology had
+  // already settled, and point 34 of them at a different entry.
   function relationPillsHtml(list, extraSynthesized, currentEntry) {
-    const elements = [];
     const selfId = currentEntry ? currentEntry.id : null;
+    const synthesized = [];
+    const claimedIds = new Set();
+    const claimedForms = new Set();
 
+    // What the declared list vouches for, read before anything renders, because
+    // a synthesized pill has to know whether it was corroborated before it can
+    // decide how to draw itself.
+    const declaredIds = new Set();
+    const declaredForms = new Set();
     for (const rel of list || []) {
-      // Flattened dialect tables used to arrive here as debris, with a
-      // synthetic "external_link" item standing in for whatever had been
-      // dropped. They're now imported from Wiktionary's own source modules
-      // and rendered by renderDialectSynonyms instead, so both are gone.
-      if (rel.type === 'external_link') continue;
-
-      // A descendant in another language has no Yoruba entry to link to by
-      // definition. It used to be matched against the Yoruba index anyway,
-      // which turned English "dodo" into eight Yoruba dòdò pills.
-      if (rel.foreign) {
-        elements.push(`<span class="pill-group"><span class="relation-pill foreign">${escapeHtml(rel.text)}${
-          rel.lang ? `<span class="pos-hint">${escapeHtml(rel.lang)}</span>` : ''
-        }</span></span>`);
-        continue;
-      }
-
-      if (rel.resolved && rel.entryIds && rel.entryIds.length > 0) {
-        const ids = rel.entryIds.filter((id) => ctx.entries[id] && id !== selfId);
-        if (!ids.length) continue;
-        const spelling = ctx.entries[ids[0]].forms.exact;
-        // Nothing in a declared relation list says which homograph is meant,
-        // so a multi-candidate one is always a guess.
-        elements.push(
-          ambiguityPillHtml(ids[0], ids, {
-            uncertain: ids.length > 1,
-            note: `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
-          })
-        );
-      } else {
-        // A word with no entry is still a dead end unless enough other entries
-        // name it to be worth a page of its own. 157 of them clear that bar.
-        const mentionedHref = mentionedPathFor(rel.text);
-        elements.push(
-          mentionedHref
-            ? `<span class="pill-group"><a class="relation-pill unresolved mentioned" href="${mentionedHref}" title="No entry yet - see which words name it">${escapeHtml(rel.text)}</a></span>`
-            : `<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`
-        );
-      }
+      if (rel.type === 'external_link' || rel.foreign) continue;
+      const ids = (rel.entryIds || []).filter((id) => ctx.entries[id] && id !== selfId);
+      if (ids.length) for (const id of ids) declaredIds.add(id);
+      else if (rel.text) declaredForms.add(rel.text);
     }
 
     for (const group of groupBySpelling(extraSynthesized)) {
@@ -259,18 +246,86 @@ export function createEntryRenderer(ctx) {
       // so the count has to stay.
       const method = group.resolution && group.resolution.method;
       const uncertain = ids.length > 1 && method !== 'glossOverlap' && method !== 'unique';
-      elements.push(
-        ambiguityPillHtml(chosen, ids, {
-          synthesized: true,
+      const corroborated = ids.some((id) => declaredIds.has(id)) || declaredForms.has(spelling);
+      for (const id of ids) claimedIds.add(id);
+      claimedForms.add(spelling);
+      synthesized.push({
+        sort: spelling,
+        html: ambiguityPillHtml(chosen, ids, {
+          synthesized: !corroborated,
           uncertain,
           note: method
             ? ambiguityNote(ids.length, spelling)
             : `${ids.length} different words are spelled “${spelling}”, and this word is part of each of them.`,
-        })
-      );
+        }),
+      });
     }
 
-    return elements.length ? `<div class="relation-list">${elements.join('')}</div>` : '';
+    const declared = [];
+    for (const rel of list || []) {
+      // Flattened dialect tables used to arrive here as debris, with a
+      // synthetic "external_link" item standing in for whatever had been
+      // dropped. They're now imported from Wiktionary's own source modules
+      // and rendered by renderDialectSynonyms instead, so both are gone.
+      if (rel.type === 'external_link') continue;
+
+      // A descendant in another language has no Yoruba entry to link to by
+      // definition. It used to be matched against the Yoruba index anyway,
+      // which turned English "dodo" into eight Yoruba dòdò pills.
+      if (rel.foreign) {
+        declared.push({
+          sort: rel.text || '',
+          html: `<span class="pill-group"><span class="relation-pill foreign">${escapeHtml(rel.text)}${
+            rel.lang ? `<span class="pos-hint">${escapeHtml(rel.lang)}</span>` : ''
+          }</span></span>`,
+        });
+        continue;
+      }
+
+      if (rel.resolved && rel.entryIds && rel.entryIds.length > 0) {
+        const ids = rel.entryIds.filter((id) => ctx.entries[id] && id !== selfId);
+        if (!ids.length) continue;
+        if (ids.some((id) => claimedIds.has(id))) continue;
+        const spelling = ctx.entries[ids[0]].forms.exact;
+        // Nothing in a declared relation list says which homograph is meant,
+        // so a multi-candidate one is always a guess.
+        declared.push({
+          sort: spelling,
+          html: ambiguityPillHtml(ids[0], ids, {
+            uncertain: ids.length > 1,
+            note: `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
+          }),
+        });
+      } else {
+        // Matched on the spelling as written, not folded: tone and underdots
+        // are what tell ilé from ilẹ̀, so folding them here would silence a
+        // different word rather than a duplicate of this one.
+        if (claimedForms.has(rel.text)) continue;
+        // A word with no entry is still a dead end unless enough other entries
+        // name it to be worth a page of its own. 157 of them clear that bar.
+        const mentionedHref = mentionedPathFor(rel.text);
+        declared.push({
+          sort: rel.text || '',
+          html: mentionedHref
+            ? `<span class="pill-group"><a class="relation-pill unresolved mentioned" href="${mentionedHref}" title="No entry yet - see which words name it">${escapeHtml(rel.text)}</a></span>`
+            : `<span class="pill-group"><span class="relation-pill unresolved" title="Not in this dictionary yet">${escapeHtml(rel.text)}</span></span>`,
+        });
+      }
+    }
+
+    // Only a section fed by both sources gets sorted. Stacking every declared
+    // pill above every synthesized one would rebuild the split this merge
+    // removes - the reader would see one list with a seam down the middle -
+    // and sorting the single-source sections would churn their order for
+    // nothing.
+    const elements = declared.concat(synthesized);
+    if (declared.length && synthesized.length) {
+      elements.sort((a, b) => a.sort.localeCompare(b.sort, 'yo'));
+    }
+
+    return elements.length
+      ? `<div class="relation-list">${elements.map((el) => el.html).join('')}</div>`
+      : '';
   }
 
   /** The landing-page path for a word, or '' if it has no page. */
@@ -287,10 +342,12 @@ export function createEntryRenderer(ctx) {
   // bottom of the page - which is all the entry-level sections could ever do -
   // would claim yan is a word for setting fires.
   //
-  // Plain-word labels rather than the bottom sections' titles. Entry-level
-  // derivedTerms genuinely co-occurs with sense-level ones on the same page, and
-  // two blocks both headed "Derived terms" reads as a mistake. These also say what
-  // the relationship is to someone who has never met the word "hypernym".
+  // Plain-word labels rather than the bottom sections' titles: they say what the
+  // relationship is to someone who has never met the word "hypernym". The
+  // sense-level derived list is the same relation as the entry's "Used in"
+  // section, narrowed to one meaning, so it is worded that way - and the entry
+  // section stays a separate block because it holds the words Wiktionary
+  // attached to no particular meaning.
   const SENSE_RELATION_LABELS = [
     ['synonyms', 'Similar words'],
     ['antonyms', 'Opposites'],
@@ -520,7 +577,6 @@ export function createEntryRenderer(ctx) {
 
     const dialectHtml = dialectSynonymsHtml(entry);
     const dialectOfHtml = dialectOfHtmlFor(entry);
-    const derivedHtml = relationPillsHtml(entry.derivedTerms, [], entry);
     const relatedHtml = relationPillsHtml(entry.relatedTerms, [], entry);
     const synonymsHtml = relationPillsHtml(entry.synonyms, [], entry);
     const antonymsHtml = relationPillsHtml(entry.antonyms, [], entry);
@@ -541,7 +597,11 @@ export function createEntryRenderer(ctx) {
     const namedByNote = `
       <p>These words list this one in their own definitions. This word does not list them back, so Wiktionary records the link in one direction only.</p>
       <p>The meaning shown next to each is the one that named this word.</p>`;
-    const usedInHtml = relationPillsHtml([], entry.usedInCompounds || [], entry);
+    // Both lists answer the reader's one question - what other words is this
+    // word part of - and differ only in where the answer came from, which is
+    // our bookkeeping and not theirs. Two headings made them look like two
+    // different facts, and put 499 words on the page twice.
+    const usedInHtml = relationPillsHtml(entry.derivedTerms, entry.usedInCompounds || [], entry);
     const maybeUsedInHtml = relationPillsHtml([], entry.possiblyUsedIn || [], entry);
     const maybeUsedInNote = `
       <p>Wiktionary says these words were built from a word spelled like this one. It does not say which meaning.</p>
@@ -567,7 +627,6 @@ export function createEntryRenderer(ctx) {
       ${dialectHtml}
       ${section('Used in', usedInHtml)}
       ${section('Possibly used in', maybeUsedInHtml, maybeUsedInNote)}
-      ${section('Derived terms', derivedHtml)}
       ${section('Derived from', derivedFromHtml)}
       ${section('Related terms', relatedHtml)}
       ${section('Synonyms', synonymsHtml)}

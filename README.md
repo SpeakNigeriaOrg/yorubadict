@@ -428,9 +428,9 @@ fire", and their synonym sets have nothing in common — *yan* and *wì* against
 *jó*, *jóná* and *dáná sun*. One list at the bottom of the page would claim
 *yan* is a word for setting fires. Inline labels are plain words ("Similar
 words", "Built from this meaning", "A kind of") rather than the bottom
-sections' titles, both because entry-level and sense-level `derivedTerms`
-genuinely co-occur on one page and because a reader should not need the word
-"hypernym".
+sections' titles, because a reader should not need the word "hypernym". The
+sense-level derived list is the entry's "Used in" narrowed to one meaning, and
+says so.
 
 #### Words with no entry
 
@@ -670,10 +670,26 @@ lands keeps the older flat rendering, with repeated parts folded together.
 
 The reverse direction is synthesized too: if one entry's etymology decomposes
 to include another as a free-standing component, the component lists every
-word built from it, rendered as a "Used in" section. It is derived purely from
-etymology templates, so (unlike the `derived`/`related`/etc. synthesis below,
-which depends on editors having filled in a list) it doesn't need the
-component's own page to say anything.
+word built from it. Unlike the `derived`/`related`/etc. synthesis below, which
+depends on editors having filled in a list, this comes purely from etymology
+templates and doesn't need the component's own page to say anything.
+
+**It shares the "Used in" section with Wiktionary's own `derived` list**, which
+answers the same reader question — what other words is this word part of — from
+the other source. They were two sections until the split was measured: 499 words
+across 218 pages appeared in both, printed twice on one page under two headings
+that differed only in our bookkeeping. Merged and sorted, each word appears
+once. Where the two sources agree — 514 of the 3,327 links — the word renders as
+a plain pill with no ↺: that mark means "inferred, not stated by Wiktionary",
+and on a word Wiktionary did state it is false. Agreement is the best evidence
+on the page and should not be what wears the inferred mark. The pill keeps the
+synthesized side's resolution, which names which *meaning* the compound was
+built from; handing those 514 to the declared list wholesale would print a doubt
+badge on 66 links etymology had already settled and point 34 at a different
+entry. Provenance stays visible per word rather than as a wall between two
+lists. (90.6% of `derived` items literally contain
+the headword; the rest are elisions like *ilé → wọlé*, so the heading is honest
+for both sources.)
 
 **It comes in two fields, because most of these attributions are inferences.**
 A compound's etymology names a *spelling*, and several meanings usually share
