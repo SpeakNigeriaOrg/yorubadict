@@ -20,6 +20,10 @@ import { fileURLToPath } from 'node:url';
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
 function stubNode(id) {
+  // A real listener registry, for the same reason window got one: a no-op
+  // addEventListener means the search box can be typed into and app.js never
+  // hears it, so any assertion about what search does is vacuous.
+  const listeners = new Map();
   return {
     id,
     innerHTML: '',
@@ -34,8 +38,19 @@ function stubNode(id) {
     scrollTop: 0,
     offsetHeight: 0,
     clientHeight: 0,
-    addEventListener() {},
-    removeEventListener() {},
+    addEventListener(type, fn) {
+      if (!listeners.has(type)) listeners.set(type, []);
+      listeners.get(type).push(fn);
+    },
+    removeEventListener(type, fn) {
+      const set = listeners.get(type) || [];
+      const at = set.indexOf(fn);
+      if (at >= 0) set.splice(at, 1);
+    },
+    dispatchEvent(event) {
+      for (const fn of listeners.get(event.type) || []) fn({ preventDefault() {}, ...event });
+      return true;
+    },
     appendChild() {},
     setAttribute() {},
     getAttribute: () => null,
@@ -119,9 +134,16 @@ function installDom({ pathname = '/', hash = '', prerendered = null } = {}) {
   globalThis.localStorage = { getItem: () => null, setItem() {}, removeItem() {} };
 
   // The app fetches its own data files; serve them off disk.
+  //
+  // Resolved against location.pathname the way a browser does, NOT by stripping
+  // a leading slash. Stripping was the same normalisation for './data/x',
+  // '/data/x' and 'data/x', so the stub answered all three and the difference
+  // between them - the difference that took the live site down from every page
+  // below the root - could not be expressed here at all.
   globalThis.fetch = async (url) => {
-    const file = path.join(publicDir, String(url).replace(/^\.?\//, ''));
-    if (!fs.existsSync(file)) throw new Error(`no such file: ${file}`);
+    const resolved = new URL(String(url), `https://yorubadict.com${globalThis.location.pathname}`);
+    const file = path.join(publicDir, resolved.pathname.replace(/^\//, ''));
+    if (!fs.existsSync(file)) throw new Error(`no such file: ${resolved.pathname}`);
     return { ok: true, json: async () => JSON.parse(fs.readFileSync(file, 'utf8')) };
   };
 
@@ -318,4 +340,43 @@ test('the shell loads its scripts and styles from the root', () => {
     (r) => !/^([a-z]+:|\/|#|data:)/i.test(r) && !r.startsWith('mailto:')
   );
   assert.deepEqual(bad, [], `these resolve against the current page, not the root: ${bad.join(', ')}`);
+});
+
+test('the dictionary loads when the page opened at a word, not at the root', async () => {
+  // The production failure, reproduced. Every test above boots at '/', where a
+  // relative data URL and a rooted one resolve to the same place - so the whole
+  // file passed while the live site showed "Unexpected token '<'" on all 7,109
+  // word pages. Opening below the root is what tells them apart.
+  const entries = readEntries();
+  const target = Object.values(entries).find((e) => e.canonicalForm.value === 'gbà');
+  const { byId } = installDom({ pathname: target.path, prerendered: target.path });
+
+  await bootApp();
+
+  // Waited for with the full settle, not a short one. boot() holds the download
+  // behind a paint gate whose long stop is five seconds, so a test that gives up
+  // after one still sees "Loading the dictionary…" and reads the load as fine -
+  // which is exactly how the first version of this test passed against the bug
+  // it was written for.
+  const settled = await settle(
+    () => !byId('entry-content').innerHTML.includes('Loading the dictionary…')
+  );
+  const entry = byId('entry-content').innerHTML;
+  assert.ok(settled, 'boot never finished loading the dictionary');
+  assert.ok(
+    !entry.includes("Couldn't load"),
+    `boot reported a failed load from a nested address: ${entry.slice(0, 200)}`
+  );
+
+  // The other half of the same failure: state.ready stays false, so the results
+  // panel keeps promising a search that is never coming.
+  const searchBox = byId('search-input');
+  searchBox.value = 'gba';
+  searchBox.dispatchEvent({ type: 'input' });
+
+  const results = byId('results-list').innerHTML;
+  assert.ok(
+    !results.includes('Loading the dictionary') && !results.includes('did not load'),
+    `search should be live once the dictionary is in: ${results.slice(0, 200)}`
+  );
 });

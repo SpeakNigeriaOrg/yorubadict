@@ -1256,6 +1256,22 @@ import { createPageRenderer } from './page-render.js';
   }
 
   boot().catch((err) => {
-    els.entryContent.innerHTML = `<div class="entry-welcome"><h1>Couldn't load the dictionary</h1><p>${escapeHtml(err.message)}</p><p>If you opened this file directly (file://), you'll need to serve it over HTTP — see the README.</p></div>`;
+    // Both panels, not just this one. state.ready stays false when the load
+    // fails, and the results panel renders its not-ready message off that -
+    // "Loading the dictionary… your search will run as soon as it's here."
+    // So a failed load told you it had failed in one half of the screen and
+    // promised a search that was never coming in the other, indefinitely.
+    els.entryContent.innerHTML =
+      `<div class="entry-welcome"><h1>Couldn't load the dictionary</h1>` +
+      `<p>${escapeHtml(err.message)}</p>` +
+      (location.protocol === 'file:'
+        ? `<p>This page was opened as a file. It has to be served over HTTP — see the README.</p>`
+        : `<p>Reloading may fix it. If it does not, the dictionary file is not being served.</p>`) +
+      `</div>`;
+    if (els.resultsList) {
+      els.resultsList.innerHTML =
+        '<div class="results-empty">Search is unavailable — the dictionary did not load.</div>';
+      els.resultsList.removeAttribute('role');
+    }
   });
 })();
