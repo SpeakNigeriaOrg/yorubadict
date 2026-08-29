@@ -188,34 +188,33 @@ export function createPageRenderer(ctx) {
         <p>And the last word turns the unit around. <em>ilé</em> in front of <em>ọmọ</em>, rather than the other way, gives <a href="__P:en-ile_ọmọ-yo-noun-cuxVkKH7__">ilé ọmọ</a> — the house of the child, which is the womb. Order decides which word is doing the describing.</p>`,
     },
     {
-      title: 'Four: where a thing is',
-      lede: `<p><em>ní</em> is a small word meaning at or in. It goes in front of a noun to say where something is, and the nouns it uses are mostly parts of the body.</p>`,
+      title: 'Four: where you are from',
+      lede: `<p><em>ilẹ̀</em> is the land — the ground itself. It turns up in most of the words Yorùbá uses for where a person comes from, and the other words in this family keep meeting each other.</p>
+        <p>Watch <em>orí</em>, <em>ìbí</em> and <em>ọjọ́</em>. Each pairs with <em>ilẹ̀</em>, and each pairs with one of the others.</p>`,
       learn: [
-        ['en-ni-yo-prep-sMSnxPOE', 'ní', 'prep', 'at, in'],
-        ['en-inu-yo-noun-2x75v7QG', 'inú', 'noun', 'stomach'],
-        ['en-oke-yo-noun-xoCPmvRC', 'òkè', 'noun', 'hill'],
-        ['en-abẹ-yo-noun-12d0imA3', 'abẹ́', 'noun', 'underside'],
-        ['en-ẹgbẹ-yo-noun-T~4dAuF~', 'ẹ̀gbẹ́', 'noun', 'side'],
-        ['en-iwaju-yo-noun-LY1pMXes', 'iwájú', 'noun', 'front'],
-        ['en-aarin-yo-noun-OOMXrA9I', 'àárín', 'noun', 'middle'],
-        ['en-eti-yo-noun-PGo2tkD8', 'etí', 'noun', 'ear'],
-        ['en-okun-yo-noun-9~iFvwXM', 'òkun', 'noun', 'sea'],
+        ['en-ilẹ-yo-noun-3j-~5Sdn', 'ilẹ̀', 'noun', 'land, ground'],
+        ['en-ori-yo-noun-ny5tM6Nx', 'orí', 'noun', 'head, source'],
+        ['en-ibi-yo-noun-96GGEfQu', 'ìbí', 'noun', 'birth'],
+        ['en-ọjọ-yo-noun-lEwn5bl6', 'ọjọ́', 'noun', 'day'],
+        ['en-ede-yo-noun-pO8wS6Qq', 'èdè', 'noun', 'language'],
+        ['en-ile-yo-noun-VQM0lVeW', 'ilé', 'noun', 'home, house'],
+        ['en-aye-yo-noun-SG6kYiTR', 'ayé', 'noun', 'world'],
       ],
       built: [
-        ['en-ninu-yo-prep-HHuaO-we', 'nínú', 'inside, within', 'ní + inú'],
-        ['en-loke-yo-prep-PprxCdYv', 'lókè', 'above, at the top', 'ní + òkè'],
-        ['en-labẹ-yo-prep-12d0imA3', 'lábẹ́', 'under', 'ní + abẹ́'],
-        ['en-lẹgbẹẹ-yo-prep-MElvvfxY', 'lẹ́gbẹ̀ẹ́', 'beside', 'ní + ẹ̀gbẹ́'],
-        ['en-niwaju-yo-prep_phrase-sxQgeT7h', 'níwájú', 'in front', 'ní + iwájú'],
-        ['en-laaarin-yo-prep-QRcG3pxC', 'láàárín', 'in between', 'ní + àárín'],
-        ['en-etikun-yo-noun-mMlflkX4', 'etíkun', 'coast, seaside', 'etí + òkun'],
+        ['en-orilẹ-yo-noun-cOCzn~lH', 'orílẹ̀', 'clan, lineage', 'orí + ilẹ̀'],
+        ['en-orilẹ-ede-yo-noun-7Lwn8w8Z', 'orílẹ̀-èdè', 'country, nation', 'orílẹ̀ + èdè'],
+        ['en-ibilẹ-yo-noun-2QKborSA', 'ìbílẹ̀', 'native, indigenous', 'ìbí + ilẹ̀'],
+        ['en-ọjọ-ibi-yo-noun-BCLULGib', 'ọjọ́-ìbí', 'birthday', 'ọjọ́ + ìbí'],
+        ['en-ọjọ-ori-yo-noun-AT9UQAyC', 'ọjọ́-orí', 'age', 'ọjọ́ + orí'],
+        ['en-ileelẹ-yo-noun-zD~7f6bC', 'iléelẹ̀', 'bungalow', 'ilé + ilẹ̀'],
+        ['en-ilẹ_aye-yo-noun-t8m1zNPj', 'ilẹ̀ ayé', 'Earth', 'ilẹ̀ + ayé'],
       ],
-      note: `<p>Six ways of saying where something is, and every one of them is <em>ní</em> plus a noun you would have learned anyway.</p>
-        <p>Read the left column again. <em>inú</em> is the stomach, and inside a thing is its stomach. <em>etí</em> is the ear, and the edge of the sea is its ear — <a href="__P:en-etikun-yo-noun-mMlflkX4__">etíkun</a>, the coast. The body is where Yorùbá gets its map.</p>
-        <p><em>ní</em> also changes as it joins: <em>ní</em> and <em>òkè</em> give <em>lókè</em>, not <em>ní òkè</em>. There are rules behind that and you do not need them yet. Meet enough examples and the change stops surprising you, which is the right moment to learn why it happens.</p>`,
+      note: `<p>Your lineage is the head of the land. Native means born of the land. A country is a lineage and a language together. Your birthday is the day of your birth, and your age is counted in days of your head.</p>
+        <p>Nothing here is a chain of one popular word. <em>orí</em> meets <em>ilẹ̀</em> and it also meets <em>ọjọ́</em>. <em>ìbí</em> meets both of those in turn. Take any two of the four and there is usually a word waiting.</p>
+        <p>And <a href="__P:en-orilẹ-ede-yo-noun-7Lwn8w8Z__">orílẹ̀-èdè</a>, a country, is built on <em>orílẹ̀</em>, which was already two words — the same second storey as <em>ọmọ ilé ìwé</em> in the third family.</p>`,
     },
     {
-      title: 'Five: the subject, and the person who studies it',
+            title: 'Five: the subject, and the person who studies it',
       lede: `<p>This last one is a step up in register — the words are the kind that turn up in a university, not a kitchen. The machinery is exactly the same, and here it runs four steps deep.</p>
         <p>Two of the words to learn are not whole words. <em>ì-</em> and <em>oní-</em> are pieces that go on the front of a word and change what kind of thing it is. They are as much a part of the language as any noun, and Yorùbá leans on them constantly.</p>`,
       learn: [
@@ -225,8 +224,6 @@ export function createPageRenderer(ctx) {
         ['en-ẹda-yo-noun-llq7JUsQ', 'ẹ̀dá', 'noun', 'creation'],
         ['en-ede-yo-noun-pO8wS6Qq', 'èdè', 'noun', 'language'],
         ['en-ẹrọ-yo-noun-MsZxKZjf', 'ẹ̀rọ', 'noun', 'machine'],
-        ['en-kokoro-yo-noun-czW-cD52', 'kòkòrò', 'noun', 'insect'],
-        ['en-arun-yo-noun-6S~Npepc', 'àrùn', 'noun', 'disease'],
       ],
       built: [
         ['en-imọ-yo-noun-4PiVhy1l', 'ìmọ̀', 'knowledge', 'ì- + mọ̀'],
@@ -234,11 +231,12 @@ export function createPageRenderer(ctx) {
         ['en-imọ_ẹda-ede-yo-noun-1yixku0r', 'ìmọ̀ ẹ̀dá-èdè', 'linguistics', 'ìmọ̀ + ẹ̀dá + èdè'],
         ['en-onimọ_ẹda-ede-yo-noun-q6FVJLKJ', 'onímọ̀ ẹ̀dá-èdè', 'linguist', 'onímọ̀ + ẹ̀dá + èdè'],
         ['en-imọ_ẹrọ-yo-noun-3stlhxV2', 'ìmọ̀ ẹ̀rọ', 'technology', 'ìmọ̀ + ẹ̀rọ'],
-        ['en-kokoro_arun-yo-noun-vXspGfMl', 'kòkòrò àrùn', 'pathogen', 'kòkòrò + àrùn'],
       ],
-      note: `<p>Follow the list from the top and you can watch one word grow. <em>mọ̀</em> is to know. <em>ìmọ̀</em> is knowing, made a thing. <em>onímọ̀</em> is the person who holds it. <em>onímọ̀ ẹ̀dá-èdè</em> is the person who holds it about the making of language — a linguist. Four steps, and every step is one short piece added to the front.</p>
-        <p>Then read the two in the middle side by side. <em>ìmọ̀ ẹ̀dá-èdè</em> is linguistics; <em>onímọ̀ ẹ̀dá-èdè</em> is a linguist. Three words each, two of the three the same, and the one that changes moves you from the subject to the person who does it. That is the same move as <em>ilé-ìwé</em> and <em>ọmọ ilé ìwé</em>, in a suit.</p>
-        <p>This is also how Yorùbá makes words it did not have yesterday, and it does not do it by borrowing. <a href="__P:en-kokoro_arun-yo-noun-vXspGfMl__">kòkòrò àrùn</a>, a pathogen, is the insect of the disease.</p>`,
+      note: `<p>This family is a line rather than a web, which is why it is last. Follow it from the top and you can watch one word grow. <em>mọ̀</em> is to know. <em>ìmọ̀</em> is knowing, made a thing. <em>onímọ̀</em> is the person who holds it. <em>onímọ̀ ẹ̀dá-èdè</em> is the person who holds it about the making of language — a linguist. Four steps, and every step is one short piece added to the front.</p>
+        <p>Read the last two side by side. <em>ìmọ̀ ẹ̀dá-èdè</em> is linguistics; <em>onímọ̀ ẹ̀dá-èdè</em> is a linguist. Three words each, two of the three the same, and the one that changes moves you from the subject to the person who does it. That is the same move as <em>ilé-ìwé</em> and <em>ọmọ ilé ìwé</em>, in a suit.</p>
+        <p>Now take a harder job. A germ is too small to see, nobody knew it was there until recently, and a language that has always talked about illness suddenly has to name the thing causing it. English reached for Greek and produced <em>pathogen</em>, a word that tells an English speaker nothing at all.</p>
+        <p>Yorùbá reached for two words a farmer already had. A pathogen is <a href="__P:en-kokoro_arun-yo-noun-vXspGfMl__">kòkòrò àrùn</a>: the insect of the disease. <em>ẹ̀rọ</em> does the same work — <em>ìmọ̀ ẹ̀rọ</em>, knowledge of machines, is technology.</p>
+        <p>This is what a living language looks like. New things keep arriving and Yorùbá keeps meeting them the same way, with the words it already has, so that the newest word on this page is as readable as the oldest.</p>`,
     },
   ];
 
@@ -291,38 +289,53 @@ export function createPageRenderer(ctx) {
 
         ${UNITS.map(unitHtml).join('')}
 
-        <h2>Guess before you look it up</h2>
-        <p>When you meet a long word, look inside it for a word you already have. Decide what you think the whole thing means. Then check.</p>
-        <p><a href="${ctx.pathFor('en-ṣe-yo-verb-IXZV9I3e')}">ṣe</a> means to do. <a href="${ctx.pathFor('en-ṣiṣẹ-yo-verb-5qTsaA0x')}">ṣiṣẹ́</a> means to work. <a href="${ctx.pathFor('en-ṣalaye-yo-verb-cgQ~Nwbp')}">ṣàlàyé</a> means to explain.</p>
-        <p>Some of those you can predict and some you cannot. <em>ilé</em> and <em>ayé</em> giving Earth is not obvious in advance. It does not matter. Guessing and being wrong fixes a word in the memory in a way that reading it in a list never does.</p>
-        <p>In a classroom this is a question, not an explanation. Give the class two words they know. Ask what the two together will mean. Take their answers before you give yours.</p>
+        <h2>The easy way to learn and teach Yorùbá</h2>
+        <p>Everything above is one claim: Yorùbá vocabulary is not a list of words, it is a set of connections, and learning the connections is easier than learning the words.</p>
+        <p>Most dictionaries cannot help you with that, because they put words in alphabetical order and leave it there. That is fine for English, where a word's history is mostly dead — knowing that <em>salary</em> once meant salt money is a nice fact and changes nothing about using it. Copy that design for Yorùbá and you hide the thing a learner most needs, because the meaning of a long word is usually sitting in two shorter ones and an alphabetical list puts those nowhere near it.</p>
+        <p>So we built this one the other way round, the way we wanted the language presented. Every entry names its parts under <em>Component words</em> and lists what is built from it under <em>Used in</em>. You can start at any word and walk. Vocabulary stops being a list to get through and becomes something with a shape you can feel your way around, which is both easier and considerably more fun.</p>
+        <p>If you are learning alone, that is the whole method: look a word up, read what it is made of, read what it makes, and follow whichever of those you like. You will assemble families of your own without being taught them. <a href="${ctx.pagePath('building-blocks')}">Key building block words</a> is the map to start from — the 25 words that build more other words than any others here, each with examples of what it builds. It is generated from the dictionary rather than chosen by us, so it reports what is true of the language rather than what we would like to be true.</p>
+        <p>If you are teaching, it changes the order you teach in. The rest of this page is about that.</p>
 
-        <h2>Tone marks are part of the word</h2>
+        <h3>Teaching a theme? Teach its parts first</h3>
+        <p>Themes are the usual way to plan vocabulary. Animals one week, the body the next, food after that. It is a reasonable instinct and it leaves most of the value on the table, because the dictionary can tell you which words to teach <em>before</em> the theme so that the theme half-teaches itself.</p>
+        <p>Take animals. Teach three ordinary words first — <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (house), <a href="${ctx.pathFor('en-oko-yo-noun-OIAV69nB')}">oko</a> (farm, the bush) and <a href="${ctx.pathFor('en-omi-yo-noun-D0FoSQ44')}">omi</a> (water) — and then teach the animals. Here is the head start the class now has:</p>
+        <ul>
+          <li><a href="${ctx.pathFor('en-ile_ẹyẹ-yo-noun-UjceHYyt')}">ilé ẹyẹ</a>, a nest — the bird's house. <a href="${ctx.pathFor('en-ile_oyin-yo-noun-kN5kAaSH')}">ilé oyin</a>, a beehive.</li>
+          <li><a href="${ctx.pathFor('en-ajako-yo-noun-cNoevVH0')}">ajáko</a>, a jackal — the dog of the bush. <a href="${ctx.pathFor('en-ẹranko-yo-noun-T7LisjX5')}">ẹranko</a>, a wild animal.</li>
+          <li><a href="${ctx.pathFor('en-erinmi-yo-noun-2zX7RdHr')}">erinmi</a>, a hippopotamus — the elephant of the water. <a href="${ctx.pathFor('en-ẹranmi-yo-noun-SNpfbr3~')}">ẹranmi</a>, a sea creature.</li>
+        </ul>
+        <p>What the class gets from each one is different, and the variety is most of the pleasure. Some they will simply get: a bird's house is a nest, a bee's house is a hive. Some come out half right, which is the best kind — a dog of the bush is a wild dog, and a jackal is close enough to feel like a win. Some are a straight surprise: an elephant of the water is a hippopotamus, which nobody is going to produce cold and nobody forgets once they have heard it.</p>
+        <p>And some tell you how Yorùbá cuts the world up. <a href="${ctx.pathFor('en-ẹranko-yo-noun-T7LisjX5')}">ẹranko</a>, a wild animal, is an animal of the bush — the word draws the line by where a creature lives, not by whether it can be tamed. That is a small thing to know and it is the kind of small thing that makes a language feel like somewhere you are standing rather than a list you are getting through.</p>
+
+        <p>The same lesson arrives from the other direction if you plan a unit on the body: eye, ear, head, hand, foot, bone, mouth. It is a natural theme and, on its own, it is almost barren. Of all the words in this dictionary built from those, exactly one is built from two of them — <a href="${ctx.pathFor('en-ojugun-yo-noun-ePRj6o4p')}">ojúgun</a>, the shin, which is the face of the bone.</p>
+        <p>One word changes that. <a href="${ctx.pathFor('en-ni-yo-prep-sMSnxPOE')}">ní</a> means at or in, and Yorùbá puts it in front of a body part to say where something is. It turns up in more of the body's compounds than any other word in this dictionary, and one of them falls out immediately: <em>ní</em> and <em>inú</em>, the stomach, give <a href="${ctx.pathFor('en-ninu-yo-prep-HHuaO-we')}">nínú</a> — inside.</p>
+        <p>That is not a fact anybody could have guessed from a word list, and it is the sort of thing this dictionary is for. The body is worth teaching. It is worth teaching after <em>ní</em>.</p>
+
+        <h3>Three questions to ask of any word</h3>
+        <p>How early should it come? A word that builds twenty others earns its place in the first week; a word that builds nothing can wait, however common it looks. The building block list answers this directly.</p>
+        <p>In what order? Parts before wholes. <em>ilé</em> and <em>ìwé</em> before <em>ilé-ìwé</em>, and <em>ilé-ìwé</em> before <em>ọmọ ilé ìwé</em>.</p>
+        <p>Alongside what? Open the word and read <em>Used in</em>. Anything on that list is half-learned already, and the ones that share a second part with each other are the beginnings of a family like the five above.</p>
+
+        <h3>Let the class do the guessing</h3>
+        <p>None of this works if you hand over the answer first.</p>
+        <p>When a long word arrives, give the class the parts and ask what the whole thing will mean. Take their answers before you give yours.</p>
+        <p>You cannot tell in advance which kind you are handing them, and that is what makes it worth doing. Sometimes the room gets it at once. Sometimes the real answer is better than every guess — <em>ilé</em> and <em>ayé</em>, home and world, turning out to mean Earth. Sometimes it is a small joke: <em>ẹ̀kọ́ ilé</em>, house lessons, meaning good manners. A class that has been wrong about a word remembers it better than a class that was told, and they will ask about the next one before you offer.</p>
+        <p>The same applies when you introduce the word yourself: say which two words it is made of, the first time, every time. Do not define <em>ilé ayé</em> as "Earth" and move on — a student can see it is two words, and saying which two costs one sentence. This matters most for the ones that do not look like compounds. <a href="${ctx.pathFor('en-sọrọ-yo-verb-SuqWjjbe')}">sọ̀rọ̀</a>, to speak, is <em>sọ</em> ("to say") pressed together with <em>ọ̀rọ̀</em> ("word"). <a href="${ctx.pathFor('en-sọrọ_soke-yo-verb-zjLiM20R')}">sọ̀rọ̀ sókè</a>, the name of this dictionary, is four: <em>sọ</em>, <em>ọ̀rọ̀</em>, <em>sí</em> ("to") and <em>òkè</em> ("heights"). Speak up.</p>
+        <p>What can wait is the rules — how words combine, and how combining changes the sounds. Keep putting real examples in front of a class and they will start predicting the changes before anyone states a rule. That is the moment to teach the rule, not before.</p>
+
+        <h3>Tone marks are part of the word</h3>
         <p><a href="${ctx.pathFor('en-gba-yo-verb-DCZgzqX2')}">gbà</a> means to rescue. <a href="${ctx.pathFor('en-gba-yo-verb-VAsl51P3')}">gbá</a> means to hit. Same letters, different marks, two different words. A word learned without its marks is half a word.</p>
-        <p>This matters more here than in a phrasebook, because the marks are what tell you which word is inside a longer one. Two of the families above use a word spelled <em>egbe</em>: <em>ẹgbẹ́</em> is a team, and <em>ẹ̀gbẹ́</em> is the side of something. One of them gives you <em>ọmọ ẹgbẹ́</em>, a member of a club. The other gives you <em>lẹ́gbẹ̀ẹ́</em>, meaning beside. Learn either without its marks and you have lost the difference for good.</p>
+        <p>This matters more here than in a phrasebook, because the marks are what tell you which word is inside a longer one. The families above lean on two words spelled <em>ile</em>: <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> is a house and <a href="${ctx.pathFor('en-ilẹ-yo-noun-3j-~5Sdn')}">ilẹ̀</a> is the ground. One builds <em>ilé-ìwé</em>, a school. The other builds <em>ìbílẹ̀</em>, born of the land. Put both in one word and you get <a href="${ctx.pathFor('en-ileelẹ-yo-noun-zD~7f6bC')}">iléelẹ̀</a>, a house at ground level — a bungalow. Learn either without its marks and you cannot read that word again.</p>
         <p>You can still search without them. Type <em>gba</em> and you get all eight words spelled that way, each with its meaning, and you pick the one you meant.</p>
 
-        <h2>Say which two words, the first time</h2>
-        <p>This is mostly for teachers, and it is the easiest thing to skip.</p>
-        <p>Do not define <em>ilé ayé</em> as "Earth" and move on. It is two words, a student can see it is two words, and saying which two costs one sentence. The same goes for the ones that do not look like compounds, where it is skipped far more often. <a href="${ctx.pathFor('en-sọrọ-yo-verb-SuqWjjbe')}">sọ̀rọ̀</a> means to speak, and it is <em>sọ</em> ("to say") pressed together with <em>ọ̀rọ̀</em> ("word"). <a href="${ctx.pathFor('en-sọrọ_soke-yo-verb-zjLiM20R')}">sọ̀rọ̀ sókè</a>, the name of this dictionary, is four words: <em>sọ</em> ("to say"), <em>ọ̀rọ̀</em> ("word"), <em>sí</em> ("to") and <em>òkè</em> ("heights"). Speak up.</p>
-        <p>What students do not need early are the rules for how words combine and how combining changes the sounds. Those exist, and they can wait. Keep putting combinations in front of a class and they will start predicting the changes before anyone states a rule. Teach the rule then.</p>
-
-        <h2>Check a breakdown before you teach it</h2>
-        <p>Look the word up here first. This dictionary is built from Wiktionary, which is crowdsourced and uneven, and many words have no breakdown at all. It is still the most complete source of these we know of, which is why it is worth checking your own knowledge against it — in both directions.</p>
-        <p>Where the source does not say which meaning a word was built from, the entry says so rather than choosing one for you. Of the 6,273 entries here, 2,314 record their parts, and only 797 have every part traced to a specific word. If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here after the next refresh. The <a href="${ctx.pagePath('contribute')}">Contribute</a> page lists the edits that are already identified.</p>
-
-        <h2>Teach students to compare sources</h2>
-        <p>There is no single authority for Yorùbá, and students should hear that before they start looking things up.</p>
-        <ul>
-          <li><strong>This dictionary</strong> for lookups, and for how words are built.</li>
-          <li><strong><a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a></strong> to see several dictionaries side by side.</li>
-          <li><strong>Google Translate</strong> is unreliable for Yorùbá. Fine for a rough idea, not for anything you are teaching.</li>
-        </ul>
-        <p>Students who are confident online are often still poor at judging which source to trust. Show them how you decide.</p>
+        <h3>Check a breakdown before you teach it</h3>
+        <p>Look the word up here first. This dictionary is built from Wiktionary, which is crowdsourced and uneven, and many words have no breakdown at all. Of the 6,273 entries here, 2,314 record their parts, and only 797 have every part traced to a specific word. It is still the most complete source of these we know of, which is exactly why it is worth checking your own knowledge against it, in both directions.</p>
+        <p>Where the source does not say which meaning a word was built from, the entry says so rather than choosing one for you. If a word you know is missing its breakdown, you can add it to Wiktionary and it will appear here after the next refresh. The <a href="${ctx.pagePath('contribute')}">Contribute</a> page lists the edits that are already identified and what each one would fix.</p>
+        <p>And teach students to compare sources, because there is no single authority for Yorùbá and they should hear that before they start looking things up. Use this dictionary for lookups and for how words are built. Use <a href="https://glosbe.com/en/yo" target="_blank" rel="noopener noreferrer">Glosbe</a> to see several dictionaries side by side. Treat Google Translate as unreliable for Yorùbá — fine for a rough idea, not for anything you are teaching. Students who are confident online are often still poor at judging which source to trust, so show them how you decide.</p>
 
         <h2>Where to go next</h2>
         <ul>
-          <li><a href="${ctx.pagePath('building-blocks')}">Key building block words</a> — the 25 roots that build the most words in this dictionary, with examples of each. Build your own unit from any of them.</li>
+          <li><a href="${ctx.pagePath('building-blocks')}">Key building block words</a> — the 25 roots that build the most words in this dictionary, with examples of each. Build your own family from any of them.</li>
           <li>Our <a href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">courses</a> teach Yorùbá in a set order.</li>
           <li>Our <a href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">games</a> are for practice.</li>
         </ul>
