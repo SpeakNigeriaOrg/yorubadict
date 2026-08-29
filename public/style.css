@@ -1100,6 +1100,39 @@ a { color: inherit; }
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
+/* ---------- Sample vocabulary units ----------
+   Language of Connections. Two lists per unit: the words to learn, which is
+   the same "word · part of speech · meaning" shape .sibling-row already
+   solves, and the words those build, where the third column is the parts
+   rather than the part of speech. One rule handles both. */
+.unit {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+.about-content .unit h3 { margin-top: 0; }
+.unit-label {
+  margin: 16px 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+/* The parts column is the point of the built list, so it gets the Yorùbá face
+   and sits right, away from the meaning it explains. */
+.unit-parts {
+  font-family: var(--font-yoruba);
+  font-size: 0.85rem;
+  color: var(--accent-grammar);
+  white-space: nowrap;
+  text-align: right;
+}
+.about-content a.unit-row { text-decoration: none; }
+@media (max-width: 560px) {
+  .unit-parts { text-align: left; }
+}
+
 .blocks-note {
   margin-top: 32px;
   padding-top: 16px;

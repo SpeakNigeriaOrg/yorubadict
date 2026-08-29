@@ -15,6 +15,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { prerender, descriptionFor, ORIGIN } from '../build/lib/prerender.mjs';
+import { createPageRenderer } from '../public/page-render.js';
+
+// Counted rather than written down, so combining or adding a page is one edit.
+const WRITTEN_PAGES = createPageRenderer({
+  pathFor: () => '/', pagePath: () => '/', escapeHtml: (s) => String(s),
+}).PAGES.length;
 
 const repoDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(repoDir, 'public');
@@ -89,9 +95,9 @@ test('the sitemap lists every page, written pages first', () => {
   const xml = fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8');
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 
-  // Three words, the seven written pages, and one page for the spelling two of
-  // the words share.
-  assert.equal(locs.length, SAMPLE.length + 7 + 1);
+  // Three words, the pages this project writes itself, and one page for the
+  // spelling two of the words share.
+  assert.equal(locs.length, SAMPLE.length + WRITTEN_PAGES + 1);
   assert.ok(locs.includes(`${ORIGIN}/yo/gba`), 'the shared spelling gets a page');
   for (const e of SAMPLE) assert.ok(locs.includes(ORIGIN + e.path), `${e.path} missing`);
   assert.equal(locs[0], `${ORIGIN}/`);

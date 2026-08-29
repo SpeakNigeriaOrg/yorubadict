@@ -32,7 +32,7 @@ has to be executed to read one. Full list at https://yorubadict.com/sitemap.xml
 - `/yo/<spelling>/<word>` — one entry
 - `/yo/<spelling>` — the words written that way, where more than one is. 836 of
   these. A spelling written by only one word has no such page.
-- `/about`, `/learners`, `/teachers`, `/building-blocks`, `/contribute`,
+- `/about`, `/language-of-connections`, `/building-blocks`, `/contribute`,
   `/speak-nigeria` — pages this project wrote itself
 - `/yo/ajami/…`, `/yo/ajami-letter/…`, `/yo/tone-mark/…` — Yorùbá written in the
   Arabic script, the Ajami alphabet's own letters, and the tone marks

@@ -302,6 +302,19 @@ async function main() {
   // A real HTML file per word. This is what makes the dictionary readable
   // without JavaScript, and therefore findable at all - see build/lib/prerender.mjs.
   const pages = prerender(linkedEntries, { redirects, provisional });
+  if (pages.missingNamedWords.length) {
+    const lines = pages.missingNamedWords.join('\n  ');
+    const complaint =
+      `${pages.missingNamedWords.length} word(s) named by hand in public/page-render.js are ` +
+      `not in this dictionary:\n  ${lines}\n` +
+      'Either the entry has gone or its id has changed. Fix the page text: the link points ' +
+      'at the front page, and the sentence around it still promises a word.';
+    // Only fatal on the real build. Building from a local file is either a
+    // pinned snapshot, where this would have fired anyway, or the 16-entry
+    // smoke fixture, where every word on every page is missing by design.
+    if (!inputPath) throw new Error(complaint);
+    console.log(`      note: ${complaint.split('\n')[0]} (not fatal for a local snapshot)`);
+  }
   console.log(
     `      ${pages.written.length} pages, ${(pages.bytes / 1024 / 1024).toFixed(1)} MB, ` +
       `sitemap.xml, _redirects (${pages.redirects})` +

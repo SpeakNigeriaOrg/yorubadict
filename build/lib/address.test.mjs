@@ -143,7 +143,7 @@ test('every word lives under /yo/, so the root stays free', () => {
 
 test('a page of the site may not be called yo, or it would sit on the dictionary', () => {
   assert.ok(isReservedPageName('yo'));
-  for (const name of ['about', 'learners', 'contribute']) {
+  for (const name of ['about', 'language-of-connections', 'contribute']) {
     assert.ok(isReservedPageName(name), `${name} is a real page`);
   }
   // And an ordinary word is no longer reserved, because it cannot collide.
@@ -234,7 +234,7 @@ test('an accented target is folded, not stripped letter by letter', () => {
 test('RESERVED is derived from the pages that exist, not a hand-copy of them', () => {
   // A hand-copy goes stale: the /go/<id> route was added later, never reserved,
   // and four real Yorùbá verbs landed on top of it.
-  for (const name of ['about', 'speak-nigeria', 'learners', 'teachers', 'building-blocks', 'contribute']) {
+  for (const name of ['about', 'speak-nigeria', 'language-of-connections', 'building-blocks', 'contribute']) {
     assert.ok(RESERVED.has(name), `${name} is a real page and must be reserved`);
   }
   // It no longer needs to list shipped files: nothing at the root is an address.

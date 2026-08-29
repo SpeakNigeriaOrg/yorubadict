@@ -128,8 +128,7 @@ one-line description for its `<meta>` tag, and a function returning the markup:
 | `/` | The welcome screen |
 | `/about` | About the Dictionary — what this is and where the data comes from |
 | `/speak-nigeria` | About Speak Nigeria — the nonprofit behind it |
-| `/learners` | For Learners — learn roots, then read what they build |
-| `/teachers` | For Teachers — curriculum sequencing, and *when* to explain a compound |
+| `/language-of-connections` | Language of Connections — how words are built from words, three sample vocabulary units, and how to teach from them |
 | `/building-blocks` | Key Building Block Words — **generated**, see below |
 | `/contribute` | A Wiktionary work queue — **generated**, see below |
 

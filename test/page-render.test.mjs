@@ -49,7 +49,7 @@ test('every page has a path, a title and its own description', () => {
   }
   assert.deepEqual(
     pages.PAGES.map((p) => p.name),
-    ['welcome', 'about', 'speak-nigeria', 'learners', 'teachers', 'building-blocks', 'contribute']
+    ['welcome', 'about', 'speak-nigeria', 'language-of-connections', 'building-blocks', 'contribute']
   );
 });
 
