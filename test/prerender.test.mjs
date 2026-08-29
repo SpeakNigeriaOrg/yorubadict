@@ -343,3 +343,34 @@ test('a provisional page is served but kept out of the sitemap', () => {
   assert.ok(fs.existsSync(file));
   assert.deepEqual(second.removed, []);
 });
+
+test('Yorùbá text says it is Yorùbá', () => {
+  // <html lang="en"> is right for the page - the definitions are English - but
+  // it made the headword English too. It decides how a screen reader pronounces
+  // gbà, and it is what tells a search engine the page is about a Yorùbá word
+  // rather than an English one with odd spelling.
+  const dir = fixtureSite();
+  prerender(SAMPLE, { publicDir: dir });
+
+  const html = fs.readFileSync(path.join(dir, 'yo/gba/take.html'), 'utf8');
+  assert.match(
+    html,
+    /<span class="entry-headword" lang="yo">/,
+    'the headword above all - it is the Yorùbá on the page a reader came for'
+  );
+});
+
+test('a shared link has a card to show', () => {
+  const dir = fixtureSite();
+  prerender(SAMPLE, { publicDir: dir });
+  const html = fs.readFileSync(path.join(dir, 'yo/gba/take.html'), 'utf8');
+
+  assert.match(html, /property="og:image" content="https:\/\/yorubadict\.com\/og-image\.png"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/, 'or it renders as a thumbnail');
+  assert.match(html, /property="og:image:width" content="1200"/, 'stated so the card renders before the image loads');
+
+  // The tags name a file. If it is not there the card is worse than absent -
+  // the platform shows a broken preview rather than falling back to text.
+  const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
+  assert.ok(fs.existsSync(path.join(publicDir, 'og-image.png')), 'public/og-image.png must exist');
+});

@@ -105,6 +105,17 @@ function head({ title, description, canonical, jsonLd }) {
     `<meta property="og:title" content="${escapeAttr(title)}" />`,
     `<meta property="og:description" content="${escapeAttr(description)}" />`,
     `<meta property="og:url" content="${escapeAttr(canonical)}" />`,
+    // One card for the whole site rather than one per word. A per-word image
+    // would mean 7,109 PNGs to render and keep in step, and the title and
+    // description beside it already name the word - which is the part a reader
+    // scanning a shared link actually reads.
+    `<meta property="og:image" content="${ORIGIN}/og-image.png" />`,
+    '<meta property="og:image:width" content="1200" />',
+    '<meta property="og:image:height" content="630" />',
+    '<meta property="og:image:alt" content="Yorùbá Dictionary — search Yorùbá or English, either direction" />',
+    // Without this the card is a thumbnail beside the text instead of the
+    // full-width image, on Twitter and on everything that copied its tags.
+    '<meta name="twitter:card" content="summary_large_image" />',
   ];
   if (jsonLd) {
     // </script> inside a JSON string would close this block early.
@@ -477,7 +488,7 @@ function spellingHtml(spelling, entries, renderer) {
     .map((entry) => {
       const first = (entry.senses || []).find((s) => (s.glosses || [])[0]);
       return `<a class="sibling-row" href="${esc(entry.path)}">
-        <span class="sibling-word">${esc((entry.canonicalForm || {}).value || entry.headword)}</span>
+        <span class="sibling-word" lang="yo">${esc((entry.canonicalForm || {}).value || entry.headword)}</span>
         <span class="sibling-meta">${esc(entry.pos || '')}${
           entry.etymologyNumber ? ` · etym. ${esc(entry.etymologyNumber)}` : ''
         }</span>
@@ -487,7 +498,7 @@ function spellingHtml(spelling, entries, renderer) {
     .join('');
   return `
       <div class="entry-header">
-        <span class="entry-headword">${esc(spelling)}</span>
+        <span class="entry-headword" lang="yo">${esc(spelling)}</span>
         <span class="entry-pos">${entries.length} words</span>
       </div>
       <div class="tone-rule divider" aria-hidden="true"><span></span><span></span><span></span></div>

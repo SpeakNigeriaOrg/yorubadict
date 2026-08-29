@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#21295C"/>
+  <g transform="translate(0,285)">
+    <rect x="0" y="0" width="1200" height="630" fill="#21295C"/>
+    <g transform="translate(96,214) scale(2.6)" fill="#E9A82C">
+      <path d="M32 11 C 38 20, 38 28, 32 33 C 26 28, 26 20, 32 11 Z"/>
+      <path d="M32 11 C 38 20, 38 28, 32 33 C 26 28, 26 20, 32 11 Z" transform="rotate(72 32 33)"/>
+      <path d="M32 11 C 38 20, 38 28, 32 33 C 26 28, 26 20, 32 11 Z" transform="rotate(144 32 33)"/>
+      <path d="M32 11 C 38 20, 38 28, 32 33 C 26 28, 26 20, 32 11 Z" transform="rotate(216 32 33)"/>
+      <path d="M32 11 C 38 20, 38 28, 32 33 C 26 28, 26 20, 32 11 Z" transform="rotate(288 32 33)"/>
+    </g>
+    <text x="296" y="292" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#FBF6EC">Yorùbá Dictionary</text>
+    <text x="299" y="360" font-family="Helvetica, Arial, sans-serif" font-size="35" fill="#E9A82C">Search Yorùbá or English, either direction</text>
+    <text x="299" y="432" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#AEB4D4">6,273 words · free · works offline · yorubadict.com</text>
+    <rect x="0" y="596" width="1200" height="34" fill="#E9A82C"/>
+  </g>
+</svg>

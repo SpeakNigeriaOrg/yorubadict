@@ -106,7 +106,7 @@ export function createEntryRenderer(ctx) {
           <span class="dialect-of-varieties">${escapeHtml(varieties)}</span>
           <span class="dialect-of-verb">dialect form of</span>
           <a class="relation-pill" href="${ctx.pathFor(rel.entryId)}">
-            ${escapeHtml(target.canonicalForm.value)}
+            <span lang="yo">${escapeHtml(target.canonicalForm.value)}</span>
             <span class="pos-hint">${escapeHtml(target.pos || '')}</span>
           </a>
         </div>
@@ -147,7 +147,7 @@ export function createEntryRenderer(ctx) {
       .map((id) => {
         const alt = ctx.entries[id];
         return `<a class="sibling-row${id === chosenId ? ' current' : ''}" href="${ctx.pathFor(id)}">
-          <span class="sibling-word">${escapeHtml(alt.canonicalForm.value)}</span>
+          <span class="sibling-word" lang="yo">${escapeHtml(alt.canonicalForm.value)}</span>
           <span class="sibling-meta">${escapeHtml(alt.pos || '')}${alt.etymologyNumber ? ` · etym. ${escapeHtml(alt.etymologyNumber)}` : ''}</span>
           <span class="sibling-gloss">${escapeHtml(firstGloss(alt))}</span>
         </a>`;
@@ -451,7 +451,7 @@ export function createEntryRenderer(ctx) {
       .map((id) => {
         const s = ctx.entries[id];
         return `<a class="sibling-row" href="${ctx.pathFor(id)}">
-          <span class="sibling-word">${escapeHtml(s.canonicalForm.value)}</span>
+          <span class="sibling-word" lang="yo">${escapeHtml(s.canonicalForm.value)}</span>
           <span class="sibling-meta">${escapeHtml(s.pos || '')}${s.etymologyNumber ? ` · etym. ${escapeHtml(s.etymologyNumber)}` : ''}</span>
           <span class="sibling-gloss">${escapeHtml(firstGloss(s))}</span>
         </a>`;
@@ -510,7 +510,7 @@ export function createEntryRenderer(ctx) {
       : '';
 
     const altFormsHtml = entry.altForms && entry.altForms.length
-      ? `<div class="alt-forms">${entry.altForms.map((f) => `${escapeHtml(f.form)}${f.tags.length ? ` <span class="form-tag">(${escapeHtml(f.tags.join(', '))})</span>` : ''}`).join(', ')}</div>`
+      ? `<div class="alt-forms">${entry.altForms.map((f) => `<span lang="yo">${escapeHtml(f.form)}</span>${f.tags.length ? ` <span class="form-tag">(${escapeHtml(f.tags.join(', '))})</span>` : ''}`).join(', ')}</div>`
       : '';
 
     const etymologyHtml = entry.etymologyText
@@ -551,7 +551,7 @@ export function createEntryRenderer(ctx) {
 
     return `
       <div class="entry-header">
-        <span class="entry-headword">${escapeHtml(entry.canonicalForm.value)}</span>
+        <span class="entry-headword" lang="yo">${escapeHtml(entry.canonicalForm.value)}</span>
         ${entry.pos ? `<span class="entry-pos">${escapeHtml(entry.pos)}</span>` : ''}
         ${ipaHtml}
         ${inferredBadge}
