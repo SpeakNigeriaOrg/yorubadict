@@ -472,14 +472,18 @@ export function createPageRenderer(ctx) {
         <p>We are not saying that to criticise a page we have been praising. It is the most realistic thing on this page: the best-formed Yorùbá entry in Wiktionary still has a loose end, that loose end is one short section somebody could write this afternoon, and it is invisible unless you go looking. That is what contributing here mostly is.</p>
         <p>It is also not a one-off. Our data quality report finds nine pointers aimed at names that were never created, and <em>odo</em>'s is one of them.</p>
 
-        <h2>A pile of work, sorted by how hard it is</h2>
-        <p>Every time this site rebuilds it checks the data against itself and writes down what does not add up. That is the <strong>Data quality</strong> panel in the menu. It currently lists about 2,300 things worth fixing, grouped by how much they ask of you.</p>
+        <h2>A pile of work, gathered in one place</h2>
+        <p>Every time this site rebuilds it checks the data against itself and writes down what does not add up. That is the <strong>Data quality</strong> panel in the menu, and it currently holds about 2,300 things worth fixing.</p>
+        <p>The useful part is that they arrive sorted rather than as one large number. Each row names the word and the page it sits on, says what is wrong and why it matters, gives the wikitext to add, and links straight to the section of Wiktionary you would be editing. Rows are ordered by how much judgement each needs, so the quick ones with the widest reach are at the top. Some of what is in there now:</p>
         <ul>
-          <li><strong>The fix is already known.</strong> Around fifty of these. A cross-reference written with the wrong tone marks, or a missing underdot, so a link that should reach a real word reaches nothing. The report names the word, the page and the correct spelling; you are copying an answer across, not working one out.</li>
-          <li><strong>Mechanical, but somebody has to say it.</strong> 374 words have no pronunciation recorded. Anyone who speaks Yorùbá can clear those, one entry at a time, with no research at all.</li>
-          <li><strong>Needs a Yorùbá speaker.</strong> The largest group. Over a thousand cross-references point at words Wiktionary does not have — each one is an entry somebody could write. Several hundred more have a main spelling the source never confirms.</li>
+          <li><strong>33 cross-references with the wrong tone marks.</strong> The word being pointed at exists — the reference just spells it with different tones, so a link the reader should get never appears. Two words are involved and either could be the wrong one, so check both before you type: usually the reference is at fault, sometimes the entry it points at.</li>
+          <li><strong>Six with a missing or extra underdot.</strong> The same thing, one dimension over.</li>
+          <li><strong>Nine pointers aimed at a name nobody ever created</strong>, including <em>odo</em>'s.</li>
+          <li><strong>374 entries with no pronunciation.</strong> This is the IPA line rather than a recording, and <code>{{yo-IPA}}</code> works most of it out from the tone-marked spelling, so it is bulk work rather than research — as long as the tones on the page are right.</li>
+          <li><strong>775 words whose main spelling the source never confirms.</strong> No headword template gave a tone-marked spelling, so we fall back to the page title, which is usually untoned. The spelling shown may well be correct; the tones are simply unverified, and settling them needs somebody who knows the word.</li>
+          <li><strong>1,046 cross-references to words Wiktionary does not have.</strong> The largest real gap in the dictionary. Every one is a word somebody has already said is worth having, with no entry behind it yet.</li>
         </ul>
-        <p>The payoff is immediate and it is not only ours. Fix an entry today and it is live on Wiktionary at once, in this dictionary at the next refresh, and in every other project reading that data whenever they next pull it.</p>
+        <p>The return on any of them is immediate and it is not only ours. An entry fixed today is live on Wiktionary at once, in this dictionary at the next refresh, and in every other project reading that data whenever they next pull it.</p>
 
         <h2>What we are working on now: names for meanings</h2>
         <p>Speak Nigeria is working through the second of those five: the name on the section. It is a small piece of a much larger job, and it is bookkeeping rather than research. Somebody has usually written down which meaning a word came from already, in plain words a reader can follow. What is missing is the template that lets a machine follow it too.</p>
