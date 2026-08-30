@@ -29,6 +29,15 @@ __pycache__/
 !/public/index.html
 /public/*/*.html
 /public/*/*/*.html
+
+# The measurement pages under public/perf-bisect are hand-written and have to
+# be committed, but /public/*/*.html above matches them exactly as it matches a
+# prerendered word page. Without this line `git add public/perf-bisect` skips
+# all three in silence, the commit carries only the README, and the deploy
+# serves 404s to the PageSpeed run they exist for - which is how the first
+# attempt at this went. Goes with the skip entry in build/lib/prerender.mjs;
+# delete both when the directory does.
+!/public/perf-bisect/*.html
 /public/sitemap.xml
 /public/_redirects
 /public/data/version.json
