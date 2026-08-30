@@ -60,6 +60,9 @@ contributing, auditing data quality, or just curious how it works.
 npm run serve         # serves public/ at http://localhost:8080, using the data already built
 npm test              # node --test over build/lib/*.test.mjs
 npm run check:search  # runs the real scorer against build/fixtures/search_agreement.json
+npm run test:paint    # the browser test: opens Chrome, ~30s, not in `npm test`
+npm run trace:prod    # where the first paint actually goes, on the live site
+npm run psi           # PageSpeed, sampled - needs a key in .env.local
 ```
 
 To rebuild from [`kaikki-yoruba`](https://github.com/SpeakNigeriaOrg/kaikki-yoruba)'s
@@ -1065,21 +1068,63 @@ Cloudflare Pages does that on its own. `server/dev-server.mjs` was fixed to matc
 it used to answer any unknown path with 200 and `index.html`, which would have
 hidden a missing prerendered page.
 
-`public/_headers` puts every file on `max-age=0, must-revalidate`, replacing
-the `max-age=14400` Pages applies to static assets by default. **Nothing here
-is fingerprinted** — the files are `app.js`, `style.css`, `data/entries.json`,
-by those names — so a `max-age` is a promise that can't be withdrawn: no
-purge or redeploy reaches a browser that already stored the file. The default
-let a visitor pair four-hour-old JavaScript with current markup and a current
-dictionary, and those aren't independent (`entries.json` and `app.js` ship as
-a matched pair). A 304 costs no body and ~715 bytes of headers, multiplexed
-onto the connection already open for the HTML, so a warm cache pays about one
-extra round trip — and a cold cache pays it regardless.
+`public/_headers` puts every file on `max-age=0, must-revalidate`, with one
+exception for `/fonts/*`. **Almost nothing here is fingerprinted** — the files
+are `app.js`, `style.css`, `data/entries.json`, by those names — so a `max-age`
+is a promise that can't be withdrawn: no purge or redeploy reaches a browser
+that already stored the file. Four-hour-old JavaScript against a current
+dictionary is a real failure, because those aren't independent (`entries.json`
+and `app.js` ship as a matched pair). A 304 costs no body and ~715 bytes of
+headers, multiplexed onto the connection already open for the HTML, so a warm
+cache pays about one extra round trip — and a cold cache pays it regardless.
 
-If repeat-visit latency ever justifies real caching, fingerprint the
-filenames *first* and then use `max-age=31536000, immutable`; lengthening the
-window without fingerprints just widens the blast radius of a bad deploy. The
-file itself explains the trade in full.
+**That file was not actually in effect until August 2026, and nothing in the
+repo could have told you.** The domain's **Browser Cache TTL** (Cloudflare
+dashboard → yorubadict.com → Caching → Configuration) was set to 4 hours, which
+rewrites `max-age` on every response Cloudflare edge-caches. That is CSS, JS and
+fonts — and *not* HTML or JSON, which aren't on its default cacheable-extension
+list. So `entries.json` obeyed this file and `app.js` did not, which is exactly
+the pairing the policy exists to protect, failing silently on the half of the
+site nobody would think to check. It is on **"Respect Existing Headers"** now.
+If served headers ever stop matching `_headers` again, look there first.
+
+`/fonts/*` gets `max-age=31536000, immutable`, and that is the same rule rather
+than an exception to it: fingerprint first, then cache forever. Those files keep
+the names Google generated, which are content hashes, so a different cut of a
+font is a different filename. `sw.js` caches the shell but not the fonts, so
+without this every repeat visit revalidates four files that cannot have changed.
+
+If repeat-visit latency ever justifies real caching for the code too,
+fingerprint the filenames *first* and then use `max-age=31536000, immutable`;
+lengthening the window without fingerprints just widens the blast radius of a
+bad deploy. The file itself explains the trade in full.
+
+## Web fonts are served from this origin
+
+Four families — Fraunces, Plus Jakarta Sans, Noto Serif, IBM Plex Mono — vendored
+into `public/fonts/` with the `@font-face` rules at the top of `style.css`.
+
+They used to be a `<link rel="preload">` to `fonts.googleapis.com`, and that one
+link was costing 8 points of the mobile PageSpeed score by itself. Not for its
+bytes: Lighthouse models a Slow 4G connection and charges a full DNS + TCP + TLS
+handshake — three or four round trips at 150ms each — for **every new origin on
+the path to first paint**, and that link brought in two (`googleapis` for the
+stylesheet, then `gstatic` for the files), neither able to reuse the connection
+already open for the HTML. Measured with stripped test pages: bare 100, plus the
+site's own two stylesheets 100, plus that one link **92**. Self-hosting took the
+front page and `/about` from 87 to ~98.
+
+Two things about the subsets are easy to get wrong and are commented in
+`style.css` at length: it is **latin, latin-ext and vietnamese**, and the third
+is not optional — Google names it for Vietnamese, but it is the Latin Extended
+Additional range, and it is where `ẹ` (U+1EB9), `ọ` (U+1ECD) and all three
+combining tone marks live. latin-ext has only `ṣ`. Dropping vietnamese leaves
+the two commonest vowels in the language falling back to Georgia.
+
+Font **preloading was tried and reverted** — the measurement is in the comment
+in `index.html`. It improved first paint and made the largest paint worse, on
+both a word page and the front page, because a word page needs eleven font files
+and only four are common to every page.
 
 **Build command: `npm run build`**, output directory `public/`. This changed
 when prerendering arrived and it had to: the build now writes ~6,280 HTML files,
@@ -1150,9 +1195,25 @@ public/                            <- deploy this directory as-is
   favicon.svg
   app.js
   english-relevance.js            the ranking, shared by the browser and the checker
+  fonts/                          self-hosted woff2, latin + latin-ext +
+                                    vietnamese; @font-face is in style.css
+  _headers                        cache policy (and the Cloudflare setting that
+                                    silently overrode it - read the comments)
+  sw.js                           service worker: offline, shell + dictionary
   data/                            (generated: entries.json, search-index.json,
                                      validation-report.json, building-blocks.json,
                                      wiktionary-tasks.json, mentioned-words.json)
 server/
   dev-server.mjs                  local-testing-only static file server
+tools/
+  trace/                          first-paint measurement, no dependencies
+    cdp.mjs                         Chrome DevTools Protocol over Node's WebSocket
+    paint-profile.mjs               `npm run trace` / `trace:prod` - records a real
+                                      trace across every process, which the score
+                                      cannot: Lighthouse only sees the renderer's
+                                      main thread, so raster and compositor work
+                                      lands in "Unattributable"
+    psi-runs.mjs                    `npm run psi` - PageSpeed, sampled properly
+                                      (it caches per URL, so repeated identical
+                                      runs look like agreement and are one run)
 ```
