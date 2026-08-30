@@ -69,27 +69,33 @@ export function createPageRenderer(ctx) {
     return `
       <div class="about-content">
         <h1>About Speak Nigeria</h1>
-        <p class="about-lede">Speak Nigeria is a nonprofit. We make free tools for learning Nigerian heritage languages.</p>
+        <p class="about-lede">Speak Nigeria is a 501(c)(3) nonprofit dedicated to helping children learn and keep Nigerian heritage languages.</p>
 
         <h2>Why we exist</h2>
-        <p>Many children in Nigerian families grow up speaking only English. Parents who want to teach their own language often have nothing to teach from: no course at the right level, no games, and no dictionary a child can use.</p>
-        <p>We build those and publish them free.</p>
+        <p>For a family raising children away from home, a heritage language can slip away in a single generation. It usually happens quietly. The children understand more than they speak, then less than they understand, and one day the language is something the grandparents had.</p>
+        <p>A language is not only a way to speak. It carries family history, culture, and a sense of belonging, and a child who keeps the language keeps all of it.</p>
+        <p>Parents who want to pass theirs on often have very little to work with: no course pitched at the right level, no games, and no dictionary a child can use.</p>
 
         <h2>What we make</h2>
+        <p>Two kinds of thing, and they are funded differently.</p>
         <ul>
-          <li><strong>Courses.</strong> Yorùbá from the beginning, in a set order.</li>
-          <li><strong>Games.</strong> Practice for children learning on their own.</li>
-          <li><strong>This dictionary.</strong> Every word, searchable with or without tone marks, and where each word came from.</li>
+          <li><strong>Courses</strong>, taught by real teachers. Yorùbá from the beginning, in a set order. These are paid, because the people teaching them are paid.</li>
+          <li><strong>Games</strong>, free and open source. Being open is what lets them grow in several languages at once, and it is where volunteers and speakers make the most difference.</li>
+          <li><strong>This dictionary</strong>, free, and built on <a href="${ctx.pagePath('contribute')}">data that belongs to everybody</a>.</li>
         </ul>
+        <p>We are starting with Yorùbá, where the courses and resources already exist. Igbo is next, and Hausa, Bini, Ijaw and Efik are the longer plan.</p>
 
         <h2>How this dictionary fits</h2>
         <p>The courses teach words in a set order. The dictionary is for looking something up. It also shows where a word came from, because in Yorùbá the answer is usually another word.</p>
-        <p><a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who knows those two words can read the third without being taught it.</p>
+        <p><a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who knows those two words can read the third without being taught it. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> is about what follows from that.</p>
 
         <div class="about-actions">
           <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
           <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play the games ↗</a>
+          <a class="about-btn ghost" href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">More about us ↗</a>
         </div>
+
+        <p class="blocks-note">Speak Nigeria is a 501(c)(3) nonprofit registered in the United States, EIN 99-2964468. We host community-accessible educational programs and build free, open-access resources that parents, teachers and schools can use anywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
       </div>
     `;
   }
