@@ -38,3 +38,14 @@ __pycache__/
 # the committed artifact - that one is the point.
 tools/slugs/work/
 tools/slugs/.venv/
+
+# Written by `npm run trace -- --json`, a measurement of one machine on one
+# afternoon. Never a checked-in fact.
+tools/trace/paint-profile.json
+
+# The PageSpeed Insights API key, read by tools/trace/psi-runs.mjs. Ignored
+# before the file was created, not after: a key committed once is a key that
+# has to be revoked, and git remembers it whether or not the next commit
+# removes it. .env.example is the committed half and holds no secret.
+.env
+.env.local

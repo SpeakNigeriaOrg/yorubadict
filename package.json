@@ -10,7 +10,12 @@
     "check:search": "node build/check-search-agreement.mjs",
     "build:custom": "node build/normalize.mjs",
     "serve": "node server/dev-server.mjs",
-    "start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve",
+    "trace": "node tools/trace/paint-profile.mjs",
+    "trace:prod": "node tools/trace/paint-profile.mjs --url=https://yorubadict.com/",
+    "psi": "node tools/trace/psi-runs.mjs",
+    "test:paint": "PAINT_TEST=1 node --test test/paint-budget.test.mjs",
+    "psi:bisect": "node tools/trace/psi-runs.mjs --bisect"
   },
   "engines": {
     "node": ">=18"
