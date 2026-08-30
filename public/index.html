@@ -29,6 +29,18 @@
      couldn't even be discovered until style.css had arrived. -->
 <link rel="stylesheet" href="/_tokens.css" />
 <link rel="stylesheet" href="/style.css" />
+<!-- app.js imports these two, and an import cannot be discovered until the
+     file holding it has downloaded and been parsed. So they were starting a
+     round trip late for no reason: measured on production, app.js finished at
+     360ms and these two only began at 361ms and 362ms. Declaring them here
+     puts them on the wire beside app.js instead of behind it.
+
+     Names, not contents: if either file is ever renamed, this goes stale
+     silently - the page still works, because the import below still resolves,
+     and the only symptom is the round trip coming back. test/prerender covers
+     that the files exist; nothing can cover that this list is complete. -->
+<link rel="modulepreload" href="/entry-render.js" />
+<link rel="modulepreload" href="/page-render.js" />
 <!-- Web fonts are declared in style.css and served from /fonts on this
      origin. They used to be a preload to fonts.googleapis.com, which cost 8
      points of the mobile PageSpeed score on its own - not for its bytes but
