@@ -24,24 +24,17 @@
 <!--/PRERENDER-HEAD-->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="manifest" href="/manifest.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Both local sheets as their own <link> so they download in parallel;
      _tokens.css used to be an @import inside style.css, which meant it
      couldn't even be discovered until style.css had arrived. -->
 <link rel="stylesheet" href="/_tokens.css" />
 <link rel="stylesheet" href="/style.css" />
-<!-- The font stylesheet is third-party and was blocking first paint for
-     859ms. Every rule using it already has a local fallback and the request
-     carries display=swap, so nothing depends on it being there at paint
-     time: fetched at high priority but applied off the critical path. -->
-<link rel="preload" as="style" fetchpriority="high"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      onload="this.rel='stylesheet'" />
-<noscript>
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" />
-</noscript>
+<!-- Web fonts are declared in style.css and served from /fonts on this
+     origin. They used to be a preload to fonts.googleapis.com, which cost 8
+     points of the mobile PageSpeed score on its own - not for its bytes but
+     for its origins, since Lighthouse charges a full handshake for every new
+     one on the path to first paint. The measurement and the reasoning are in
+     the comment above the @font-face rules in style.css. -->
 </head>
 <body>
 
