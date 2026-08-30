@@ -145,6 +145,9 @@ async function main() {
         `${origin}/perf-bisect/01-bare`,
         `${origin}/perf-bisect/02-css`,
         `${origin}/perf-bisect/03-fonts`,
+        `${origin}/perf-bisect/04-fonts-inline`,
+        `${origin}/perf-bisect/05-fonts-selfhost`,
+        `${origin}/perf-bisect/06-fonts-after-paint`,
         `${origin}/`,
       ]
     : flag('url', 'https://yorubadict.com/').split(',');

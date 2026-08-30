@@ -30,6 +30,12 @@ const MIME = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.webmanifest': 'application/manifest+json',
+  // Fonts. A woff2 served as application/octet-stream still renders - the
+  // format() hint in @font-face is what the browser actually goes on - so this
+  // was missing without anything looking broken. Cloudflare Pages sends the
+  // right type, and the local server should not be the one place that differs.
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
 };

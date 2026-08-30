@@ -24,19 +24,45 @@ itself. In every local run the paint lands BEFORE load. PageSpeed's slow host
 is the only machine the effect has ever appeared on, so it has to be the
 instrument, and these pages are the experiment it runs.
 
-## The four pages
+## The pages
 
-Each adds exactly one layer to the one above it.
+The first four find the cost. Each adds exactly one layer to the one above it.
 
-| page | what it has |
-|---|---|
-| `01-bare.html`  | one paragraph, no CSS, no fonts, no JS |
-| `02-css.html`   | 01 + `_tokens.css` and `style.css` |
-| `03-fonts.html` | 02 + the Google Fonts preload that flips to a stylesheet |
-| `/` (the real front page) | 03 + `english-relevance.js` and `app.js` |
+| page | what it has | result |
+|---|---|---|
+| `01-bare.html`  | one paragraph, no CSS, no fonts, no JS | 100, simulated FCP 764 ms |
+| `02-css.html`   | 01 + `_tokens.css` and `style.css` | 100, 901 ms (+137) |
+| `03-fonts.html` | 02 + the Google Fonts preload | **92, 2737 ms (+1836)** |
+| `/` (the real front page) | 03 + `english-relevance.js` and `app.js` | 88, 3008 ms (+271) |
 
-The body markup is the same in all three, and is the same welcome block the
-front page paints, so the element being timed is comparable.
+That is the answer: one `<link>` costs 1836 ms of simulated first paint and 8
+of the 12 lost points. The site's own two stylesheets cost 137 ms and nothing.
+
+The reason is origins. At Slow 4G Lantern charges a full DNS + TCP + TLS
+handshake - three or four round trips at 150 ms each - for every new origin in
+the first-paint path, and that one link brings in two: `fonts.googleapis.com`
+for the stylesheet and `fonts.gstatic.com` for the files. Neither can reuse the
+connection already open to yorubadict.com. Moving the link to
+`preload` + `onload` (see the note in index.html) helped real browsers and did
+not take it out of Lighthouse's graph.
+
+The next three each fix it a different way. All three are `02-css` plus one
+change, so their scores are directly comparable with each other and with 03.
+
+| page | the fix | keeps |
+|---|---|---|
+| `04-fonts-inline.html`   | `@font-face` inlined, files still from gstatic | one third-party origin |
+| `05-fonts-selfhost.html` | `@font-face` inlined, files from this origin | none |
+| `06-fonts-after-paint.html` | the link unchanged, appended by script after the largest paint | both, but out of the graph |
+
+04 and 05 hold the fonts on the first paint, so there is no flash of fallback
+text. 06 accepts that flash in exchange for changing nothing about how the
+fonts are hosted.
+
+The 12 files in `fonts/` are the latin and latin-ext subsets only, which is
+what Yorùbá needs - `ẹ ọ ṣ` and the combining tone marks. Dropping cyrillic,
+greek, vietnamese and math takes 33 files to 12. They total 507 KB on disk but
+`unicode-range` means a visit downloads about four of them.
 
 ## Running it
 
@@ -45,6 +71,9 @@ Deploy, then run PageSpeed mobile on each:
     https://yorubadict.com/perf-bisect/01-bare
     https://yorubadict.com/perf-bisect/02-css
     https://yorubadict.com/perf-bisect/03-fonts
+    https://yorubadict.com/perf-bisect/04-fonts-inline
+    https://yorubadict.com/perf-bisect/05-fonts-selfhost
+    https://yorubadict.com/perf-bisect/06-fonts-after-paint
     https://yorubadict.com/
 
 Or, with a key, all four at once:
