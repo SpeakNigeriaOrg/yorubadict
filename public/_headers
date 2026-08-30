@@ -63,6 +63,31 @@
 # own, tempting though it is at 1.4 MB: it decouples the dictionary from the
 # code that reads it, which is the mismatch this policy exists to prevent.
 
+# ---------------------------------------------------------------------------
+# Order matters here, and not in the way it reads
+# ---------------------------------------------------------------------------
+# Pages does not pick one matching rule, it applies every matching rule and
+# appends. With /fonts/* written above /*, both matched and the fonts went out
+# with the two glued together:
+#
+#   Cache-Control: public, max-age=31536000, immutable, public, max-age=0, must-revalidate
+#
+# Two max-ages in one header is ambiguous - most browsers take the first, not
+# all of them do, and immutable next to must-revalidate is a contradiction on
+# its face. So the general rule goes first, and the fonts rule detaches what it
+# set before setting its own. `! Cache-Control` is the Pages syntax for that.
+#
+# This only became visible once the Cloudflare dashboard stopped rewriting
+# these. Browser Cache TTL on the domain was set to 4 hours, which replaced the
+# max-age on every file Cloudflare edge-caches - css, js and fonts - while
+# leaving html and json alone, so the file below was being obeyed for exactly
+# the half of the site nobody would think to check. It is set to "Respect
+# Existing Headers" now. If these values ever stop matching what is served,
+# look there before looking here.
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 # The one exception, and the file above explains why it is allowed to be one:
 # lengthen the window only after fingerprinting the filenames. These are
 # fingerprinted, and not by us - they keep the names Google generated, which are
@@ -72,9 +97,9 @@
 # project qualifies: app.js, style.css and data/entries.json are those names
 # forever.
 #
-# Above the /* rule because _headers applies the first match, not the last.
+# Worth having on its own terms: sw.js caches the shell, but not these, so
+# without this every repeat visit revalidates four font files that cannot have
+# changed.
 /fonts/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
-
-/*
-  Cache-Control: public, max-age=0, must-revalidate
