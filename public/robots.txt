@@ -18,12 +18,5 @@ Allow: /
 # executed to read one. Keeping this closed costs a crawler nothing now.
 Disallow: /data/
 
-# Four measurement pages, not content. They exist to find which layer of the
-# shell delays first paint on PageSpeed's mobile test; see
-# public/perf-bisect/README.md. Disallowed as well as noindex'd because they
-# are deliberately broken-looking copies of the front page's text, and a
-# crawler reading them as duplicates of / would be a real cost for a question
-# that should be answered in a week.
-Disallow: /perf-bisect/
 
 Sitemap: https://yorubadict.com/sitemap.xml

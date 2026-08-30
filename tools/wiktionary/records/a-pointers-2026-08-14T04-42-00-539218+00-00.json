@@ -1,0 +1,90 @@
+{
+  "job": "pointers",
+  "parent": "a",
+  "language": "Yoruba",
+  "account": "SpeakNigeria",
+  "finishedAt": "2026-08-14T04:42:00.539218+00:00",
+  "namesOnParent": {
+    "1": "letter a",
+    "2": "we",
+    "3": "him"
+  },
+  "pointers": [
+    {
+      "page": "Abimbọla",
+      "word": "Abím̄bọ́lá",
+      "argument": "id1",
+      "component": "a",
+      "name": "we",
+      "before": "{{compound|yo|a|bí|mi|bí|ọlá|t1=we|t2=to give birth to|t3=me|t4=with|t5=wealth|id5=honor}}",
+      "after": "{{compound|yo|a|bí|mi|bí|ọlá|t1=we|id1=we|t2=to give birth to|t3=me|t4=with|t5=wealth|id5=honor}}",
+      "oldrevid": 91984918,
+      "saved": true,
+      "startedAt": "2026-08-14T04:39:18.488913+00:00",
+      "newrevid": 91984918,
+      "realizedDiff": "@@ -2,5 +2,5 @@\n ===Etymology===\n-From {{compound|yo|a|bí|mi|bí|ọlá|t1=we|t2=to give birth to|t3=me|t4=with|t5=wealth}}, \"I was born with wealth\".<ref>https://www.yorubaname.com/entries/Abimbola</ref>\n+From {{compound|yo|a|bí|mi|bí|ọlá|t1=we|t2=to give birth to|t3=me|t4=with|t5=wealth|id5=honor}}, \"I was born with wealth\".<ref>https://www.yorubaname.com/entries/Abimbola</ref>\n ===Pronunciation===",
+      "realizedShowsOurChange": true
+    },
+    {
+      "page": "Aṣamu",
+      "word": "Àṣàmú",
+      "argument": "id1",
+      "component": "à",
+      "name": "him",
+      "before": "{{compound|yo|à|ṣà|mú|t1=one who|t2=to select, to choose|t3=to pick}}",
+      "after": "{{compound|yo|à|ṣà|mú|t1=one who|id1=him|t2=to select, to choose|t3=to pick}}",
+      "oldrevid": 65125099,
+      "saved": true,
+      "startedAt": "2026-08-14T04:40:38.151854+00:00",
+      "newrevid": 65125099,
+      "realizedDiff": "@@ -1,9 +1,12 @@\n ==Yoruba==\n+\n ===Etymology===\n {{compound|yo|à|ṣà|mú|t1=one who|t2=to select, to choose|t3=to pick}}, \"''The one we specially chose.''\"\n+\n ===Pronunciation===\n * {{yo-IPA|Àṣàmú}}\n+\n ===Proper noun===\n {{yo-prop|Àṣàmú}}\n # {{oriki name|unisex|meaning=The one we specially chose}}",
+      "realizedShowsOurChange": true
+    },
+    {
+      "page": "Atinukẹ",
+      "word": "Atinúkẹ́",
+      "argument": "id1",
+      "component": "a",
+      "name": "him",
+      "before": "{{compound|yo|a|ti|inú|kẹ́|t1=one who|t2=from|t3=inside, womb|t4=to care for, to cherish}}",
+      "after": "{{compound|yo|a|ti|inú|kẹ́|t1=one who|id1=him|t2=from|t3=inside, womb|t4=to care for, to cherish}}",
+      "oldrevid": 65125110,
+      "saved": true,
+      "startedAt": "2026-08-14T04:40:38.948616+00:00",
+      "newrevid": 65125110,
+      "realizedDiff": "@@ -1,9 +1,12 @@\n ==Yoruba==\n+\n ===Etymology===\n {{compound|yo|a|ti|inú|kẹ́|t1=one who|t2=from|t3=inside, womb|t4=to care for, to cherish}}, \"''One who is cherished from the womb.''\"\n+\n ===Pronunciation===\n * {{yo-IPA|Atinúkẹ́}}\n+\n ===Proper noun===\n {{yo-prop|Atinúkẹ́}}\n # {{oriki name|female|meaning=One who is cherished from the womb}}",
+      "realizedShowsOurChange": true
+    },
+    {
+      "page": "Ayanfẹ",
+      "word": "Àyànfẹ́",
+      "argument": "id1",
+      "component": "à",
+      "name": "him",
+      "before": "{{compound|yo|à|yàn|fẹ́|t1=one who|t2=to choose, to select|t3=to love}}",
+      "after": "{{compound|yo|à|yàn|fẹ́|t1=one who|id1=him|t2=to choose, to select|t3=to love}}",
+      "oldrevid": 65125131,
+      "saved": true,
+      "startedAt": "2026-08-14T04:40:39.818564+00:00",
+      "newrevid": 65125131,
+      "realizedDiff": "@@ -1,9 +1,12 @@\n ==Yoruba==\n+\n ===Etymology===\n {{compound|yo|à|yàn|fẹ́|t1=one who|t2=to choose, to select|t3=to love}}, \"''One that we specifically chose to love.''\"\n+\n ===Pronunciation===\n * {{yo-IPA|Àyànfẹ́}}\n+\n ===Proper noun===\n {{yo-prop|Àyànfẹ́}}\n # {{oriki name|unisex|meaning=One that we specifically chose to love}}",
+      "realizedShowsOurChange": true
+    },
+    {
+      "page": "karakata",
+      "word": "káràkátà",
+      "argument": "id2",
+      "component": "a",
+      "name": "we",
+      "before": "{{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|t3=buy|t4=subjunctive particle|t5=we|t6=sell}}",
+      "after": "{{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|id2=we|t3=buy|t4=subjunctive particle|t5=we|t6=sell}}",
+      "oldrevid": 71925380,
+      "saved": true,
+      "startedAt": "2026-08-14T04:40:40.602763+00:00",
+      "newrevid": 71925380,
+      "realizedDiff": "@@ -20,6 +20,4 @@\n * {{R:Gilberti 1559b|page=140r|passage=Pintada coſa.   caracata.atacata.}}\n * {{R:Lathrop 2007|pages=7, 27|passage=karakata}}\n-\n-----\n ==Yoruba==",
+      "realizedShowsOurChange": false
+    }
+  ],
+  "allShowOurChange": false
+}

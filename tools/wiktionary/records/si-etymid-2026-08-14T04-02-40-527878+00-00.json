@@ -1,0 +1,39 @@
+{
+  "job": "etymid",
+  "page": "si",
+  "hostPage": "si",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T04:02:35.566103+00:00",
+  "finishedAt": "2026-08-14T04:02:40.527878+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 5 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "letter s"
+    },
+    {
+      "etymology": "2",
+      "name": "to"
+    },
+    {
+      "etymology": "3",
+      "name": "far"
+    },
+    {
+      "etymology": "4",
+      "name": "exist, negative"
+    },
+    {
+      "etymology": "5",
+      "name": "and"
+    }
+  ],
+  "oldrevid": 91938166,
+  "newrevid": 91985200,
+  "realizedDiff": "@@ -2637,4 +2637,5 @@\n ===Etymology 1===\n+{{etymid|yo|letter s}}\n ====Pronunciation====\n@@ -2650,4 +2651,5 @@\n ===Etymology 2===\n+{{etymid|yo|to}}\n ====Preposition====\n@@ -2660,4 +2662,5 @@\n ===Etymology 3===\n+{{etymid|yo|far}}\n Compare with {{cog|its|sin|sín}}\n@@ -2668,4 +2671,5 @@\n ===Etymology 4===\n+{{etymid|yo|exist, negative}}\n ====Verb====\n@@ -2675,4 +2679,5 @@\n ===Etymology 5===\n+{{etymid|yo|and}}\n ====Conjunction====",
+  "intendedDiff": "--- \n+++ \n@@ -2637,4 +2637,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|letter s}}\n \n ====Pronunciation====\n@@ -2650,4 +2651,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|to}}\n \n ====Preposition====\n@@ -2660,4 +2662,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|far}}\n Compare with {{cog|its|sin|sín}}\n \n@@ -2668,4 +2671,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|exist, negative}}\n \n ====Verb====\n@@ -2675,4 +2679,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|and}}\n \n ====Conjunction====",
+  "realizedMatchesIntended": true
+}

@@ -1,0 +1,59 @@
+{
+  "job": "etymid",
+  "page": "ja",
+  "hostPage": "ja",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T14:21:44.489312+00:00",
+  "finishedAt": "2026-08-14T14:21:50.836205+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 10 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "fight"
+    },
+    {
+      "etymology": "2",
+      "name": "snap"
+    },
+    {
+      "etymology": "3",
+      "name": "occur"
+    },
+    {
+      "etymology": "4",
+      "name": "ring"
+    },
+    {
+      "etymology": "5",
+      "name": "fall"
+    },
+    {
+      "etymology": "6",
+      "name": "shine"
+    },
+    {
+      "etymology": "7",
+      "name": "realize"
+    },
+    {
+      "etymology": "8",
+      "name": "puncture"
+    },
+    {
+      "etymology": "9",
+      "name": "saturate"
+    },
+    {
+      "etymology": "10",
+      "name": "pluck"
+    }
+  ],
+  "oldrevid": 91979192,
+  "newrevid": 91988869,
+  "realizedDiff": "@@ -1673,4 +1673,5 @@\n ===Etymology 1===\n+{{etymid|yo|fight}}\n Cognate with {{cog|igl|jà|t=to fight}}\n@@ -1699,4 +1700,5 @@\n ===Etymology 2===\n+{{etymid|yo|snap}}\n ====Pronunciation====\n@@ -1712,4 +1714,5 @@\n ===Etymology 3===\n+{{etymid|yo|occur}}\n ====Pronunciation====\n@@ -1728,4 +1731,5 @@\n ===Etymology 4===\n+{{etymid|yo|ring}}\n ====Pronunciation====\n@@ -1742,4 +1746,5 @@\n ===Etymology 5===\n+{{etymid|yo|fall}}\n ====Pronunciation====\n@@ -1756,4 +1761,5 @@\n ===Etymology 6===\n+{{etymid|yo|shine}}\n ====Pronunciation====\n@@ -1768,4 +1774,5 @@\n ===Etymology 7===\n+{{etymid|yo|realize}}\n ====Pronunciation====\n@@ -1781,4 +1788,5 @@\n ===Etymology 8===\n+{{etymid|yo|puncture}}\n ====Pronunciation====\n@@ -1792,4 +1800,5 @@\n ===Etymology 9===\n+{{etymid|yo|saturate}}\n ====Pronunciation====\n@@ -1806,4 +1815,5 @@\n ===Etymology 10===\n+{{etymid|yo|pluck}}\n Likely cognate with {{cog|igl|já|t=to harvest}}",
+  "intendedDiff": "--- \n+++ \n@@ -1673,4 +1673,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|fight}}\n Cognate with {{cog|igl|jà|t=to fight}}\n \n@@ -1699,4 +1700,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|snap}}\n \n ====Pronunciation====\n@@ -1712,4 +1714,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|occur}}\n \n ====Pronunciation====\n@@ -1728,4 +1731,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|ring}}\n \n ====Pronunciation====\n@@ -1742,4 +1746,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|fall}}\n \n ====Pronunciation====\n@@ -1756,4 +1761,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|shine}}\n \n ====Pronunciation====\n@@ -1768,4 +1774,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|realize}}\n \n ====Pronunciation====\n@@ -1781,4 +1788,5 @@\n \n ===Etymology 8===\n+{{etymid|yo|puncture}}\n \n ====Pronunciation====\n@@ -1792,4 +1800,5 @@\n \n ===Etymology 9===\n+{{etymid|yo|saturate}}\n \n ====Pronunciation====\n@@ -1806,4 +1815,5 @@\n \n ===Etymology 10===\n+{{etymid|yo|pluck}}\n Likely cognate with {{cog|igl|já|t=to harvest}}\n ",
+  "realizedMatchesIntended": true
+}

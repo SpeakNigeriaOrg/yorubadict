@@ -14,8 +14,7 @@
     "trace": "node tools/trace/paint-profile.mjs",
     "trace:prod": "node tools/trace/paint-profile.mjs --url=https://yorubadict.com/",
     "psi": "node tools/trace/psi-runs.mjs",
-    "test:paint": "PAINT_TEST=1 node --test test/paint-budget.test.mjs",
-    "psi:bisect": "node tools/trace/psi-runs.mjs --bisect"
+    "test:paint": "PAINT_TEST=1 node --test test/paint-budget.test.mjs"
   },
   "engines": {
     "node": ">=18"

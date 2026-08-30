@@ -1,0 +1,35 @@
+{
+  "job": "etymid",
+  "page": "ko",
+  "hostPage": "ko",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T03:34:35.464508+00:00",
+  "finishedAt": "2026-08-14T03:34:38.854020+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 4 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "not"
+    },
+    {
+      "etymology": "2",
+      "name": "that"
+    },
+    {
+      "etymology": "3",
+      "name": "collect"
+    },
+    {
+      "etymology": "4",
+      "name": "touch"
+    }
+  ],
+  "oldrevid": 91945764,
+  "newrevid": 91985033,
+  "realizedDiff": "@@ -1251,4 +1251,5 @@\n ===Etymology 1===\n+{{etymid|yo|not}}\n ====Alternative forms====\n@@ -1264,4 +1265,5 @@\n ===Etymology 2===\n+{{etymid|yo|that}}\n ====Alternative forms====\n@@ -1277,4 +1279,5 @@\n ===Etymology 3===\n+{{etymid|yo|collect}}\n ====Pronunciation====\n@@ -1297,4 +1300,5 @@\n ===Etymology 4===\n+{{etymid|yo|touch}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -1251,4 +1251,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|not}}\n \n ====Alternative forms====\n@@ -1264,4 +1265,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|that}}\n \n ====Alternative forms====\n@@ -1277,4 +1279,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|collect}}\n \n ====Pronunciation====\n@@ -1297,4 +1300,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|touch}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

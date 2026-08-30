@@ -1,0 +1,43 @@
+{
+  "job": "etymid",
+  "page": "ka",
+  "hostPage": "ka",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T01:31:58.561131+00:00",
+  "finishedAt": "2026-08-14T01:32:05.170296+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 6 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "count"
+    },
+    {
+      "etymology": "2",
+      "name": "confess"
+    },
+    {
+      "etymology": "3",
+      "name": "buy"
+    },
+    {
+      "etymology": "4",
+      "name": "pluck"
+    },
+    {
+      "etymology": "5",
+      "name": "fold"
+    },
+    {
+      "etymology": "6",
+      "name": "everywhere"
+    }
+  ],
+  "oldrevid": 91983199,
+  "newrevid": 91984395,
+  "realizedDiff": "@@ -1823,4 +1823,5 @@\n ===Etymology 1===\n+{{etymid|yo|count}}\n Cognate with {{cog-lite|igl|kaa|káà}}\n@@ -1845,4 +1846,5 @@\n ===Etymology 2===\n+{{etymid|yo|confess}}\n Likely cognate with {{cog-lite|igl|ka|kà|to tell}} and {{cog-lite|ig|ka|kà|to speak}}, perhaps related to {{cog-lite|nup|gan|gàn}}\n@@ -1865,4 +1867,5 @@\n ===Etymology 3===\n+{{etymid|yo|buy}}\n ====Pronunciation====\n@@ -1881,4 +1884,5 @@\n ===Etymology 4===\n+{{etymid|yo|pluck}}\n Cognate with {{cog-lite|igl|ka|ká}}\n@@ -1905,4 +1909,5 @@\n ===Etymology 5===\n+{{etymid|yo|fold}}\n ====Pronunciation====\n@@ -1926,4 +1931,5 @@\n ===Etymology 6===\n+{{etymid|yo|everywhere}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -1823,4 +1823,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|count}}\n Cognate with {{cog-lite|igl|kaa|káà}}\n \n@@ -1845,4 +1846,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|confess}}\n Likely cognate with {{cog-lite|igl|ka|kà|to tell}} and {{cog-lite|ig|ka|kà|to speak}}, perhaps related to {{cog-lite|nup|gan|gàn}}\n \n@@ -1865,4 +1867,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|buy}}\n \n ====Pronunciation====\n@@ -1881,4 +1884,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|pluck}}\n Cognate with {{cog-lite|igl|ka|ká}}\n \n@@ -1905,4 +1909,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|fold}}\n \n ====Pronunciation====\n@@ -1926,4 +1931,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|everywhere}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}

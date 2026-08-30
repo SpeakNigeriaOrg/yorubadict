@@ -1,0 +1,30 @@
+{
+  "job": "pointers",
+  "parent": "a",
+  "language": "Yoruba",
+  "account": "SpeakNigeria",
+  "finishedAt": "2026-08-14T04:47:27.025099+00:00",
+  "namesOnParent": {
+    "1": "letter a",
+    "2": "we",
+    "3": "him"
+  },
+  "pointers": [
+    {
+      "page": "karakata",
+      "word": "káràkátà",
+      "argument": "id5",
+      "component": "a",
+      "name": "we",
+      "before": "{{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|id2=we|t3=buy|t4=subjunctive particle|t5=we|t6=sell}}",
+      "after": "{{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|id2=we|t3=buy|t4=subjunctive particle|t5=we|id5=we|t6=sell}}",
+      "oldrevid": 91985415,
+      "saved": true,
+      "startedAt": "2026-08-14T04:46:52.737724+00:00",
+      "newrevid": 91985415,
+      "realizedDiff": "@@ -24,5 +24,5 @@\n ===Etymology===\n-From {{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|t3=buy|t4=subjunctive particle|t5=we|t6=sell}}.\n+From {{com|yo|kí|a|rà|kí|a|tà|t1=subjunctive particle|t2=we|id2=we|t3=buy|t4=subjunctive particle|t5=we|t6=sell}}.\n ===Pronunciation===",
+      "realizedShowsOurChange": true
+    }
+  ],
+  "allShowOurChange": true
+}

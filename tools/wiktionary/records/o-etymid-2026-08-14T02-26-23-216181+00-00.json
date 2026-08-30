@@ -1,0 +1,47 @@
+{
+  "job": "etymid",
+  "page": "o",
+  "hostPage": "o",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T02:26:10.342558+00:00",
+  "finishedAt": "2026-08-14T02:26:23.216181+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 7 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "letter"
+    },
+    {
+      "etymology": "2",
+      "name": "you"
+    },
+    {
+      "etymology": "3",
+      "name": "hesheit"
+    },
+    {
+      "etymology": "4",
+      "name": "himherit"
+    },
+    {
+      "etymology": "5",
+      "name": "emphasize"
+    },
+    {
+      "etymology": "6",
+      "name": "not"
+    },
+    {
+      "etymology": "7",
+      "name": "look"
+    }
+  ],
+  "oldrevid": 91964352,
+  "newrevid": 91984689,
+  "realizedDiff": "@@ -3399,4 +3399,5 @@\n ===Etymology 1===\n+{{etymid|yo|letter}}\n ====Pronunciation====\n@@ -3419,4 +3420,5 @@\n ===Etymology 2===\n+{{etymid|yo|you}}\n ====Pronunciation====\n@@ -3429,4 +3431,5 @@\n ===Etymology 3===\n+{{etymid|yo|hesheit}}\n ====Pronunciation====\n@@ -3439,4 +3442,5 @@\n ===Etymology 4===\n+{{etymid|yo|himherit}}\n ====Pronunciation====\n@@ -3458,4 +3462,5 @@\n ===Etymology 5===\n+{{etymid|yo|emphasize}}\n ====Pronunciation====\n@@ -3472,4 +3477,5 @@\n ===Etymology 6===\n+{{etymid|yo|not}}\n {{clipping|yo|kò}}.\n@@ -3483,4 +3489,5 @@\n ===Etymology 7===\n+{{etymid|yo|look}}\n {{clipping|yo|wò}}.",
+  "intendedDiff": "--- \n+++ \n@@ -3399,4 +3399,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|letter}}\n \n ====Pronunciation====\n@@ -3419,4 +3420,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|you}}\n \n ====Pronunciation====\n@@ -3429,4 +3431,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|hesheit}}\n \n ====Pronunciation====\n@@ -3439,4 +3442,5 @@\n \n ===Etymology 4===\n+{{etymid|yo|himherit}}\n \n ====Pronunciation====\n@@ -3458,4 +3462,5 @@\n \n ===Etymology 5===\n+{{etymid|yo|emphasize}}\n \n ====Pronunciation====\n@@ -3472,4 +3477,5 @@\n \n ===Etymology 6===\n+{{etymid|yo|not}}\n {{clipping|yo|kò}}.\n \n@@ -3483,4 +3489,5 @@\n \n ===Etymology 7===\n+{{etymid|yo|look}}\n {{clipping|yo|wò}}.\n ",
+  "realizedMatchesIntended": true
+}

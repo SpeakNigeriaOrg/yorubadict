@@ -181,26 +181,6 @@ test('deleting stale pages never touches data/ or a committed file', () => {
   assert.ok(fs.existsSync(path.join(dir, 'index.html')));
 });
 
-test('the perf-bisect measurement pages survive the sweep', () => {
-  // They are hand-written .html files that this renderer did not produce,
-  // which is precisely the shape the sweep exists to delete. Without the skip
-  // entry the next build removes all three and then the emptied directory,
-  // and the bisect they exist for silently stops working - the pages 404 and
-  // PageSpeed reports on a 404 rather than on the layer being tested.
-  const dir = fixtureSite();
-  fs.mkdirSync(path.join(dir, 'perf-bisect'), { recursive: true });
-  fs.writeFileSync(path.join(dir, 'perf-bisect/01-bare.html'), '<p>bare</p>');
-  fs.writeFileSync(path.join(dir, 'perf-bisect/README.md'), '# notes');
-
-  prerender(SAMPLE, { publicDir: dir });
-
-  assert.ok(
-    fs.existsSync(path.join(dir, 'perf-bisect/01-bare.html')),
-    'the measurement pages must survive a build'
-  );
-  assert.ok(fs.existsSync(path.join(dir, 'perf-bisect/README.md')));
-});
-
 test('a written page that no longer exists is deleted too', () => {
   const dir = fixtureSite();
   // A page from an older build of the site, in the shape the renderer writes.

@@ -1,0 +1,31 @@
+{
+  "job": "etymid",
+  "page": "ọla",
+  "hostPage": "ọla",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T03:14:21.714900+00:00",
+  "finishedAt": "2026-08-14T03:14:24.476410+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 3 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "honor"
+    },
+    {
+      "etymology": "2",
+      "name": "wealth"
+    },
+    {
+      "etymology": "3",
+      "name": "tomorrow"
+    }
+  ],
+  "oldrevid": 77935481,
+  "newrevid": 91984903,
+  "realizedDiff": "@@ -41,4 +41,5 @@\n ===Etymology 1===\n+{{etymid|yo|honor}}\n Not related to {{l|yo|ọlà}} (Etymology 2)\n@@ -55,4 +56,5 @@\n ===Etymology 2===\n+{{etymid|yo|wealth}}\n From {{affix|yo|ọ-|là|t1=nominalizing prefix|id1=nominalizing prefix |t2=to be rich}}, cognate with {{cog|igl|ùrà}}\n@@ -67,4 +69,5 @@\n ===Etymology 3===\n+{{etymid|yo|tomorrow}}\n Cognate with {{cog|igl|ọ́na}}",
+  "intendedDiff": "--- \n+++ \n@@ -41,4 +41,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|honor}}\n Not related to {{l|yo|ọlà}} (Etymology 2)\n \n@@ -55,4 +56,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|wealth}}\n From {{affix|yo|ọ-|là|t1=nominalizing prefix|id1=nominalizing prefix |t2=to be rich}}, cognate with {{cog|igl|ùrà}}\n \n@@ -67,4 +69,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|tomorrow}}\n Cognate with {{cog|igl|ọ́na}}\n ",
+  "realizedMatchesIntended": true
+}

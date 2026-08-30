@@ -1,0 +1,27 @@
+{
+  "job": "etymid",
+  "page": "owo",
+  "hostPage": "owo",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T02:50:18.287854+00:00",
+  "finishedAt": "2026-08-14T02:50:44.168286+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 2 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "money"
+    },
+    {
+      "etymology": "2",
+      "name": "business"
+    }
+  ],
+  "oldrevid": 91932860,
+  "newrevid": 91984789,
+  "realizedDiff": "@@ -88,4 +88,5 @@\n ===Etymology 1===\n+{{etymid|yo|money}}\n Cognate with {{cog|ulb|ẹ́ghó}}, {{cog|nup|ewó}}, {{cog|bin|ígho}}, {{cog|urh|ígho}} and {{cog|iso|ugho}}. See Yoruba dialectal forms for other cognates. Proposed to be reconstructed to {{inh|yo|alv-yrd-pro|*V́-ɣó}}, and perhaps a {{doublet|yo|hóró|wóró|nocap=1}}.\n@@ -123,4 +124,5 @@\n ===Etymology 2===\n+{{etymid|yo|business}}\n ====Alternative forms====",
+  "intendedDiff": "--- \n+++ \n@@ -88,4 +88,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|money}}\n Cognate with {{cog|ulb|ẹ́ghó}}, {{cog|nup|ewó}}, {{cog|bin|ígho}}, {{cog|urh|ígho}} and {{cog|iso|ugho}}. See Yoruba dialectal forms for other cognates. Proposed to be reconstructed to {{inh|yo|alv-yrd-pro|*V́-ɣó}}, and perhaps a {{doublet|yo|hóró|wóró|nocap=1}}.\n \n@@ -123,4 +124,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|business}}\n \n ====Alternative forms====",
+  "realizedMatchesIntended": true
+}

@@ -3,52 +3,46 @@
 //
 // Runs PageSpeed Insights several times and reports the spread.
 //
-// Written to answer "is the 87 stable or is it a bad sample", and the answer
-// came back stable: 87 every time, with a simulated First Contentful Paint of
-// 3010 ms and 3011 ms on two runs against hosts of different speeds. A model
-// output agreeing to the millisecond is not noise. Keep it for watching the
-// number over time, not for deciding whether to believe it.
+// Runs PageSpeed Insights several times and reports the spread.
 //
-// What the number is made of, from PageSpeed's own audits:
+// PageSpeed caches a result per URL, so asking twice for the same address
+// gives the same answer back and it looks like agreement. This appends a
+// unique query string to each request so every run is a real one, which is the
+// only reason the numbers below have a spread at all. A single run is not a
+// measurement.
 //
-//   Total Blocking Time    0 ms       full marks   30 points
-//   Cumulative Layout Sh.  0          full marks   25 points
-//   Largest Contentful P.  3160 ms    0.73         18.3
-//   First Contentful P.    3010 ms    0.49          4.9
-//   Speed Index            3062 ms    0.93          9.3
-//                                                  ----
-//                                                  87.5
+// What it was built for, and what that found. The mobile score was 87 on every
+// page, with a simulated First Contentful Paint of 3010ms that did not move
+// between pages or between hosts benchmarking 576 to 993 - a model output
+// agreeing to the millisecond, so not noise. The cause was one <link> to
+// fonts.googleapis.com. Not its bytes: Lighthouse models a Slow 4G connection
+// and charges a full DNS + TCP + TLS handshake, three or four round trips at
+// 150ms each, for every new origin on the path to first paint, and that link
+// brought in two. Serving the fonts from this origin instead took the front
+// page and /about from 87 to about 98. The reasoning now lives above the
+// @font-face rules in public/style.css.
 //
-// Every lost point is first paint. PageSpeed's LCP breakdown puts 1312.9 ms of
-// the 1313 ms into "element render delay" - time after the document has
-// arrived and before the element appears - and its filmstrip shows the screen
-// blank at 1125 ms and fully drawn at 1500 ms, with all 17 requests finished
-// by 741 ms. So the page sits fully downloaded and blank for about six tenths
-// of a second on their hardware.
+// Two things worth keeping from how that went:
 //
-// Not the stylesheets: Lighthouse's own counterfactual for the render-blocking
-// audit is FCP 0 ms, LCP 0 ms. Not the dictionary: it is requested 12 ms after
-// the paint on every run, on both form factors. It is the render delay, and it
-// only appears on hosts around a quarter the speed of a 2023 laptop
-// (benchmarkIndex ~990 against ~3900). paint-profile.mjs could not reproduce
-// it across five viewport profiles, CPU throttling from 1x to 20x, Slow 4G,
-// localhost and production - in every local run the paint lands BEFORE load.
+//   Lighthouse's own render-blocking audit reported 0ms of savings for the two
+//   local stylesheets, and it was right - they cost 137ms and no points. The
+//   thing doing the damage was not flagged by any audit, because a preload
+//   that becomes a stylesheet is not what that audit looks for.
 //
-// Which is why the next step is here rather than there: change one thing, ship
-// it, and re-run this. PageSpeed's slow host is the only machine the effect
-// has ever been seen on, so it is the instrument.
+//   Nothing local reproduced it. Five viewport profiles, CPU throttling from
+//   1x to 20x, Slow 4G, a saturated machine, localhost and production, under
+//   both tools/trace/paint-profile.mjs and Lighthouse itself. Every local run
+//   painted before load. The effect only existed on PageSpeed's own slow
+//   hosts, which is why this file exists at all.
 //
-// Needs a key. The keyless quota is a single pool shared by every anonymous
-// caller on earth and is usually already exhausted - the failure is a 429 that
-// says "quota exceeded for consumer project_number:...", which is Google's,
-// not yours. A key is free from
-// https://developers.google.com/speed/docs/insights/v5/get-started
+// Needs a key. The keyless quota is one pool shared by every uncredentialed
+// caller and is usually spent - the failure is a 429 naming a project number
+// that is Google's, not yours. A key is free from
+// https://developers.google.com/speed/docs/insights/v5/get-started, and goes
+// in .env.local (copy .env.example).
 //
-//   PSI_API_KEY=... node tools/trace/psi-runs.mjs --runs=5
-//
-// --url takes any page, so a second URL on the same site is a control: if
-// /about shows the same render delay, it is the shell (CSS, fonts, app.js
-// boot); if only / does, it is something the front page does on its own.
+//   node tools/trace/psi-runs.mjs --runs=5
+//   node tools/trace/psi-runs.mjs --url=https://yorubadict.com/about --strategy=mobile
 
 import path from 'node:path';
 import { existsSync } from 'node:fs';
@@ -88,8 +82,15 @@ function quantile(xs, q) {
   return lo === hi ? s[lo] : s[lo] + (s[hi] - s[lo]) * (pos - lo);
 }
 
-export async function runOnce(url, strategy, key) {
-  const qs = new URLSearchParams({ url, strategy, category: 'performance' });
+export async function runOnce(url, strategy, key, { bust = true } = {}) {
+  // A unique query string per request. Without it PageSpeed answers from its
+  // own cache and repeated runs return byte-identical numbers, which reads as
+  // a stable measurement and is actually a single one. The page served is the
+  // same either way - the query is not used by anything here.
+  const target = bust
+    ? url + (url.includes('?') ? '&' : '?') + 'psi=' + process.hrtime.bigint()
+    : url;
+  const qs = new URLSearchParams({ url: target, strategy, category: 'performance' });
   if (key) qs.set('key', key);
   const res = await fetch(`${API}?${qs}`);
   const body = await res.json();
@@ -135,24 +136,10 @@ async function main() {
   };
   const has = (n) => argv.includes(`--${n}`);
 
-  // --bisect runs the four pages in public/perf-bisect in order, each of which
-  // adds one layer to the one before it. The first page whose OBSERVED first
-  // paint jumps to ~1300 ms is the layer that causes the delay; read that
-  // column, not the score, which folds in other things.
   const origin = flag('origin', 'https://yorubadict.com');
-  const urls = has('bisect')
-    ? [
-        `${origin}/perf-bisect/01-bare`,
-        `${origin}/perf-bisect/02-css`,
-        `${origin}/perf-bisect/03-fonts`,
-        `${origin}/perf-bisect/04-fonts-inline`,
-        `${origin}/perf-bisect/05-fonts-selfhost`,
-        `${origin}/perf-bisect/06-fonts-after-paint`,
-        `${origin}/`,
-      ]
-    : flag('url', 'https://yorubadict.com/').split(',');
-  const runs = Number(flag('runs', has('bisect') ? 3 : 5));
-  const strategies = flag('strategy', has('bisect') ? 'mobile' : 'mobile,desktop').split(',');
+  const urls = flag('url', 'https://yorubadict.com/').split(',');
+  const runs = Number(flag('runs', 5));
+  const strategies = flag('strategy', 'mobile,desktop').split(',');
   const key = loadKey();
 
   if (!key) {

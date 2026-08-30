@@ -469,13 +469,7 @@ function removeStalePages(publicDir, keep) {
   // that only recursed into subdirectories could never retire one of the seven
   // written pages. data/ is the one subtree held back - it is build output of a
   // different kind and holds no pages.
-  // perf-bisect holds four hand-written measurement pages, not build output.
-  // Without this line the cleanup below deletes all three .html files on the
-  // next build and then removes the emptied directory, because "not written by
-  // this renderer" is exactly what they are. See public/perf-bisect/README.md;
-  // when that question is answered, delete the directory and this entry
-  // together.
-  const skip = new Set(['data', 'perf-bisect']);
+  const skip = new Set(['data']);
   const rootWalk = (dir, urlPath) => walk(dir, urlPath);
   for (const name of readdirSync(publicDir)) {
     if (skip.has(name) || name.startsWith('.')) continue;

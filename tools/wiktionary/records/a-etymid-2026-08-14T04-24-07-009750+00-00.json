@@ -1,0 +1,31 @@
+{
+  "job": "etymid",
+  "page": "a",
+  "hostPage": "a/languages M to Z",
+  "language": "Yoruba",
+  "simulated": false,
+  "saved": true,
+  "startedAt": "2026-08-14T04:24:03.353011+00:00",
+  "finishedAt": "2026-08-14T04:24:07.009750+00:00",
+  "account": "SpeakNigeria",
+  "summary": "/* Yoruba */ Add {{etymid}} to 3 etymologies so other entries can point at one meaning (semi-automated: each etymid written by hand, then uploaded via script to save typing time)",
+  "names": [
+    {
+      "etymology": "1",
+      "name": "letter a"
+    },
+    {
+      "etymology": "2",
+      "name": "we"
+    },
+    {
+      "etymology": "3",
+      "name": "him"
+    }
+  ],
+  "oldrevid": 91963465,
+  "newrevid": 91985331,
+  "realizedDiff": "@@ -3771,4 +3771,5 @@\n ===Etymology 1===\n+{{etymid|yo|letter a}}\n ====Pronunciation====\n@@ -3791,4 +3792,5 @@\n ===Etymology 2===\n+{{etymid|yo|we}}\n Likely a {{clipping|yo|àwa|t=we (emphatic pronoun)|nocap=1}}\n@@ -3807,4 +3809,5 @@\n ===Etymology 3===\n+{{etymid|yo|him}}\n ====Pronunciation====",
+  "intendedDiff": "--- \n+++ \n@@ -3771,4 +3771,5 @@\n \n ===Etymology 1===\n+{{etymid|yo|letter a}}\n \n ====Pronunciation====\n@@ -3791,4 +3792,5 @@\n \n ===Etymology 2===\n+{{etymid|yo|we}}\n Likely a {{clipping|yo|àwa|t=we (emphatic pronoun)|nocap=1}}\n \n@@ -3807,4 +3809,5 @@\n \n ===Etymology 3===\n+{{etymid|yo|him}}\n \n ====Pronunciation====",
+  "realizedMatchesIntended": true
+}
