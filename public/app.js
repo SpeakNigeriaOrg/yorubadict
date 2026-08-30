@@ -1049,16 +1049,6 @@ import { createPageRenderer } from './page-render.js';
     window.addEventListener('resize', syncChromeHeights);
     // Web fonts land after first paint and change both bars' heights.
     if (document.fonts) document.fonts.ready.then(syncChromeHeights);
-    // Offline. Registered after everything else is wired, and never awaited: a
-    // reader who has just arrived should not wait on a cache they will only
-    // benefit from next time. See public/sw.js for why the version check in it
-    // is not optional.
-    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('/sw.js').catch(() => {
-        // Offline support is the only thing lost, and the page works without it.
-      });
-    }
-
     // popstate, not hashchange: the address is a path now. Link clicks are
     // caught on the document so navigation covers markup rewritten on every
     // render, which is nearly all of it.
@@ -1143,6 +1133,33 @@ import { createPageRenderer } from './page-render.js';
       if (entry.path) state.byPath[entry.path] = entry;
     }
     state.ready = true;
+
+    // Offline, and deliberately the last thing that happens.
+    //
+    // This used to sit up in the wiring, about forty lines above the paint
+    // gate, on the reasoning that it is never awaited so it cannot hold a
+    // reader up. Not awaiting a promise stops your code waiting for it; it
+    // does not stop the work competing. Installing precaches the shell - which
+    // is these same two files, entries.json and search-index.json - so the
+    // browser was asked for the dictionary a second time while it was still
+    // trying to produce the first frame.
+    //
+    // It got away with it only because the paint happened to win the race, and
+    // then it stopped: taking the web fonts off fonts.googleapis.com removed
+    // two origin handshakes from the front of the load, boot() finished
+    // earlier against an unchanged paint, and the margin went from a reliable
+    // +54ms to -2ms, +15ms, -1ms on three consecutive runs. A coin flip, on
+    // the one thing a 25-point metric depends on.
+    //
+    // Here it can neither delay the paint nor compete with the fetch above,
+    // and the revalidation it does is answered from the HTTP cache: Cloudflare
+    // sends an ETag for these files, so each one is a 0-byte 304. See
+    // public/sw.js for why its version check is not optional.
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        // Offline support is the only thing lost, and the page works without it.
+      });
+    }
 
     // An old #/entry/<id> link, from before every word had its own address. It
     // can only be resolved now, because working out where that word lives means
