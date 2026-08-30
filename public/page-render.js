@@ -400,7 +400,7 @@ export function createPageRenderer(ctx) {
         <h2>What this site is good for: finding the gaps</h2>
         <p>Wiktionary is hard to browse. You have to spell a word a particular way to find it, results arrive mixed in with every other language, and the relationship between two words is often recorded on only one of them.</p>
         <p>We fixed those for reading, and the same work makes gaps visible. Search a Yorùbá word however you write it, or search from English. Open a word and see what it is made of, and what is made from it. Anything conspicuously absent from those lists is a gap, and now you can see it without knowing where to look.</p>
-        <p>Two places on this site list gaps we can count: the <strong>Data quality</strong> panel in the menu, and the queue at the bottom of this page.</p>
+        <p>Some of them we can count for you. The <strong>Data quality</strong> panel in the menu holds around 2,300 of them, checked on every rebuild and sorted by how much judgement each one needs.</p>
 
         <h2>Learning Wiktionary's conventions</h2>
         <p>Editing Wiktionary takes some investment. It has its own markup, its own layout rules and its own templates, and a well-formed entry looks nothing like a sentence you would type into a document. None of it is difficult; there is just a bit of it.</p>
@@ -470,6 +470,16 @@ export function createPageRenderer(ctx) {
         <pre class="wikitext">equivalent to {{af|yo|o-|dó|t1=nominalizing prefix|id1=nominalizing prefix|t2=to pound}}</pre>
         <p>That <code>id1</code> points at a name on the page <em>o-</em>, and <em>o-</em> has no Yorùbá section at all. The pointer is correct and its target has never been written, so it goes nowhere.</p>
         <p>We are not saying that to criticise a page we have been praising. It is the most realistic thing on this page: the best-formed Yorùbá entry in Wiktionary still has a loose end, that loose end is one short section somebody could write this afternoon, and it is invisible unless you go looking. That is what contributing here mostly is.</p>
+        <p>It is also not a one-off. Our data quality report finds nine pointers aimed at names that were never created, and <em>odo</em>'s is one of them.</p>
+
+        <h2>A pile of work, sorted by how hard it is</h2>
+        <p>Every time this site rebuilds it checks the data against itself and writes down what does not add up. That is the <strong>Data quality</strong> panel in the menu. It currently lists about 2,300 things worth fixing, grouped by how much they ask of you.</p>
+        <ul>
+          <li><strong>The fix is already known.</strong> Around fifty of these. A cross-reference written with the wrong tone marks, or a missing underdot, so a link that should reach a real word reaches nothing. The report names the word, the page and the correct spelling; you are copying an answer across, not working one out.</li>
+          <li><strong>Mechanical, but somebody has to say it.</strong> 374 words have no pronunciation recorded. Anyone who speaks Yorùbá can clear those, one entry at a time, with no research at all.</li>
+          <li><strong>Needs a Yorùbá speaker.</strong> The largest group. Over a thousand cross-references point at words Wiktionary does not have — each one is an entry somebody could write. Several hundred more have a main spelling the source never confirms.</li>
+        </ul>
+        <p>The payoff is immediate and it is not only ours. Fix an entry today and it is live on Wiktionary at once, in this dictionary at the next refresh, and in every other project reading that data whenever they next pull it.</p>
 
         <h2>What we are working on now: names for meanings</h2>
         <p>Speak Nigeria is working through the second of those five: the name on the section. It is a small piece of a much larger job, and it is bookkeeping rather than research. Somebody has usually written down which meaning a word came from already, in plain words a reader can follow. What is missing is the template that lets a machine follow it too.</p>
