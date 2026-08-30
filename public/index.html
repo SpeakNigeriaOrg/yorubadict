@@ -41,6 +41,30 @@
      that the files exist; nothing can cover that this list is complete. -->
 <link rel="modulepreload" href="/entry-render.js" />
 <link rel="modulepreload" href="/page-render.js" />
+<!-- The four font files every page loads, started beside style.css instead of
+     after it. @font-face lives in style.css, so without these the browser
+     cannot know a font exists until that stylesheet has arrived and parsed -
+     measured on an entry page, style.css finished at 431ms and the fonts only
+     began at 471ms and later.
+
+     Only the four that every page type pulls. A word page needs eleven, and
+     the rest are left to be discovered normally: preload downloads whether the
+     page needs the file or not, so listing the italic here would spend 66KB on
+     the front page, which has no italics on it, to save a word page some time.
+     That trade is worth measuring separately and has not been.
+
+     crossorigin is required even though these are our own files - font
+     requests are made in CORS mode, and without it the browser preloads one
+     copy and then fetches a second. Removing it does not break the page, it
+     just silently doubles the fonts.
+
+     Hashed names, so a font refresh makes every line here stale in the quiet
+     way: the page keeps working, the preload just fetches something nothing
+     asks for. Regenerate these together with the @font-face rules. -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeP2Xz5c.woff2" /><!-- Fraunces, latin -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2" /><!-- Plus Jakarta Sans, latin -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf6D33WsNFH.woff2" /><!-- Noto Serif, latin -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf1D33WsNFHuQk.woff2" /><!-- Noto Serif, the Yoruba cut -->
 <!-- Web fonts are declared in style.css and served from /fonts on this
      origin. They used to be a preload to fonts.googleapis.com, which cost 8
      points of the mobile PageSpeed score on its own - not for its bytes but
