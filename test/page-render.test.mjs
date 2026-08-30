@@ -75,6 +75,32 @@ test('a data-driven page emits the element id app.js patches its list into', () 
   }
 });
 
+test('a prerendered page still fetches the list it arrived without', () => {
+  // The other half of the contract above, and the half that broke second.
+  // Matching ids are not enough: on a page the build wrote to a file,
+  // handleRoute keeps the markup that arrived and returns before renderPage
+  // runs, so whatever renderPage would have fetched never gets fetched. The
+  // reader is left looking at "Loading the list…" for as long as they care to.
+  const app = fs.readFileSync(path.join(publicDir, 'app.js'), 'utf8');
+
+  // The function the host table actually sits inside: the last one declared
+  // before it, not the first one that happens to precede it in the file.
+  const table = app.indexOf("host: '");
+  assert.ok(table > 0, 'expected app.js to name a host element for each fetched list');
+  const declarations = [...app.slice(0, table).matchAll(/function (\w+)\(page\)/g)];
+  const loader = declarations.length && declarations[declarations.length - 1][1];
+  assert.ok(loader, 'expected one function to hold the fetch-and-patch table');
+
+  // The branch that honours data-prerendered and returns early must call it.
+  const branch = app.slice(app.indexOf('data-prerendered'));
+  const earlyReturn = branch.slice(0, branch.indexOf('return;'));
+  assert.ok(
+    earlyReturn.includes(`${loader}(`),
+    `the prerendered-arrival branch returns without calling ${loader}(), so ` +
+      'Contribute and Key Building Blocks would show their placeholder forever'
+  );
+});
+
 test('no page links with a hash route', () => {
   // Every internal link goes through ctx.pathFor / ctx.pagePath. A leftover
   // #/entry/<id> would be a link the router no longer answers.

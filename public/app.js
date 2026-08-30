@@ -605,24 +605,41 @@ import { createPageRenderer } from './page-render.js';
     document.title = page.title;
     setDescription(page.description);
 
+    loadPageList(page);
+  }
+
+  /**
+   * Fill in the generated list on the two pages that have one.
+   *
+   * Split out of renderPage because it is needed on a path that never calls
+   * renderPage. A prerendered page keeps the markup it arrived with, and that
+   * markup carries "Loading the list…" where the list goes - the prose is
+   * written to the file at build time and the list deliberately is not. So the
+   * fetch has to happen whether the page was just rendered or merely landed on.
+   */
+  function loadPageList(page) {
     const needs = page.name === 'building-blocks'
       ? { file: '/data/building-blocks.json', key: 'buildingBlocks', host: 'blocks-list', list: pages.buildingBlocksListHtml }
       : page.name === 'contribute'
         ? { file: '/data/wiktionary-tasks.json', key: 'tasks', host: 'tasks-list', list: pages.contributeListHtml }
         : null;
-    if (!needs || state[needs.key]) return;
+    if (!needs) return;
+    const patch = (html) => {
+      // Only if the reader is still on this page.
+      const host = document.getElementById(needs.host);
+      if (host) host.innerHTML = html;
+    };
+    // Already fetched once this session. renderPage passed it to page.html
+    // and needs nothing more, but a prerendered arrival still shows the
+    // placeholder, so patch either way rather than returning early.
+    if (state[needs.key]) return patch(needs.list(state[needs.key]));
     fetch(needs.file)
       .then((r) => r.json())
       .then((loaded) => {
         state[needs.key] = loaded;
-        // Only patch the list if the reader is still on this page.
-        const host = document.getElementById(needs.host);
-        if (host) host.innerHTML = needs.list(loaded);
+        patch(needs.list(loaded));
       })
-      .catch(() => {
-        const host = document.getElementById(needs.host);
-        if (host) host.innerHTML = '<p>The list could not be loaded.</p>';
-      });
+      .catch(() => patch('<p>The list could not be loaded.</p>'));
   }
 
   /** The one <meta name="description"> tag, kept in step with the page. */
@@ -646,7 +663,14 @@ import { createPageRenderer } from './page-render.js';
       hydrated = true;
       const arrived = els.entryContent.getAttribute('data-prerendered');
       els.entryContent.removeAttribute('data-prerendered');
-      if (arrived && arrived.replace(/\/$/, '') === path.replace(/\/$/, '')) return;
+      if (arrived && arrived.replace(/\/$/, '') === path.replace(/\/$/, '')) {
+        // Keep the markup that arrived - but Contribute and Key Building
+        // Blocks arrive holding a placeholder where their generated list goes,
+        // and nothing else on this path would ever fetch it.
+        const landed = pages.byPath.get(path);
+        if (landed) loadPageList(landed);
+        return;
+      }
     }
 
     const page = pages.byPath.get(path);
