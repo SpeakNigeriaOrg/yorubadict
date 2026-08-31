@@ -747,6 +747,15 @@ export function createEntryRenderer(ctx) {
       <p>Wiktionary says some of them were built from a word spelled like this one, without saying which meaning, so we show each under every meaning it could have come from.</p>
       <p>The rest are spelled a little differently from anything here — a tone mark or an underdot apart — so we cannot tell a misspelling of this word from a word that has no page yet.</p>
       <p>Both are fixable on Wiktionary, one word at a time. <a href="${ctx.pagePath('contribute')}">How to help</a>.</p>`;
+    // "Descendants" is Wiktionary's word and it means nothing outside Wiktionary.
+    // All 317 of these are words that travelled out of Yorùbá into another
+    // language - English, Portuguese, Nigerian Pidgin, Krio, Lucumí - so the
+    // heading says that. It must not read as "this word in other languages",
+    // which is what a bilingual dictionary usually means by such a heading and
+    // is the opposite claim: these are not translations.
+    const descendantsNote = `
+      <p>These are words in other languages that came from this Yorùbá word, mostly through trade, the Atlantic slave trade, and contact with neighbouring languages.</p>
+      <p>They are not translations. A word here means what it means in its own language, which may have drifted a long way from the Yorùbá it started as.</p>`;
     const siblingsHtmlStr = siblingsHtml(entry);
 
     return `
@@ -769,15 +778,15 @@ export function createEntryRenderer(ctx) {
       ${section('Possibly used in', maybeUsedInHtml, maybeUsedInNote)}
       ${section('Derived from', derivedFromHtml)}
       ${section('Possibly derived from', maybeDerivedFromHtml, maybeDerivedFromNote)}
-      ${section('Related terms', relatedHtml)}
-      ${section('Synonyms', synonymsHtml)}
-      ${section('Antonyms', antonymsHtml)}
+      ${section('Related words', relatedHtml)}
+      ${section('Similar words', synonymsHtml)}
+      ${section('Opposites', antonymsHtml)}
       ${section('Listed as a similar word by', namedSynonymHtml, namedByNote)}
       ${section('Listed as an opposite by', namedAntonymHtml, namedByNote)}
       ${section('A kind of', hypernymsHtml)}
       ${section('Kinds of this', hyponymsHtml)}
       ${section('Others in the same set', coordinateHtml)}
-      ${section('Descendants', descendantsHtml)}
+      ${section('Words in other languages from this one', descendantsHtml, descendantsNote)}
 
       <div class="entry-provenance-note">
         Source: Wiktionary${entry.etymologyNumber ? ` · etymology ${escapeHtml(entry.etymologyNumber)}` : ''},
