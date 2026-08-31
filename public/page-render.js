@@ -18,17 +18,52 @@
 // prose is the part worth reading, and the list is current only when fetched.
 
 export function createPageRenderer(ctx) {
+  // The four words sọ̀rọ̀ sókè is made of, in the order the phrase says them.
+  // Not written out by hand: this is the etymology Wiktionary records on the
+  // phrase, morpheme for morpheme, and each meaning here is the one that entry
+  // gives for that part - òkè is "heights" in this compound and "mountain, hill"
+  // on its own page, and the compound's reading is the one that explains the
+  // name. So the section is a worked example of the thing the dictionary does
+  // rather than a decorative etymology beside it.
+  const NAME_PARTS = [
+    ['en-sọ-yo-verb-PDpIT1dp', 'sọ', 'verb', 'to say'],
+    ['en-ọrọ-yo-noun-dCQfuIN9', 'ọ̀rọ̀', 'noun', 'word'],
+    ['en-si-yo-prep-aWOju~yQ', 'sí', 'prep', 'to'],
+    ['en-oke-yo-noun-xoCPmvRC', 'òkè', 'noun', 'heights'],
+  ];
+
   function welcomeHtml() {
-    // The mission line is first because this is the only page most arrivals see,
-    // and until it was here nothing above the fold said who runs the site. The
-    // footer's "A Speak Nigeria project" is a credit, not an answer: it does not
-    // say what Speak Nigeria is or why a dictionary is one of its projects.
+    // Two halves, and the rule between them is the point. Above it, everything
+    // is addressed to somebody who came here to look a word up. Below it is who
+    // runs the site and why, which is a different question by a different
+    // reader, and which nothing on this page answered before: the footer's
+    // "A Speak Nigeria project" is a credit, not an answer.
+    //
+    // The name carries the introduction because it happens to say all three
+    // things at once - what the dictionary is for, where its words come from,
+    // and what its design is built around - so the nonprofit arrives through
+    // the dictionary rather than beside it.
+    const parts = NAME_PARTS.map(([id, form, pos, meaning]) => `
+          <a class="sibling-row" href="${ctx.pathFor(id)}">
+            <span class="sibling-word">${form}</span>
+            <span class="sibling-meta">${pos}</span>
+            <span class="sibling-gloss">${meaning}</span>
+          </a>`).join('');
     return `
       <div class="entry-welcome">
-        <h1>Ẹ káàbọ̀.</h1>
-        <p class="welcome-mission">A free Yorùbá–English dictionary from <a href="${ctx.pagePath('speak-nigeria')}">Speak Nigeria</a>, a 501(c)(3) nonprofit building free resources so children can learn and keep Nigerian heritage languages.</p>
-        <p>Search for a Yorùbá word with or without tone marks and underdots. Or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
-        <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
+        <h1>Ẹ káàbọ̀!</h1>
+        <p>Welcome! Search in Yorùbá (with or without tone marks or underdots), or search by its English definition. After your first visit, the dictionary is on your device, and it works with no connection.</p>
+        <p>Or open a word and follow it. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. Start at <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a>, home — <a href="${ctx.pathFor('en-ile-iwe-yo-noun-1k3r2ULX')}">ilé-ìwé</a> is a school, <a href="${ctx.pathFor('en-onile-yo-noun-xKEbOgKn')}">onílé</a> is a landlord — or at <a href="${ctx.pathFor('en-oju-yo-noun-R8IVtfcO')}">ojú</a>, eye, or <a href="${ctx.pathFor('en-ọmọ-yo-noun-3cnmaRlC')}">ọmọ</a>, child.</p>
+
+        <section class="welcome-about">
+          <h2>Sọ̀rọ̀ sókè</h2>
+          <p>The name of this dictionary means <a href="${ctx.pathFor('en-sọrọ_soke-yo-verb-zjLiM20R')}">speak up</a>. It is made of four words:</p>
+          <div class="sibling-list">${parts}
+          </div>
+          <p>Say words to the heights. Those four are its component words, and each of them opens onto its own. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> follows three groups of words this way.</p>
+          <p>The words come from Wiktionary, which anyone can edit. A word is here because somebody wrote it there. A word that is missing stays missing until somebody does. <a href="${ctx.pagePath('contribute')}">Contribute</a> lists the gaps we have found, and the edit each one needs.</p>
+          <p><a href="${ctx.pagePath('speak-nigeria')}">Speak Nigeria</a> makes this dictionary. We are a 501(c)(3) nonprofit, and we build free resources so children can learn Nigerian heritage languages and keep them.</p>
+        </section>
       </div>
     `;
   }

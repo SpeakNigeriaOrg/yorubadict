@@ -863,21 +863,61 @@ a { color: inherit; }
   line-height: 1.65;
 }
 
-/* Sits between the greeting and the how-to-search text, and is the only thing
-   in the welcome pane not about using the dictionary - so it reads a step up
-   from the instructions under it rather than as another one of them. */
-.welcome-mission {
-  font-size: 1.02rem;
-  color: var(--text-primary);
-  margin-bottom: 14px;
-}
-
 .entry-welcome h1 {
   font-family: var(--font-yoruba);
   font-size: 2rem;
   color: var(--brand-indigo);
   margin-bottom: 8px;
   text-rendering: optimizeLegibility;
+}
+
+/* The half of the welcome page that is not about looking a word up. The rule
+   above it does the separating; borrowed from .unit, which divides the sample
+   vocabulary units on Language of Connections for the same reason.
+
+   Both headings on this page are Yorùbá phrases, so both take the Yorùbá face.
+   That is also what fixes the clash this section replaced: a sans-serif body
+   paragraph directly under the serif "Ẹ káàbọ̀." read as a caption to the
+   greeting rather than as a second subject, and the two faces met with nothing
+   between them. Section headings elsewhere use --font-display, which is right
+   for English headings and wrong for a word with four diacritics on it. */
+.welcome-about {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.welcome-about h2 {
+  font-family: var(--font-yoruba);
+  font-size: 1.35rem;
+  color: var(--brand-indigo);
+  margin-bottom: 8px;
+  text-rendering: optimizeLegibility;
+}
+
+.welcome-about p { margin-top: 10px; }
+.welcome-about .sibling-list { margin: 14px 0 4px; }
+
+.welcome-about a {
+  color: var(--brand-indigo);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.welcome-about a:hover { color: var(--brand-accent-deep); }
+/* The four word rows are links too, and underlining all three of their columns
+   would make a striped block out of what is meant to read as a small table. */
+.welcome-about a.sibling-row { text-decoration: none; }
+
+/* The entry pages stack .sibling-row below 420px because a headword and a full
+   definition cannot share a line on a phone. These four rows are a word, a part
+   of speech and a one-word meaning; stacked they became twelve loose lines and
+   stopped reading as four parts of one phrase, which is the whole point of
+   listing them. So they keep their columns at every width. */
+@media (max-width: 420px) {
+  .welcome-about .sibling-row {
+    grid-template-columns: auto auto 1fr;
+    gap: 10px;
+  }
 }
 
 .entry-header {
