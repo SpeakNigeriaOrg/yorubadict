@@ -132,7 +132,38 @@ function forBrowser(entry) {
 // answer the note above records for key names generally.
 //
 // Raise these only with a note saying what was added and what it bought.
-const MAX_BROTLI_KB = { 'entries.json': 950, 'search-index.json': 620 };
+// search-index.json rises from 489 KB to about 537 KB for two additions, both measured before
+// they were written: the sorted list of the 8,916 English tokens (+23 KB), without which a
+// partially-typed English word matches nothing at all, and one document per entry carrying the
+// English word its address is named after (+26 KB), which reaches 24 more entries across the 400
+// most common definition clauses. Set at 650 to leave the same kind of headroom the number it
+// replaced had.
+const MAX_BROTLI_KB = { 'entries.json': 950, 'search-index.json': 650 };
+
+// Three documented search features are built entirely from sense-level relation lists: the
+// synonym tier, inherited English meanings, and mentioned-words.json. If the upstream release
+// stops carrying them, all three build to nothing - and every one of them fails SILENTLY,
+// because an empty tier is a valid tier and an index with no inherited documents is a valid
+// index. The site then ships with `yan`, `jona` and `venom` returning nothing while the README
+// describes at length how they work.
+//
+// That is not hypothetical: it is what shipped. kaikki-yoruba's sense-level relation work sat on
+// an unmerged branch, so no release ever carried it, and the whole feature was dark in production
+// for as long as the README claimed it worked. Nothing anywhere said so.
+//
+// A floor rather than an exact count, for the same reason the entry-count check is a floor:
+// Wiktionary gains and loses relations every week and only zero means something is broken.
+function assertSenseRelationsArePresent(searchIndex) {
+  const items = (searchIndex.synonymReport || {}).items || 0;
+  if (items > 0) return;
+  throw new Error(
+    'The upstream release carries no sense-level relation lists, so the synonym tier, ' +
+      'inherited English meanings and mentioned-words.json all built to nothing. ' +
+      'Searching a word only named as a synonym will return nothing at all. ' +
+      'Check that kaikki-yoruba\'s latest release includes sense.synonyms - the entries.json ' +
+      'asset should have relation lists on its senses, not just on its entries.'
+  );
+}
 
 function assertShippedSizes(paths) {
   for (const p of paths) {
@@ -246,6 +277,7 @@ async function main() {
 
   console.log('[4/5] Building search index ...');
   const searchIndex = buildSearchIndex(linkedEntries, mentioned.words);
+  assertSenseRelationsArePresent(searchIndex);
 
   console.log('[5/5] Choosing building-block words ...');
   const buildingBlocks = buildBuildingBlocks(linkedEntries, blockOptions);
