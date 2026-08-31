@@ -19,9 +19,14 @@
 
 export function createPageRenderer(ctx) {
   function welcomeHtml() {
+    // The mission line is first because this is the only page most arrivals see,
+    // and until it was here nothing above the fold said who runs the site. The
+    // footer's "A Speak Nigeria project" is a credit, not an answer: it does not
+    // say what Speak Nigeria is or why a dictionary is one of its projects.
     return `
       <div class="entry-welcome">
         <h1>Ẹ káàbọ̀.</h1>
+        <p class="welcome-mission">A free Yorùbá–English dictionary from <a href="${ctx.pagePath('speak-nigeria')}">Speak Nigeria</a>, a 501(c)(3) nonprofit building free resources so children can learn and keep Nigerian heritage languages.</p>
         <p>Search for a Yorùbá word with or without tone marks and underdots. Or search by an English word that appears in a definition. Everything runs locally in your browser after the first load.</p>
         <p>Try: <em>fa</em>, <em>de</em>, <em>ile</em>, or <em>pull</em>.</p>
       </div>
@@ -94,6 +99,9 @@ export function createPageRenderer(ctx) {
           <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play the games ↗</a>
           <a class="about-btn ghost" href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">More about us ↗</a>
         </div>
+
+        <h2>Contact</h2>
+        <p>Write to us at <a href="mailto:hello@speaknigeria.org">hello@speaknigeria.org</a> — about the courses, the games, or this dictionary. A correction to a single word is faster to make <a href="${ctx.pagePath('contribute')}">on Wiktionary</a>, where it reaches every other project reading the same data, and not only this one.</p>
 
         <p class="blocks-note">Speak Nigeria is a 501(c)(3) nonprofit registered in the United States, EIN 99-2964468. We host community-accessible educational programs and build free, open-access resources that parents, teachers and schools can use anywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
       </div>

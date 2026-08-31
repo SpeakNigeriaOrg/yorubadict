@@ -863,6 +863,15 @@ a { color: inherit; }
   line-height: 1.65;
 }
 
+/* Sits between the greeting and the how-to-search text, and is the only thing
+   in the welcome pane not about using the dictionary - so it reads a step up
+   from the instructions under it rather than as another one of them. */
+.welcome-mission {
+  font-size: 1.02rem;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
 .entry-welcome h1 {
   font-family: var(--font-yoruba);
   font-size: 2rem;
