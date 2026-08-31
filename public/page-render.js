@@ -53,15 +53,15 @@ export function createPageRenderer(ctx) {
       <div class="entry-welcome">
         <h1>Ẹ káàbọ̀!</h1>
         <p>Welcome! Search in Yorùbá (with or without tone marks or underdots), or search by its English definition. After your first visit, the dictionary is on your device, and it works with no connection.</p>
-        <p>Or open a word and follow it. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. Start at <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a>, home — <a href="${ctx.pathFor('en-ile-iwe-yo-noun-1k3r2ULX')}">ilé-ìwé</a> is a school, <a href="${ctx.pathFor('en-onile-yo-noun-xKEbOgKn')}">onílé</a> is a landlord — or at <a href="${ctx.pathFor('en-oju-yo-noun-R8IVtfcO')}">ojú</a>, eye, or <a href="${ctx.pathFor('en-ọmọ-yo-noun-3cnmaRlC')}">ọmọ</a>, child.</p>
+        <p>Or open a word and follow it. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. Start at <a href="${ctx.pathFor('en-ẹrọ-yo-noun-MsZxKZjf')}">ẹ̀rọ</a>, a machine — <a href="${ctx.pathFor('en-ẹrọ_ayarabiaṣa-yo-noun-sIRyAz9N')}">ẹ̀rọ ayárabíàṣá</a> is a computer, <a href="${ctx.pathFor('en-ẹrọ_amuletutu-yo-noun-tpAybTd7')}">ẹ̀rọ amúlétutù</a> is an air conditioner — or at <a href="${ctx.pathFor('en-ade-yo-noun-Dc-vq1-A')}">adé</a>, a crown, or <a href="${ctx.pathFor('en-ounjẹ-yo-noun-wfAmWC~m')}">oúnjẹ</a>, food.</p>
 
         <section class="welcome-about">
           <h2>Sọ̀rọ̀ sókè</h2>
           <p>The name of this dictionary means <a href="${ctx.pathFor('en-sọrọ_soke-yo-verb-zjLiM20R')}">speak up</a>. It is made of four words:</p>
           <div class="sibling-list">${parts}
           </div>
-          <p>Say words to the heights. Those four are its component words, and each of them opens onto its own. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> follows three groups of words this way.</p>
-          <p>The words come from Wiktionary, which anyone can edit. A word is here because somebody wrote it there. A word that is missing stays missing until somebody does. <a href="${ctx.pagePath('contribute')}">Contribute</a> lists the gaps we have found, and the edit each one needs.</p>
+          <p>Say words to the heights. Those four are its component words, and each of them opens onto its own. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> introduces teachers and students alike to this view of Yorùbá as a living language of connections, and how it can make learning more engaging.</p>
+          <p>The words come from Wiktionary, which anyone can edit. A word is here because somebody spoke up. A word that is missing stays missing until somebody does. <a href="${ctx.pagePath('contribute')}">Contribute</a> lists the gaps we have found, and the edit each one needs.</p>
           <p><a href="${ctx.pagePath('speak-nigeria')}">Speak Nigeria</a> makes this dictionary. We are a 501(c)(3) nonprofit, and we build free resources so children can learn Nigerian heritage languages and keep them.</p>
         </section>
       </div>
