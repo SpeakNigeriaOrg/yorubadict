@@ -60,6 +60,7 @@ contributing, auditing data quality, or just curious how it works.
 npm run serve         # serves public/ at http://localhost:8080, using the data already built
 npm test              # node --test over build/lib/*.test.mjs
 npm run check:search  # runs the real scorer against build/fixtures/search_agreement.json
+npm run check:drift   # before/after a ranking change: what moved that you weren't watching
 npm run test:paint    # the browser test: opens Chrome, ~30s, not in `npm test`
 npm run trace:prod    # where the first paint actually goes, on the live site
 npm run psi           # PageSpeed, sampled - needs a key in .env.local
@@ -753,8 +754,8 @@ result by how it was picked:
 
 | field | when | today |
 |---|---|---|
-| `usedInCompounds` | only one candidate existed, or an `{{etymid}}` anchor, a meaning match or a back-link chose it | 3,346 items, one root each |
-| `possiblyUsedIn` | the pick was a tiebreak or a fallback | 1,864 items — the same 452 compounds listed under **every** candidate |
+| `usedInCompounds` | only one candidate existed, or an `{{etymid}}` anchor, a meaning match or a back-link chose it | 3,374 items, one root each |
+| `possiblyUsedIn` | the pick was a tiebreak or a fallback | 1,757 items — the same 425 compounds listed under **every** candidate |
 
 Filing a guess under one meaning does two harms at once: the word appears
 under a meaning it doesn't belong to, *and* disappears from the one it does.
@@ -843,7 +844,7 @@ members of the same result set, which is what keeps it minor: searching
 A sense saying "another word for this meaning is X" supports two different
 claims, and which applies depends on whether X has an entry.
 
-**X has no entry** (1,833 items). Searching X finds nothing at all today, and
+**X has no entry** (1,836 items). Searching X finds nothing at all today, and
 the useful answer is the entry that named it. A new soft tier keyed
 orthography-insensitively — someone recalling a word they heard called a synonym
 is the least likely to have the tone marks. `jona`, `abara`, `laagun`, `teere`,
@@ -856,19 +857,19 @@ where semantics compete. It sits above every achievable prefix score (coverage
 is always under 1, so a prefix cannot reach `PREFIX_SCALE = 9`) and below a
 typical third-place English score (median 11.6 over the 400 most common
 definition clauses). Unlike the dialect tier it deliberately does **not** skip
-keys the ortho tier already resolves: that would keep `yan` and lose the 1,375
+keys the ortho tier already resolves: that would keep `yan` and lose the 1,383
 keys colliding with a real spelling — `jó`, `wì`, `gún` — which is exactly where
 this has something to say. The word you typed is claimed by a hard tier first
 and cannot be displaced, so the declaring entry can only appear below it:
 `wi` → `wí`, `wí`, `wi`, `wì`, then `sun`.
 
-**X has an entry** (2,736 items). Then searching X already finds X, and what is
+**X has an entry** (2,739 items). Then searching X already finds X, and what is
 new is that X can be reached by what the *naming* meaning says. `oró` means
 "venom, poison, sting" and calls `májèlé` another word for it, so `májèlé` gets
 an extra document reading "venom, poison, sting" and becomes findable by
 "venom", which its own definition ("poison") never says. The direction is easy
 to get backwards and backwards is useless — indexing the target's own
-definitions under the target just re-indexes what is already there. 1,866
+definitions under the target just re-indexes what is already there. 1,868
 documents; measured wins include `stomach` → `ikùn`, `venom` → `májèlé`,
 `burrow` → `ihò`, `mad person` → `asínwín`, `to roast` → `wì`, none of which
 were reachable before.
@@ -892,7 +893,7 @@ asserted arithmetically in `check-search-agreement.mjs` rather than trusted:
    never touched.
 
 Which words may inherit is guarded too: a single candidate or one the naming
-meaning itself picked out (343 ambiguous items skipped — without this, `iyè`
+meaning itself picked out (344 ambiguous items skipped — without this, `iyè`
 "mind; consciousness" is findable by "mother"); never a proper name (157);
 never a definition that merely points elsewhere (92, or `ìgò` "bottle" inherits
 "grass, weed"). Only synonyms feed it — `sun` "to sleep" lists `kòríkòsùn`
@@ -938,6 +939,118 @@ definition, and for a real Yorùbá conjunction or demonstrative the entire
 correct gloss can legitimately just be "that"/"this"/"and"/"or" — filtering
 those out as noise words meant the word was defined correctly on the page
 but could never be found by searching for its own definition.
+
+#### A partly-typed English word finds the word it starts
+
+The Yorùbá tiers have matched a partial spelling since they existed — type `iban`
+and the sorted spelling list finds `ibanuje`. The English half looked its tokens
+up in a hash table and skipped a miss silently, so the two halves behaved
+completely differently for the same half-finished word. `ìbànújẹ́` is defined
+"sadness, depression": **sadness** found it, **sadnes** returned nothing at all,
+and **sad** could not reach it. The search box runs on every keystroke, so what
+that describes is a reader watching an empty result list while typing a word this
+dictionary knows.
+
+`english.tokens` is now the sorted list of every token in the index — 8,916
+strings, 23 KB brotli, the same structure the Yorùbá tiers have always shipped.
+`expandToken` binary-searches it and returns the words a query token should score
+against: the token itself at full weight, then the words it is a prefix of, then
+the one word that is a prefix of *it*. That last direction is what takes
+**walking** to a definition reading "to walk" and **runs** to "to run".
+
+Everything partial is damped by `PARTIAL_TOKEN_WEIGHT = 0.4` and again by how much
+of the word the query covers, the same coverage idea `prefixMatchScore` applies on
+the Yorùbá side, so `sadnes` counts for far more than `sad` does. The idf is the
+**matched** word's, not the typed one's: "sadnes" is not a word this corpus has
+ever seen, and what makes `ìbànújẹ́` the answer is that "sadness" occurs exactly
+once.
+
+An exact match suppresses the partial ones **within the same document**. A partial
+spelling is a guess about which word was meant, and there is nothing to guess in a
+definition that already contains the word. Without that rule "house" scores `ulé`
+("home, house, household") twice — once for house and again for household — and a
+dialect form overtakes the definitions that just say house. It also matters far
+more widely than that one query: over the 400 most common definition clauses it
+cut the number of moved top results from 21 to 7.
+
+This happens at query time only. Nothing is added to the index, so `df`,
+`totalDocs` and `avgDocLength` are the numbers they always were, and the
+frozen-corpus invariants asserted in `check-search-agreement.mjs` stay true as
+written. A query whose tokens expand to nothing but themselves scores exactly as
+before.
+
+Measured over those 400 clauses: 7 top results move — every one of them an
+improvement (`mouth` → `ẹnu`, `leg` → `ẹsẹ̀`, `monarch` → `ọba`, `falsehood` →
+`irọ́`) — 116 queries gain a result in the top ten, and one former top-five leaves
+it: "sweetness" drops `ìrèké` ("sugarcane") from #5 to #11, displaced by `dùn`,
+`yọ̀n` and `òrò`, which all actually mean sweet. `npm run check:drift` is the tool
+that produced those numbers and is meant to be run around any future change here.
+
+Two limits worth stating plainly. **sad** puts `ìbànújẹ́` fourth, behind `bà jẹ́`
+("to be sad" — arguably the right answer), `sàdáńkátà` (a Yorùbá word that happens
+to start "sad") and `gàárì` ("saddle"); three letters is a guess and prefix
+matching cannot know which word was meant. And **grief** still finds nothing,
+because no entry is defined with that word — that wants a thesaurus, not partial
+matching.
+
+#### The word an entry's address is named after is searchable
+
+Every entry's address carries one English word distilled from its definition by a
+model and written down in `data/url-slugs.json` — `ìbànújẹ́` lives at
+`/yo/ibanuje/sadness`. Search ignored it entirely.
+
+It is now a fourth document band, below inherited meanings at
+`SLUG_DOC_WEIGHT = 0.4` — not a bonus and not a special case, just ordinary
+indexed text that flows through BM25 like everything else and picks up partial
+matching for free.
+
+It cannot disturb a search that already works, and that is a property of the
+scorer rather than a guard added for it: an entry scores as its **best** document,
+never the sum, so a one-word document at 0.4 can only lift an entry that had
+nothing better. It can never raise one that already matched on its own definition.
+Measured on its own: no top result moves, no former top-five leaves the top ten,
+and 22 queries gain an entry that was unreachable before — `misery` → `àre`
+("miserableness, the state of being miserable and aimless"), `redden` → `pupa`,
+`mama` → `èyé`, `approach` → `wín`. The weight is flat and safe to 0.6 and breaks
+at 1.0, where ten top results move and nine top-fives fall out.
+
+Two things it deliberately does not do. It never earns the exact-clause bonus, for
+the reason the inherited band does not: 2,683 distilled words are already a whole
+clause of the entry's own definition, and paying +2 for that would be paying twice
+for one piece of evidence. And it was **rejected** as an additive bonus keyed on
+the word matching, which is the obvious way to use it and the wrong one — measured,
+that pushed `ilé` out of the top three for "house", because `ilé`'s distilled word
+is "home" while its dialect variant `ulé`'s is "house". The word is chosen to tell
+apart entries that share a spelling, not to summarise one entry, so it is
+systematically distorted exactly where several entries compete. As a document it
+carries no such force.
+
+Mostly it says what is already said: for 5,527 of 6,273 entries every token of the
+distilled word is somewhere in the entry's own definitions. The other 746 are the
+point.
+
+#### The root bonus reads etymology from both ends
+
+`components` records what a **compound** says about its own parts. `usedInCompounds`
+records the same relationship from the **root**'s side, as resolved entry ids rather
+than spellings, so `attributeUsedIn` can settle a link the compound's own morpheme
+list left as an unresolved form. Both now feed `buildComponentIndex`; "R is a part
+of C" is the same claim whichever side wrote it down, so this needs no shape change
+and no second lookup in the scorer.
+
+Small today — 3,340 of the 3,374 links were already visible from the first side,
+leaving 34 (`pópó` → `òpópónà`, `ire` → `Adédure`, `hóró` → `wóróbo`) — and it grows
+with upstream etymology coverage rather than needing this file changed again. One
+top result moves in 400, and it is an improvement: "time" from `aago` ("clock,
+watch") to `ị̀gbẹ̀` ("time, occasion, season").
+
+`possiblyUsedIn` is deliberately left out. Its 1,757 links are the ones
+`attributeUsedIn` could not settle, and adding them changes nothing measurable — a
+second, weaker source of truth bought for no gain. Restricting the spelling
+fallback to entries with no recorded etymology was also tried and rejected: it
+passes every fixture but moves 23 top results and is a coin flip, fixing `to crawl`
+(`fà` "to pull" → `rá` "to crawl") and `to know` (`mù` → `mọ̀`) while breaking
+`this` (`yìí` → `ìwé`, which means "book").
 
 ### Entry IDs and web addresses
 
@@ -1022,6 +1135,26 @@ Old hash links still work. They can only be redirected in the page, because a
 fragment never reaches a server, so `redirectLegacyHash*` in `public/app.js` does
 it and should stay there indefinitely: those links are in other people's pages and
 messages, and they were the only kind this dictionary had for its first year.
+
+### A release that drops sense relations fails the build
+
+Three of the mechanisms above — the synonym tier, inherited English meanings and
+`mentioned-words.json` — are built entirely out of the relation lists Wiktionary
+attaches to individual definitions. If an upstream release stops carrying those,
+all three build to nothing, and every one of them fails **silently**: an empty
+tier is a valid tier, and an index with no inherited documents is a valid index.
+The site ships with `yan`, `jona` and `venom` returning nothing while this file
+describes at length how they work.
+
+That is not hypothetical. It is what shipped: kaikki-yoruba's sense-level relation
+work sat on an unmerged branch, so no release ever carried it, and the whole
+feature was dark in production for as long as this README claimed it worked.
+Nothing anywhere said so.
+
+`assertSenseRelationsArePresent` in `build/normalize.mjs` now fails the build if
+`synonymReport.items` is zero. A floor rather than an exact count, for the same
+reason the entry-count check is a floor: Wiktionary gains and loses relations every
+week, and only zero means something is broken.
 
 ## Staying fresh: this build is not automated (kaikki-yoruba's is)
 

@@ -3,7 +3,7 @@
 // Words this dictionary has no entry for, but which two or more entries name as
 // another way to say what they mean.
 //
-// 4,569 sense-level synonym items survive kaikki-yoruba's debris filter, and only
+// 4,575 sense-level synonym items survive kaikki-yoruba's debris filter, and only
 // about half resolve to an entry. The rest are not noise - they are real Yoruba
 // words Wiktionary's own definitions rely on and has no page for. Until now they
 // rendered as dashed dead-end pills and were findable by nothing.

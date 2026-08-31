@@ -56,6 +56,11 @@
       "query": "moon",
       "form": "òṣùpá",
       "note": "same: soft prefix took it from #3 to #1 in both engines"
+    },
+    {
+      "query": "sadnes",
+      "form": "ìbànújẹ́",
+      "note": "the query that started the partial-matching work. ìbànújẹ́ is defined 'sadness, depression', and before English query tokens could expand to the words they are a prefix of, a half-typed word matched nothing at all - the search box runs on every keystroke, so this is what a reader sees on their way to 'sadness'."
     }
   ],
   "expectedInTopThree": [
@@ -79,6 +84,11 @@
     {
       "query": "book",
       "form": "ìwé"
+    },
+    {
+      "query": "depres",
+      "form": "ìbànújẹ́",
+      "note": "same mechanism, and a reminder that it is about the word the reader is still typing rather than about this one entry."
     }
   ],
   "rootBonusMustNotPromote": [
@@ -97,7 +107,9 @@
     "An English query that is ALSO a whole Yoruba word gets that word first, in both engines. The three whole-string tiers (exact, tone-insensitive, underdot-insensitive) are identifications and stay absolute: if you typed the word, you get the word. 'eye' orthography-insensitively IS ẹyẹ (bird), and there are several tone variants of it, so ojú reaches about #9 in BOTH engines rather than #1. The PREFIX tier is no longer hard - it competes with English on score - which is what took ojú from #18 to #9 and lifted dog and moon to #1 in both. Softening the whole-string tiers too was measured and rejected: it lifts ojú to #1 but pushes the Yoruba query `owo` from #5 to #11 in the platform, trading a Yoruba answer for an English one.",
     "The platform disables its English pass entirely for a query containing ẹ/ọ/ṣ or a combining mark (looksLikeYoruba); yorubadict has no such guard. So a query like 'kaṣu' returns 0 results here and non-empty there. Deliberate on this side.",
     "yorubadict indexes example-sentence translations (down-weighted); the platform's corpus rows carry no examples at all, so it cannot.",
-    "yorubadict indexes the synonym lists Wiktionary attaches to individual definitions, in two ways: as a soft Yoruba tier, so a spelling some entry calls a synonym also finds that entry, and as down-weighted inherited English documents, so a word becomes findable by what the meaning that named it says. The platform's corpus rows carry no relation lists, so it can do neither."
+    "yorubadict indexes the synonym lists Wiktionary attaches to individual definitions, in two ways: as a soft Yoruba tier, so a spelling some entry calls a synonym also finds that entry, and as down-weighted inherited English documents, so a word becomes findable by what the meaning that named it says. The platform's corpus rows carry no relation lists, so it can do neither.",
+    "yorubadict expands an English query token to the indexed words it is a prefix of, and to the one indexed word that is a prefix of it, each damped by how much of the word the query covers. The platform scores gloss lists directly rather than through a prebuilt index, so it needs no token list to do the same thing - but until it does, a half-typed English word finds nothing there. expectedTopResult's 'sadnes' is the tripwire.",
+    "yorubadict indexes the one English word each entry's web address is named after (/yo/ibanuje/sadness), as a fourth document band below inherited meanings. It cannot displace a real definition match, because an entry scores as its best document and this one is short and lightly weighted - it only reaches entries nothing else reached. The platform has no address ledger; its deriveWordId is a different thing, an internal spelling_meaning id for its own database."
   ],
   "synonymSpellingReachesDeclarer": [
     {
@@ -248,6 +260,40 @@
       "form": "àkẹtẹ̀",
       "withinTop": 3,
       "note": "Guards the root bonus counting only entries the query matched ITSELF. Entries reached through someone else's synonym list are scored but must not vote on another word's root bonus, since the bonus is defined over 'this result set'. Let them vote and àkẹtẹ̀ (a hat) drops behind ètú. Small effect - 6 of 10,111 definition clauses reorder - but silent, so it gets a tripwire. yorubadict only: the platform indexes no inherited documents."
+    }
+  ],
+  "partialSpellingFindsTheWord": [
+    {
+      "query": "happines",
+      "form": "ọ̀yị̀n",
+      "note": "'joy, happiness'. Returned nothing before."
+    },
+    {
+      "query": "mourn",
+      "form": "àfèìmòjò",
+      "note": "forward expansion onto 'mourning'. Returned nothing before."
+    },
+    {
+      "query": "walking",
+      "form": "rìn",
+      "note": "the REVERSE direction: an indexed word that starts the query, so 'walking' reaches a definition reading 'to walk'. Without it this query returns four onomatopoeia entries about the noise of walking on mud and nothing that means walk. rìn sits below those four because they match the typed word exactly, which is correct."
+    }
+  ],
+  "distilledWordReachesEntry": [
+    {
+      "query": "misery",
+      "form": "àre",
+      "note": "defined 'miserableness, the state of being miserable and aimless', which never says misery. Its address is /yo/are/misery, and that word is now a document of its own."
+    },
+    {
+      "query": "redden",
+      "form": "pupa",
+      "note": "defined 'to be red; to become red'. Address /yo/pupa/redden."
+    },
+    {
+      "query": "mama",
+      "form": "èyé",
+      "note": "defined 'mother, mom; term of familiarity or respect'. Address /yo/eye/mama."
     }
   ]
 }

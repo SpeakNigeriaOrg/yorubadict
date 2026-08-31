@@ -100,7 +100,7 @@ function buildSortedTierIndex(entries, tierKey, formsByEntry) {
 // Keep this in step with the platform's shared/src/englishRelevance.ts. The two engines had drifted
 // into scoring English completely differently, which is how one query got broken in two different
 // ways at once.
-function buildEnglishIndex(entries, inheritedDocs = []) {
+function buildEnglishIndex(entries, inheritedDocs = [], distilledWords = new Map()) {
   const postings = new Map(); // token -> Map(docIdx -> tf)
   /** docIdx -> entryId. The client folds per-document scores back up to one score per entry. */
   const docEntryIds = [];
@@ -217,6 +217,35 @@ function buildEnglishIndex(entries, inheritedDocs = []) {
     addDoc(doc.targetId, tokens, [], 0);
   }
 
+  // DISTILLED-WORD documents: the one English word this entry's web address is named
+  // after, chosen from its definition by a model and written down in data/url-slugs.json.
+  // ìbànújẹ́ is /yo/ibanuje/sadness, so it gets a one-word document reading "sadness".
+  //
+  // Fourth band, after inherited, so a third integer separates it and the client can weigh it.
+  // Appended after the freeze above for the same reason everything else is: this must not move
+  // a query it has nothing to say about.
+  //
+  // It cannot disturb a working search, and that is a property of the scorer rather than a guard
+  // added here: an entry scores as its BEST document, never the sum, so a one-word document at
+  // weight 0.4 can only lift an entry that had nothing better - it can never raise one that
+  // already matched on its own definition. Measured over the 400 most common definition clauses:
+  // no top result moves, no former top-five leaves the top ten, and 22 queries gain an entry in
+  // the top ten that could not be reached at all before (misery -> àre, redden -> pupa,
+  // mama -> èyé, approach -> wín).
+  //
+  // clausesOfGloss is deliberately not called, exactly as for the inherited band: the +2 bonus
+  // means "this word IS the query", and 2,683 distilled words are already a whole clause of the
+  // entry's own definition, so letting them in would pay that bonus twice for the same evidence.
+  //
+  // Most of what this says is already said: for 5,527 of 6,273 entries every token of the
+  // distilled word is in the entry's own definitions. The 746 that are not are the point.
+  const slugDocStart = docEntryIds.length;
+  for (const entry of entries) {
+    const word = distilledWords.get(entry.id);
+    if (!word) continue;
+    addDoc(entry.id, tokenize(word, { keepStopwords: true }), [], 0);
+  }
+
   const postingsOut = {};
   for (const [tok, docMap] of postings.entries()) {
     postingsOut[tok] = [...docMap.entries()];
@@ -240,6 +269,14 @@ function buildEnglishIndex(entries, inheritedDocs = []) {
     glossDocCount,
     /** Documents at or above this index are inherited from a declared synonym. */
     inheritedDocStart,
+    /** Documents at or above this index are the entry's distilled address word. */
+    slugDocStart,
+    /** Every token in the index, sorted, so the browser can binary-search for the words a
+     * partially-typed query is a prefix of. 8,916 strings, 23 KB brotli - the same structure
+     * and the same lookup the Yoruba tiers have had all along, which the English half never
+     * got. Without it "sadnes" finds nothing and "sad" cannot reach ìbànújẹ́ ("sadness,
+     * depression"), because a query token is an exact hash lookup that silently skips a miss. */
+    tokens: [...postings.keys()].sort(),
     /** inherited docIdx -> [entryId that named this word, which of its senses did]. */
     docSource,
     exactClauses: Object.fromEntries(exactClauses),
@@ -263,16 +300,49 @@ function clausesOfGloss(gloss) {
  *
  * Feeds the "root of other matching words" bonus: ọmọ should rank up partly because ọmọdé,
  * ọmọkọ́mọ and ọmọ àlè are built out of it, and Wiktionary's etymology records that directly.
- * Bound morphemes (prefixes like `a-`) are skipped - they are not words a search should promote. */
+ * Bound morphemes (prefixes like `a-`) are skipped - they are not words a search should promote.
+ *
+ * Two passes, because the same relationship is recorded from both ends and neither end sees all
+ * of it. `etymologyMorphemes` is what a COMPOUND says about its own parts. `usedInCompounds` is
+ * what a ROOT says about the compounds it appears in - and it carries resolved entry ids rather
+ * than spellings, so attributeUsedIn could settle a link that the compound's own morpheme list
+ * left as an unresolved form. Folding the second into the first costs no shape change: "R is a
+ * part of C" is the same claim whichever side wrote it down.
+ *
+ * Measured over the corpus: 3,340 of the 3,374 usedInCompounds links are already visible through
+ * the first pass, so this adds 34 (pópó -> òpópónà, ire -> Adédure, hóró -> wóróbo). Small today,
+ * and it grows with upstream etymology coverage rather than needing this file to change again.
+ *
+ * possiblyUsedIn is deliberately NOT folded in. Its 1,757 links are the ones attributeUsedIn
+ * could not settle (confidence meaningTied or noMeaning), and measured over 400 queries adding
+ * them changes nothing at all - so they would be a second, weaker source of truth bought for
+ * no gain. */
 function buildComponentIndex(entries) {
   const out = {};
+  const add = (entryId, form) => {
+    const key = allForms(form || '').orthographyInsensitive;
+    if (!key) return;
+    if (!out[entryId]) out[entryId] = [];
+    if (!out[entryId].includes(key)) out[entryId].push(key);
+  };
+
   for (const entry of entries) {
-    const parts = (entry.etymologyMorphemes || [])
-      .filter((m) => m && !m.bound && m.form)
-      .map((m) => allForms(m.form).orthographyInsensitive)
-      .filter(Boolean);
-    if (parts.length > 0) out[entry.id] = [...new Set(parts)];
+    for (const morpheme of entry.etymologyMorphemes || []) {
+      if (!morpheme || morpheme.bound || !morpheme.form) continue;
+      add(entry.id, morpheme.form);
+    }
   }
+
+  // The same spelling the root bonus will look this entry up by - see keyOf in
+  // english-relevance.js. A different choice here would record a part nothing can match.
+  const formOf = (entry) => (entry.canonicalForm ? entry.canonicalForm.value : entry.headword);
+  for (const entry of entries) {
+    for (const item of entry.usedInCompounds || []) {
+      if (!item || !item.entryId) continue;
+      add(item.entryId, formOf(entry));
+    }
+  }
+
   return out;
 }
 
@@ -338,9 +408,9 @@ const META_DEFINITION = /^(alternative (form|spelling)|obsolete form|misspelling
 // A sense saying "another word for this meaning is X" supports two claims, and
 // which one applies depends entirely on whether X has an entry of its own:
 //
-//   X has no entry (1,833 items) - then searching X finds nothing today, and the
+//   X has no entry (1,836 items) - then searching X finds nothing today, and the
 //     useful answer is the entry that named it. That is the synonym TIER.
-//   X has an entry (2,736 items) - then searching X already finds X, and what is
+//   X has an entry (2,739 items) - then searching X already finds X, and what is
 //     new is that X's page can be reached by what the NAMING sense means. That is
 //     INHERITED English.
 //
@@ -351,7 +421,7 @@ const META_DEFINITION = /^(alternative (form|spelling)|obsolete form|misspelling
 //
 // No debris filter here. kaikki-yoruba's classifyRelationList drops flattened
 // dialect tables whole before publishing, and measured against the shipped
-// artifact nothing survives it: 0 of 4,569 items look like a variety name, a
+// artifact nothing survives it: 0 of 4,575 items look like a variety name, a
 // family label or a bare dash. A second filter on this side would be dead code
 // pretending to be a safeguard.
 function senseSynonymData(entries, byId) {
@@ -453,7 +523,7 @@ function senseSynonymData(entries, byId) {
 //
 // Unlike buildDialectTier this does NOT skip keys the ortho tier already
 // resolves, and that is the point rather than an oversight. Skipping them would
-// keep the yan case and lose the 1,375 keys that collide with a real spelling -
+// keep the yan case and lose the 1,383 keys that collide with a real spelling -
 // jó, wì, gún - which is precisely where "the word you typed is also a name for
 // this other word" has something to say. The entry that owns the spelling is
 // claimed by a hard tier first and cannot be displaced (see rankQuery), so the
@@ -472,7 +542,7 @@ function buildSynonymTier(tier) {
 }
 
 // The spellings of words two or more entries name as a similar word, and which
-// this dictionary has no entry for. Small on purpose - 157 keys - because it
+// this dictionary has no entry for. Small on purpose - 156 keys - because it
 // rides along in the search index for two jobs that both need it before any
 // detail is fetched: turning a dead-end pill into a link, and putting a row at
 // the end of a search that would otherwise find nothing. The naming entries and
@@ -484,6 +554,26 @@ function buildMentionedIndex(mentionedWords) {
     if (key && !byKey[key]) byKey[key] = word.text;
   }
   return { byKey };
+}
+
+/** The English word an entry's address is named after: /yo/ibanuje/sadness -> "sadness".
+ *
+ * Read off entry.path rather than the ledger, though the ledger is where it is written down.
+ * attachAddresses runs before this and has already resolved every entry to exactly one address,
+ * including the provisional rule-derived names it invents for entries the ledger has never seen -
+ * so path is the settled answer, and reading the ledger a second time here would be a second
+ * opinion that could disagree with the pages actually on disk.
+ *
+ * Hyphens become spaces because an address cannot hold one: `mad-person` is two words that were
+ * folded into one segment by foldWord, and the index wants them back as two tokens. */
+function distilledWordsByEntry(entries) {
+  const out = new Map();
+  for (const entry of entries) {
+    const segments = (entry.path || '').split('/');
+    const word = segments.length === 4 ? segments[3] : '';
+    if (word) out.set(entry.id, word.replace(/-/g, ' '));
+  }
+  return out;
 }
 
 export function buildSearchIndex(entries, mentionedWords = []) {
@@ -500,7 +590,7 @@ export function buildSearchIndex(entries, mentionedWords = []) {
       synonym: buildSynonymTier(synonymData.tier),
       word: buildWordTier(entries, formsByEntry),
     },
-    english: buildEnglishIndex(entries, synonymData.inherited),
+    english: buildEnglishIndex(entries, synonymData.inherited, distilledWordsByEntry(entries)),
     components: buildComponentIndex(entries),
     mentioned: buildMentionedIndex(mentionedWords),
     synonymReport: synonymData.report,

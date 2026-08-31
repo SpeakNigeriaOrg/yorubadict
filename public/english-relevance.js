@@ -106,9 +106,90 @@
    * from #5 to #11, trading a Yoruba answer for an English one in a Yoruba dictionary. */
   var PREFIX_SCALE = 9;
 
+  /** A meaning reached because this entry's ADDRESS is named after the query.
+   *
+   * Every entry's web address carries one English word distilled from its definition by a model
+   * (/yo/ibanuje/sadness). Second-hand evidence about meaning, like an inherited synonym, so it
+   * sits at the same weight for the same reason.
+   *
+   * It cannot displace anything, and that is structural rather than tuned: an entry scores as its
+   * BEST document, so a one-word document can only lift an entry that had nothing better. Measured
+   * over the 400 most common definition clauses - no top result moves, no former top-five leaves
+   * the top ten, 22 queries gain a result that was unreachable before. Safe up to 0.6; at 1.0 ten
+   * top results move and nine top-fives fall out, which is where it stops being free. */
+  var SLUG_DOC_WEIGHT = 0.4;
+
+  /** How much of a match a partially-typed English word is.
+   *
+   * The Yoruba tiers have always done this - type `iban` and the sorted spelling list finds
+   * ibanuje - but the English half looked its tokens up in a hash table, so `sadnes` found
+   * nothing and `sad` could not reach ìbànújẹ́ ("sadness, depression"). A partial spelling is
+   * weaker evidence than the word itself, and 0.4 is the same notch as a declared synonym for
+   * the same reason: it is a guess about which word was meant.
+   *
+   * Scaled again by how much of the word the query covers, the same idea prefixMatchScore
+   * applies on the Yoruba side, so `sadnes` -> `sadness` counts for far more than `sad` does. */
+  var PARTIAL_TOKEN_WEIGHT = 0.4;
+
+  /** Below this a query token is too short to guess from: two letters prefix half the dictionary. */
+  var MIN_PARTIAL_LENGTH = 3;
+
+  /** A cap on how many words one query token may expand to. Real fan-out is small - `sad` reaches
+   * 4, `walk` 4, `eye` 10, and the worst measured over the corpus is `ru` at 35 - but a stub
+   * should not walk the vocabulary. */
+  var MAX_TOKEN_EXPANSIONS = 12;
+
+  /** The reverse direction: an indexed word that STARTS the query, so `walking` reaches a
+   * definition reading "to walk" and `runs` reaches "to run". Longer than the forward minimum,
+   * because a short indexed word is the start of a great many longer ones. */
+  var MIN_REVERSE_LENGTH = 4;
+
   function prefixMatchScore(queryLength, formLength) {
     if (formLength <= 0) return 0;
     return (queryLength / formLength) * PREFIX_SCALE;
+  }
+
+  /** The indexed words a query token should score against, each with what it is worth.
+   *
+   * The token itself at full weight, then the words it is a prefix of, then the one word that is
+   * a prefix of IT. Everything partial is damped by PARTIAL_TOKEN_WEIGHT and by coverage, so an
+   * exact hit always beats a guess and a near-complete guess beats a bare stub.
+   *
+   * Query time only. Nothing here adds a document, so df, totalDocs and avgDocLength are the same
+   * numbers they were - which is what makes this provably inert for a query whose tokens expand to
+   * nothing but themselves, and keeps the frozen-corpus invariants in check-search-agreement.mjs
+   * true as written. */
+  function expandToken(english, token) {
+    var out = [];
+    if (english.postings[token]) out.push([token, 1]);
+
+    var tokens = english.tokens;
+    // An index built before the sorted token list existed. Exact matching only, as before.
+    if (!tokens || token.length < MIN_PARTIAL_LENGTH) return out;
+
+    var start = lowerBound(tokens, token);
+    var found = 0;
+    for (var i = start; i < tokens.length && found < MAX_TOKEN_EXPANSIONS; i++) {
+      var longer = tokens[i];
+      if (longer.indexOf(token) !== 0) break;
+      if (longer === token) continue;
+      out.push([longer, PARTIAL_TOKEN_WEIGHT * (token.length / longer.length)]);
+      found++;
+    }
+
+    // Walking back from the same point reaches the token's own prefixes in decreasing length, so
+    // the first one that matches is the longest and there is no reason to keep looking. Bounded
+    // because a token with no prefix in the index would otherwise scan to the start of the array.
+    for (var j = start - 1; j >= 0 && j > start - 64; j--) {
+      var shorter = tokens[j];
+      if (shorter.length < MIN_REVERSE_LENGTH) continue;
+      if (token.indexOf(shorter) === 0) {
+        out.push([shorter, PARTIAL_TOKEN_WEIGHT * (shorter.length / token.length)]);
+        break;
+      }
+    }
+
+    return out;
   }
 
   function tokenizeQuery(query) {
@@ -125,28 +206,52 @@
     // Documents at or above this index are inherited from a declared synonym. Absent in an index
     // built before that existed, in which case nothing is inherited and every document is direct.
     var inheritedStart = english.inheritedDocStart === undefined ? Infinity : english.inheritedDocStart;
+    // Likewise for the distilled address word. Absent in an older index, in which case every
+    // document at or past inheritedStart really is inherited and this test never fires.
+    var slugStart = english.slugDocStart === undefined ? Infinity : english.slugDocStart;
 
     var tokens = tokenizeQuery(query);
     if (tokens.length === 0) return [];
 
+    // Each query token stands for itself and for the words it is a partial spelling of. The idf is
+    // the MATCHED word's, not the typed one's: "sadnes" is not a word the corpus has ever seen, and
+    // what makes ìbànújẹ́ the answer is that "sadness" occurs exactly once.
     var docScores = new Map();
-    for (var i = 0; i < tokens.length; i++) {
-      var tok = tokens[i];
-      var postings = english.postings[tok];
-      if (!postings) continue;
-      var df = english.df[tok] || postings.length;
-      var idf = Math.log(1 + (english.totalDocs - df + 0.5) / (df + 0.5));
-      for (var j = 0; j < postings.length; j++) {
-        var docIdx = postings[j][0];
-        var tf = postings[j][1];
-        var docLen = english.docLengths[docIdx] || 1;
-        var norm = (tf * (K1 + 1)) / (tf + K1 * (1 - B + B * (docLen / english.avgDocLength)));
-        // Three bands, separated by two integers rather than a per-document array: definitions, then
-        // example translations, then meanings inherited through a declared synonym.
-        var weight = 1;
-        if (docIdx >= inheritedStart) weight = SYNONYM_DOC_WEIGHT;
-        else if (docIdx >= english.glossDocCount) weight = EXAMPLE_DOC_WEIGHT;
-        docScores.set(docIdx, (docScores.get(docIdx) || 0) + idf * norm * weight);
+    for (var t = 0; t < tokens.length; t++) {
+      var variants = expandToken(english, tokens[t]);
+      // Documents where the typed word appears exactly. A partial spelling is a guess about which
+      // word was meant, and there is nothing to guess in a definition that already contains the
+      // word - so a partial match never stacks on top of an exact one WITHIN THE SAME DOCUMENT.
+      // Without this, "house" scores ulé ("home, house, household") twice, once for house and
+      // again for household, and a dialect form overtakes the definitions that just say house.
+      // expandToken always yields the exact match first, so this set is complete before any
+      // partial is scored.
+      var exactDocs = null;
+      for (var v = 0; v < variants.length; v++) {
+        var tok = variants[v][0];
+        var termWeight = variants[v][1];
+        var isExact = tok === tokens[t];
+        var postings = english.postings[tok];
+        if (!postings) continue;
+        if (isExact) exactDocs = new Set();
+        var df = english.df[tok] || postings.length;
+        var idf = Math.log(1 + (english.totalDocs - df + 0.5) / (df + 0.5));
+        for (var j = 0; j < postings.length; j++) {
+          var docIdx = postings[j][0];
+          if (isExact) exactDocs.add(docIdx);
+          else if (exactDocs !== null && exactDocs.has(docIdx)) continue;
+          var tf = postings[j][1];
+          var docLen = english.docLengths[docIdx] || 1;
+          var norm = (tf * (K1 + 1)) / (tf + K1 * (1 - B + B * (docLen / english.avgDocLength)));
+          // Four bands, separated by three integers rather than a per-document array: definitions,
+          // then example translations, then meanings inherited through a declared synonym, then the
+          // one word this entry's own web address is named after.
+          var weight = 1;
+          if (docIdx >= slugStart) weight = SLUG_DOC_WEIGHT;
+          else if (docIdx >= inheritedStart) weight = SYNONYM_DOC_WEIGHT;
+          else if (docIdx >= english.glossDocCount) weight = EXAMPLE_DOC_WEIGHT;
+          docScores.set(docIdx, (docScores.get(docIdx) || 0) + idf * norm * weight * termWeight);
+        }
       }
     }
     if (docScores.size === 0) return [];
@@ -318,13 +423,22 @@
    * three document bands and the two integers that separate them are defined in this file, and a
    * second copy of that arithmetic in the UI is exactly the drift this file exists to prevent.
    *
-   *   kind      'definition' | 'example' | 'inherited'
+   *   kind      'definition' | 'example' | 'inherited' | 'distilled'
    *   senseIndex  which of the entry's own meanings the document came from, when that is meaningful
    *   namedBy     [entryId, senseIndex] of the entry whose definition named this word, when inherited
    */
   function matchProvenance(english, docIdx) {
     if (!english || docIdx === undefined || docIdx === null) return null;
     var inheritedStart = english.inheritedDocStart === undefined ? Infinity : english.inheritedDocStart;
+    var slugStart = english.slugDocStart === undefined ? Infinity : english.slugDocStart;
+    // Tested before inherited, because the distilled band sits above it and would otherwise be
+    // read as another entry's words - which would label the row "Another way to say" with nothing
+    // to name. The distilled word is drawn from this entry's OWN definition, so the row wants no
+    // explanation: showing that definition is already the whole story.
+    if (docIdx >= slugStart) {
+      var slugSense = (english.docSenseIdx || [])[docIdx];
+      return { kind: 'distilled', senseIndex: slugSense === undefined ? null : slugSense, namedBy: null };
+    }
     if (docIdx >= inheritedStart) {
       var source = (english.docSource || {})[docIdx];
       // An inherited document carries another entry's words, so it points at no meaning of this

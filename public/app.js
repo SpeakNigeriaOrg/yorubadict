@@ -146,7 +146,7 @@ import { createPageRenderer } from './page-render.js';
 
   // Handed to rankQuery to switch a half off, so the scope toggle needs no branching inside it.
   const EMPTY_TIER = { spellings: [], postings: {} };
-  const EMPTY_ENGLISH = { postings: {}, df: {}, docEntryIds: [], docLengths: [], docSenseIdx: [], avgDocLength: 1, totalDocs: 0, glossDocCount: 0, inheritedDocStart: 0, docSource: {}, exactClauses: {} };
+  const EMPTY_ENGLISH = { postings: {}, df: {}, tokens: [], docEntryIds: [], docLengths: [], docSenseIdx: [], avgDocLength: 1, totalDocs: 0, glossDocCount: 0, inheritedDocStart: 0, slugDocStart: 0, docSource: {}, exactClauses: {} };
 
   function search(query, limit = 40) {
     const trimmed = query.trim();

@@ -164,6 +164,22 @@ for (const item of fixture.inheritedMeaningMustNotSurface || []) {
   else fail(label, `${mustNotContain} appeared at #${forms.indexOf(nfc(mustNotContain)) + 1}`);
 }
 
+console.log('\nA partly-typed English word finds the word it starts:');
+for (const { query, form } of fixture.partialSpellingFindsTheWord || []) {
+  const forms = formsFor(query, 40);
+  const label = `"${query}" -> ${form} in the top ten`;
+  if (forms.slice(0, 10).includes(nfc(form))) pass(label);
+  else fail(label, `got ${forms.slice(0, 5).join(', ') || '(nothing)'}`);
+}
+
+console.log('\nA word is findable by the English word its address is named after:');
+for (const { query, form } of fixture.distilledWordReachesEntry || []) {
+  const forms = formsFor(query, 40);
+  const label = `"${query}" -> ${form} in the top ten`;
+  if (forms.slice(0, 10).includes(nfc(form))) pass(label);
+  else fail(label, `got ${forms.slice(0, 5).join(', ') || '(nothing)'}`);
+}
+
 // Two guards on mechanisms only this engine has, so they stay out of the shared
 // sections the platform reads.
 console.log('\nSynonym evidence stays subordinate to a real English match:');

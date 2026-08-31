@@ -50,3 +50,6 @@ tools/trace/paint-profile.json
 # removes it. .env.example is the committed half and holds no secret.
 .env
 .env.local
+
+# Local before/after for build/check-search-drift.mjs, never committed.
+build/search-drift-snapshot.json
