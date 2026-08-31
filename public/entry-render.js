@@ -140,7 +140,13 @@ export function createEntryRenderer(ctx) {
     const all = (candidateIds && candidateIds.length ? candidateIds : [chosenId]).filter(
       (id) => ctx.entries[id]
     );
-    if (all.length < 2 || !o.uncertain) return `<span class="pill-group">${pill}</span>`;
+    // A single candidate used to mean "nothing to disambiguate, so nothing to
+    // explain". That is true when the match was exact and false when it was a
+    // guess at the spelling: ìle matched ilé with exactly one candidate, and so
+    // rendered as the most confident link on the page. Doubt now opens the panel
+    // whether or not there is a list of alternatives inside it, and the badge
+    // reads "?" rather than a count of one.
+    if (!o.uncertain || (all.length < 2 && !o.note)) return `<span class="pill-group">${pill}</span>`;
 
     const panelId = `pill-alts-${++pillGroupSeq}`;
     const rows = all
@@ -157,7 +163,7 @@ export function createEntryRenderer(ctx) {
     return `<span class="pill-group has-alts">
       ${pill}
       <button type="button" class="pill-more" aria-expanded="false" aria-controls="${panelId}"
-        title="${escapeHtml(o.note || `${all.length} entries share this spelling`)}">${all.length}</button>
+        title="${escapeHtml(o.note || `${all.length} entries share this spelling`)}">${all.length > 1 ? all.length : '?'}</button>
       <span class="pill-alternatives" id="${panelId}" hidden>
         <span class="pill-alternatives-note">${escapeHtml(o.note || `${all.length} entries share this spelling. We link to the first.`)}</span>
         ${rows}
@@ -179,12 +185,52 @@ export function createEntryRenderer(ctx) {
       const target = ctx.entries[ids[0]];
       const key = `${target.forms.exact} ${target.pos || ''}`;
       if (!groups.has(key)) {
-        groups.set(key, { chosen: ids.includes(item.entryId) ? item.entryId : ids[0], ids: [], resolution: item.resolution });
+        groups.set(key, {
+          chosen: ids.includes(item.entryId) ? item.entryId : ids[0],
+          ids: [],
+          resolution: item.resolution,
+          matchedBy: item.matchedBy,
+          claimedText: item.claimedText,
+        });
       }
       const g = groups.get(key);
       for (const id of ids) if (!g.ids.includes(id)) g.ids.push(id);
     }
     return [...groups.values()];
+  }
+
+  // A cross-reference we could only match by ignoring tone marks or underdots -
+  // which are exactly what tell one Yorùbá word from another. Two things could
+  // be true and the data cannot say which: somebody mistyped a word we have, or
+  // they correctly named a word nobody has written up yet. Saying so is worth
+  // more than picking one, because the second case is a page somebody could go
+  // and write.
+  /** A relation we could only resolve by ignoring tone marks or underdots. */
+  function isLooseMatch(rel) {
+    return Boolean(rel.matchedBy) && rel.matchedBy !== 'exact';
+  }
+
+  function looseMatchNote(text, targetId, matchedBy) {
+    const target = ctx.entries[targetId];
+    const what = matchedBy === 'underdot' ? 'underdots' : 'tone marks';
+    return (
+      `Wiktionary points at “${text}”. No word here is spelled that way, so we have linked ` +
+      `“${target.canonicalForm.value}”, which matches once ${what} are ignored. ` +
+      `It may be a misspelling, or “${text}” may be a word nobody has written up yet.`
+    );
+  }
+
+  // The same doubt seen from the other end. On ilé's page the guess was not
+  // about lè - that spelling is exact - but about the word lè's own list named,
+  // which is the word this page was matched to.
+  function looseBackLinkNote(claimedText, sourceId, matchedBy) {
+    const source = ctx.entries[sourceId];
+    const what = matchedBy === 'underdot' ? 'underdots' : 'tone marks';
+    return (
+      `“${source.canonicalForm.value}” lists “${claimedText}” as a word built from it. ` +
+      `No word here is spelled that way, so this page was matched to it by ignoring ${what}. ` +
+      `It may be a misspelling, or “${claimedText}” may be a word nobody has written up yet.`
+    );
   }
 
   function ambiguityNote(count, spelling) {
@@ -245,7 +291,14 @@ export function createEntryRenderer(ctx) {
       // nothing is uncertain there, but collapsing them would hide real words,
       // so the count has to stay.
       const method = group.resolution && group.resolution.method;
-      const uncertain = ids.length > 1 && method !== 'glossOverlap' && method !== 'unique';
+      // Two independent doubts, and the rule used to see only one. "Which of
+      // these same-spelled words?" is answered by the candidate count. "Is this
+      // the right word at all?" is answered by how the spelling matched, and a
+      // loose match with a single candidate scored as the most certain link on
+      // the page - the rule inverted on exactly the case that needed the badge.
+      const loose = group.matchedBy && group.matchedBy !== 'exact';
+      const uncertain =
+        loose || (ids.length > 1 && method !== 'glossOverlap' && method !== 'unique');
       const corroborated = ids.some((id) => declaredIds.has(id)) || declaredForms.has(spelling);
       for (const id of ids) claimedIds.add(id);
       claimedForms.add(spelling);
@@ -254,9 +307,11 @@ export function createEntryRenderer(ctx) {
         html: ambiguityPillHtml(chosen, ids, {
           synthesized: !corroborated,
           uncertain,
-          note: method
-            ? ambiguityNote(ids.length, spelling)
-            : `${ids.length} different words are spelled “${spelling}”, and this word is part of each of them.`,
+          note: loose
+            ? looseBackLinkNote(group.claimedText, chosen, group.matchedBy)
+            : method
+              ? ambiguityNote(ids.length, spelling)
+              : `${ids.length} different words are spelled “${spelling}”, and this word is part of each of them.`,
         }),
       });
     }
@@ -287,13 +342,23 @@ export function createEntryRenderer(ctx) {
         if (!ids.length) continue;
         if (ids.some((id) => claimedIds.has(id))) continue;
         const spelling = ctx.entries[ids[0]].forms.exact;
-        // Nothing in a declared relation list says which homograph is meant,
-        // so a multi-candidate one is always a guess.
+        const loose = rel.matchedBy && rel.matchedBy !== 'exact';
+        // The pill carries Wiktionary's spelling when we had to guess at it.
+        // Printing the word we landed on instead is what made "ìle (erection)"
+        // read as "ilé, noun" - a word Wiktionary never wrote, under a heading
+        // asserting it was built from this meaning, with the one field that
+        // disproves it thrown away.
         declared.push({
-          sort: spelling,
+          sort: loose ? rel.text || spelling : spelling,
           html: ambiguityPillHtml(ids[0], ids, {
-            uncertain: ids.length > 1,
-            note: `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
+            label: loose ? rel.text : undefined,
+            hint: loose ? rel.english || undefined : undefined,
+            // Nothing in a declared relation list says which homograph is meant,
+            // so a multi-candidate one is always a guess.
+            uncertain: loose || ids.length > 1,
+            note: loose
+              ? looseMatchNote(rel.text, ids[0], rel.matchedBy)
+              : `${ids.length} entries are spelled “${spelling}”, and the list this came from doesn't say which one is meant — we've linked to the first.`,
           }),
         });
       } else {
@@ -615,13 +680,15 @@ export function createEntryRenderer(ctx) {
     // the intermediate steps (ìwúre decomposes to ì- + wú + ire and is derived
     // from wúre) and the words whose decomposition we don't have at all.
     const componentTargets = morphemeLinkTargets(entry);
-    const derivedFromHtml = relationPillsHtml(
-      [],
-      (entry.synthesizedRelations || [])
-        .filter((r) => r.type === 'derivedFrom')
-        .filter((r) => !componentTargets.has(r.entryId)),
-      entry
-    );
+    const derivedFromAll = (entry.synthesizedRelations || [])
+      .filter((r) => r.type === 'derivedFrom')
+      .filter((r) => !componentTargets.has(r.entryId));
+    const derivedFromHtml = relationPillsHtml([], derivedFromAll.filter((r) => !isLooseMatch(r)), entry);
+    const maybeDerivedFromHtml = relationPillsHtml([], derivedFromAll.filter(isLooseMatch), entry);
+    const maybeDerivedFromNote = `
+      <p>Each of these pages lists a word as built from it, spelled a little differently from this one — a different tone mark, or an underdot this word doesn't have.</p>
+      <p>Tone and underdots are what tell two Yorùbá words apart, so we can't say whether the other page meant this word and mistyped it, or meant a word that has no page here yet.</p>
+      <p>Writing that word up on Wiktionary settles it. <a href="${ctx.pagePath('contribute')}">How to help</a>.</p>`;
     const coordinateHtml = relationPillsHtml(entry.coordinateTerms || [], [], entry);
     const hyponymsHtml = relationPillsHtml(entry.hyponyms || [], [], entry);
     const hypernymsHtml = relationPillsHtml(entry.hypernyms || [], [], entry);
@@ -637,12 +704,28 @@ export function createEntryRenderer(ctx) {
     // word part of - and differ only in where the answer came from, which is
     // our bookkeeping and not theirs. Two headings made them look like two
     // different facts, and put 499 words on the page twice.
-    const usedInHtml = relationPillsHtml(entry.derivedTerms, entry.usedInCompounds || [], entry);
-    const maybeUsedInHtml = relationPillsHtml([], entry.possiblyUsedIn || [], entry);
+    // Wiktionary's own list splits by how well the spelling matched. An entry it
+    // names outright belongs beside the etymology evidence in "Used in"; one we
+    // could only reach by ignoring tone or underdots is a guess about which word
+    // was meant, which is the doubt "Possibly used in" already exists to hold.
+    const declaredUsedIn = entry.derivedTerms || [];
+    const usedInHtml = relationPillsHtml(
+      declaredUsedIn.filter((r) => !isLooseMatch(r)),
+      entry.usedInCompounds || [],
+      entry
+    );
+    const maybeUsedInHtml = relationPillsHtml(
+      declaredUsedIn.filter(isLooseMatch),
+      entry.possiblyUsedIn || [],
+      entry
+    );
+    // Two different doubts under one heading, because they answer one question -
+    // what might this word be part of? Which doubt applies is on each pill.
     const maybeUsedInNote = `
-      <p>Wiktionary says these words were built from a word spelled like this one. It does not say which meaning.</p>
-      <p>So we show each word under every meaning it could have come from. Some of them belong to a different entry, and we don't know which.</p>
-      <p>Naming each meaning on Wiktionary fixes this, one word at a time. <a href="${ctx.pagePath('contribute')}">How to help</a>.</p>`;
+      <p>We are not certain about these, for one of two reasons.</p>
+      <p>Wiktionary says some of them were built from a word spelled like this one, without saying which meaning, so we show each under every meaning it could have come from.</p>
+      <p>The rest are spelled a little differently from anything here — a tone mark or an underdot apart — so we cannot tell a misspelling of this word from a word that has no page yet.</p>
+      <p>Both are fixable on Wiktionary, one word at a time. <a href="${ctx.pagePath('contribute')}">How to help</a>.</p>`;
     const siblingsHtmlStr = siblingsHtml(entry);
 
     return `
@@ -664,6 +747,7 @@ export function createEntryRenderer(ctx) {
       ${section('Used in', usedInHtml)}
       ${section('Possibly used in', maybeUsedInHtml, maybeUsedInNote)}
       ${section('Derived from', derivedFromHtml)}
+      ${section('Possibly derived from', maybeDerivedFromHtml, maybeDerivedFromNote)}
       ${section('Related terms', relatedHtml)}
       ${section('Synonyms', synonymsHtml)}
       ${section('Antonyms', antonymsHtml)}

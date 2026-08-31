@@ -696,10 +696,24 @@ export function synthesizeRelationships(entries) {
     const byType = pending.get(targetId);
     if (!byType.has(reciprocalField)) byType.set(reciprocalField, new Map());
     const sources = byType.get(reciprocalField);
+    // How the claim was matched travels with it. Inverting a claim states more
+    // than the claim did - "lé produces ìlé" becomes "ilé comes from lé", printed
+    // on ilé's page under a heading that asserts an origin - so a back-link built
+    // on a tone or underdot guess has to arrive knowing it was one. Without this
+    // the guess reached the reader as resolution.method 'unique', the most
+    // confident value the schema has.
     // First meaning wins when a source lists the same target under several, so
     // the quoted definition is stable across builds.
-    if (!sources.has(entry.id) || (sources.get(entry.id) === null && senseIndex !== null)) {
-      sources.set(entry.id, senseIndex);
+    const prior = sources.get(entry.id);
+    if (!prior || (prior.senseIndex === null && senseIndex !== null)) {
+      sources.set(entry.id, {
+        senseIndex,
+        matchedBy: rel.matchedBy || 'exact',
+        // What the source actually wrote. The relation's own `text` is the
+        // source word, so without this the target page has no way to name the
+        // spelling that was guessed at.
+        claimedText: rel.text,
+      });
     }
   };
 
@@ -747,6 +761,10 @@ export function synthesizeRelationships(entries) {
                 method: candidates.length > 1 ? 'ambiguous' : 'unique',
               };
 
+        // The group is only as good as the claim behind the entry we chose.
+        const chosenSource = sourceIds.get(chosen);
+        const matchedBy = (chosenSource && chosenSource.matchedBy) || 'exact';
+
         const relation = {
           type: reciprocalField,
           entryId: chosen,
@@ -755,6 +773,13 @@ export function synthesizeRelationships(entries) {
           provenance: 'synthesized',
           resolution: { method, candidateCount: candidates.length },
         };
+        // Absent rather than 'exact' on the common path: 1,380 of the 1,530
+        // derived-from links are exact, and a key repeated on all of them is
+        // bytes on every first load for a value the reader never sees.
+        if (matchedBy !== 'exact') {
+          relation.matchedBy = matchedBy;
+          relation.claimedText = chosenSource.claimedText;
+        }
 
         // Which of the source's meanings named this word. Carried so the pill
         // can read "listed as another word for sun - to roast" instead of just
@@ -763,7 +788,7 @@ export function synthesizeRelationships(entries) {
         // The index, not the text. The browser already holds the source entry, so
         // shipping the meaning too would duplicate a string it can look up -
         // 2,100 of them, which measured 34 KB brotli on a first-load artifact.
-        const senseIndex = sourceIds.get(chosen);
+        const senseIndex = chosenSource ? chosenSource.senseIndex : null;
         if (senseIndex !== null && senseIndex !== undefined && byId.get(chosen).senses?.[senseIndex]) {
           relation.sourceSenseIndex = senseIndex;
         }
