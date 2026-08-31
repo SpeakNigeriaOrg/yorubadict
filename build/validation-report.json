@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T21:41:06.043Z",
+  "generatedAt": "2026-08-31T22:10:35.215Z",
   "totalEntries": 6273,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -45758,901 +45758,12 @@
   "suspiciousRelationText": [],
   "issues": [
     {
-      "kind": "reference-tone-typo",
-      "title": "Cross-reference with the wrong tone marks",
-      "severity": "high",
-      "effort": "easy",
-      "target": "wiktionary",
-      "why": "These references match an existing word once tone marks are ignored, so the intended target is already known — the reference just carries different tone marks from the entry it means. Every one of them is a link the reader currently does not get.",
-      "fix": "On the listed Wiktionary page, correct the tone marks on the reference to match the entry it points at (or, if the reference is right, fix the tone on the target entry).",
-      "count": 91,
-      "pageCount": 77,
-      "pages": [
-        {
-          "page": "gun",
-          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
-          "entryIds": [
-            "en-gun-yo-verb--sna-0j2",
-            "en-gun-yo-verb-m8CeRdfL"
-          ],
-          "details": [
-            "sense derivedTerms “orígun” — the dictionary has “Origun”, “Orígun”",
-            "sense derivedTerms “ègún” — the dictionary has “Egun”, “Ègùn”"
-          ]
-        },
-        {
-          "page": "du",
-          "editUrl": "https://en.wiktionary.org/wiki/du#Yoruba",
-          "entryIds": [
-            "en-du-yo-verb-kQY-v9oj"
-          ],
-          "details": [
-            "sense synonyms “sá” — the dictionary has “Sa”, “Sà”"
-          ]
-        },
-        {
-          "page": "ta",
-          "editUrl": "https://en.wiktionary.org/wiki/ta#Yoruba",
-          "entryIds": [
-            "en-ta-yo-verb-hN7iHNvJ"
-          ],
-          "details": [
-            "derivedTerms “tàpá” — the dictionary has “Tapa”, “Tápà”"
-          ]
-        },
-        {
-          "page": "ge",
-          "editUrl": "https://en.wiktionary.org/wiki/ge#Yoruba",
-          "entryIds": [
-            "en-ge-yo-verb-q6PbqrDa"
-          ],
-          "details": [
-            "derivedTerms “ìgé” — the dictionary has “Ige”, “Ìgè”"
-          ]
-        },
-        {
-          "page": "akin",
-          "editUrl": "https://en.wiktionary.org/wiki/akin#Yoruba",
-          "entryIds": [
-            "en-akin-yo-noun-mTPEW80Z"
-          ],
-          "details": [
-            "derivedTerms “Akin” — the dictionary has “akin”"
-          ]
-        },
-        {
-          "page": "bun",
-          "editUrl": "https://en.wiktionary.org/wiki/bun#Yoruba",
-          "entryIds": [
-            "en-bun-yo-verb-DDKdteOE"
-          ],
-          "details": [
-            "derivedTerms “Ẹ̀bùn” — the dictionary has “ẹbun”, “ẹ̀bùn”"
-          ]
-        },
-        {
-          "page": "ere",
-          "editUrl": "https://en.wiktionary.org/wiki/ere#Yoruba",
-          "entryIds": [
-            "en-ere-yo-noun-U0IgZUUP"
-          ],
-          "details": [
-            "sense synonyms “ègún” — the dictionary has “Egun”, “Ègùn”"
-          ]
-        },
-        {
-          "page": "elu",
-          "editUrl": "https://en.wiktionary.org/wiki/elu#Yoruba",
-          "entryIds": [
-            "en-elu-yo-noun-XbAQvdzJ"
-          ],
-          "details": [
-            "derivedTerms “Elú” — the dictionary has “elu”, “èlú”, “elú”"
-          ]
-        },
-        {
-          "page": "odio",
-          "editUrl": "https://en.wiktionary.org/wiki/odio#Yoruba",
-          "entryIds": [
-            "en-odio-yo-intj-8wHwA9BY"
-          ],
-          "details": [
-            "sense synonyms “kábíyèsí” — the dictionary has “Kabiyesi”, “Kábíyèsí”"
-          ]
-        },
-        {
-          "page": "olu",
-          "editUrl": "https://en.wiktionary.org/wiki/olu#Yoruba",
-          "entryIds": [
-            "en-olu-yo-noun-xRdnl~my"
-          ],
-          "details": [
-            "derivedTerms “Olú” — the dictionary has “olu”, “olú”, “òlú”"
-          ]
-        },
-        {
-          "page": "osi",
-          "editUrl": "https://en.wiktionary.org/wiki/osi#Yoruba",
-          "entryIds": [
-            "en-osi-yo-noun-Ng-EA1lC"
-          ],
-          "details": [
-            "derivedTerms “Òsì” — the dictionary has “osi”, “òsì”"
-          ]
-        },
-        {
-          "page": "sibi",
-          "editUrl": "https://en.wiktionary.org/wiki/sibi#Yoruba",
-          "entryIds": [
-            "en-sibi-yo-noun-dTjcd-j6"
-          ],
-          "details": [
-            "sense derivedTerms “Sìbí” — the dictionary has “sibi”, “sìbí”, “síbí”"
-          ]
-        },
-        {
-          "page": "sakara",
-          "editUrl": "https://en.wiktionary.org/wiki/sakara#Yoruba",
-          "entryIds": [
-            "en-sakara-yo-noun-aaoJaiND"
-          ],
-          "details": [
-            "derivedTerms “Sákárà” — the dictionary has “sakara”, “sákárà”"
-          ]
-        },
-        {
-          "page": "ọdẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dd%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-ọdẹ-yo-noun-6aY6TrFX"
-          ],
-          "details": [
-            "derivedTerms “Ọdẹ” — the dictionary has “ọdẹ”, “ọ̀dẹ̀”"
-          ]
-        },
-        {
-          "page": "họ",
-          "editUrl": "https://en.wiktionary.org/wiki/h%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-họ-yo-verb-DggLfg53"
-          ],
-          "details": [
-            "sense synonyms “sá” — the dictionary has “Sa”, “Sà”"
-          ]
-        },
-        {
-          "page": "olori",
-          "editUrl": "https://en.wiktionary.org/wiki/olori#Yoruba",
-          "entryIds": [
-            "en-olori-yo-noun-lS9mDduB"
-          ],
-          "details": [
-            "sense derivedTerms “Olorì” — the dictionary has “olori”, “olorì”"
-          ]
-        },
-        {
-          "page": "aanu",
-          "editUrl": "https://en.wiktionary.org/wiki/aanu#Yoruba",
-          "entryIds": [
-            "en-aanu-yo-noun-L8ZyhVWV"
-          ],
-          "details": [
-            "derivedTerms “Àánú” — the dictionary has “aanu”, “àánú”"
-          ]
-        },
-        {
-          "page": "adele",
-          "editUrl": "https://en.wiktionary.org/wiki/adele#Yoruba",
-          "entryIds": [
-            "en-adele-yo-noun-8Ha1xZKI"
-          ],
-          "details": [
-            "sense derivedTerms “Àdèlé” — the dictionary has “adele”, “àdèlé”"
-          ]
-        },
-        {
-          "page": "japa",
-          "editUrl": "https://en.wiktionary.org/wiki/japa#Yoruba",
-          "entryIds": [
-            "en-japa-yo-verb-M3zBx8E8"
-          ],
-          "details": [
-            "sense synonyms “sá” — the dictionary has “Sa”, “Sà”"
-          ]
-        },
-        {
-          "page": "Ori",
-          "editUrl": "https://en.wiktionary.org/wiki/Ori#Yoruba",
-          "entryIds": [
-            "en-Ori-yo-name-N9gpil-7"
-          ],
-          "details": [
-            "sense synonyms “Ìpín” — the dictionary has “ipin”, “ìpín”"
-          ]
-        },
-        {
-          "page": "Sao",
-          "editUrl": "https://en.wiktionary.org/wiki/Sao#Yoruba",
-          "entryIds": [
-            "en-Sao-yo-name-OudcyY-D"
-          ],
-          "details": [
-            "sense relatedTerms “Ológun” — the dictionary has “ologun”, “ológun”"
-          ]
-        },
-        {
-          "page": "Ayan",
-          "editUrl": "https://en.wiktionary.org/wiki/Ayan#Yoruba",
-          "entryIds": [
-            "en-Ayan-yo-name-w9lAWnYO"
-          ],
-          "details": [
-            "derivedTerms “àyàn” — the dictionary has “Ayan”, “Àyàn”",
-            "derivedTerms “àyàn” — the dictionary has “Ayan”, “Àyàn”"
-          ]
-        },
-        {
-          "page": "Aye",
-          "editUrl": "https://en.wiktionary.org/wiki/Aye#Yoruba",
-          "entryIds": [
-            "en-Aye-yo-name-t8m1zNPj"
-          ],
-          "details": [
-            "sense synonyms “Ilẹ̀” — the dictionary has “ilẹ̀”, “ilẹ”"
-          ]
-        },
-        {
-          "page": "Balogun",
-          "editUrl": "https://en.wiktionary.org/wiki/Balogun#Yoruba",
-          "entryIds": [
-            "en-Balogun-yo-name-4x-ckhU~"
-          ],
-          "details": [
-            "derivedTerms “balógun” — the dictionary has “Balogun”, “Balógun”"
-          ]
-        },
-        {
-          "page": "saraki",
-          "editUrl": "https://en.wiktionary.org/wiki/saraki#Yoruba",
-          "entryIds": [
-            "en-saraki-yo-noun-CWEUC~Jc"
-          ],
-          "details": [
-            "relatedTerms “Sàràkí” — the dictionary has “saraki”, “sàràkí”"
-          ]
-        },
-        {
-          "page": "alẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/al%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-alẹ-yo-noun-3j-~5Sdn"
-          ],
-          "details": [
-            "derivedTerms “Alẹ̀” — the dictionary has “alẹ”, “alẹ́”, “alẹ̀”"
-          ]
-        },
-        {
-          "page": "okun",
-          "editUrl": "https://en.wiktionary.org/wiki/okun#Yoruba",
-          "entryIds": [
-            "en-okun-yo-noun-Auh9veD3",
-            "en-okun-yo-noun-mZhKsCJ-"
-          ],
-          "details": [
-            "sense derivedTerms “olókun” — the dictionary has “Olokun”, “Olókun”",
-            "derivedTerms “olókùn” — the dictionary has “Olokun”, “Olókun”"
-          ]
-        },
-        {
-          "page": "ogun",
-          "editUrl": "https://en.wiktionary.org/wiki/ogun#Yoruba",
-          "entryIds": [
-            "en-ogun-yo-noun-J0DXkQhp",
-            "en-ogun-yo-noun-vTB2M22N"
-          ],
-          "details": [
-            "sense derivedTerms “Ológun” — the dictionary has “ologun”, “ológun”",
-            "sense derivedTerms “ajogún” — the dictionary has “Ajogun”"
-          ]
-        },
-        {
-          "page": "olodo",
-          "editUrl": "https://en.wiktionary.org/wiki/olodo#Yoruba",
-          "entryIds": [
-            "en-olodo-yo-noun-~rH6VaCc"
-          ],
-          "details": [
-            "sense derivedTerms “Olódó” — the dictionary has “olodo”, “olódo”, “olódó”"
-          ]
-        },
-        {
-          "page": "atipo",
-          "editUrl": "https://en.wiktionary.org/wiki/atipo#Yoruba",
-          "entryIds": [
-            "en-atipo-yo-noun-zhDXH-22"
-          ],
-          "details": [
-            "sense derivedTerms “Àtìpó” — the dictionary has “atipo”, “àtìpó”"
-          ]
-        },
-        {
-          "page": "ilẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/il%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-ilẹ-yo-noun-3j-~5Sdn"
-          ],
-          "details": [
-            "derivedTerms “Ilẹ̀” — the dictionary has “ilẹ̀”, “ilẹ”"
-          ]
-        },
-        {
-          "page": "ọtunla",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dtunla#Yoruba",
-          "entryIds": [
-            "en-ọtunla-yo-noun-YqsQ34uZ"
-          ],
-          "details": [
-            "sense derivedTerms “Ọ̀túnla” — the dictionary has “ọtunla”, “ọ̀túnla”, “ọ̀tunla”"
-          ]
-        },
-        {
-          "page": "Yemọja",
-          "editUrl": "https://en.wiktionary.org/wiki/Yem%E1%BB%8Dja#Yoruba",
-          "entryIds": [
-            "en-Yemọja-yo-name-KFL3nN81"
-          ],
-          "details": [
-            "sense synonyms “Olódo” — the dictionary has “olodo”, “olódo”, “olódó”"
-          ]
-        },
-        {
-          "page": "ọla",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dla#Yoruba",
-          "entryIds": [
-            "en-ọla-yo-noun-uv0VGob5"
-          ],
-          "details": [
-            "sense derivedTerms “Ọ̀la” — the dictionary has “ọla”, “ọlá”, “ọlà”"
-          ]
-        },
-        {
-          "page": "okiki",
-          "editUrl": "https://en.wiktionary.org/wiki/okiki#Yoruba",
-          "entryIds": [
-            "en-okiki-yo-noun-KPiv73Gr"
-          ],
-          "details": [
-            "sense derivedTerms “Òkìkí” — the dictionary has “okiki”, “òkìkí”"
-          ]
-        },
-        {
-          "page": "arẹmọ",
-          "editUrl": "https://en.wiktionary.org/wiki/ar%E1%BA%B9m%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-arẹmọ-yo-noun-VMXcONe1"
-          ],
-          "details": [
-            "sense derivedTerms “Àrẹ̀mọ” — the dictionary has “arẹmọ”, “àrẹ̀mọ”"
-          ]
-        },
-        {
-          "page": "Ọṣọọsi",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8C%E1%B9%A3%E1%BB%8D%E1%BB%8Dsi#Yoruba",
-          "entryIds": [
-            "en-Ọṣọọsi-yo-name-U82YZgai"
-          ],
-          "details": [
-            "sense synonyms “Ọdẹ” — the dictionary has “ọdẹ”, “ọ̀dẹ̀”",
-            "sense synonyms “Ọ̀ṣọ́” — the dictionary has “ọṣọ”, “ọ̀ṣọ́”",
-            "sense synonyms “Ogídò” — the dictionary has “ogido”, “ògìdo”"
-          ]
-        },
-        {
-          "page": "Olokun",
-          "editUrl": "https://en.wiktionary.org/wiki/Olokun#Yoruba",
-          "entryIds": [
-            "en-Olokun-yo-name-lgY8m3VF"
-          ],
-          "details": [
-            "sense derivedTerms “olókun” — the dictionary has “Olokun”, “Olókun”"
-          ]
-        },
-        {
-          "page": "irinkerindo",
-          "editUrl": "https://en.wiktionary.org/wiki/irinkerindo#Yoruba",
-          "entryIds": [
-            "en-irinkerindo-yo-noun-p9Io3wb-"
-          ],
-          "details": [
-            "sense derivedTerms “Ìrìnkèrindò” — the dictionary has “irinkerindo”, “ìrìnkèrindò”"
-          ]
-        },
-        {
-          "page": "ẹgbẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9gb%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-ẹgbẹ-yo-noun-4Fbs-JEg"
-          ],
-          "details": [
-            "derivedTerms “Ẹgbẹ́” — the dictionary has “ẹgbẹ”, “ẹ̀gbẹ”, “ẹgbẹ́”"
-          ]
-        },
-        {
-          "page": "eedi",
-          "editUrl": "https://en.wiktionary.org/wiki/eedi#Yoruba",
-          "entryIds": [
-            "en-eedi-yo-noun-LxfC9goV"
-          ],
-          "details": [
-            "sense synonyms “ègún” — the dictionary has “Egun”, “Ègùn”"
-          ]
-        },
-        {
-          "page": "ipin",
-          "editUrl": "https://en.wiktionary.org/wiki/ipin#Yoruba",
-          "entryIds": [
-            "en-ipin-yo-noun-IzJxZc-9"
-          ],
-          "details": [
-            "derivedTerms “Ìpín” — the dictionary has “ipin”, “ìpín”"
-          ]
-        },
-        {
-          "page": "abẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/ab%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-abẹ-yo-noun-12d0imA3"
-          ],
-          "details": [
-            "derivedTerms “sábẹ́” — the dictionary has “Sábẹ́”"
-          ]
-        },
-        {
-          "page": "korikoto",
-          "editUrl": "https://en.wiktionary.org/wiki/korikoto#Yoruba",
-          "entryIds": [
-            "en-korikoto-yo-noun-2txLbFVa"
-          ],
-          "details": [
-            "sense relatedTerms “kóórì” — the dictionary has “Kóórì”"
-          ]
-        },
-        {
-          "page": "konkoto",
-          "editUrl": "https://en.wiktionary.org/wiki/konkoto#Yoruba",
-          "entryIds": [
-            "en-konkoto-yo-noun-66Eig-lR"
-          ],
-          "details": [
-            "sense relatedTerms “kóórì” — the dictionary has “Kóórì”"
-          ]
-        },
-        {
-          "page": "ọlọsanyin",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dl%E1%BB%8Dsanyin#Yoruba",
-          "entryIds": [
-            "en-ọlọsanyin-yo-noun-Rt6F2ANF"
-          ],
-          "details": [
-            "sense synonyms “ọ̀sanyìn” — the dictionary has “Ọsanyin”, “Ọ̀sanyìn”, “Ọ̀sányìn”",
-            "sense synonyms “ọ̀sanyìn” — the dictionary has “Ọsanyin”, “Ọ̀sanyìn”, “Ọ̀sányìn”"
-          ]
-        },
-        {
-          "page": "ṣanpọnna",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3anp%E1%BB%8Dnna#Yoruba",
-          "entryIds": [
-            "en-ṣanpọnna-yo-noun-jvgQi6tN"
-          ],
-          "details": [
-            "sense synonyms “ègbóná” — the dictionary has “Egbona”, “Ègbóná”"
-          ]
-        },
-        {
-          "page": "baalẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/baal%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-baalẹ-yo-noun-hFiY6Q8n"
-          ],
-          "details": [
-            "sense derivedTerms “Baálẹ̀” — the dictionary has “baalẹ”, “baálẹ̀”"
-          ]
-        },
-        {
-          "page": "logun ọfẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/logun%20%E1%BB%8Df%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-logun_ọfẹ-yo-intj-zAEqp3rI"
-          ],
-          "details": [
-            "sense derivedTerms “Lógun ọfẹ” — the dictionary has “logun ọfẹ”"
-          ]
-        },
-        {
-          "page": "ọdundun",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Ddundun#Yoruba",
-          "entryIds": [
-            "en-ọdundun-yo-noun-SBmxdlet"
-          ],
-          "details": [
-            "sense derivedTerms “Ọ̀dúndún” — the dictionary has “ọdundun”, “ọ̀dúndún”"
-          ]
-        },
-        {
-          "page": "Ọramfẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Cramf%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-Ọramfẹ-yo-name-muVtZb6l"
-          ],
-          "details": [
-            "sense synonyms “Ọ̀rà” — the dictionary has “ọra”, “ọ̀rá”"
-          ]
-        },
-        {
-          "page": "Odu Ifa",
-          "editUrl": "https://en.wiktionary.org/wiki/Odu%20Ifa#Yoruba",
-          "entryIds": [
-            "en-Odu_Ifa-yo-name-C58ytSi4"
-          ],
-          "details": [
-            "sense synonyms “Odù” — the dictionary has “odu”, “odù”, “òdù”"
-          ]
-        },
-        {
-          "page": "mọgaji",
-          "editUrl": "https://en.wiktionary.org/wiki/m%E1%BB%8Dgaji#Yoruba",
-          "entryIds": [
-            "en-mọgaji-yo-noun-fOGOiY60"
-          ],
-          "details": [
-            "sense derivedTerms “Mọ́gàjí” — the dictionary has “mọgaji”, “mọ́gàjí”"
-          ]
-        },
-        {
-          "page": "ibukun",
-          "editUrl": "https://en.wiktionary.org/wiki/ibukun#Yoruba",
-          "entryIds": [
-            "en-ibukun-yo-noun-ZTiGKQ-j"
-          ],
-          "details": [
-            "derivedTerms “Ìbùkún” — the dictionary has “ibukun”, “ìbùkún”"
-          ]
-        },
-        {
-          "page": "ṣigidi",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3igidi#Yoruba",
-          "entryIds": [
-            "en-ṣigidi-yo-noun-Yld21J4Y"
-          ],
-          "details": [
-            "derivedTerms “Ṣìgìdì” — the dictionary has “ṣigidi”, “ṣìgìdì”, “ṣígídí”"
-          ]
-        },
-        {
-          "page": "dẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/d%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-dẹ-yo-verb-vVYafK00"
-          ],
-          "details": [
-            "derivedTerms “Ọdẹ” — the dictionary has “ọdẹ”, “ọ̀dẹ̀”"
-          ]
-        },
-        {
-          "page": "peregun",
-          "editUrl": "https://en.wiktionary.org/wiki/peregun#Yoruba",
-          "entryIds": [
-            "en-peregun-yo-noun-yBLDxAFB"
-          ],
-          "details": [
-            "sense derivedTerms “Pèrègún” — the dictionary has “peregun”, “pèrègún”"
-          ]
-        },
-        {
-          "page": "Ilara",
-          "editUrl": "https://en.wiktionary.org/wiki/Ilara#Yoruba",
-          "entryIds": [
-            "en-Ilara-yo-name-O2crHFFp"
-          ],
-          "details": [
-            "sense synonyms “Ará” — the dictionary has “ará”, “ara”, “àrá”"
-          ]
-        },
-        {
-          "page": "Dahọmi",
-          "editUrl": "https://en.wiktionary.org/wiki/Dah%E1%BB%8Dmi#Yoruba",
-          "entryIds": [
-            "en-Dahọmi-yo-name-IffRhjeO"
-          ],
-          "details": [
-            "sense synonyms “Fọ̀n” — the dictionary has “fọn”, “fọ̀n”, “fọ́n”"
-          ]
-        },
-        {
-          "page": "juba ehoro",
-          "editUrl": "https://en.wiktionary.org/wiki/juba%20ehoro#Yoruba",
-          "entryIds": [
-            "en-juba_ehoro-yo-verb-G54AfhE0"
-          ],
-          "details": [
-            "sense synonyms “sá” — the dictionary has “Sa”, “Sà”"
-          ]
-        },
-        {
-          "page": "Logunẹdẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/Logun%E1%BA%B9d%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-Logunẹdẹ-yo-name-68WNQdew"
-          ],
-          "details": [
-            "sense synonyms “Ológun” — the dictionary has “ologun”, “ológun”"
-          ]
-        },
-        {
-          "page": "fọn",
-          "editUrl": "https://en.wiktionary.org/wiki/f%E1%BB%8Dn#Yoruba",
-          "entryIds": [
-            "en-fọn-yo-verb-PfXh8wSg",
-            "en-fọn-yo-verb-EUEplE7y",
-            "en-fọn-yo-verb-fdanAXlQ",
-            "en-fọn-yo-verb-cZgKVR6z",
-            "en-fọn-yo-verb-5q0aArTg",
-            "en-fọn-yo-verb-W-b-zK12"
-          ],
-          "details": [
-            "derivedTerms “ìfọ̀n” — the dictionary has “Ifọn”, “Ifọ́n”",
-            "derivedTerms “ìfọ̀n” — the dictionary has “Ifọn”, “Ifọ́n”",
-            "derivedTerms “ìfọ̀n” — the dictionary has “Ifọn”, “Ifọ́n”",
-            "derivedTerms “ìfọn” — the dictionary has “Ifọn”, “Ifọ́n”",
-            "derivedTerms “ìfọn” — the dictionary has “Ifọn”, “Ifọ́n”",
-            "derivedTerms “ìfọ́n” — the dictionary has “Ifọn”, “Ifọ́n”"
-          ]
-        },
-        {
-          "page": "ọlọja",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dl%E1%BB%8Dja#Yoruba",
-          "entryIds": [
-            "en-ọlọja-yo-noun-8mHjMaqM"
-          ],
-          "details": [
-            "derivedTerms “Ọlọ́jà” — the dictionary has “ọlọja”, “ọlọ́jà”"
-          ]
-        },
-        {
-          "page": "iṣẹkulumọ",
-          "editUrl": "https://en.wiktionary.org/wiki/i%E1%B9%A3%E1%BA%B9kulum%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-iṣẹkulumọ-yo-noun-ZiY1mDca"
-          ],
-          "details": [
-            "sense synonyms “àbùjá” — the dictionary has “Abuja”, “Àbújá”"
-          ]
-        },
-        {
-          "page": "Owu-Ipoole",
-          "editUrl": "https://en.wiktionary.org/wiki/Owu-Ipoole#Yoruba",
-          "entryIds": [
-            "en-Owu-Ipoole-yo-name-PlrSDc2H"
-          ],
-          "details": [
-            "sense synonyms “Ìpóólé” — the dictionary has “ìpóólé”"
-          ]
-        },
-        {
-          "page": "Aeregbe",
-          "editUrl": "https://en.wiktionary.org/wiki/Aeregbe#Yoruba",
-          "entryIds": [
-            "en-Aeregbe-yo-name-FsbjSS9E"
-          ],
-          "details": [
-            "sense synonyms “Sìbí” — the dictionary has “sibi”, “sìbí”, “síbí”"
-          ]
-        },
-        {
-          "page": "ranti",
-          "editUrl": "https://en.wiktionary.org/wiki/ranti#Yoruba",
-          "entryIds": [
-            "en-ranti-yo-verb-OC7Eux0Z"
-          ],
-          "details": [
-            "sense derivedTerms “Rántí” — the dictionary has “ranti”, “rántí”"
-          ]
-        },
-        {
-          "page": "Oni",
-          "editUrl": "https://en.wiktionary.org/wiki/Oni#Yoruba",
-          "entryIds": [
-            "en-Oni-yo-name-gfzTXdhh"
-          ],
-          "details": [
-            "sense coordinateTerms “Ọ̀la” — the dictionary has “ọla”, “ọlá”, “ọlà”",
-            "sense coordinateTerms “Ọ̀túnla” — the dictionary has “ọtunla”, “ọ̀túnla”, “ọ̀tunla”"
-          ]
-        },
-        {
-          "page": "Ayandiran",
-          "editUrl": "https://en.wiktionary.org/wiki/Ayandiran#Yoruba",
-          "entryIds": [
-            "en-Ayandiran-yo-name-UeFtm1g2"
-          ],
-          "details": [
-            "relatedTerms “àyàn” — the dictionary has “Ayan”, “Àyàn”"
-          ]
-        },
-        {
-          "page": "ologun",
-          "editUrl": "https://en.wiktionary.org/wiki/ologun#Yoruba",
-          "entryIds": [
-            "en-ologun-yo-noun-~wduxwWD"
-          ],
-          "details": [
-            "sense derivedTerms “Ológun” — the dictionary has “ologun”, “ológun”"
-          ]
-        },
-        {
-          "page": "gbona",
-          "editUrl": "https://en.wiktionary.org/wiki/gbona#Yoruba",
-          "entryIds": [
-            "en-gbona-yo-noun-2hcN529~"
-          ],
-          "details": [
-            "derivedTerms “ègbóná” — the dictionary has “Egbona”, “Ègbóná”"
-          ]
-        },
-        {
-          "page": "wọle",
-          "editUrl": "https://en.wiktionary.org/wiki/w%E1%BB%8Dle#Yoruba",
-          "entryIds": [
-            "en-wọle-yo-verb-MmNXgE7R"
-          ],
-          "details": [
-            "sense derivedTerms “Wọlé” — the dictionary has “wọle”, “wọlé”"
-          ]
-        },
-        {
-          "page": "Bukayọ",
-          "editUrl": "https://en.wiktionary.org/wiki/Bukay%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-Bukayọ-yo-name-495ADnBv"
-          ],
-          "details": [
-            "sense relatedTerms “Ìbùkún” — the dictionary has “ibukun”, “ìbùkún”"
-          ]
-        },
-        {
-          "page": "opomulero",
-          "editUrl": "https://en.wiktionary.org/wiki/opomulero#Yoruba",
-          "entryIds": [
-            "en-opomulero-yo-noun-FMw-jZXO"
-          ],
-          "details": [
-            "derivedTerms “Òpómúléró” — the dictionary has “opomulero”, “òpómúléró”"
-          ]
-        },
-        {
-          "page": "oniwaasu",
-          "editUrl": "https://en.wiktionary.org/wiki/oniwaasu#Yoruba",
-          "entryIds": [
-            "en-oniwaasu-yo-noun-gJw5hGZp"
-          ],
-          "details": [
-            "sense derivedTerms “Oníwàásù” — the dictionary has “oniwaasu”, “oníwàásù”"
-          ]
-        },
-        {
-          "page": "ọdun Ijẹṣu",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Ddun%20Ij%E1%BA%B9%E1%B9%A3u#Yoruba",
-          "entryIds": [
-            "en-ọdun_Ijẹṣu-yo-name-mb5QhQSW"
-          ],
-          "details": [
-            "sense relatedTerms “Oríkádún” — the dictionary has “orikadun”, “oríkádún”",
-            "sense relatedTerms “Ijù” — the dictionary has “iju”, “ijù”, “ìju”"
-          ]
-        },
-        {
-          "page": "giriwa",
-          "editUrl": "https://en.wiktionary.org/wiki/giriwa#Yoruba",
-          "entryIds": [
-            "en-giriwa-yo-noun-m~o5X4wq"
-          ],
-          "details": [
-            "sense derivedTerms “Gíríwá” — the dictionary has “giriwa”, “gíríwá”"
-          ]
-        }
-      ],
-      "pagesOmitted": 0
-    },
-    {
-      "kind": "reference-underdot-typo",
-      "title": "Cross-reference with a missing or extra underdot",
-      "severity": "high",
-      "effort": "easy",
-      "target": "wiktionary",
-      "why": "Same as the tone typos, one dimension over: these match once underdots (ẹ ọ ṣ) are ignored, so the intended target is known.",
-      "fix": "Correct the underdots on the reference so it matches the entry it means.",
-      "count": 11,
-      "pageCount": 6,
-      "pages": [
-        {
-          "page": "gun",
-          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
-          "entryIds": [
-            "en-gun-yo-verb-JNDZ1G7y",
-            "en-gun-yo-verb-g0UBR4PQ"
-          ],
-          "details": [
-            "derivedTerms “ẹ̀gùn” — the dictionary has “Egun”, “Ègùn”",
-            "sense derivedTerms “ẹ̀gún” — the dictionary has “Egun”, “Ègùn”"
-          ]
-        },
-        {
-          "page": "bi",
-          "editUrl": "https://en.wiktionary.org/wiki/bi#Yoruba",
-          "entryIds": [
-            "en-bi-yo-verb-~4YEG~Dq"
-          ],
-          "details": [
-            "sense derivedTerms “èbíbì” — the dictionary has “Ẹbibi”, “Ẹ̀bìbì”"
-          ]
-        },
-        {
-          "page": "Adamu",
-          "editUrl": "https://en.wiktionary.org/wiki/Adamu#Yoruba",
-          "entryIds": [
-            "en-Adamu-yo-name-PwybA-jj"
-          ],
-          "details": [
-            "sense coordinateTerms “Éfà” — the dictionary has “ẹfa”, “ẹ̀fà”"
-          ]
-        },
-        {
-          "page": "gẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/g%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-gẹ-yo-verb-pApCq1ey",
-            "en-gẹ-yo-verb-DtdvGv~A",
-            "en-gẹ-yo-verb-ECfnsWbe",
-            "en-gẹ-yo-verb-7Kr1gTH9",
-            "en-gẹ-yo-verb-bTXEJqex"
-          ],
-          "details": [
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ̀” — the dictionary has “Ige”, “Ìgè”",
-            "derivedTerms “ìgẹ” — the dictionary has “Ige”, “Ìgè”"
-          ]
-        },
-        {
-          "page": "Ido-Fabọrọ",
-          "editUrl": "https://en.wiktionary.org/wiki/Ido-Fab%E1%BB%8Dr%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-Ido-Fabọrọ-yo-name-sk5b0-Cv"
-          ],
-          "details": [
-            "sense synonyms “Ìdó” — the dictionary has “idọ”"
-          ]
-        },
-        {
-          "page": "Ọmọlarere",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Cm%E1%BB%8Dlarere#Yoruba",
-          "entryIds": [
-            "en-Ọmọlarere-yo-name-QqYJPWVz"
-          ],
-          "details": [
-            "sense relatedTerms “Télé” — the dictionary has “tẹlẹ”, “tẹ́lẹ̀”"
-          ]
-        }
-      ],
-      "pagesOmitted": 0
-    },
-    {
       "kind": "dangling-sense-anchor",
       "title": "Points at a name that was never created",
       "severity": "high",
       "effort": "easy",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà \"take\", ẹjọ́ \"law\", rò \"think\") and not one of those pages has the anchor. Careful work, pointing nowhere.",
       "fix": "Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.",
       "count": 9,
@@ -46739,10 +45850,11 @@
       "severity": "low",
       "effort": "mechanical",
       "target": "wiktionary",
-      "why": "The entry has no IPA. For Yoruba this is largely derivable from the toned spelling, so it is bulk work rather than research.",
-      "fix": "Add {{yo-IPA}} to the Pronunciation section of the listed page.",
-      "count": 374,
-      "pageCount": 342,
+      "confidence": "certain",
+      "why": "The entry gives no pronunciation. {{yo-IPA}} works one out from the tone-marked spelling, so where the spelling carries tone marks this is bulk work rather than research. Entries whose spelling has no tone marks at all are left out: the template would have nothing to read, and their tones have to be settled first - they are under \"Main spelling not confirmed\" instead.",
+      "fix": "Add {{yo-IPA}} to the Pronunciation section of the listed page, and check what it produces against how you say the word.",
+      "count": 212,
+      "pageCount": 194,
       "pages": [
         {
           "page": "India",
@@ -46751,7 +45863,7 @@
             "en-India-yo-name-JnqzqpjF"
           ],
           "details": [
-            "no Pronunciation section"
+            "Índíà (name) — no Pronunciation section"
           ]
         },
         {
@@ -46762,18 +45874,8 @@
             "en-hi-yo-prep-aWOju~yQ"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "re",
-          "editUrl": "https://en.wiktionary.org/wiki/re#Yoruba",
-          "entryIds": [
-            "en-re-yo-noun-bwEmdDj5"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "hí (noun · etym. 1) — no Pronunciation section",
+            "hí (prep · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -46783,7 +45885,7 @@
             "en-kita-yo-noun-zWNX792W"
           ],
           "details": [
-            "no Pronunciation section"
+            "kítà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -46795,19 +45897,9 @@
             "en-ese-yo-noun-Mmh9Trtp"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "GB",
-          "editUrl": "https://en.wiktionary.org/wiki/GB#Yoruba",
-          "entryIds": [
-            "en-GB-yo-character-KZoWFbHu"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "èsè (noun · etym. 4) — no Pronunciation section",
+            "esè (noun · etym. 5) — no Pronunciation section",
+            "èsè (noun · etym. 6) — no Pronunciation section"
           ]
         },
         {
@@ -46817,17 +45909,13 @@
             "en-ni-yo-noun-i5~d3cDi",
             "en-ni-yo-verb-11K4IPdV",
             "en-ni-yo-prep-sMSnxPOE",
-            "en-ni-yo-verb-KlHIAFBs",
-            "en-ni-yo-verb-2y4cGvZD",
-            "en-ni-yo-verb-ym4H-0vB"
+            "en-ni-yo-verb-KlHIAFBs"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "ní (noun · etym. 1) — no Pronunciation section",
+            "ní (verb · etym. 2) — no Pronunciation section",
+            "ní (prep · etym. 3) — no Pronunciation section",
+            "ní (verb · etym. 4) — no Pronunciation section"
           ]
         },
         {
@@ -46838,8 +45926,8 @@
             "en-obi-yo-noun-8wfw-yGT"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "òbí (noun · etym. 1) — no Pronunciation section",
+            "obì (noun · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -46852,10 +45940,10 @@
             "en-si-yo-conj-YgERG4Og"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "sí (prep · etym. 2) — no Pronunciation section",
+            "sí (verb · etym. 3) — no Pronunciation section",
+            "sí (verb · etym. 4) — no Pronunciation section",
+            "sì (conj · etym. 5) — no Pronunciation section"
           ]
         },
         {
@@ -46865,7 +45953,7 @@
             "en-olio-yo-noun-XK1CZsQi"
           ],
           "details": [
-            "no Pronunciation section"
+            "olíó (noun) — no Pronunciation section"
           ]
         },
         {
@@ -46876,18 +45964,8 @@
             "en-fun-yo-prep-3UkI~3X~"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ng",
-          "editUrl": "https://en.wiktionary.org/wiki/ng#Yoruba",
-          "entryIds": [
-            "en-ng-yo-pron-6kRzHeGk"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "fún (verb) — no Pronunciation section",
+            "fún (prep) — no Pronunciation section"
           ]
         },
         {
@@ -46897,17 +45975,7 @@
             "en-io-yo-noun-0KwkDBTg"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ko",
-          "editUrl": "https://en.wiktionary.org/wiki/ko#Yoruba",
-          "entryIds": [
-            "en-ko-yo-conj-jn~AI2r0"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "ió (noun) — no Pronunciation section"
           ]
         },
         {
@@ -46917,19 +45985,17 @@
             "en-ule-yo-noun-exI~R~vj"
           ],
           "details": [
-            "no Pronunciation section"
+            "ulé (noun) — no Pronunciation section"
           ]
         },
         {
           "page": "oko",
           "editUrl": "https://en.wiktionary.org/wiki/oko#Yoruba",
           "entryIds": [
-            "en-oko-yo-noun-OIAV69nB",
             "en-oko-yo-noun-HsYn29JR"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "òkò (noun · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -46939,7 +46005,7 @@
             "en-anti-yo-noun-uhmSRBzv"
           ],
           "details": [
-            "no Pronunciation section"
+            "àǹtí (noun) — no Pronunciation section"
           ]
         },
         {
@@ -46949,19 +46015,17 @@
             "en-◌̀-yo-character-Ya74nJMS"
           ],
           "details": [
-            "no Pronunciation section"
+            "◌̀ (character) — no Pronunciation section"
           ]
         },
         {
           "page": "ro",
           "editUrl": "https://en.wiktionary.org/wiki/ro#Yoruba",
           "entryIds": [
-            "en-ro-yo-verb-dxGU7xNX",
             "en-ro-yo-verb-ipZlC7B7"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "ró (verb · etym. 7) — no Pronunciation section"
           ]
         },
         {
@@ -46971,7 +46035,7 @@
             "en-Afrika-yo-name-zIspzIfE"
           ],
           "details": [
-            "no Pronunciation section"
+            "Áfríkà (name) — no Pronunciation section"
           ]
         },
         {
@@ -46981,7 +46045,7 @@
             "en-koko-yo-noun-JR~s1ZLl"
           ],
           "details": [
-            "no Pronunciation section"
+            "kókó (noun · etym. 4) — no Pronunciation section"
           ]
         },
         {
@@ -46991,17 +46055,7 @@
             "en-Sa-yo-noun-MbxBwdu3"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "mo",
-          "editUrl": "https://en.wiktionary.org/wiki/mo#Yoruba",
-          "entryIds": [
-            "en-mo-yo-pron-D7Ok9CkU"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "Sà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47011,17 +46065,7 @@
             "en-eso-yo-noun-kglSaqph"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ata",
-          "editUrl": "https://en.wiktionary.org/wiki/ata#Yoruba",
-          "entryIds": [
-            "en-ata-yo-noun-gcFVhaaq"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "èso (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47031,7 +46075,7 @@
             "en-iwi-yo-noun-1L0BQnZi"
           ],
           "details": [
-            "no Pronunciation section"
+            "iwì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47042,20 +46086,18 @@
             "en-kari-yo-adv-b0xjsvzq"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "kàrí (particle) — no Pronunciation section",
+            "kàrí (adv) — no Pronunciation section"
           ]
         },
         {
           "page": "i-",
           "editUrl": "https://en.wiktionary.org/wiki/i-#Yoruba",
           "entryIds": [
-            "en-i--yo-prefix-ndqtcuc5",
-            "en-i--yo-prefix-3p1kUSMO"
+            "en-i--yo-prefix-ndqtcuc5"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "ì- (prefix · etym. 1) — no Pronunciation section"
           ]
         },
         {
@@ -47065,7 +46107,7 @@
             "en-sita-yo-adv-w1QaLIjL"
           ],
           "details": [
-            "no Pronunciation section"
+            "síta (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47075,7 +46117,7 @@
             "en-tira-yo-noun-knGf4M-M"
           ],
           "details": [
-            "no Pronunciation section"
+            "tírà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47085,7 +46127,7 @@
             "en-sori-yo-adv-f4oVJVLW"
           ],
           "details": [
-            "no Pronunciation section"
+            "sórí (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47096,8 +46138,8 @@
             "en-rara-yo-intj-GR1kalbp"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "rárá (particle · etym. 2) — no Pronunciation section",
+            "rárá (intj · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -47107,7 +46149,7 @@
             "en-lori-yo-adv-HZOzZs3E"
           ],
           "details": [
-            "no Pronunciation section"
+            "lórí (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47117,7 +46159,7 @@
             "en-aisan-yo-noun-6XepM~3q"
           ],
           "details": [
-            "no Pronunciation section"
+            "àìsàn (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47127,7 +46169,7 @@
             "en-sapa-yo-verb-QG44JUPq"
           ],
           "details": [
-            "no Pronunciation section"
+            "sapá (verb) — no Pronunciation section"
           ]
         },
         {
@@ -47137,17 +46179,7 @@
             "en-ajako-yo-noun-cNoevVH0"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "Tiyamiyu",
-          "editUrl": "https://en.wiktionary.org/wiki/Tiyamiyu#Yoruba",
-          "entryIds": [
-            "en-Tiyamiyu-yo-name-h8YdwBAs"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "ajáko (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47157,17 +46189,7 @@
             "en-◌́-yo-character-2vhPLnUE"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ṣe",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3e#Yoruba",
-          "entryIds": [
-            "en-ṣe-yo-verb-IXZV9I3e"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "◌́ (character) — no Pronunciation section"
           ]
         },
         {
@@ -47177,7 +46199,7 @@
             "en-agira-yo-noun-2xQU7MNe"
           ],
           "details": [
-            "no Pronunciation section"
+            "agírá (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47187,7 +46209,7 @@
             "en-lanaa-yo-adv-lSPZ--eb"
           ],
           "details": [
-            "no Pronunciation section"
+            "lánàá (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47197,7 +46219,7 @@
             "en-◌̄-yo-character-lX-3oAy6"
           ],
           "details": [
-            "no Pronunciation section"
+            "◌̄ (character) — no Pronunciation section"
           ]
         },
         {
@@ -47207,19 +46229,17 @@
             "en-rii-yo-pron-cP87o~K-"
           ],
           "details": [
-            "no Pronunciation section"
+            "rìí (pron) — no Pronunciation section"
           ]
         },
         {
           "page": "u-",
           "editUrl": "https://en.wiktionary.org/wiki/u-#Yoruba",
           "entryIds": [
-            "en-u--yo-prefix-ndqtcuc5",
-            "en-u--yo-prefix-3p1kUSMO"
+            "en-u--yo-prefix-ndqtcuc5"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "ù- (prefix · etym. 1) — no Pronunciation section"
           ]
         },
         {
@@ -47229,7 +46249,7 @@
             "en-ọkun-yo-noun-JUlNpXs5"
           ],
           "details": [
-            "no Pronunciation section"
+            "ọ̀kùn (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47239,7 +46259,7 @@
             "en-alabasta-yo-noun-oDUYZtTO"
           ],
           "details": [
-            "no Pronunciation section"
+            "alabástà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47249,7 +46269,7 @@
             "en-fitina-yo-verb-nNSFIXGu"
           ],
           "details": [
-            "no Pronunciation section"
+            "fìtínà (verb · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -47259,7 +46279,7 @@
             "en-waya-yo-noun-2WcbUi0G"
           ],
           "details": [
-            "no Pronunciation section"
+            "wáyà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47269,7 +46289,7 @@
             "en--ki--yo-interfix-WeCiBx0W"
           ],
           "details": [
-            "no Pronunciation section"
+            "-kí- (interfix) — no Pronunciation section"
           ]
         },
         {
@@ -47279,7 +46299,7 @@
             "en-◌̌-yo-character-HAa~8lKb"
           ],
           "details": [
-            "no Pronunciation section"
+            "◌̌ (character) — no Pronunciation section"
           ]
         },
         {
@@ -47289,7 +46309,7 @@
             "en-sinu-yo-adv-MStDScHj"
           ],
           "details": [
-            "no Pronunciation section"
+            "sínú (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47299,7 +46319,7 @@
             "en-nita-yo-adv-w1QaLIjL"
           ],
           "details": [
-            "no Pronunciation section"
+            "níta (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47309,7 +46329,7 @@
             "en-sanma-yo-noun-IAK~~hqK"
           ],
           "details": [
-            "no Pronunciation section"
+            "sánmà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47319,7 +46339,7 @@
             "en-buluu-yo-adj-Fkd2iMDg"
           ],
           "details": [
-            "no Pronunciation section"
+            "búlúù (adj) — no Pronunciation section"
           ]
         },
         {
@@ -47329,17 +46349,7 @@
             "en-eti-yo-noun-PGo2tkD8"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "kete",
-          "editUrl": "https://en.wiktionary.org/wiki/kete#Yoruba",
-          "entryIds": [
-            "en-kete-yo-noun-Zw65UGpo"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "etí (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47350,8 +46360,8 @@
             "en-iyan-yo-noun-G8Dp3y8i"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "iyàn (noun · etym. 2) — no Pronunciation section",
+            "ìyàn (noun · etym. 3) — no Pronunciation section"
           ]
         },
         {
@@ -47361,17 +46371,7 @@
             "en-anabi-yo-noun-V8SZGGm5"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "rọ",
-          "editUrl": "https://en.wiktionary.org/wiki/r%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-rọ-yo-verb-IinP9aRt"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "ànábì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47381,7 +46381,7 @@
             "en-ai--yo-prefix-SUo4~tqj"
           ],
           "details": [
-            "no Pronunciation section"
+            "àì- (prefix) — no Pronunciation section"
           ]
         },
         {
@@ -47391,7 +46391,7 @@
             "en-fọ-yo-verb-JbLBqz~N"
           ],
           "details": [
-            "no Pronunciation section"
+            "fọ́ (verb · etym. 4) — no Pronunciation section"
           ]
         },
         {
@@ -47401,17 +46401,7 @@
             "en-alangba-yo-noun-uVy8~gzS"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "erinmi",
-          "editUrl": "https://en.wiktionary.org/wiki/erinmi#Yoruba",
-          "entryIds": [
-            "en-erinmi-yo-noun-2zX7RdHr"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "aláǹgbá (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47421,7 +46411,7 @@
             "en-Irosun-yo-name-VecTt73O"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ìrosùn (name) — no Pronunciation section"
           ]
         },
         {
@@ -47431,7 +46421,7 @@
             "en-Ọṣun-yo-name-6vLqwBxe"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ọ̀ṣun (name · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -47441,7 +46431,7 @@
             "en-Ondo-yo-name-dcEH3KCQ"
           ],
           "details": [
-            "no Pronunciation section"
+            "Òǹdó (name) — no Pronunciation section"
           ]
         },
         {
@@ -47451,7 +46441,7 @@
             "en-danṣiki-yo-noun-trjzgfIH"
           ],
           "details": [
-            "no Pronunciation section"
+            "dàńṣíkí (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47461,7 +46451,7 @@
             "en-kaalẹ-yo-intj-LYoWK1t~"
           ],
           "details": [
-            "no Pronunciation section"
+            "káalẹ́ (intj) — no Pronunciation section"
           ]
         },
         {
@@ -47471,7 +46461,7 @@
             "en-kaasan-yo-intj-yeIlQIeN"
           ],
           "details": [
-            "no Pronunciation section"
+            "káàsán (intj) — no Pronunciation section"
           ]
         },
         {
@@ -47481,7 +46471,7 @@
             "en-lọla-yo-adv-uv0VGob5"
           ],
           "details": [
-            "no Pronunciation section"
+            "lọ́la (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47491,7 +46481,7 @@
             "en-ẹgbọn-yo-noun-TDDlk926"
           ],
           "details": [
-            "no Pronunciation section"
+            "ẹ̀gbọ́n (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47501,7 +46491,7 @@
             "en-ile-iwe-yo-noun-1k3r2ULX"
           ],
           "details": [
-            "no Pronunciation section"
+            "ilé-ìwé (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47511,7 +46501,7 @@
             "en-nwọn-yo-pron-7LeMRXqk"
           ],
           "details": [
-            "no Pronunciation section"
+            "nwọ́n (pron) — no Pronunciation section"
           ]
         },
         {
@@ -47521,7 +46511,7 @@
             "en-eyin-yo-noun-eb4zFyuh"
           ],
           "details": [
-            "no Pronunciation section"
+            "eyín (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47531,7 +46521,7 @@
             "en-Ekiti-yo-name-ZPSkpHIs"
           ],
           "details": [
-            "no Pronunciation section"
+            "Èkìtì (name) — no Pronunciation section"
           ]
         },
         {
@@ -47541,7 +46531,7 @@
             "en-Alamisi-yo-noun-~CZiBi~9"
           ],
           "details": [
-            "no Pronunciation section"
+            "Àlàmísì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47551,7 +46541,7 @@
             "en-afojusun-yo-noun-4LRG817k"
           ],
           "details": [
-            "no Pronunciation section"
+            "àfojúsùn (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47561,7 +46551,7 @@
             "en-eniyan-yo-noun-LzHubUMc"
           ],
           "details": [
-            "no Pronunciation section"
+            "ènìyàn (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47571,7 +46561,7 @@
             "en-mọinmọin-yo-noun-EzI2wQOI"
           ],
           "details": [
-            "no Pronunciation section"
+            "mọ́ínmọ́ín (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47581,7 +46571,7 @@
             "en-dọla-yo-noun-WI0sHR8j"
           ],
           "details": [
-            "no Pronunciation section"
+            "dọ́là (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47591,7 +46581,7 @@
             "en-lonii-yo-adv-4PT3Z6yI"
           ],
           "details": [
-            "no Pronunciation section"
+            "lónìí (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47601,7 +46591,7 @@
             "en-Amẹrika-yo-name-6DbKFMqU"
           ],
           "details": [
-            "no Pronunciation section"
+            "Amẹ́ríkà (name) — no Pronunciation section"
           ]
         },
         {
@@ -47611,7 +46601,7 @@
             "en-Ṣaina-yo-name-ak0eZwwJ"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ṣáínà (name) — no Pronunciation section"
           ]
         },
         {
@@ -47621,7 +46611,7 @@
             "en-orombo-yo-noun-gAXvCMPQ"
           ],
           "details": [
-            "no Pronunciation section"
+            "òrom̀bó (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47631,7 +46621,7 @@
             "en-kọmputa-yo-noun-DZEuWDXh"
           ],
           "details": [
-            "no Pronunciation section"
+            "kọ̀m̀pútà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47641,17 +46631,7 @@
             "en-kọnputa-yo-noun-qpcwIVD8"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ẹja",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9ja#Yoruba",
-          "entryIds": [
-            "en-ẹja-yo-noun-tHSpmicF"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "kọ̀ǹpútà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47661,21 +46641,19 @@
             "en-ẹyẹle-yo-noun-n3n9bNyI"
           ],
           "details": [
-            "no Pronunciation section"
+            "ẹyẹlé (noun) — no Pronunciation section"
           ]
         },
         {
           "page": "ẹtu",
           "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9tu#Yoruba",
           "entryIds": [
-            "en-ẹtu-yo-noun-wf6jMTht",
             "en-ẹtu-yo-noun-h3gSsLz8",
             "en-ẹtu-yo-noun-X~PX2I-v"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "ẹtù (noun · etym. 2) — no Pronunciation section",
+            "ẹ̀tù (noun · etym. 3) — no Pronunciation section"
           ]
         },
         {
@@ -47685,7 +46663,7 @@
             "en-Abiọdun-yo-name-izCE-~Vh"
           ],
           "details": [
-            "no Pronunciation section"
+            "Abíọ́dún (name) — no Pronunciation section"
           ]
         },
         {
@@ -47695,7 +46673,7 @@
             "en-ṣẹkẹṣẹkẹ-yo-noun-m59x4Pb2"
           ],
           "details": [
-            "no Pronunciation section"
+            "ṣẹkẹ́ṣẹkẹ̀ (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47705,7 +46683,7 @@
             "en-orupo-yo-noun-7u7JDP7e"
           ],
           "details": [
-            "no Pronunciation section"
+            "orúpò (noun · etym. 2) — no Pronunciation section"
           ]
         },
         {
@@ -47715,7 +46693,7 @@
             "en-ẹfọnha-yo-noun-WHL2YIJw"
           ],
           "details": [
-            "no Pronunciation section"
+            "ẹfọ́nhà (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47725,7 +46703,7 @@
             "en-epo-yo-noun-5YHhMN4s"
           ],
           "details": [
-            "no Pronunciation section"
+            "èpò (noun · etym. 4) — no Pronunciation section"
           ]
         },
         {
@@ -47735,7 +46713,7 @@
             "en-Kọjọda-yo-name-6rxRIbVn"
           ],
           "details": [
-            "no Pronunciation section"
+            "Kọ́jọ́da (name) — no Pronunciation section"
           ]
         },
         {
@@ -47745,7 +46723,7 @@
             "en-Ṣikago-yo-name-cQK3v8wJ"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ṣìkágò (name) — no Pronunciation section"
           ]
         },
         {
@@ -47756,8 +46734,8 @@
             "en-jomijoke-yo-adj-gzRX6hee"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
+            "jomijòkè (noun) — no Pronunciation section",
+            "jomijòkè (adj) — no Pronunciation section"
           ]
         },
         {
@@ -47767,7 +46745,7 @@
             "en-litireṣọ-yo-noun-rJ-iUD~-"
           ],
           "details": [
-            "no Pronunciation section"
+            "lítíréṣọ̀ (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47777,27 +46755,7 @@
             "en-ile-ikawe-yo-noun-txjxNU9y"
           ],
           "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ọmọge",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dm%E1%BB%8Dge#Yoruba",
-          "entryIds": [
-            "en-ọmọge-yo-noun-Mh06hURe"
-          ],
-          "details": [
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "ọmọba",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dm%E1%BB%8Dba#Yoruba",
-          "entryIds": [
-            "en-ọmọba-yo-noun-T3jPeFbG"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "ilé-ìkàwé (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47807,7 +46765,7 @@
             "en-ajanaku-yo-noun-zQjExDFt"
           ],
           "details": [
-            "no Pronunciation section"
+            "àjànàkú (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47817,7 +46775,7 @@
             "en-oṣupa-yo-noun-nni0PqAO"
           ],
           "details": [
-            "no Pronunciation section"
+            "òṣùpá (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47827,7 +46785,7 @@
             "en-onigbameji-yo-noun-noRMTSKa"
           ],
           "details": [
-            "no Pronunciation section"
+            "onígbáméjì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47837,7 +46795,7 @@
             "en-Keresimesi-yo-noun-oJlI6PYI"
           ],
           "details": [
-            "no Pronunciation section"
+            "Kérésìmesì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47847,7 +46805,7 @@
             "en-takada-yo-noun-OCY1yTJb"
           ],
           "details": [
-            "no Pronunciation section"
+            "tákàdá (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47857,7 +46815,7 @@
             "en-ajilẹ-yo-noun-dvC9FGnP"
           ],
           "details": [
-            "no Pronunciation section"
+            "ajílẹ̀ (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47867,7 +46825,7 @@
             "en-midinmiidin-yo-noun-n-ODxMgM"
           ],
           "details": [
-            "no Pronunciation section"
+            "midinmíìdìn (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47877,7 +46835,7 @@
             "en-Ilẹ_kaaarọ-oojiire-yo-name-XS2j4Dg-"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ilẹ̀ káàárọ̀-oòjíire (name) — no Pronunciation section"
           ]
         },
         {
@@ -47887,7 +46845,7 @@
             "en-Igbomina-yo-name-1zwiXOFh"
           ],
           "details": [
-            "no Pronunciation section"
+            "Ìgbómìnà (name) — no Pronunciation section"
           ]
         },
         {
@@ -47897,7 +46855,7 @@
             "en-apiiri-yo-noun-QtBwIxfC"
           ],
           "details": [
-            "no Pronunciation section"
+            "àpíìrì (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47907,7 +46865,7 @@
             "en-ideegbe-yo-noun-YZDRrVXi"
           ],
           "details": [
-            "no Pronunciation section"
+            "ìdéègbè (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47917,7 +46875,7 @@
             "en-wadowado-yo-noun-i~FA2zTD"
           ],
           "details": [
-            "no Pronunciation section"
+            "wádòwádò (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47927,7 +46885,7 @@
             "en-ẹkọ-yo-noun-t45YdQ1P"
           ],
           "details": [
-            "no Pronunciation section"
+            "ẹ̀kọ́ (noun · etym. 1) — no Pronunciation section"
           ]
         },
         {
@@ -47937,7 +46895,7 @@
             "en-ẹrọ_ayarabiaṣa-yo-noun-sIRyAz9N"
           ],
           "details": [
-            "no Pronunciation section"
+            "ẹ̀rọ ayárabíàṣá (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47947,7 +46905,7 @@
             "en-leṣii-yo-adv-J5O0kYXj"
           ],
           "details": [
-            "no Pronunciation section"
+            "léṣìí (adv) — no Pronunciation section"
           ]
         },
         {
@@ -47957,7 +46915,7 @@
             "en-ọtunla-yo-noun-YqsQ34uZ"
           ],
           "details": [
-            "no Pronunciation section"
+            "ọ̀túnla (noun) — no Pronunciation section"
           ]
         },
         {
@@ -47968,18 +46926,8 @@
             "en-hilahilo-yo-adj-a6JzBcBo"
           ],
           "details": [
-            "no Pronunciation section",
-            "no Pronunciation section"
-          ]
-        },
-        {
-          "page": "pẹja",
-          "editUrl": "https://en.wiktionary.org/wiki/p%E1%BA%B9ja#Yoruba",
-          "entryIds": [
-            "en-pẹja-yo-verb-pC7C3yUI"
-          ],
-          "details": [
-            "no Pronunciation section"
+            "hílàhílò (noun) — no Pronunciation section",
+            "hílàhílò (adj) — no Pronunciation section"
           ]
         },
         {
@@ -47989,35 +46937,161 @@
             "en-njẹ-yo-particle-FdxU0BNX"
           ],
           "details": [
-            "no Pronunciation section"
+            "ǹjẹ́ (particle) — no Pronunciation section"
           ]
-        }
-      ],
-      "pagesOmitted": 222
-    },
-    {
-      "kind": "circular-derivation",
-      "title": "Words that derive from each other in a loop",
-      "severity": "medium",
-      "effort": "mechanical",
-      "target": "pipeline",
-      "why": "A derivation cycle, usually because a derived term is also carried as one of the root's own alternative forms.",
-      "fix": "Check whether the two are genuinely the same word; if so the derived-terms listing is the error.",
-      "count": 1,
-      "pageCount": 1,
-      "pages": [
+        },
         {
-          "page": "ẹdọ",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9d%E1%BB%8D#Yoruba",
+          "page": "ẹkọ ile",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9k%E1%BB%8D%20ile#Yoruba",
           "entryIds": [
-            "en-ẹdọ-yo-noun-SbwMyDuV"
+            "en-ẹkọ_ile-yo-noun-0CBGgYrL"
           ],
           "details": [
-            "derives from itself"
+            "ẹ̀kọ́ ilé (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "ile ẹkọ",
+          "editUrl": "https://en.wiktionary.org/wiki/ile%20%E1%BA%B9k%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-ile_ẹkọ-yo-noun-1k3r2ULX"
+          ],
+          "details": [
+            "ilé ẹ̀kọ́ (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "ọmọ ile iwe",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dm%E1%BB%8D%20ile%20iwe#Yoruba",
+          "entryIds": [
+            "en-ọmọ_ile_iwe-yo-noun-JkyMOBvx"
+          ],
+          "details": [
+            "ọmọ ilé ìwé (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "ile aye",
+          "editUrl": "https://en.wiktionary.org/wiki/ile%20aye#Yoruba",
+          "entryIds": [
+            "en-ile_aye-yo-noun-t8m1zNPj"
+          ],
+          "details": [
+            "ilé ayé (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "ilẹ aye",
+          "editUrl": "https://en.wiktionary.org/wiki/il%E1%BA%B9%20aye#Yoruba",
+          "entryIds": [
+            "en-ilẹ_aye-yo-noun-t8m1zNPj"
+          ],
+          "details": [
+            "ilẹ̀ ayé (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "laraarọ",
+          "editUrl": "https://en.wiktionary.org/wiki/laraar%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-laraarọ-yo-adv-Jn604ahw"
+          ],
+          "details": [
+            "láràárọ̀ (adv) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "owo oṣu",
+          "editUrl": "https://en.wiktionary.org/wiki/owo%20o%E1%B9%A3u#Yoruba",
+          "entryIds": [
+            "en-owo_oṣu-yo-noun-Y4TkPAKx"
+          ],
+          "details": [
+            "owó oṣù (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "owo ori",
+          "editUrl": "https://en.wiktionary.org/wiki/owo%20ori#Yoruba",
+          "entryIds": [
+            "en-owo_ori-yo-noun-H~wEBrmJ"
+          ],
+          "details": [
+            "owó orí (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "lọtun-un-la",
+          "editUrl": "https://en.wiktionary.org/wiki/l%E1%BB%8Dtun-un-la#Yoruba",
+          "entryIds": [
+            "en-lọtun-un-la-yo-adv-LP5ilZTT"
+          ],
+          "details": [
+            "lọ́tùn-ún-la (adv) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "lojoojumọ",
+          "editUrl": "https://en.wiktionary.org/wiki/lojoojum%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-lojoojumọ-yo-adv-7Sj2yuD6"
+          ],
+          "details": [
+            "lójoojúmọ́ (adv) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "kakulọọsi",
+          "editUrl": "https://en.wiktionary.org/wiki/kakul%E1%BB%8D%E1%BB%8Dsi#Yoruba",
+          "entryIds": [
+            "en-kakulọọsi-yo-noun-TjIU5afg"
+          ],
+          "details": [
+            "kákúlọ́ọ̀sì (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "kuuṣẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/kuu%E1%B9%A3%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-kuuṣẹ-yo-intj-cagWv-jg"
+          ],
+          "details": [
+            "kúuṣẹ́ (intj) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "panapana",
+          "editUrl": "https://en.wiktionary.org/wiki/panapana#Yoruba",
+          "entryIds": [
+            "en-panapana-yo-noun-P9hAbGCJ"
+          ],
+          "details": [
+            "panápaná (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "gbọmọgbọmọ",
+          "editUrl": "https://en.wiktionary.org/wiki/gb%E1%BB%8Dm%E1%BB%8Dgb%E1%BB%8Dm%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-gbọmọgbọmọ-yo-noun-jkYSTG0c"
+          ],
+          "details": [
+            "gbọ́mọgbọ́mọ (noun) — no Pronunciation section"
+          ]
+        },
+        {
+          "page": "majele",
+          "editUrl": "https://en.wiktionary.org/wiki/majele#Yoruba",
+          "entryIds": [
+            "en-majele-yo-noun-V0Or3d36"
+          ],
+          "details": [
+            "májèlé (noun) — no Pronunciation section"
           ]
         }
       ],
-      "pagesOmitted": 0
+      "pagesOmitted": 74
     },
     {
       "kind": "reference-missing-entry",
@@ -48025,9 +47099,10 @@
       "severity": "medium",
       "effort": "expertise",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "The listed page names a related or derived word that has no Yoruba entry of its own, so the link goes nowhere. This is the dictionary's largest real content gap.",
       "fix": "Create the referenced word as a Yoruba entry on Wiktionary, with at least a definition and a headword template carrying its tone marks.",
-      "count": 3505,
+      "count": 3448,
       "pageCount": 1514,
       "pages": [
         {
@@ -48274,9 +47349,7 @@
           "details": [
             "sense synonyms “màámi”",
             "sense synonyms “ìmọ́ọ̀”",
-            "derivedTerms “èyeèye”",
-            "sense synonyms “màámi”",
-            "sense synonyms “ìmọ́ọ̀”"
+            "derivedTerms “èyeèye”"
           ]
         },
         {
@@ -48309,12 +47382,10 @@
           "details": [
             "derivedTerms “rírè”",
             "sense derivedTerms “relé”",
-            "derivedTerms “rírè”",
-            "derivedTerms “rírè”",
             "sense derivedTerms “remú”",
-            "derivedTerms “rírè”",
             "derivedTerms “ríré”",
-            "sense derivedTerms “réhán”"
+            "sense derivedTerms “réhán”",
+            "sense derivedTerms “réwọ́”"
           ]
         },
         {
@@ -48454,12 +47525,12 @@
           "details": [
             "derivedTerms “ìdu”",
             "sense derivedTerms “ìjàdù”",
-            "derivedTerms “ìdu”",
             "sense synonyms “dújẹ̀”",
             "sense synonyms “ṣẹ̀jẹ̀”",
             "sense derivedTerms “ìdú”",
             "sense derivedTerms “Adú”",
-            "sense derivedTerms “adú”"
+            "sense derivedTerms “adú”",
+            "sense derivedTerms “igbódú”"
           ]
         },
         {
@@ -48537,11 +47608,11 @@
             "sense synonyms “hàà”",
             "derivedTerms “ìha”",
             "sense derivedTerms “fiha”",
-            "derivedTerms “ìha”",
             "derivedTerms “ìhá”",
             "derivedTerms “háfún”",
             "derivedTerms “hámọ́”",
-            "derivedTerms “hágágá”"
+            "derivedTerms “hágágá”",
+            "derivedTerms “hágádígádí”"
           ]
         },
         {
@@ -49097,7 +48168,6 @@
             "sense derivedTerms “ṣàmúlò”",
             "derivedTerms “ìlò”",
             "sense derivedTerms “lo-èlùbọ́”",
-            "derivedTerms “ìlò”",
             "sense synonyms “sú”",
             "sense derivedTerms “ìló”"
           ]
@@ -49135,7 +48205,6 @@
           "details": [
             "derivedTerms “ìdín”",
             "sense derivedTerms “díndín”",
-            "derivedTerms “ìdín”",
             "derivedTerms “dínsí”"
           ]
         },
@@ -49345,8 +48414,7 @@
           "details": [
             "derivedTerms “oníbodè”",
             "sense synonyms “ibodè”",
-            "sense synonyms “àbáwọlé”",
-            "sense synonyms “ibodè”"
+            "sense synonyms “àbáwọlé”"
           ]
         },
         {
@@ -49362,7 +48430,6 @@
             "sense derivedTerms “jadùn”",
             "sense derivedTerms “kúndùn”",
             "sense derivedTerms “ìdùnnú”",
-            "derivedTerms “ìdùn”",
             "sense derivedTerms “ìdún”"
           ]
         },
@@ -49693,41 +48760,12 @@
       "severity": "low",
       "effort": "expertise",
       "target": "wiktionary",
-      "why": "No headword template gave a tone-marked spelling, so we fall back to the page title, which is usually untoned. This does not mean the spelling shown is wrong — often there is simply nothing for Wiktionary to choose between — but the tones are unverified, and deciding them needs someone who knows the word.",
-      "fix": "Add a headword template carrying the tone marks (e.g. {{yo-verb|gbá}}) to the listed page.",
-      "count": 775,
-      "pageCount": 664,
+      "confidence": "certain",
+      "why": "A headword template is the line on a Wiktionary entry that states the properly spelled form, tone marks and all. These entries have none, so the spelling shown here is the page title, which is usually written without tones. That does not make it wrong - often there is nothing to choose between - but nobody has confirmed it, and confirming it needs somebody who knows the word. Single letters of the alphabet are left out: there are no tones on them to confirm.",
+      "fix": "Add a headword template carrying the tone marks (for example {{yo-verb|gbá}}) to the listed page.",
+      "count": 636,
+      "pageCount": 540,
       "pages": [
-        {
-          "page": "A",
-          "editUrl": "https://en.wiktionary.org/wiki/A#Yoruba",
-          "entryIds": [
-            "en-A-yo-character-9n~aNY1j"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "f",
-          "editUrl": "https://en.wiktionary.org/wiki/f#Yoruba",
-          "entryIds": [
-            "en-f-yo-character-GcbgjaJg"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "y",
-          "editUrl": "https://en.wiktionary.org/wiki/y#Yoruba",
-          "entryIds": [
-            "en-y-yo-character-5uZs2vHV"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
         {
           "page": "in",
           "editUrl": "https://en.wiktionary.org/wiki/in#Yoruba",
@@ -49735,35 +48773,7 @@
             "en-in-yo-pron-f-JIt~vv"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "o",
-          "editUrl": "https://en.wiktionary.org/wiki/o#Yoruba",
-          "entryIds": [
-            "en-o-yo-character-DH~zt4JU",
-            "en-o-yo-pron-KH9Ufvsu",
-            "en-o-yo-pron-Wy4G4WxL",
-            "en-o-yo-intj-2EJR6o9U"
-          ],
-          "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "i",
-          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
-          "entryIds": [
-            "en-i-yo-character-CPhLBG1q",
-            "en-i-yo-pron-9deM-3Vx"
-          ],
-          "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "in (pron · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49775,9 +48785,9 @@
             "en-sun-yo-verb-yo:to_cry"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "sun (verb · etym. 2) — headword template gives no toned spelling",
+            "sun (verb · etym. 3) — headword template gives no toned spelling",
+            "sun (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49791,11 +48801,11 @@
             "en-mi-yo-pron-h-6a74t3"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "mi (pron · etym. 2) — headword template gives no toned spelling",
+            "mi (det · etym. 2) — headword template gives no toned spelling",
+            "mi (verb · etym. 4) — headword template gives no toned spelling",
+            "mi (verb · etym. 5) — headword template gives no toned spelling",
+            "mi (pron · etym. 7) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49805,7 +48815,7 @@
             "en-ao-yo-noun-kTSBn1MX"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ao (noun · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49815,7 +48825,7 @@
             "en-an-yo-pron-TR2sK9Ig"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "an (pron) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49826,8 +48836,8 @@
             "en-pupa-yo-verb-ewzJsmrq"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "pupa (noun) — headword template gives no toned spelling",
+            "pupa (verb) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49837,7 +48847,7 @@
             "en-tin-yo-verb-8AohcXhY"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "tin (verb) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49847,7 +48857,7 @@
             "en-gun-yo-verb--sna-0j2"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "gun (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49857,7 +48867,7 @@
             "en-he-yo-verb-3aYb8I4M"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "he (verb · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49867,7 +48877,7 @@
             "en-uwe-yo-noun-IJPOBgdF"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "uwe (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49877,7 +48887,7 @@
             "en-re-yo-noun-bwEmdDj5"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "re (noun · etym. 11) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49887,7 +48897,7 @@
             "en-dodo-yo-noun-uerhPiNM"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "dodo (noun · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49897,7 +48907,7 @@
             "en-pin-yo-verb-MPBtsaU6"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "pin (verb · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49907,7 +48917,7 @@
             "en-go-yo-verb-lfyLYT4c"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "go (verb · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49918,8 +48928,8 @@
             "en-sin-yo-verb-P2Fmyh4b"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "sin (verb · etym. 7) — headword template gives no toned spelling",
+            "sin (verb · etym. 8) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49930,8 +48940,8 @@
             "en-run-yo-verb-k9vmcPO9"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "run (verb · etym. 4) — headword template gives no toned spelling",
+            "run (verb · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49944,10 +48954,10 @@
             "en-bi-yo-verb-~4YEG~Dq"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "bi (verb · etym. 9) — headword template gives no toned spelling",
+            "bi (verb · etym. 10) — headword template gives no toned spelling",
+            "bi (verb · etym. 11) — headword template gives no toned spelling",
+            "bi (verb · etym. 12) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49957,19 +48967,7 @@
             "en-du-yo-verb-kQY-v9oj"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "e",
-          "editUrl": "https://en.wiktionary.org/wiki/e#Yoruba",
-          "entryIds": [
-            "en-e-yo-character-PxkhD1Fm",
-            "en-e-yo-pron-Fwn-UO0B"
-          ],
-          "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "du (verb · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49979,7 +48977,7 @@
             "en-san-yo-verb-E7of3YFU"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "san (verb · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -49990,160 +48988,8 @@
             "en-rin-yo-verb-KhL~drUK"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "b",
-          "editUrl": "https://en.wiktionary.org/wiki/b#Yoruba",
-          "entryIds": [
-            "en-b-yo-character-cW0~V1lX"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "d",
-          "editUrl": "https://en.wiktionary.org/wiki/d#Yoruba",
-          "entryIds": [
-            "en-d-yo-character-7blxeZhB"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "g",
-          "editUrl": "https://en.wiktionary.org/wiki/g#Yoruba",
-          "entryIds": [
-            "en-g-yo-character-EikjS7IX"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "h",
-          "editUrl": "https://en.wiktionary.org/wiki/h#Yoruba",
-          "entryIds": [
-            "en-h-yo-character-tx8uq123"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "j",
-          "editUrl": "https://en.wiktionary.org/wiki/j#Yoruba",
-          "entryIds": [
-            "en-j-yo-character-ROrzY4J-"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "k",
-          "editUrl": "https://en.wiktionary.org/wiki/k#Yoruba",
-          "entryIds": [
-            "en-k-yo-character-RW-F~PZT"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "l",
-          "editUrl": "https://en.wiktionary.org/wiki/l#Yoruba",
-          "entryIds": [
-            "en-l-yo-character-SZybyxHS"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "m",
-          "editUrl": "https://en.wiktionary.org/wiki/m#Yoruba",
-          "entryIds": [
-            "en-m-yo-character-fODVeyzD"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "n",
-          "editUrl": "https://en.wiktionary.org/wiki/n#Yoruba",
-          "entryIds": [
-            "en-n-yo-character-wYhmiKlz"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "p",
-          "editUrl": "https://en.wiktionary.org/wiki/p#Yoruba",
-          "entryIds": [
-            "en-p-yo-character-t7CbtxXx"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "r",
-          "editUrl": "https://en.wiktionary.org/wiki/r#Yoruba",
-          "entryIds": [
-            "en-r-yo-character-J9IAFMEj"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "s",
-          "editUrl": "https://en.wiktionary.org/wiki/s#Yoruba",
-          "entryIds": [
-            "en-s-yo-character-Rnve89sP"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "t",
-          "editUrl": "https://en.wiktionary.org/wiki/t#Yoruba",
-          "entryIds": [
-            "en-t-yo-character-FA0t69vH"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "u",
-          "editUrl": "https://en.wiktionary.org/wiki/u#Yoruba",
-          "entryIds": [
-            "en-u-yo-character-ZlYVbvdW",
-            "en-u-yo-pron-nmFijwJc"
-          ],
-          "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "w",
-          "editUrl": "https://en.wiktionary.org/wiki/w#Yoruba",
-          "entryIds": [
-            "en-w-yo-character-i-k8BAUg"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "rin (verb · etym. 2) — headword template gives no toned spelling",
+            "rin (verb · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50153,7 +48999,7 @@
             "en-ore-yo-noun-eJqE6U32"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ore (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50163,7 +49009,7 @@
             "en-han-yo-verb-0QEP1Ces"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "han (verb · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50173,17 +49019,7 @@
             "en-hun-yo-verb-JaKgizuj"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "GB",
-          "editUrl": "https://en.wiktionary.org/wiki/GB#Yoruba",
-          "entryIds": [
-            "en-GB-yo-character-KZoWFbHu"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "hun (verb · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50194,8 +49030,8 @@
             "en-ha-yo-verb-zOiRm7RC"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ha (verb · etym. 2) — headword template gives no toned spelling",
+            "ha (verb · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50206,8 +49042,8 @@
             "en-ni-yo-verb-ym4H-0vB"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ni (verb · etym. 5) — headword template gives no toned spelling",
+            "ni (verb · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50217,7 +49053,7 @@
             "en-un-yo-pron-nCFowsQX"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "un (pron) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50236,14 +49072,14 @@
             "en-ta-yo-verb-eY8Kff4H"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ta (verb · etym. 2) — headword template gives no toned spelling",
+            "ta (verb · etym. 3) — headword template gives no toned spelling",
+            "ta (verb · etym. 4) — headword template gives no toned spelling",
+            "ta (verb · etym. 5) — headword template gives no toned spelling",
+            "ta (verb · etym. 6) — headword template gives no toned spelling",
+            "ta (pron · etym. 7) — headword template gives no toned spelling",
+            "ta (verb · etym. 8) — headword template gives no toned spelling",
+            "ta (verb · etym. 9) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50253,7 +49089,7 @@
             "en-mu-yo-verb-5i9kA2DY"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "mu (verb · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50264,8 +49100,8 @@
             "en-ti-yo-verb-VI-ivo10"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ti (particle · etym. 3) — headword template gives no toned spelling",
+            "ti (verb · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50275,7 +49111,7 @@
             "en-ga-yo-verb-lfyLYT4c"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ga (verb · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50286,8 +49122,8 @@
             "en-ra-yo-particle-WgAh9Ibp"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ra (det · etym. 1) — headword template gives no toned spelling",
+            "ra (particle · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50302,12 +49138,12 @@
             "en-pa-yo-verb-2GS~Ghf-"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "pa (verb · etym. 1) — headword template gives no toned spelling",
+            "pa (verb · etym. 2) — headword template gives no toned spelling",
+            "pa (verb · etym. 3) — headword template gives no toned spelling",
+            "pa (verb · etym. 4) — headword template gives no toned spelling",
+            "pa (verb · etym. 5) — headword template gives no toned spelling",
+            "pa (verb · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50317,7 +49153,7 @@
             "en-pu-yo-verb-VZqrQpuj"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "pu (verb) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50327,7 +49163,7 @@
             "en-baba-yo-noun-iKGIHwAl"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "baba (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50337,7 +49173,7 @@
             "en-yi-yo-verb-sqA65Y5P"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "yi (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50349,9 +49185,9 @@
             "en-odi-yo-noun-B-lvOoUF"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "odi (noun · etym. 5) — headword template gives no toned spelling",
+            "odi (noun · etym. 6) — headword template gives no toned spelling",
+            "odi (noun · etym. 7) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50361,7 +49197,7 @@
             "en-akin-yo-noun-mTPEW80Z"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "akin (noun) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50371,7 +49207,7 @@
             "en-dan-yo-verb-6qb2UgjB"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "dan (verb · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50383,9 +49219,9 @@
             "en-ibi-yo-noun-NifLMxYK"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ibi (noun · etym. 6) — headword template gives no toned spelling",
+            "ibi (noun · etym. 7) — headword template gives no toned spelling",
+            "ibi (noun · etym. 8) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50396,18 +49232,8 @@
             "en-di-yo-verb-UZXa~C2e"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "و",
-          "editUrl": "https://en.wiktionary.org/wiki/%D9%88#Yoruba",
-          "entryIds": [
-            "en-و-yo-character-uCO7gZyz"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "di (verb · etym. 3) — headword template gives no toned spelling",
+            "di (verb · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50417,7 +49243,7 @@
             "en-ng-yo-pron-6kRzHeGk"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ng (pron) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50428,8 +49254,8 @@
             "en-odo-yo-noun-60X5tlAh"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "odo (noun · etym. 5) — headword template gives no toned spelling",
+            "odo (noun · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50440,8 +49266,8 @@
             "en-ire-yo-noun-VLWaaIqZ"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ire (noun · etym. 1) — headword template gives no toned spelling",
+            "ire (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50451,7 +49277,7 @@
             "en-abo-yo-noun-90zpgC05"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "abo (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50461,7 +49287,7 @@
             "en-ko-yo-conj-jn~AI2r0"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ko (conj · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50473,9 +49299,9 @@
             "en-le-yo-verb-duxV6GiF"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "le (verb · etym. 2) — headword template gives no toned spelling",
+            "le (verb · etym. 3) — headword template gives no toned spelling",
+            "le (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50485,7 +49311,7 @@
             "en-tata-yo-noun-t~IkGarP"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "tata (noun) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50495,7 +49321,7 @@
             "en-ojo-yo-noun-oZPSyZ-5"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ojo (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50505,7 +49331,7 @@
             "en-oko-yo-noun-OIAV69nB"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "oko (noun · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50515,7 +49341,7 @@
             "en-ita-yo-noun-LVxo~V8w"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ita (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50528,10 +49354,10 @@
             "en-erin-yo-noun-Z7XVb07G"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "erin (noun · etym. 1) — headword template gives no toned spelling",
+            "erin (noun · etym. 2) — headword template gives no toned spelling",
+            "erin (noun · etym. 3) — headword template gives no toned spelling",
+            "erin (noun · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50541,17 +49367,7 @@
             "en-oi-yo-noun-OqHkq4Vo"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "ر",
-          "editUrl": "https://en.wiktionary.org/wiki/%D8%B1#Yoruba",
-          "entryIds": [
-            "en-ر-yo-character-n-ZTvKqX"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "oi (noun) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50561,7 +49377,7 @@
             "en-wi-yo-verb-ufz0des5"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "wi (verb · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50572,8 +49388,8 @@
             "en-ki-yo-verb-TxwfPHdj"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ki (verb · etym. 5) — headword template gives no toned spelling",
+            "ki (verb · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50583,7 +49399,7 @@
             "en-fi-yo-verb-2RAQPRcf"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "fi (verb · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50593,17 +49409,7 @@
             "en-gin-yo-verb-zfdmCjub"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "◌̀",
-          "editUrl": "https://en.wiktionary.org/wiki/%E2%97%8C%CC%80#Yoruba",
-          "entryIds": [
-            "en-◌̀-yo-character-Ya74nJMS"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "gin (verb) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50614,8 +49420,8 @@
             "en-ya-yo-verb-8lmfGNle"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ya (verb · etym. 3) — headword template gives no toned spelling",
+            "ya (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50625,7 +49431,7 @@
             "en-ri-yo-verb-cqRa235Q"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ri (verb · etym. 4) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50635,27 +49441,7 @@
             "en-oro-yo-noun-oGXnseMC"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "ب",
-          "editUrl": "https://en.wiktionary.org/wiki/%D8%A8#Yoruba",
-          "entryIds": [
-            "en-ب-yo-character-LAwm7G7j"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "ا",
-          "editUrl": "https://en.wiktionary.org/wiki/%D8%A7#Yoruba",
-          "entryIds": [
-            "en-ا-yo-character-mXwVh9Eb"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "oro (noun · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50665,7 +49451,7 @@
             "en-wo-yo-det-1ewFw-7t"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "wo (det · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50676,8 +49462,8 @@
             "en-ro-yo-verb-dxGU7xNX"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
+            "ro (verb · etym. 3) — headword template gives no toned spelling",
+            "ro (verb · etym. 6) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50687,17 +49473,7 @@
             "en-bora-yo-verb-jaUwhPND"
           ],
           "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "ت",
-          "editUrl": "https://en.wiktionary.org/wiki/%D8%AA#Yoruba",
-          "entryIds": [
-            "en-ت-yo-character-vxPnQUol"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "bora (verb · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50707,7 +49483,7 @@
             "en-kan-yo-adj-dpLDrTVA"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "kan (adj · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50717,7 +49493,7 @@
             "en-fu-yo-verb-VHk0ioh0"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "fu (verb) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50728,208 +49504,8 @@
             "en-agbe-yo-noun-XSFJIIee"
           ],
           "details": [
-            "headword template gives no toned spelling",
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "B",
-          "editUrl": "https://en.wiktionary.org/wiki/B#Yoruba",
-          "entryIds": [
-            "en-B-yo-character-cW0~V1lX"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "D",
-          "editUrl": "https://en.wiktionary.org/wiki/D#Yoruba",
-          "entryIds": [
-            "en-D-yo-character-7blxeZhB"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "E",
-          "editUrl": "https://en.wiktionary.org/wiki/E#Yoruba",
-          "entryIds": [
-            "en-E-yo-character-PxkhD1Fm"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "F",
-          "editUrl": "https://en.wiktionary.org/wiki/F#Yoruba",
-          "entryIds": [
-            "en-F-yo-character-GcbgjaJg"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "G",
-          "editUrl": "https://en.wiktionary.org/wiki/G#Yoruba",
-          "entryIds": [
-            "en-G-yo-character-EikjS7IX"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "H",
-          "editUrl": "https://en.wiktionary.org/wiki/H#Yoruba",
-          "entryIds": [
-            "en-H-yo-character-tx8uq123"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "I",
-          "editUrl": "https://en.wiktionary.org/wiki/I#Yoruba",
-          "entryIds": [
-            "en-I-yo-character-CPhLBG1q"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "J",
-          "editUrl": "https://en.wiktionary.org/wiki/J#Yoruba",
-          "entryIds": [
-            "en-J-yo-character-ROrzY4J-"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "K",
-          "editUrl": "https://en.wiktionary.org/wiki/K#Yoruba",
-          "entryIds": [
-            "en-K-yo-character-RW-F~PZT"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "L",
-          "editUrl": "https://en.wiktionary.org/wiki/L#Yoruba",
-          "entryIds": [
-            "en-L-yo-character-SZybyxHS"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "M",
-          "editUrl": "https://en.wiktionary.org/wiki/M#Yoruba",
-          "entryIds": [
-            "en-M-yo-character-fODVeyzD"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "N",
-          "editUrl": "https://en.wiktionary.org/wiki/N#Yoruba",
-          "entryIds": [
-            "en-N-yo-character-wYhmiKlz"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "O",
-          "editUrl": "https://en.wiktionary.org/wiki/O#Yoruba",
-          "entryIds": [
-            "en-O-yo-character-DH~zt4JU"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "P",
-          "editUrl": "https://en.wiktionary.org/wiki/P#Yoruba",
-          "entryIds": [
-            "en-P-yo-character-t7CbtxXx"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "R",
-          "editUrl": "https://en.wiktionary.org/wiki/R#Yoruba",
-          "entryIds": [
-            "en-R-yo-character-J9IAFMEj"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "S",
-          "editUrl": "https://en.wiktionary.org/wiki/S#Yoruba",
-          "entryIds": [
-            "en-S-yo-character-Rnve89sP"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "T",
-          "editUrl": "https://en.wiktionary.org/wiki/T#Yoruba",
-          "entryIds": [
-            "en-T-yo-character-FA0t69vH"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "U",
-          "editUrl": "https://en.wiktionary.org/wiki/U#Yoruba",
-          "entryIds": [
-            "en-U-yo-character-ZlYVbvdW"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "W",
-          "editUrl": "https://en.wiktionary.org/wiki/W#Yoruba",
-          "entryIds": [
-            "en-W-yo-character-i-k8BAUg"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
-          ]
-        },
-        {
-          "page": "Y",
-          "editUrl": "https://en.wiktionary.org/wiki/Y#Yoruba",
-          "entryIds": [
-            "en-Y-yo-character-5uZs2vHV"
-          ],
-          "details": [
-            "headword template gives no toned spelling"
+            "agbe (noun · etym. 1) — headword template gives no toned spelling",
+            "agbe (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50939,7 +49515,7 @@
             "en-mo-yo-pron-D7Ok9CkU"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "mo (pron) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50949,7 +49525,7 @@
             "en-oye-yo-noun-xyJeGQb9"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "oye (noun · etym. 3) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50959,7 +49535,7 @@
             "en-ria-yo-pron-y5bIz2RD"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ria (pron) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50969,7 +49545,7 @@
             "en-ori-yo-noun-dkAZMXZ8"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ori (noun · etym. 5) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50979,7 +49555,7 @@
             "en-etu-yo-noun-UM5NkrMC"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "etu (noun · etym. 2) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50989,7 +49565,7 @@
             "en-ara-yo-noun-Iw2DWNyO"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "ara (noun · etym. 1) — headword template gives no toned spelling"
           ]
         },
         {
@@ -50999,11 +49575,1368 @@
             "en-aro-yo-noun-oX82Fjdb"
           ],
           "details": [
-            "headword template gives no toned spelling"
+            "aro (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "gan",
+          "editUrl": "https://en.wiktionary.org/wiki/gan#Yoruba",
+          "entryIds": [
+            "en-gan-yo-verb-2mj8308z"
+          ],
+          "details": [
+            "gan (verb · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "pako",
+          "editUrl": "https://en.wiktionary.org/wiki/pako#Yoruba",
+          "entryIds": [
+            "en-pako-yo-verb-3tp9dc9R"
+          ],
+          "details": [
+            "pako (verb · etym. 3) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "horo",
+          "editUrl": "https://en.wiktionary.org/wiki/horo#Yoruba",
+          "entryIds": [
+            "en-horo-yo-noun-CA8TE8rI",
+            "en-horo-yo-noun-T36ZAZX7"
+          ],
+          "details": [
+            "horo (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "igi",
+          "editUrl": "https://en.wiktionary.org/wiki/igi#Yoruba",
+          "entryIds": [
+            "en-igi-yo-noun-3Jxe24st"
+          ],
+          "details": [
+            "igi (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "isu",
+          "editUrl": "https://en.wiktionary.org/wiki/isu#Yoruba",
+          "entryIds": [
+            "en-isu-yo-noun-v1Tck6qq"
+          ],
+          "details": [
+            "isu (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "tiro",
+          "editUrl": "https://en.wiktionary.org/wiki/tiro#Yoruba",
+          "entryIds": [
+            "en-tiro-yo-verb-2tsSJJnb"
+          ],
+          "details": [
+            "tiro (verb) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "iro",
+          "editUrl": "https://en.wiktionary.org/wiki/iro#Yoruba",
+          "entryIds": [
+            "en-iro-yo-noun-Xnq4p05P"
+          ],
+          "details": [
+            "iro (noun · etym. 6) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "uta",
+          "editUrl": "https://en.wiktionary.org/wiki/uta#Yoruba",
+          "entryIds": [
+            "en-uta-yo-noun-LVxo~V8w"
+          ],
+          "details": [
+            "uta (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ata",
+          "editUrl": "https://en.wiktionary.org/wiki/ata#Yoruba",
+          "entryIds": [
+            "en-ata-yo-noun-gcFVhaaq"
+          ],
+          "details": [
+            "ata (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ike",
+          "editUrl": "https://en.wiktionary.org/wiki/ike#Yoruba",
+          "entryIds": [
+            "en-ike-yo-noun-xnnaCeNT",
+            "en-ike-yo-noun-AaIfd1uy"
+          ],
+          "details": [
+            "ike (noun · etym. 1) — headword template gives no toned spelling",
+            "ike (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ji",
+          "editUrl": "https://en.wiktionary.org/wiki/ji#Yoruba",
+          "entryIds": [
+            "en-ji-yo-verb-maVhv93d"
+          ],
+          "details": [
+            "ji (verb · etym. 3) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "wa",
+          "editUrl": "https://en.wiktionary.org/wiki/wa#Yoruba",
+          "entryIds": [
+            "en-wa-yo-det-IobTpipN"
+          ],
+          "details": [
+            "wa (det · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "fura",
+          "editUrl": "https://en.wiktionary.org/wiki/fura#Yoruba",
+          "entryIds": [
+            "en-fura-yo-verb-hzYRg~Ho"
+          ],
+          "details": [
+            "fura (verb · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "i-",
+          "editUrl": "https://en.wiktionary.org/wiki/i-#Yoruba",
+          "entryIds": [
+            "en-i--yo-prefix-3p1kUSMO"
+          ],
+          "details": [
+            "i- (prefix · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ogu",
+          "editUrl": "https://en.wiktionary.org/wiki/ogu#Yoruba",
+          "entryIds": [
+            "en-ogu-yo-noun-otjapCgb"
+          ],
+          "details": [
+            "ogu (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "oti",
+          "editUrl": "https://en.wiktionary.org/wiki/oti#Yoruba",
+          "entryIds": [
+            "en-oti-yo-noun-KeG-dlSk"
+          ],
+          "details": [
+            "oti (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "dani",
+          "editUrl": "https://en.wiktionary.org/wiki/dani#Yoruba",
+          "entryIds": [
+            "en-dani-yo-verb-LP9A8~wn"
+          ],
+          "details": [
+            "dani (verb · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "irin",
+          "editUrl": "https://en.wiktionary.org/wiki/irin#Yoruba",
+          "entryIds": [
+            "en-irin-yo-noun-mNh~O4RZ"
+          ],
+          "details": [
+            "irin (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "tete",
+          "editUrl": "https://en.wiktionary.org/wiki/tete#Yoruba",
+          "entryIds": [
+            "en-tete-yo-noun-QcwkVpNb",
+            "en-tete-yo-noun-WdZsIp3B"
+          ],
+          "details": [
+            "tete (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "raye",
+          "editUrl": "https://en.wiktionary.org/wiki/raye#Yoruba",
+          "entryIds": [
+            "en-raye-yo-verb-w-PP-Ptg"
+          ],
+          "details": [
+            "raye (verb · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "emi",
+          "editUrl": "https://en.wiktionary.org/wiki/emi#Yoruba",
+          "entryIds": [
+            "en-emi-yo-pron-dJqywNBs"
+          ],
+          "details": [
+            "emi (pron · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "wu",
+          "editUrl": "https://en.wiktionary.org/wiki/wu#Yoruba",
+          "entryIds": [
+            "en-wu-yo-verb-UY803YQ4"
+          ],
+          "details": [
+            "wu (verb · etym. 4) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "aio",
+          "editUrl": "https://en.wiktionary.org/wiki/aio#Yoruba",
+          "entryIds": [
+            "en-aio-yo-noun-71jvPB4y"
+          ],
+          "details": [
+            "aio (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "orin",
+          "editUrl": "https://en.wiktionary.org/wiki/orin#Yoruba",
+          "entryIds": [
+            "en-orin-yo-noun-Y~dciQsF"
+          ],
+          "details": [
+            "orin (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "omi",
+          "editUrl": "https://en.wiktionary.org/wiki/omi#Yoruba",
+          "entryIds": [
+            "en-omi-yo-noun-D0FoSQ44"
+          ],
+          "details": [
+            "omi (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "dede",
+          "editUrl": "https://en.wiktionary.org/wiki/dede#Yoruba",
+          "entryIds": [
+            "en-dede-yo-noun-Ybzh2Sqn"
+          ],
+          "details": [
+            "dede (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "Tiyamiyu",
+          "editUrl": "https://en.wiktionary.org/wiki/Tiyamiyu#Yoruba",
+          "entryIds": [
+            "en-Tiyamiyu-yo-name-h8YdwBAs"
+          ],
+          "details": [
+            "Tiyamiyu (name) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ṣe",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3e#Yoruba",
+          "entryIds": [
+            "en-ṣe-yo-verb-IXZV9I3e",
+            "en-ṣe-yo-verb-EjIlT~ld"
+          ],
+          "details": [
+            "ṣe (verb · etym. 2) — headword template gives no toned spelling",
+            "ṣe (verb · etym. 3) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "osun",
+          "editUrl": "https://en.wiktionary.org/wiki/osun#Yoruba",
+          "entryIds": [
+            "en-osun-yo-noun-FuyvW6Lv"
+          ],
+          "details": [
+            "osun (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "iba",
+          "editUrl": "https://en.wiktionary.org/wiki/iba#Yoruba",
+          "entryIds": [
+            "en-iba-yo-noun-iKGIHwAl"
+          ],
+          "details": [
+            "iba (noun · etym. 7) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "oje",
+          "editUrl": "https://en.wiktionary.org/wiki/oje#Yoruba",
+          "entryIds": [
+            "en-oje-yo-noun-u1FAKByC"
+          ],
+          "details": [
+            "oje (noun · etym. 3) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "palaka",
+          "editUrl": "https://en.wiktionary.org/wiki/palaka#Yoruba",
+          "entryIds": [
+            "en-palaka-yo-noun-vHDxwDEu"
+          ],
+          "details": [
+            "palaka (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "u-",
+          "editUrl": "https://en.wiktionary.org/wiki/u-#Yoruba",
+          "entryIds": [
+            "en-u--yo-prefix-3p1kUSMO"
+          ],
+          "details": [
+            "u- (prefix · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "jẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-jẹ-yo-verb-SyGD8zoG"
+          ],
+          "details": [
+            "jẹ (verb · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ọta",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dta#Yoruba",
+          "entryIds": [
+            "en-ọta-yo-noun-7RLrIAAP"
+          ],
+          "details": [
+            "ọta (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ọrun",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Drun#Yoruba",
+          "entryIds": [
+            "en-ọrun-yo-noun-wXev~f9k"
+          ],
+          "details": [
+            "ọrun (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "titun",
+          "editUrl": "https://en.wiktionary.org/wiki/titun#Yoruba",
+          "entryIds": [
+            "en-titun-yo-verb-q8WC9JdR",
+            "en-titun-yo-adj-DRmCF7Mj",
+            "en-titun-yo-adv-dlRK5uZR"
+          ],
+          "details": [
+            "titun (verb) — headword template gives no toned spelling",
+            "titun (adj) — headword template gives no toned spelling",
+            "titun (adv) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ọdẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dd%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ọdẹ-yo-noun-6aY6TrFX"
+          ],
+          "details": [
+            "ọdẹ (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "oyin",
+          "editUrl": "https://en.wiktionary.org/wiki/oyin#Yoruba",
+          "entryIds": [
+            "en-oyin-yo-noun-YsuBtZBK",
+            "en-oyin-yo-noun-7ckBIgfq"
+          ],
+          "details": [
+            "oyin (noun · etym. 1) — headword template gives no toned spelling",
+            "oyin (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "agbo",
+          "editUrl": "https://en.wiktionary.org/wiki/agbo#Yoruba",
+          "entryIds": [
+            "en-agbo-yo-noun--8pdbPIy"
+          ],
+          "details": [
+            "agbo (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ẹyẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9y%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ẹyẹ-yo-noun-elF57swP"
+          ],
+          "details": [
+            "ẹyẹ (noun · etym. 1) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "funfun",
+          "editUrl": "https://en.wiktionary.org/wiki/funfun#Yoruba",
+          "entryIds": [
+            "en-funfun-yo-verb-yo:to_be_white",
+            "en-funfun-yo-noun-~I~OsOqL",
+            "en-funfun-yo-adj-yo:white"
+          ],
+          "details": [
+            "funfun (verb) — headword template gives no toned spelling",
+            "funfun (noun) — headword template gives no toned spelling",
+            "funfun (adj) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "gbogbo",
+          "editUrl": "https://en.wiktionary.org/wiki/gbogbo#Yoruba",
+          "entryIds": [
+            "en-gbogbo-yo-noun-Ybzh2Sqn"
+          ],
+          "details": [
+            "gbogbo (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ọpọlọ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dp%E1%BB%8Dl%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-ọpọlọ-yo-noun-u796ZBLW"
+          ],
+          "details": [
+            "ọpọlọ (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ẹṣin",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9%E1%B9%A3in#Yoruba",
+          "entryIds": [
+            "en-ẹṣin-yo-noun-~WKGK23C"
+          ],
+          "details": [
+            "ẹṣin (noun) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "ọni",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dni#Yoruba",
+          "entryIds": [
+            "en-ọni-yo-noun-wP0gMknm"
+          ],
+          "details": [
+            "ọni (noun · etym. 2) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "akọ",
+          "editUrl": "https://en.wiktionary.org/wiki/ak%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-akọ-yo-noun-oSyQmL6Q"
+          ],
+          "details": [
+            "akọ (noun · etym. 3) — headword template gives no toned spelling"
+          ]
+        },
+        {
+          "page": "agogo",
+          "editUrl": "https://en.wiktionary.org/wiki/agogo#Yoruba",
+          "entryIds": [
+            "en-agogo-yo-noun-BAvOrnUc"
+          ],
+          "details": [
+            "agogo (noun · etym. 1) — headword template gives no toned spelling"
           ]
         }
       ],
-      "pagesOmitted": 544
+      "pagesOmitted": 420
+    },
+    {
+      "kind": "reference-name-collision",
+      "title": "Reference that only matches a word with a different capital letter",
+      "severity": "medium",
+      "effort": "expertise",
+      "target": "wiktionary",
+      "confidence": "needs-checking",
+      "why": "Nothing here is spelled the way this reference is spelled. The nearest thing in the dictionary differs from it by a capital letter as well as by tone or an underdot, and in Yorùbá that combination usually separates a name from an ordinary word: Tápà is the Nupe people and tàpá is not; Ìgè is a name given after a breech birth and ìgé is not. So we cannot tell you what the reference means. It might be a misspelling of the nearby word, or a word that has no entry yet, or correct as it stands.",
+      "fix": "This one is a question rather than a repair, and it needs somebody who knows the word. Read the reference in context on the listed page and decide which of the three it is. If it is a word we do not have, the useful next step is writing that entry, not editing this page. Do not simply change the spelling to match the nearby word - these rows were previously presented as easy typo fixes, and following that advice would have pointed ordinary words at people and places.",
+      "count": 94,
+      "pageCount": 82,
+      "pages": [
+        {
+          "page": "gun",
+          "editUrl": "https://en.wiktionary.org/wiki/gun#Yoruba",
+          "entryIds": [
+            "en-gun-yo-verb-JNDZ1G7y",
+            "en-gun-yo-verb--sna-0j2",
+            "en-gun-yo-verb-g0UBR4PQ",
+            "en-gun-yo-verb-m8CeRdfL"
+          ],
+          "details": [
+            "derivedTerms “ẹ̀gùn” — the nearest spelling here is “Egun”, “Ègùn”, which starts with a capital letter",
+            "sense derivedTerms “orígun” — the nearest spelling here is “Origun”, “Orígun”, which starts with a capital letter",
+            "sense derivedTerms “ẹ̀gún” — the nearest spelling here is “Egun”, “Ègùn”, which starts with a capital letter",
+            "sense derivedTerms “ègún” — the nearest spelling here is “Egun”, “Ègùn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "bi",
+          "editUrl": "https://en.wiktionary.org/wiki/bi#Yoruba",
+          "entryIds": [
+            "en-bi-yo-verb-~4YEG~Dq"
+          ],
+          "details": [
+            "sense derivedTerms “èbíbì” — the nearest spelling here is “Ẹbibi”, “Ẹ̀bìbì”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "du",
+          "editUrl": "https://en.wiktionary.org/wiki/du#Yoruba",
+          "entryIds": [
+            "en-du-yo-verb-kQY-v9oj"
+          ],
+          "details": [
+            "sense synonyms “sá” — the nearest spelling here is “Sa”, “Sà”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ta",
+          "editUrl": "https://en.wiktionary.org/wiki/ta#Yoruba",
+          "entryIds": [
+            "en-ta-yo-verb-hN7iHNvJ"
+          ],
+          "details": [
+            "derivedTerms “tàpá” — the nearest spelling here is “Tapa”, “Tápà”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ge",
+          "editUrl": "https://en.wiktionary.org/wiki/ge#Yoruba",
+          "entryIds": [
+            "en-ge-yo-verb-q6PbqrDa"
+          ],
+          "details": [
+            "derivedTerms “ìgé” — the nearest spelling here is “Ige”, “Ìgè”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "akin",
+          "editUrl": "https://en.wiktionary.org/wiki/akin#Yoruba",
+          "entryIds": [
+            "en-akin-yo-noun-mTPEW80Z"
+          ],
+          "details": [
+            "derivedTerms “Akin” — the nearest spelling here is “akin”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "bun",
+          "editUrl": "https://en.wiktionary.org/wiki/bun#Yoruba",
+          "entryIds": [
+            "en-bun-yo-verb-DDKdteOE"
+          ],
+          "details": [
+            "derivedTerms “Ẹ̀bùn” — the nearest spelling here is “ẹbun”, “ẹ̀bùn”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ere",
+          "editUrl": "https://en.wiktionary.org/wiki/ere#Yoruba",
+          "entryIds": [
+            "en-ere-yo-noun-U0IgZUUP"
+          ],
+          "details": [
+            "sense synonyms “ègún” — the nearest spelling here is “Egun”, “Ègùn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "elu",
+          "editUrl": "https://en.wiktionary.org/wiki/elu#Yoruba",
+          "entryIds": [
+            "en-elu-yo-noun-XbAQvdzJ"
+          ],
+          "details": [
+            "derivedTerms “Elú” — the nearest spelling here is “elu”, “èlú”, “elú”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "odio",
+          "editUrl": "https://en.wiktionary.org/wiki/odio#Yoruba",
+          "entryIds": [
+            "en-odio-yo-intj-8wHwA9BY"
+          ],
+          "details": [
+            "sense synonyms “kábíyèsí” — the nearest spelling here is “Kabiyesi”, “Kábíyèsí”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "olu",
+          "editUrl": "https://en.wiktionary.org/wiki/olu#Yoruba",
+          "entryIds": [
+            "en-olu-yo-noun-xRdnl~my"
+          ],
+          "details": [
+            "derivedTerms “Olú” — the nearest spelling here is “olu”, “olú”, “òlú”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "osi",
+          "editUrl": "https://en.wiktionary.org/wiki/osi#Yoruba",
+          "entryIds": [
+            "en-osi-yo-noun-Ng-EA1lC"
+          ],
+          "details": [
+            "derivedTerms “Òsì” — the nearest spelling here is “osi”, “òsì”, “ọṣì”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "sibi",
+          "editUrl": "https://en.wiktionary.org/wiki/sibi#Yoruba",
+          "entryIds": [
+            "en-sibi-yo-noun-dTjcd-j6"
+          ],
+          "details": [
+            "sense derivedTerms “Sìbí” — the nearest spelling here is “sibi”, “sìbí”, “síbí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "sakara",
+          "editUrl": "https://en.wiktionary.org/wiki/sakara#Yoruba",
+          "entryIds": [
+            "en-sakara-yo-noun-aaoJaiND"
+          ],
+          "details": [
+            "derivedTerms “Sákárà” — the nearest spelling here is “sakara”, “sákárà”, “ṣákárà”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ọdẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dd%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ọdẹ-yo-noun-6aY6TrFX"
+          ],
+          "details": [
+            "derivedTerms “Ọdẹ” — the nearest spelling here is “ọdẹ”, “ọ̀dẹ̀”, “ode”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "họ",
+          "editUrl": "https://en.wiktionary.org/wiki/h%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-họ-yo-verb-DggLfg53"
+          ],
+          "details": [
+            "sense synonyms “sá” — the nearest spelling here is “Sa”, “Sà”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "olori",
+          "editUrl": "https://en.wiktionary.org/wiki/olori#Yoruba",
+          "entryIds": [
+            "en-olori-yo-noun-lS9mDduB"
+          ],
+          "details": [
+            "sense derivedTerms “Olorì” — the nearest spelling here is “olori”, “olorì”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "aanu",
+          "editUrl": "https://en.wiktionary.org/wiki/aanu#Yoruba",
+          "entryIds": [
+            "en-aanu-yo-noun-L8ZyhVWV"
+          ],
+          "details": [
+            "derivedTerms “Àánú” — the nearest spelling here is “aanu”, “àánú”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "adele",
+          "editUrl": "https://en.wiktionary.org/wiki/adele#Yoruba",
+          "entryIds": [
+            "en-adele-yo-noun-8Ha1xZKI"
+          ],
+          "details": [
+            "sense derivedTerms “Àdèlé” — the nearest spelling here is “adele”, “àdèlé”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Adamu",
+          "editUrl": "https://en.wiktionary.org/wiki/Adamu#Yoruba",
+          "entryIds": [
+            "en-Adamu-yo-name-PwybA-jj"
+          ],
+          "details": [
+            "sense coordinateTerms “Éfà” — the nearest spelling here is “ẹfa”, “ẹ̀fà”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "japa",
+          "editUrl": "https://en.wiktionary.org/wiki/japa#Yoruba",
+          "entryIds": [
+            "en-japa-yo-verb-M3zBx8E8"
+          ],
+          "details": [
+            "sense synonyms “sá” — the nearest spelling here is “Sa”, “Sà”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "Ori",
+          "editUrl": "https://en.wiktionary.org/wiki/Ori#Yoruba",
+          "entryIds": [
+            "en-Ori-yo-name-N9gpil-7"
+          ],
+          "details": [
+            "sense synonyms “Ìpín” — the nearest spelling here is “ipin”, “ìpín”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Sao",
+          "editUrl": "https://en.wiktionary.org/wiki/Sao#Yoruba",
+          "entryIds": [
+            "en-Sao-yo-name-OudcyY-D"
+          ],
+          "details": [
+            "sense relatedTerms “Ológun” — the nearest spelling here is “ologun”, “ológun”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ayan",
+          "editUrl": "https://en.wiktionary.org/wiki/Ayan#Yoruba",
+          "entryIds": [
+            "en-Ayan-yo-name-w9lAWnYO"
+          ],
+          "details": [
+            "derivedTerms “àyàn” — the nearest spelling here is “Ayan”, “Àyàn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "Aye",
+          "editUrl": "https://en.wiktionary.org/wiki/Aye#Yoruba",
+          "entryIds": [
+            "en-Aye-yo-name-t8m1zNPj"
+          ],
+          "details": [
+            "sense synonyms “Ilẹ̀” — the nearest spelling here is “ilẹ̀”, “ilẹ”, “ile”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Balogun",
+          "editUrl": "https://en.wiktionary.org/wiki/Balogun#Yoruba",
+          "entryIds": [
+            "en-Balogun-yo-name-4x-ckhU~"
+          ],
+          "details": [
+            "derivedTerms “balógun” — the nearest spelling here is “Balogun”, “Balógun”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "saraki",
+          "editUrl": "https://en.wiktionary.org/wiki/saraki#Yoruba",
+          "entryIds": [
+            "en-saraki-yo-noun-CWEUC~Jc"
+          ],
+          "details": [
+            "relatedTerms “Sàràkí” — the nearest spelling here is “saraki”, “sàràkí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "alẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/al%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-alẹ-yo-noun-3j-~5Sdn"
+          ],
+          "details": [
+            "derivedTerms “Alẹ̀” — the nearest spelling here is “alẹ”, “alẹ́”, “alẹ̀”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "okun",
+          "editUrl": "https://en.wiktionary.org/wiki/okun#Yoruba",
+          "entryIds": [
+            "en-okun-yo-noun-Auh9veD3",
+            "en-okun-yo-noun-mZhKsCJ-"
+          ],
+          "details": [
+            "sense derivedTerms “olókun” — the nearest spelling here is “Olokun”, “Olókun”, which starts with a capital letter",
+            "derivedTerms “olókùn” — the nearest spelling here is “Olokun”, “Olókun”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ogun",
+          "editUrl": "https://en.wiktionary.org/wiki/ogun#Yoruba",
+          "entryIds": [
+            "en-ogun-yo-noun-J0DXkQhp",
+            "en-ogun-yo-noun-vTB2M22N"
+          ],
+          "details": [
+            "sense derivedTerms “Ológun” — the nearest spelling here is “ologun”, “ológun”, which starts with a small letter",
+            "sense derivedTerms “ajogún” — the nearest spelling here is “Ajogun”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "olodo",
+          "editUrl": "https://en.wiktionary.org/wiki/olodo#Yoruba",
+          "entryIds": [
+            "en-olodo-yo-noun-~rH6VaCc"
+          ],
+          "details": [
+            "sense derivedTerms “Olódó” — the nearest spelling here is “olodo”, “olódo”, “olódó”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "atipo",
+          "editUrl": "https://en.wiktionary.org/wiki/atipo#Yoruba",
+          "entryIds": [
+            "en-atipo-yo-noun-zhDXH-22"
+          ],
+          "details": [
+            "sense derivedTerms “Àtìpó” — the nearest spelling here is “atipo”, “àtìpó”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ilẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/il%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ilẹ-yo-noun-3j-~5Sdn"
+          ],
+          "details": [
+            "derivedTerms “Ilẹ̀” — the nearest spelling here is “ilẹ̀”, “ilẹ”, “ile”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ọtunla",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dtunla#Yoruba",
+          "entryIds": [
+            "en-ọtunla-yo-noun-YqsQ34uZ"
+          ],
+          "details": [
+            "sense derivedTerms “Ọ̀túnla” — the nearest spelling here is “ọtunla”, “ọ̀túnla”, “ọ̀tunla”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Yemọja",
+          "editUrl": "https://en.wiktionary.org/wiki/Yem%E1%BB%8Dja#Yoruba",
+          "entryIds": [
+            "en-Yemọja-yo-name-KFL3nN81"
+          ],
+          "details": [
+            "sense synonyms “Olódo” — the nearest spelling here is “olodo”, “olódo”, “olódó”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ọla",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dla#Yoruba",
+          "entryIds": [
+            "en-ọla-yo-noun-uv0VGob5"
+          ],
+          "details": [
+            "sense derivedTerms “Ọ̀la” — the nearest spelling here is “ọla”, “ọlá”, “ọlà”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "okiki",
+          "editUrl": "https://en.wiktionary.org/wiki/okiki#Yoruba",
+          "entryIds": [
+            "en-okiki-yo-noun-KPiv73Gr"
+          ],
+          "details": [
+            "sense derivedTerms “Òkìkí” — the nearest spelling here is “okiki”, “òkìkí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "arẹmọ",
+          "editUrl": "https://en.wiktionary.org/wiki/ar%E1%BA%B9m%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-arẹmọ-yo-noun-VMXcONe1"
+          ],
+          "details": [
+            "sense derivedTerms “Àrẹ̀mọ” — the nearest spelling here is “arẹmọ”, “àrẹ̀mọ”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ọṣọọsi",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8C%E1%B9%A3%E1%BB%8D%E1%BB%8Dsi#Yoruba",
+          "entryIds": [
+            "en-Ọṣọọsi-yo-name-U82YZgai"
+          ],
+          "details": [
+            "sense synonyms “Ọdẹ” — the nearest spelling here is “ọdẹ”, “ọ̀dẹ̀”, “ode”, which starts with a small letter",
+            "sense synonyms “Ọ̀ṣọ́” — the nearest spelling here is “ọṣọ”, “ọ̀ṣọ́”, “oṣo”, which starts with a small letter",
+            "sense synonyms “Ogídò” — the nearest spelling here is “ogido”, “ògìdo”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Olokun",
+          "editUrl": "https://en.wiktionary.org/wiki/Olokun#Yoruba",
+          "entryIds": [
+            "en-Olokun-yo-name-lgY8m3VF"
+          ],
+          "details": [
+            "sense derivedTerms “olókun” — the nearest spelling here is “Olokun”, “Olókun”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "irinkerindo",
+          "editUrl": "https://en.wiktionary.org/wiki/irinkerindo#Yoruba",
+          "entryIds": [
+            "en-irinkerindo-yo-noun-p9Io3wb-"
+          ],
+          "details": [
+            "sense derivedTerms “Ìrìnkèrindò” — the nearest spelling here is “irinkerindo”, “ìrìnkèrindò”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ẹgbẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9gb%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-ẹgbẹ-yo-noun-4Fbs-JEg"
+          ],
+          "details": [
+            "derivedTerms “Ẹgbẹ́” — the nearest spelling here is “ẹgbẹ”, “ẹ̀gbẹ”, “ẹgbẹ́”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "eedi",
+          "editUrl": "https://en.wiktionary.org/wiki/eedi#Yoruba",
+          "entryIds": [
+            "en-eedi-yo-noun-LxfC9goV"
+          ],
+          "details": [
+            "sense synonyms “ègún” — the nearest spelling here is “Egun”, “Ègùn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ipin",
+          "editUrl": "https://en.wiktionary.org/wiki/ipin#Yoruba",
+          "entryIds": [
+            "en-ipin-yo-noun-IzJxZc-9"
+          ],
+          "details": [
+            "derivedTerms “Ìpín” — the nearest spelling here is “ipin”, “ìpín”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "abẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/ab%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-abẹ-yo-noun-12d0imA3"
+          ],
+          "details": [
+            "derivedTerms “sábẹ́” — the nearest spelling here is “Sábẹ́”, “Ṣábẹ́”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "korikoto",
+          "editUrl": "https://en.wiktionary.org/wiki/korikoto#Yoruba",
+          "entryIds": [
+            "en-korikoto-yo-noun-2txLbFVa"
+          ],
+          "details": [
+            "sense relatedTerms “kóórì” — the nearest spelling here is “Kóórì”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "konkoto",
+          "editUrl": "https://en.wiktionary.org/wiki/konkoto#Yoruba",
+          "entryIds": [
+            "en-konkoto-yo-noun-66Eig-lR"
+          ],
+          "details": [
+            "sense relatedTerms “kóórì” — the nearest spelling here is “Kóórì”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ọlọsanyin",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dl%E1%BB%8Dsanyin#Yoruba",
+          "entryIds": [
+            "en-ọlọsanyin-yo-noun-Rt6F2ANF"
+          ],
+          "details": [
+            "sense synonyms “ọ̀sanyìn” — the nearest spelling here is “Ọsanyin”, “Ọ̀sanyìn”, “Ọ̀sányìn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ṣanpọnna",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3anp%E1%BB%8Dnna#Yoruba",
+          "entryIds": [
+            "en-ṣanpọnna-yo-noun-jvgQi6tN"
+          ],
+          "details": [
+            "sense synonyms “ègbóná” — the nearest spelling here is “Egbona”, “Ègbóná”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "baalẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/baal%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-baalẹ-yo-noun-hFiY6Q8n"
+          ],
+          "details": [
+            "sense derivedTerms “Baálẹ̀” — the nearest spelling here is “baalẹ”, “baálẹ̀”, “baale”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "logun ọfẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/logun%20%E1%BB%8Df%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-logun_ọfẹ-yo-intj-zAEqp3rI"
+          ],
+          "details": [
+            "sense derivedTerms “Lógun ọfẹ” — the nearest spelling here is “logun ọfẹ”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ọdundun",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Ddundun#Yoruba",
+          "entryIds": [
+            "en-ọdundun-yo-noun-SBmxdlet"
+          ],
+          "details": [
+            "sense derivedTerms “Ọ̀dúndún” — the nearest spelling here is “ọdundun”, “ọ̀dúndún”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ọramfẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Cramf%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-Ọramfẹ-yo-name-muVtZb6l"
+          ],
+          "details": [
+            "sense synonyms “Ọ̀rà” — the nearest spelling here is “ọra”, “ọ̀rá”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Odu Ifa",
+          "editUrl": "https://en.wiktionary.org/wiki/Odu%20Ifa#Yoruba",
+          "entryIds": [
+            "en-Odu_Ifa-yo-name-C58ytSi4"
+          ],
+          "details": [
+            "sense synonyms “Odù” — the nearest spelling here is “odu”, “odù”, “òdù”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "mọgaji",
+          "editUrl": "https://en.wiktionary.org/wiki/m%E1%BB%8Dgaji#Yoruba",
+          "entryIds": [
+            "en-mọgaji-yo-noun-fOGOiY60"
+          ],
+          "details": [
+            "sense derivedTerms “Mọ́gàjí” — the nearest spelling here is “mọgaji”, “mọ́gàjí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ibukun",
+          "editUrl": "https://en.wiktionary.org/wiki/ibukun#Yoruba",
+          "entryIds": [
+            "en-ibukun-yo-noun-ZTiGKQ-j"
+          ],
+          "details": [
+            "derivedTerms “Ìbùkún” — the nearest spelling here is “ibukun”, “ìbùkún”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ṣigidi",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3igidi#Yoruba",
+          "entryIds": [
+            "en-ṣigidi-yo-noun-Yld21J4Y"
+          ],
+          "details": [
+            "derivedTerms “Ṣìgìdì” — the nearest spelling here is “ṣigidi”, “ṣìgìdì”, “ṣígídí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "dẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/d%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-dẹ-yo-verb-vVYafK00"
+          ],
+          "details": [
+            "derivedTerms “Ọdẹ” — the nearest spelling here is “ọdẹ”, “ọ̀dẹ̀”, “ode”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "gẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/g%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-gẹ-yo-verb-pApCq1ey",
+            "en-gẹ-yo-verb-DtdvGv~A",
+            "en-gẹ-yo-verb-ECfnsWbe",
+            "en-gẹ-yo-verb-7Kr1gTH9",
+            "en-gẹ-yo-verb-bTXEJqex"
+          ],
+          "details": [
+            "derivedTerms “ìgẹ̀” — the nearest spelling here is “Ige”, “Ìgè”, which starts with a capital letter",
+            "derivedTerms “ìgẹ” — the nearest spelling here is “Ige”, “Ìgè”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "peregun",
+          "editUrl": "https://en.wiktionary.org/wiki/peregun#Yoruba",
+          "entryIds": [
+            "en-peregun-yo-noun-yBLDxAFB"
+          ],
+          "details": [
+            "sense derivedTerms “Pèrègún” — the nearest spelling here is “peregun”, “pèrègún”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ilara",
+          "editUrl": "https://en.wiktionary.org/wiki/Ilara#Yoruba",
+          "entryIds": [
+            "en-Ilara-yo-name-O2crHFFp"
+          ],
+          "details": [
+            "sense synonyms “Ará” — the nearest spelling here is “ará”, “ara”, “àrá”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Dahọmi",
+          "editUrl": "https://en.wiktionary.org/wiki/Dah%E1%BB%8Dmi#Yoruba",
+          "entryIds": [
+            "en-Dahọmi-yo-name-IffRhjeO"
+          ],
+          "details": [
+            "sense synonyms “Fọ̀n” — the nearest spelling here is “fọn”, “fọ̀n”, “fọ́n”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "juba ehoro",
+          "editUrl": "https://en.wiktionary.org/wiki/juba%20ehoro#Yoruba",
+          "entryIds": [
+            "en-juba_ehoro-yo-verb-G54AfhE0"
+          ],
+          "details": [
+            "sense synonyms “sá” — the nearest spelling here is “Sa”, “Sà”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "Logunẹdẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/Logun%E1%BA%B9d%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-Logunẹdẹ-yo-name-68WNQdew"
+          ],
+          "details": [
+            "sense synonyms “Ológun” — the nearest spelling here is “ologun”, “ológun”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "fọn",
+          "editUrl": "https://en.wiktionary.org/wiki/f%E1%BB%8Dn#Yoruba",
+          "entryIds": [
+            "en-fọn-yo-verb-PfXh8wSg",
+            "en-fọn-yo-verb-EUEplE7y",
+            "en-fọn-yo-verb-fdanAXlQ",
+            "en-fọn-yo-verb-cZgKVR6z",
+            "en-fọn-yo-verb-5q0aArTg",
+            "en-fọn-yo-verb-W-b-zK12"
+          ],
+          "details": [
+            "derivedTerms “ìfọ̀n” — the nearest spelling here is “Ifọn”, “Ifọ́n”, which starts with a capital letter",
+            "derivedTerms “ìfọn” — the nearest spelling here is “Ifọn”, “Ifọ́n”, which starts with a capital letter",
+            "derivedTerms “ìfọ́n” — the nearest spelling here is “Ifọn”, “Ifọ́n”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ọlọja",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Dl%E1%BB%8Dja#Yoruba",
+          "entryIds": [
+            "en-ọlọja-yo-noun-8mHjMaqM"
+          ],
+          "details": [
+            "derivedTerms “Ọlọ́jà” — the nearest spelling here is “ọlọja”, “ọlọ́jà”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "iṣẹkulumọ",
+          "editUrl": "https://en.wiktionary.org/wiki/i%E1%B9%A3%E1%BA%B9kulum%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-iṣẹkulumọ-yo-noun-ZiY1mDca"
+          ],
+          "details": [
+            "sense synonyms “àbùjá” — the nearest spelling here is “Abuja”, “Àbújá”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "Owu-Ipoole",
+          "editUrl": "https://en.wiktionary.org/wiki/Owu-Ipoole#Yoruba",
+          "entryIds": [
+            "en-Owu-Ipoole-yo-name-PlrSDc2H"
+          ],
+          "details": [
+            "sense synonyms “Ìpóólé” — the nearest spelling here is “ìpóólé”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Aeregbe",
+          "editUrl": "https://en.wiktionary.org/wiki/Aeregbe#Yoruba",
+          "entryIds": [
+            "en-Aeregbe-yo-name-FsbjSS9E"
+          ],
+          "details": [
+            "sense synonyms “Sìbí” — the nearest spelling here is “sibi”, “sìbí”, “síbí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ranti",
+          "editUrl": "https://en.wiktionary.org/wiki/ranti#Yoruba",
+          "entryIds": [
+            "en-ranti-yo-verb-OC7Eux0Z"
+          ],
+          "details": [
+            "sense derivedTerms “Rántí” — the nearest spelling here is “ranti”, “rántí”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Oni",
+          "editUrl": "https://en.wiktionary.org/wiki/Oni#Yoruba",
+          "entryIds": [
+            "en-Oni-yo-name-gfzTXdhh"
+          ],
+          "details": [
+            "sense coordinateTerms “Ọ̀la” — the nearest spelling here is “ọla”, “ọlá”, “ọlà”, which starts with a small letter",
+            "sense coordinateTerms “Ọ̀túnla” — the nearest spelling here is “ọtunla”, “ọ̀túnla”, “ọ̀tunla”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ido-Fabọrọ",
+          "editUrl": "https://en.wiktionary.org/wiki/Ido-Fab%E1%BB%8Dr%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-Ido-Fabọrọ-yo-name-sk5b0-Cv"
+          ],
+          "details": [
+            "sense synonyms “Ìdó” — the nearest spelling here is “idọ”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ayandiran",
+          "editUrl": "https://en.wiktionary.org/wiki/Ayandiran#Yoruba",
+          "entryIds": [
+            "en-Ayandiran-yo-name-UeFtm1g2"
+          ],
+          "details": [
+            "relatedTerms “àyàn” — the nearest spelling here is “Ayan”, “Àyàn”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "ologun",
+          "editUrl": "https://en.wiktionary.org/wiki/ologun#Yoruba",
+          "entryIds": [
+            "en-ologun-yo-noun-~wduxwWD"
+          ],
+          "details": [
+            "sense derivedTerms “Ológun” — the nearest spelling here is “ologun”, “ológun”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "gbona",
+          "editUrl": "https://en.wiktionary.org/wiki/gbona#Yoruba",
+          "entryIds": [
+            "en-gbona-yo-noun-2hcN529~"
+          ],
+          "details": [
+            "derivedTerms “ègbóná” — the nearest spelling here is “Egbona”, “Ègbóná”, which starts with a capital letter"
+          ]
+        },
+        {
+          "page": "wọle",
+          "editUrl": "https://en.wiktionary.org/wiki/w%E1%BB%8Dle#Yoruba",
+          "entryIds": [
+            "en-wọle-yo-verb-MmNXgE7R"
+          ],
+          "details": [
+            "sense derivedTerms “Wọlé” — the nearest spelling here is “wọle”, “wọlé”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Bukayọ",
+          "editUrl": "https://en.wiktionary.org/wiki/Bukay%E1%BB%8D#Yoruba",
+          "entryIds": [
+            "en-Bukayọ-yo-name-495ADnBv"
+          ],
+          "details": [
+            "sense relatedTerms “Ìbùkún” — the nearest spelling here is “ibukun”, “ìbùkún”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "opomulero",
+          "editUrl": "https://en.wiktionary.org/wiki/opomulero#Yoruba",
+          "entryIds": [
+            "en-opomulero-yo-noun-FMw-jZXO"
+          ],
+          "details": [
+            "derivedTerms “Òpómúléró” — the nearest spelling here is “opomulero”, “òpómúléró”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "Ọmọlarere",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Cm%E1%BB%8Dlarere#Yoruba",
+          "entryIds": [
+            "en-Ọmọlarere-yo-name-QqYJPWVz"
+          ],
+          "details": [
+            "sense relatedTerms “Télé” — the nearest spelling here is “tẹlẹ”, “tẹ́lẹ̀”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "oniwaasu",
+          "editUrl": "https://en.wiktionary.org/wiki/oniwaasu#Yoruba",
+          "entryIds": [
+            "en-oniwaasu-yo-noun-gJw5hGZp"
+          ],
+          "details": [
+            "sense derivedTerms “Oníwàásù” — the nearest spelling here is “oniwaasu”, “oníwàásù”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "ọdun Ijẹṣu",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8Ddun%20Ij%E1%BA%B9%E1%B9%A3u#Yoruba",
+          "entryIds": [
+            "en-ọdun_Ijẹṣu-yo-name-mb5QhQSW"
+          ],
+          "details": [
+            "sense relatedTerms “Oríkádún” — the nearest spelling here is “orikadun”, “oríkádún”, which starts with a small letter",
+            "sense relatedTerms “Ijù” — the nearest spelling here is “iju”, “ijù”, “ìju”, which starts with a small letter"
+          ]
+        },
+        {
+          "page": "giriwa",
+          "editUrl": "https://en.wiktionary.org/wiki/giriwa#Yoruba",
+          "entryIds": [
+            "en-giriwa-yo-noun-m~o5X4wq"
+          ],
+          "details": [
+            "sense derivedTerms “Gíríwá” — the nearest spelling here is “giriwa”, “gíríwá”, which starts with a small letter"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
     },
     {
       "kind": "missing-sense-anchor",
@@ -51011,6 +50944,7 @@
       "severity": "high",
       "effort": "expertise",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé (\"to meet\") look like it comes from pa (\"to kill\").",
       "fix": "Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page \"de\". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.",
       "count": 51,
@@ -51535,10 +51469,11 @@
       "severity": "medium",
       "effort": "expertise",
       "target": "wiktionary",
-      "why": "Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.",
+      "confidence": "certain",
+      "why": "A page can hold several unrelated words that share a spelling, each in its own numbered etymology section. Wiktionary lists this word as built from one of them but does not say which , and the sections share a spelling and tone so nothing distinguishes them. The listing is not wrong, just unattributed — the derivation is usually productive, in that every gbá verb can form gbígbá. We show the root once and let the reader open the alternatives rather than guessing.",
       "fix": "Move the derived term to the etymology section it truly belongs to, or add a short definition to it in the derived-terms list (e.g. “|gbígbá<t:beating>”) so its meaning is recoverable.",
-      "count": 25,
-      "pageCount": 21,
+      "count": 8,
+      "pageCount": 8,
       "pages": [
         {
           "page": "are",
@@ -51548,57 +51483,6 @@
           ],
           "details": [
             "listed as a derived term by 5 separate “ré” entries; its own etymology says “From the same root as eré, iré, and uré, see Proto-Yoruba *V-ré”"
-          ]
-        },
-        {
-          "page": "ile",
-          "editUrl": "https://en.wiktionary.org/wiki/ile#Yoruba",
-          "entryIds": [
-            "en-ile-yo-noun-VQM0lVeW"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “lé” entries; its own etymology says “Proposed to be derived from Proto-Yoruboid *ú-lí. Cognates include Ifè ilé, Itsekiri ulí, ”"
-          ]
-        },
-        {
-          "page": "ika",
-          "editUrl": "https://en.wiktionary.org/wiki/ika#Yoruba",
-          "entryIds": [
-            "en-ika-yo-noun-e-5aJtNz"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “ká” entries; its own etymology says “Doublet of ẹ̀ka”"
-          ]
-        },
-        {
-          "page": "ire",
-          "editUrl": "https://en.wiktionary.org/wiki/ire#Yoruba",
-          "entryIds": [
-            "en-ire-yo-noun-ViOLsFKk"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “rè” entries; its own etymology says “Compare with oore (“blessing”) and rere (“goodness”)”"
-          ]
-        },
-        {
-          "page": "iho",
-          "editUrl": "https://en.wiktionary.org/wiki/iho#Yoruba",
-          "entryIds": [
-            "en-iho-yo-noun-Oe5FUZcH"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “hó” entries; its own etymology says “From Proto-Yoruboid *á-wò or Proto-Yoruboid *ú-wò, cognate with Igala áwò. The transition ”",
-            "listed as a derived term by 2 separate “họ” entries; its own etymology says “From Proto-Yoruboid *á-wò or Proto-Yoruboid *ú-wò, cognate with Igala áwò. The transition ”"
-          ]
-        },
-        {
-          "page": "agan",
-          "editUrl": "https://en.wiktionary.org/wiki/agan#Yoruba",
-          "entryIds": [
-            "en-agan-yo-noun-1j6qCXG-"
-          ],
-          "details": [
-            "listed as a derived term by 5 separate “gán” entries; its own etymology says “Compare with Igbo àgà”"
           ]
         },
         {
@@ -51622,57 +51506,6 @@
           ]
         },
         {
-          "page": "ija",
-          "editUrl": "https://en.wiktionary.org/wiki/ija#Yoruba",
-          "entryIds": [
-            "en-ija-yo-noun-CHkbEVVB"
-          ],
-          "details": [
-            "listed as a derived term by 6 separate “já” entries; its own etymology says “From ì- (“nominalizing prefix”) + jà (“to fight”)”"
-          ]
-        },
-        {
-          "page": "iju",
-          "editUrl": "https://en.wiktionary.org/wiki/iju#Yoruba",
-          "entryIds": [
-            "en-iju-yo-noun-9P9ou1Mf"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “jù” entries; its own etymology says “From ì- (“nominalizing prefix”) + ju (“to be worm infested”), see Doublet of ojuju and oji”"
-          ]
-        },
-        {
-          "page": "igun",
-          "editUrl": "https://en.wiktionary.org/wiki/igun#Yoruba",
-          "entryIds": [
-            "en-igun-yo-noun-vZH3~UPk"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “gùn” entries; its own etymology says “From Proto-Yoruboid *ú-gwṹnú, cognates include Igala úgwúnú and potential cognates include”"
-          ]
-        },
-        {
-          "page": "alẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/al%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-alẹ-yo-noun-3j-~5Sdn"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “lẹ̀” entries; its own etymology says “Cognate with Igala ánẹ̀ and possibly Igbo ala, Igbo ànị̀, Igbo ànà, proposed to be derived”"
-          ]
-        },
-        {
-          "page": "ewu",
-          "editUrl": "https://en.wiktionary.org/wiki/ewu#Yoruba",
-          "entryIds": [
-            "en-ewu-yo-noun-OLvORTUL"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “wù” entries; its own etymology says “From Proto-Yoruba *i-ɣú, Proto-Yoruboid *í-ɓṹ, possibly cognate with Igala ímú.”",
-            "listed as a derived term by 2 separate “wú” entries; its own etymology says “From Proto-Yoruba *i-ɣú, Proto-Yoruboid *í-ɓṹ, possibly cognate with Igala ímú.”"
-          ]
-        },
-        {
           "page": "igba",
           "editUrl": "https://en.wiktionary.org/wiki/igba#Yoruba",
           "entryIds": [
@@ -51680,17 +51513,6 @@
           ],
           "details": [
             "listed as a derived term by 2 separate “gbà” entries; its own etymology says “Cognate with Edo igba”"
-          ]
-        },
-        {
-          "page": "iyọ",
-          "editUrl": "https://en.wiktionary.org/wiki/iy%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-iyọ-yo-noun-Y0ea1poJ"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “yọ̀” entries; its own etymology says “A much newer term for salt, to see more historic and older forms for salt, see Yoruba oghu”",
-            "listed as a derived term by 5 separate “yọ́” entries; its own etymology says “A much newer term for salt, to see more historic and older forms for salt, see Yoruba oghu”"
           ]
         },
         {
@@ -51704,24 +51526,13 @@
           ]
         },
         {
-          "page": "adin",
-          "editUrl": "https://en.wiktionary.org/wiki/adin#Yoruba",
-          "entryIds": [
-            "en-adin-yo-noun-EhjVyOyb"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “dín” entries; its own etymology says “Cognate with Èkìtì Yoruba ụ̀dị́n, Ìjẹ̀bú Yoruba ùdẹ́n, Igala ìdí, Edo údẹ́n (“palm oil oin”"
-          ]
-        },
-        {
           "page": "ifọ",
           "editUrl": "https://en.wiktionary.org/wiki/if%E1%BB%8D#Yoruba",
           "entryIds": [
             "en-ifọ-yo-noun-BfthetVD"
           ],
           "details": [
-            "listed as a derived term by 2 separate “fọ̀” entries; its own etymology says “From i- (“nominalizing prefix”) + fọ̀ (“to speak”).”",
-            "listed as a derived term by 4 separate “fọ́” entries; its own etymology says “From i- (“nominalizing prefix”) + fọ̀ (“to speak”).”"
+            "listed as a derived term by 2 separate “fọ̀” entries; its own etymology says “From i- (“nominalizing prefix”) + fọ̀ (“to speak”).”"
           ]
         },
         {
@@ -51743,16 +51554,6 @@
           "details": [
             "listed as a derived term by 2 separate “odù” entries; its own etymology says “From Odù + Ifá, compare with Igbo Ọ́dụ́ Afa”"
           ]
-        },
-        {
-          "page": "itọ",
-          "editUrl": "https://en.wiktionary.org/wiki/it%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-itọ-yo-noun-g1O-oXKf"
-          ],
-          "details": [
-            "listed as a derived term by 6 separate “tọ́” entries; its own etymology says “From ì- (“nominalizing prefix”) + tọ̀ (“to urinate”), cognate with Igala ìtọ̀.”"
-          ]
         }
       ],
       "pagesOmitted": 0
@@ -51763,21 +51564,12 @@
       "severity": "medium",
       "effort": "expertise",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "Another page claims this word is derived from it, but this word's own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary's back-links are meant to expose.",
       "fix": "Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root's derived-terms list instead.",
-      "count": 16,
-      "pageCount": 13,
+      "count": 6,
+      "pageCount": 6,
       "pages": [
-        {
-          "page": "are",
-          "editUrl": "https://en.wiktionary.org/wiki/are#Yoruba",
-          "entryIds": [
-            "en-are-yo-noun-ekHBv3jd"
-          ],
-          "details": [
-            "listed as a derived term by 3 separate “rè” entries"
-          ]
-        },
         {
           "page": "ika",
           "editUrl": "https://en.wiktionary.org/wiki/ika#Yoruba",
@@ -51799,16 +51591,6 @@
           ]
         },
         {
-          "page": "ida",
-          "editUrl": "https://en.wiktionary.org/wiki/ida#Yoruba",
-          "entryIds": [
-            "en-ida-yo-noun-pExHse4k"
-          ],
-          "details": [
-            "listed as a derived term by 7 separate “dà” entries"
-          ]
-        },
-        {
           "page": "iba",
           "editUrl": "https://en.wiktionary.org/wiki/iba#Yoruba",
           "entryIds": [
@@ -51816,37 +51598,6 @@
           ],
           "details": [
             "listed as a derived term by 4 separate “bà” entries"
-          ]
-        },
-        {
-          "page": "ede",
-          "editUrl": "https://en.wiktionary.org/wiki/ede#Yoruba",
-          "entryIds": [
-            "en-ede-yo-noun-iX05kmKf"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “dè” entries",
-            "listed as a derived term by 2 separate “dé” entries"
-          ]
-        },
-        {
-          "page": "agba",
-          "editUrl": "https://en.wiktionary.org/wiki/agba#Yoruba",
-          "entryIds": [
-            "en-agba-yo-noun-MZqi52Y-"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “gbá” entries"
-          ]
-        },
-        {
-          "page": "iwin",
-          "editUrl": "https://en.wiktionary.org/wiki/iwin#Yoruba",
-          "entryIds": [
-            "en-iwin-yo-noun-04d5gJCR"
-          ],
-          "details": [
-            "listed as a derived term by 2 separate “wín” entries"
           ]
         },
         {
@@ -51860,23 +51611,12 @@
           ]
         },
         {
-          "page": "igọn",
-          "editUrl": "https://en.wiktionary.org/wiki/ig%E1%BB%8Dn#Yoruba",
-          "entryIds": [
-            "en-igọn-yo-noun-9loktRDY"
-          ],
-          "details": [
-            "listed as a derived term by 5 separate “gán” entries"
-          ]
-        },
-        {
           "page": "igbẹ",
           "editUrl": "https://en.wiktionary.org/wiki/igb%E1%BA%B9#Yoruba",
           "entryIds": [
             "en-igbẹ-yo-noun-OsrRmpXK"
           ],
           "details": [
-            "listed as a derived term by 2 separate “gbẹ” entries",
             "listed as a derived term by 3 separate “gbẹ́” entries"
           ]
         },
@@ -51889,17 +51629,6 @@
           "details": [
             "listed as a derived term by 2 separate “fọn” entries"
           ]
-        },
-        {
-          "page": "iṣin",
-          "editUrl": "https://en.wiktionary.org/wiki/i%E1%B9%A3in#Yoruba",
-          "entryIds": [
-            "en-iṣin-yo-noun-i1yhhMaQ"
-          ],
-          "details": [
-            "listed as a derived term by 4 separate “sìn” entries",
-            "listed as a derived term by 3 separate “sín” entries"
-          ]
         }
       ],
       "pagesOmitted": 0
@@ -51910,9 +51639,10 @@
       "severity": "low",
       "effort": "info",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "Verb phrases and proverbs listed as derived terms mostly have no entry of their own and are not expected to. Counted separately so they stop inflating the number of real gaps above.",
       "fix": "Nothing required. Create an entry only if the phrase is idiomatic enough to deserve one.",
-      "count": 2152,
+      "count": 2140,
       "pageCount": 983,
       "pages": [
         {
@@ -53363,6 +53093,7 @@
       "severity": "low",
       "effort": "info",
       "target": "wiktionary",
+      "confidence": "certain",
       "why": "Counted so it is not mistaken for a defect. Yoruba has many homographs, and entries that differ only in tone are different words that this dictionary keeps deliberately apart. Every entry involved now links to its siblings so a reader can see the others.",
       "fix": "Nothing required.",
       "count": 1579,
@@ -53373,17 +53104,20 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 111,
-      "mechanical": 375,
-      "expertise": 4372,
-      "info": 3731
+      "easy": 9,
+      "mechanical": 212,
+      "expertise": 4243,
+      "info": 3719
     },
     "byTarget": {
-      "wiktionary": 8588,
-      "pipeline": 1
+      "wiktionary": 8183
     },
-    "actionable": 4858,
-    "easyWins": 111
+    "byConfidence": {
+      "certain": 8089,
+      "needs-checking": 94
+    },
+    "actionable": 4464,
+    "easyWins": 9
   },
   "kaikkiSourceDate": "2026-08-31",
   "kaikkiReleaseTag": "build-14",

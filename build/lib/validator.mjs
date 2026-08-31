@@ -183,24 +183,42 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
   const refBuckets = {
     tone: new Map(),
     underdot: new Map(),
+    nameCollision: new Map(),
     phrase: new Map(),
     missing: new Map(),
   };
+
+  // A Yorùbá name and an ordinary word are routinely the same letters apart from
+  // a capital and a tone mark: Tápà is the Nupe people, tàpá is not; Ìgè is a
+  // name given after a breech birth, ìgé is not. Folding tone away and then
+  // ignoring the capital as well matches the two together, and the resolver
+  // refuses exactly that (see candidatesFor in relationships.mjs). This report
+  // did not, so it read the resolver's refusals back as typos with a known
+  // answer - all 102 of them - and told people to edit Wiktionary accordingly.
+  const startsUpper = (s) => Boolean(s) && s[0] !== s[0].toLowerCase();
+  const sameCase = (ref, candidates) =>
+    [...candidates].filter((c) => startsUpper(c) === startsUpper(ref));
 
   for (const ref of report.unknownReferencedWords) {
     const source = byId.get(ref.sourceEntryId);
     if (!source) continue;
     const toneHit = toneLookup.get(toneInsensitiveForm(ref.text));
     const orthoHit = orthoLookup.get(orthographyInsensitiveForm(ref.text));
+    const toneSame = sameCase(ref.text, toneHit || []);
+    const orthoSame = sameCase(ref.text, orthoHit || []);
+    const anyHit = [...new Set([...(toneHit || []), ...(orthoHit || [])])];
 
     let bucket;
     let detail;
-    if (toneHit && toneHit.size) {
+    if (toneSame.length) {
       bucket = 'tone';
-      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${[...toneHit].slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
-    } else if (orthoHit && orthoHit.size) {
+      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${toneSame.slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
+    } else if (orthoSame.length) {
       bucket = 'underdot';
-      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${[...orthoHit].slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
+      detail = `${ref.relationType} “${ref.text}” — the dictionary has ${orthoSame.slice(0, 3).map((s) => `“${s}”`).join(', ')}`;
+    } else if (anyHit.length) {
+      bucket = 'nameCollision';
+      detail = `${ref.relationType} “${ref.text}” — the nearest spelling here is ${anyHit.slice(0, 3).map((s) => `“${s}”`).join(', ')}, which starts with a ${startsUpper(anyHit[0]) ? 'capital' : 'small'} letter`;
     } else if (ref.text.includes(' ')) {
       bucket = 'phrase';
       detail = `${ref.relationType} “${ref.text}”`;
@@ -218,6 +236,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'high',
       effort: 'easy',
       target: 'pipeline',
+      confidence: 'certain',
       why:
         'These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.',
       fix: 'Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.',
@@ -229,9 +248,10 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'high',
       effort: 'easy',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
-        'These references match an existing word once tone marks are ignored, so the intended target is already known — the reference just carries different tone marks from the entry it means. Every one of them is a link the reader currently does not get.',
-      fix: 'On the listed Wiktionary page, correct the tone marks on the reference to match the entry it points at (or, if the reference is right, fix the tone on the target entry).',
+        'A tone mark is the accent over a vowel, and it is part of the word: ilé and ìlé are as different as two spellings get in Yorùbá. Each of these references matches an entry we have in every respect except its tone marks, and matches nothing else, so one of the two spellings is wrong and a link the reader should get is missing.',
+      fix: 'Open the listed Wiktionary page and compare the two spellings. Usually the reference is the one at fault; sometimes the entry it points at is. Correct whichever is wrong. If both look right to you, they are different words and this is not the fix - leave it and say so on the talk page.',
       pages: refBuckets.tone,
     }),
     issue({
@@ -240,10 +260,23 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'high',
       effort: 'easy',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
-        'Same as the tone typos, one dimension over: these match once underdots (ẹ ọ ṣ) are ignored, so the intended target is known.',
-      fix: 'Correct the underdots on the reference so it matches the entry it means.',
+        'The same thing one dimension over. An underdot is the dot under ẹ, ọ and ṣ, and like a tone mark it changes which word you are looking at. These references match an entry in every respect except their underdots, and match nothing else.',
+      fix: 'Compare the two spellings on the listed page and correct whichever is wrong. If both are right they are different words, and the reference is naming one that has no entry yet.',
       pages: refBuckets.underdot,
+    }),
+    issue({
+      kind: 'reference-name-collision',
+      title: 'Reference that only matches a word with a different capital letter',
+      severity: 'medium',
+      effort: 'expertise',
+      target: 'wiktionary',
+      confidence: 'needs-checking',
+      why:
+        'Nothing here is spelled the way this reference is spelled. The nearest thing in the dictionary differs from it by a capital letter as well as by tone or an underdot, and in Yorùbá that combination usually separates a name from an ordinary word: Tápà is the Nupe people and tàpá is not; Ìgè is a name given after a breech birth and ìgé is not. So we cannot tell you what the reference means. It might be a misspelling of the nearby word, or a word that has no entry yet, or correct as it stands.',
+      fix: 'This one is a question rather than a repair, and it needs somebody who knows the word. Read the reference in context on the listed page and decide which of the three it is. If it is a word we do not have, the useful next step is writing that entry, not editing this page. Do not simply change the spelling to match the nearby word - these rows were previously presented as easy typo fixes, and following that advice would have pointed ordinary words at people and places.',
+      pages: refBuckets.nameCollision,
     }),
     issue({
       kind: 'reference-missing-entry',
@@ -251,6 +284,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'medium',
       effort: 'expertise',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'The listed page names a related or derived word that has no Yoruba entry of its own, so the link goes nowhere. This is the dictionary\'s largest real content gap.',
       fix: 'Create the referenced word as a Yoruba entry on Wiktionary, with at least a definition and a headword template carrying its tone marks.',
@@ -262,6 +296,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'low',
       effort: 'info',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'Verb phrases and proverbs listed as derived terms mostly have no entry of their own and are not expected to. Counted separately so they stop inflating the number of real gaps above.',
       fix: 'Nothing required. Create an entry only if the phrase is idiomatic enough to deserve one.',
@@ -277,6 +312,15 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
   for (const entry of entries) {
     for (const rel of entry.synthesizedRelations || []) {
       if (rel.type !== 'derivedFrom') continue;
+      // Only a claim we matched letter for letter. Where the spelling had to be
+      // guessed at, the ambiguity being reported is not Wiktionary's: 27 of the
+      // 39 links behind this category were prefixed nouns - ìlé from lé, ìdà
+      // from dà, agbá from gbá - which Yorùbá forms by putting a vowel in front
+      // of a verb, and which routinely have no page. Fold the tone away and that
+      // new vowel is indistinguishable from the first vowel of some unrelated
+      // word, so the noun lands on it. Asking somebody to file ìlé under the
+      // right meaning of lé is asking them to complete our mistake.
+      if (rel.matchedBy && rel.matchedBy !== 'exact') continue;
       if (rel.resolution?.method !== 'ambiguous' || rel.resolution.candidateCount < 2) continue;
       const root = byId.get(rel.entryId);
       const rootSpelling = root ? root.canonicalForm.value : rel.text;
@@ -294,8 +338,9 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'medium',
       effort: 'expertise',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
-        'Wiktionary lists this word as a derived term under two or more numbered etymologies that share a spelling and tone, and nothing in the source says which one it actually comes from. The derivation is usually productive — every gbá verb can form gbígbá — so the listing is not wrong, it is just unattributed. We show the root once and let the reader open the alternatives rather than guessing.',
+        'A page can hold several unrelated words that share a spelling, each in its own numbered etymology section. Wiktionary lists this word as built from one of them but does not say which , and the sections share a spelling and tone so nothing distinguishes them. The listing is not wrong, just unattributed — the derivation is usually productive, in that every gbá verb can form gbígbá. We show the root once and let the reader open the alternatives rather than guessing.',
       fix: 'Move the derived term to the etymology section it truly belongs to, or add a short definition to it in the derived-terms list (e.g. “|gbígbá<t:beating>”) so its meaning is recoverable.',
       pages: ambiguous,
     }),
@@ -305,6 +350,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'medium',
       effort: 'expertise',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'Another page claims this word is derived from it, but this word\'s own entry has no etymology at all, so there is nothing to check the claim against. Absence of an etymology is not evidence the derivation is wrong — it means nobody has written one yet, which is exactly the gap this dictionary\'s back-links are meant to expose.',
       fix: 'Write an Etymology section on the listed page naming the root it comes from, and what that root means. If it turns out not to be derived at all, remove it from the root\'s derived-terms list instead.',
@@ -348,6 +394,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'high',
       effort: 'easy',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà "take", ẹjọ́ "law", rò "think") and not one of those pages has the anchor. Careful work, pointing nowhere.',
       fix: 'Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.',
@@ -359,6 +406,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'high',
       effort: 'expertise',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé ("to meet") look like it comes from pa ("to kill").',
       fix: 'Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page "de". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.',
@@ -443,12 +491,13 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'medium',
       effort: 'mechanical',
       target: 'pipeline',
-      why: 'A derivation cycle, usually because a derived term is also carried as one of the root\'s own alternative forms.',
-      fix: 'Check whether the two are genuinely the same word; if so the derived-terms listing is the error.',
+      confidence: 'certain',
+      why: 'A derivation cycle: a chain of "built from" links that comes back to where it started, which cannot be true of any of them. Self-loops are left out - a word listed as derived from itself happens when a derived term is also carried as one of the root\'s own alternative forms, and synthesizeRelationships already refuses to build a link from a word to itself, so nothing reaches a reader.',
+      fix: 'Follow the chain and find the link that should not be there. Cycles longer than one step have not occurred yet; this exists so the first one is not silent.',
       pages: mapFrom(
-        report.circularDerivations.map((c) => ({ entryId: c[0] })),
+        report.circularDerivations.filter((c) => new Set(c).size > 1).map((c) => ({ entryId: c[0] })),
         byId,
-        () => 'derives from itself'
+        () => 'part of a derivation cycle'
       ),
     })
   );
@@ -462,9 +511,18 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'low',
       effort: 'mechanical',
       target: 'wiktionary',
-      why: 'The entry has no IPA. For Yoruba this is largely derivable from the toned spelling, so it is bulk work rather than research.',
-      fix: 'Add {{yo-IPA}} to the Pronunciation section of the listed page.',
-      pages: mapFrom(report.missingIpa, byId, () => 'no Pronunciation section'),
+      confidence: 'certain',
+      why: 'The entry gives no pronunciation. {{yo-IPA}} works one out from the tone-marked spelling, so where the spelling carries tone marks this is bulk work rather than research. Entries whose spelling has no tone marks at all are left out: the template would have nothing to read, and their tones have to be settled first - they are under "Main spelling not confirmed" instead.',
+      fix: 'Add {{yo-IPA}} to the Pronunciation section of the listed page, and check what it produces against how you say the word.',
+      // Named per entry, not per page. A page holds one numbered etymology
+      // section per unrelated word sharing its spelling, and each needs its own
+      // Pronunciation - so "hi" with two of them is two jobs, and a row printed
+      // once per page would say one.
+      pages: mapFrom(
+        report.missingIpa.filter((m) => hasToneMark(byId.get(m.entryId))),
+        byId,
+        (m) => `${describeEntry(byId.get(m.entryId))} — no Pronunciation section`
+      ),
     }),
     issue({
       kind: 'inferred-canonical-form',
@@ -472,10 +530,15 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'low',
       effort: 'expertise',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
-        'No headword template gave a tone-marked spelling, so we fall back to the page title, which is usually untoned. This does not mean the spelling shown is wrong — often there is simply nothing for Wiktionary to choose between — but the tones are unverified, and deciding them needs someone who knows the word.',
-      fix: 'Add a headword template carrying the tone marks (e.g. {{yo-verb|gbá}}) to the listed page.',
-      pages: mapFrom(report.inferredCanonicalForms, byId, () => 'headword template gives no toned spelling'),
+        'A headword template is the line on a Wiktionary entry that states the properly spelled form, tone marks and all. These entries have none, so the spelling shown here is the page title, which is usually written without tones. That does not make it wrong - often there is nothing to choose between - but nobody has confirmed it, and confirming it needs somebody who knows the word. Single letters of the alphabet are left out: there are no tones on them to confirm.',
+      fix: 'Add a headword template carrying the tone marks (for example {{yo-verb|gbá}}) to the listed page.',
+      pages: mapFrom(
+        report.inferredCanonicalForms.filter((r) => !isSingleCharacter(byId.get(r.entryId))),
+        byId,
+        (r) => `${describeEntry(byId.get(r.entryId))} — headword template gives no toned spelling`
+      ),
     }),
     issue({
       kind: 'shared-spelling',
@@ -483,6 +546,7 @@ function buildIssues(entries, byId, report, { toneLookup, orthoLookup, danglingA
       severity: 'low',
       effort: 'info',
       target: 'wiktionary',
+      confidence: 'certain',
       why:
         'Counted so it is not mistaken for a defect. Yoruba has many homographs, and entries that differ only in tone are different words that this dictionary keeps deliberately apart. Every entry involved now links to its siblings so a reader can see the others.',
       fix: 'Nothing required.',
@@ -521,6 +585,27 @@ function unnamedAddresses(newcomers) {
   return rows;
 }
 
+/** Which word on the page this row is about: its spelling, part of speech and section. */
+function describeEntry(entry) {
+  if (!entry) return 'this entry';
+  const parts = [entry.canonicalForm?.value || entry.headword];
+  if (entry.pos) parts.push(entry.pos);
+  if (entry.etymologyNumber) parts.push(`etym. ${entry.etymologyNumber}`);
+  return `${parts[0]} (${parts.slice(1).join(' · ') || 'entry'})`;
+}
+
+/** Does the spelling we show carry at least one tone mark? */
+function hasToneMark(entry) {
+  const value = entry?.canonicalForm?.value || '';
+  return /[\u0300-\u036f]/.test(value.normalize('NFD').replace(/\u0323/g, ''));
+}
+
+/** A letter of the alphabet rather than a word. */
+function isSingleCharacter(entry) {
+  if (!entry) return false;
+  return entry.pos === 'character' || [...(entry.canonicalForm?.value || '')].length <= 1;
+}
+
 function pushPage(map, entry, detail) {
   if (!map.has(entry.headword)) {
     map.set(entry.headword, {
@@ -532,6 +617,10 @@ function pushPage(map, entry, detail) {
   }
   const row = map.get(entry.headword);
   if (!row.entryIds.includes(entry.id)) row.entryIds.push(entry.id);
+  // One line per distinct thing to do. A page with four entries and no
+  // pronunciation on any of them was printing "no Pronunciation section" four
+  // times, which reads as four jobs and is one.
+  if (row.details.includes(detail)) return;
   if (row.details.length < 8) row.details.push(detail);
 }
 
@@ -545,7 +634,7 @@ function mapFrom(items, byId, detailOf) {
   return map;
 }
 
-function issue({ kind, title, severity, effort, target, why, fix, pages, count }) {
+function issue({ kind, title, severity, effort, target, confidence, why, fix, pages, count }) {
   const rows = [...pages.values()];
   const total = count ?? rows.reduce((n, r) => n + r.details.length, 0);
   return {
@@ -554,6 +643,13 @@ function issue({ kind, title, severity, effort, target, why, fix, pages, count }
     severity,
     effort,
     target,
+    // How much we know, kept apart from how much work it is. Conflating the two
+    // is what put the least reliable rows in this report at the top of the queue
+    // under the most confident label: a guess reads as easy precisely because
+    // somebody already did the guessing. 'certain' means the claim can be
+    // checked against the data as stated. 'needs-checking' means we are
+    // proposing a reading, and the row has to ask rather than instruct.
+    confidence: confidence || 'certain',
     why,
     fix,
     count: total,
@@ -573,7 +669,15 @@ function summarize(issues) {
   return {
     byEffort,
     byTarget,
+    byConfidence: issues.reduce((acc, i) => {
+      acc[i.confidence] = (acc[i.confidence] || 0) + i.count;
+      return acc;
+    }, {}),
     actionable: issues.filter((i) => i.effort !== 'info').reduce((n, i) => n + i.count, 0),
-    easyWins: issues.filter((i) => i.effort === 'easy').reduce((n, i) => n + i.count, 0),
+    // An easy win has to be both: little work, and not a guess. Before this it
+    // counted 111, of which 102 were readings the dictionary itself refuses.
+    easyWins: issues
+      .filter((i) => i.effort === 'easy' && i.confidence === 'certain')
+      .reduce((n, i) => n + i.count, 0),
   };
 }

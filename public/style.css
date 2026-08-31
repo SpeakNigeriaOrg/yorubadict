@@ -1673,6 +1673,22 @@ a { color: inherit; }
   padding: 14px;
   border-radius: 4px;
 }
+/* Marks a row whose diagnosis is a reading rather than a fact. Deliberately
+   not styled as a warning: these rows are worth someone's time, they just
+   cannot be followed without thinking first. */
+.unsure-chip {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-accent-deep);
+  border: 1px solid var(--brand-accent);
+  border-radius: 3px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
 .quality-download {
   display: block;
   margin-top: 12px;

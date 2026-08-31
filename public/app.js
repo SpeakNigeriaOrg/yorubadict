@@ -806,7 +806,7 @@ import { createPageRenderer } from './page-render.js';
   // intended word, 1,046 that need a new Wiktionary entry written — is the
   // difference between a wall and a morning's work.
   const EFFORT_UI = {
-    easy: { label: 'Easy win', blurb: 'We already know the right answer — it just needs typing in.' },
+    easy: { label: 'Easy win', blurb: 'Short work, and the answer is already checkable — it just needs typing in.' },
     mechanical: { label: 'Mechanical', blurb: 'No judgment needed, but no shortcut either.' },
     expertise: { label: 'Needs Yorùbá', blurb: 'Someone who knows the word has to decide.' },
     info: { label: 'For context', blurb: 'Not a defect — counted so it doesn’t look like one.' },
@@ -851,6 +851,11 @@ import { createPageRenderer } from './page-render.js';
   }
 
   function issueHtml(issue) {
+    // Effort and confidence are different questions, and the report used to
+    // answer only the first. A row can be five seconds' typing and still be our
+    // guess about what somebody meant, which is what put 102 readings the
+    // dictionary itself refuses at the top of this queue labelled "easy win".
+    const unsure = issue.confidence === 'needs-checking';
     const pages = (issue.pages || [])
       .map(
         (p) => `<li class="quality-page">
@@ -867,9 +872,10 @@ import { createPageRenderer } from './page-render.js';
         <span class="quality-issue-title">${escapeHtml(issue.title)}</span>
         <span class="quality-issue-count">${issue.count}</span>
         ${issue.target === 'pipeline' ? '<span class="target-chip">ours to fix</span>' : ''}
+        ${unsure ? '<span class="unsure-chip">needs checking</span>' : ''}
       </summary>
       <p class="quality-why">${escapeHtml(issue.why)}</p>
-      <p class="quality-fix"><strong>Fix:</strong> ${escapeHtml(issue.fix)}</p>
+      <p class="quality-fix"><strong>${unsure ? 'What to do' : 'Fix'}:</strong> ${escapeHtml(issue.fix)}</p>
       ${pages ? `<ul class="quality-pages">${pages}${omitted}</ul>` : ''}
     </details>`;
   }
