@@ -413,27 +413,48 @@ export function createEntryRenderer(ctx) {
   // section, narrowed to one meaning, so it is worded that way - and the entry
   // section stays a separate block because it holds the words Wiktionary
   // attached to no particular meaning.
+  // Each row has two headings: the one used when we matched the spelling letter
+  // for letter, and the one used when we had to guess at it. Written out rather
+  // than derived by sticking "Possibly" on the front, which produced "Possibly
+  // others in the same set".
   const SENSE_RELATION_LABELS = [
-    ['synonyms', 'Similar words'],
-    ['antonyms', 'Opposites'],
-    ['derivedTerms', 'Built from this meaning'],
-    ['relatedTerms', 'Related words'],
-    ['hypernyms', 'A kind of'],
-    ['hyponyms', 'Kinds of this'],
-    ['coordinateTerms', 'Others in the same set'],
+    ['synonyms', 'Similar words', 'Possibly similar words'],
+    ['antonyms', 'Opposites', 'Possibly opposites'],
+    // Named "Used in" like the section at the foot of the page, because it is
+    // the same relation - the words built from this one - and only the scope
+    // differs: here, the words built from this one meaning. Position already
+    // says that, since this row sits inside the definition it belongs to. It
+    // was "Built from this meaning", which made one relation answer to two
+    // names on a single page, and the front page now teaches "Used in" as one
+    // of the two terms an entry uses.
+    ['derivedTerms', 'Used in', 'Possibly used in'],
+    ['relatedTerms', 'Related words', 'Possibly related words'],
+    ['hypernyms', 'A kind of', 'Possibly a kind of'],
+    ['hyponyms', 'Kinds of this', 'Possibly kinds of this'],
+    ['coordinateTerms', 'Others in the same set', 'Possibly in the same set'],
   ];
 
   function senseRelationsHtml(sense, entry) {
     const rows = [];
-    for (const [field, label] of SENSE_RELATION_LABELS) {
+    const row = (label, pills) =>
+      pills && rows.push(
+        `<div class="sense-relation"><span class="sense-relation-label">${label}</span>${pills}</div>`
+      );
+    for (const [field, label, unsureLabel] of SENSE_RELATION_LABELS) {
       // `|| []` throughout: an artifact published before sense relations existed
       // has none of these keys, and the site has to keep working against it while
       // the two repos' refresh workflows land hours apart.
-      const pills = relationPillsHtml(sense[field] || [], [], entry);
-      if (!pills) continue;
-      rows.push(
-        `<div class="sense-relation"><span class="sense-relation-label">${label}</span>${pills}</div>`
-      );
+      const items = sense[field] || [];
+      // Split the same way the sections at the foot of the page are. A doubt
+      // badge on the pill is not a substitute for the heading above it: this row
+      // sits directly under the definition, which is the most prominent place on
+      // the page, and it was the one asserting "built from this meaning" over a
+      // spelling we had guessed at while the bottom of the page said "possibly"
+      // about the identical doubt.
+      const certain = items.filter((r) => !isLooseMatch(r));
+      const guessed = items.filter(isLooseMatch);
+      row(label, relationPillsHtml(certain, [], entry));
+      row(unsureLabel, relationPillsHtml(guessed, [], entry));
     }
     return rows.length ? `<div class="sense-relations">${rows.join('')}</div>` : '';
   }
