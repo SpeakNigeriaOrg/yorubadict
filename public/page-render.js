@@ -105,44 +105,49 @@ export function createPageRenderer(ctx) {
     `;
   }
 
-  function speakNigeriaHtml() {
-    return `
-      <div class="about-content">
-        <h1>About Speak Nigeria</h1>
-        <p class="about-lede">Speak Nigeria is a 501(c)(3) nonprofit dedicated to helping children learn and keep Nigerian heritage languages.</p>
+function speakNigeriaHtml() {
+  return `
+    <div class="about-content">
+      <h1>About Speak Nigeria</h1>
+      <p class="about-lede">Speak Nigeria is a 501(c)(3) nonprofit dedicated to helping children learn and preserve Nigerian languages. We build free, open-access tools to fill a critical gap in digital education—beginning with this dictionary, designed from the ground up around how Yorùbá actually works.</p>
 
-        <h2>Why we exist</h2>
-        <p>For a family raising children away from home, a heritage language can slip away in a single generation. It usually happens quietly. The children understand more than they speak, then less than they understand, and one day the language is something the grandparents had.</p>
-        <p>A language is not only a way to speak. It carries family history, culture, and a sense of belonging, and a child who keeps the language keeps all of it.</p>
-        <p>Parents who want to pass theirs on often have very little to work with: no course pitched at the right level, no games, and no dictionary a child can use.</p>
+      <h2>Why we exist</h2>
+      <p>A language can slip away in a single generation. It happens in the diaspora, but it also happens across urban Nigeria, where English-dominant classrooms, internal migration, and rapid cultural shifts leave children disconnected from the languages of their homes.</p>
+      <p>The loss usually happens quietly: children understand more than they speak, then speak less than they understand, until the language becomes something only their grandparents spoke.</p>
+      <p>A language is never just vocabulary. It carries family memory, cultural identity, and belonging. When a child keeps their language, they keep all of it.</p>
+      <p>Yet parents and educators trying to pass these languages on face an immediate hurdle: for most Nigerian languages, modern, child-friendly digital resources simply do not exist. Where tools do exist, they are rarely built for the way children naturally learn.</p>
 
-        <h2>What we make</h2>
-        <p>Two kinds of thing, and they are funded differently.</p>
-        <ul>
-          <li><strong>Courses</strong>, taught by real teachers. Yorùbá from the beginning, in a set order. These are paid, because the people teaching them are paid.</li>
-          <li><strong>Games</strong>, free and open source. Being open is what lets them grow in several languages at once, and it is where volunteers and speakers make the most difference.</li>
-          <li><strong>This dictionary</strong>, free, and built on <a href="${ctx.pagePath('contribute')}">data that belongs to everybody</a>.</li>
-        </ul>
-        <p>We are starting with Yorùbá, where the courses and resources already exist. Igbo is next, and Hausa, Bini, Ijaw and Efik are the longer plan.</p>
+      <h2>Built for the language, not adapted to it</h2>
+      <p>A child learning Spanish has access to thousands of apps, games, and dictionaries tailored to how Romance languages work. A child learning Yorùbá is often met with complete digital silence—or, at best, software built for European tongues with Yorùbá poured into it. Tone marks survive merely as decorative accents. Compound words are presented as isolated lists to memorize—the easiest route for a computer, but the hardest for a child.</p>
+      <p>We designed our resources around two fundamental linguistic realities most software ignores:</p>
+      <p><strong>Words are made of words.</strong> <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is composed of <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who understands those two roots can unlock the compound word immediately. This dictionary displays these connections across every entry. For a deeper look, see our guide: <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a>.</p>
+      <p><strong>Tone is part of the word.</strong> Pitch is not optional decoration; changing the tone changes the definition entirely. Our tools emphasize tone and pitch from day one, helping learners build correct mental models from their very first lesson.</p>
 
-        <h2>How this dictionary fits</h2>
-        <p>The courses teach words in a set order. The dictionary is for looking something up. It also shows where a word came from, because in Yorùbá the answer is usually another word.</p>
-        <p><a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who knows those two words can read the third without being taught it. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> is about what follows from that.</p>
+      <h2>What we make</h2>
+      <ul>
+        <li><strong>Courses:</strong> Structured, live instruction led by native teachers. These are paid so our educators are compensated fairly.</li>
+        <li><strong>Games:</strong> Free and open-source games that make repetitive practice engaging, scalable, and community-driven.</li>
+        <li><strong>This Dictionary:</strong> A free, living reference built on open data that belongs to everyone.</li>
+      </ul>
+      <p>We are starting with Yorùbá, where our curriculum is deepest. Igbo is next, with Hausa, Edo (Bini), Ijaw, and Efik to follow.</p>
 
-        <div class="about-actions">
-          <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">See our Yorùbá courses</a>
-          <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play the games ↗</a>
-          <a class="about-btn ghost" href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">More about us ↗</a>
-        </div>
+      <h2>How this dictionary fits</h2>
+      <p>While our courses provide a structured path, this dictionary is built for exploration. It reveals the roots beneath every word—because in Yorùbá, the meaning of a word is almost always another word.</p>
 
-        <h2>Contact</h2>
-        <p>Write to us at <a href="mailto:hello@speaknigeria.org">hello@speaknigeria.org</a> — about the courses, the games, or this dictionary. A correction to a single word is faster to make <a href="${ctx.pagePath('contribute')}">on Wiktionary</a>, where it reaches every other project reading the same data, and not only this one.</p>
-
-        <p class="blocks-note">Speak Nigeria is a 501(c)(3) nonprofit registered in the United States, EIN 99-2964468. We host community-accessible educational programs and build free, open-access resources that parents, teachers and schools can use anywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
+      <div class="about-actions">
+        <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Explore Yorùbá Courses</a>
+        <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play Language Games ↗</a>
+        <a class="about-btn ghost" href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">Learn More About Us ↗</a>
       </div>
-    `;
-  }
 
+      <h2>Contact & Contributions</h2>
+      <p>Questions, ideas, or feedback? Email us anytime at <a href="mailto:hello@speaknigeria.org">hello@speaknigeria.org</a>.</p>
+      <p>If you spot an error or want to improve a definition, you can edit entries directly via <a href="${ctx.pagePath('contribute')}">Wiktionary</a>. Because our data is open, your contributions automatically improve not just this dictionary, but open Yorùbá tools worldwide.</p>
+
+      <p class="blocks-note">Speak Nigeria is a 501(c)(3) nonprofit registered in the United States (EIN 99-2964468). We host community educational programs and develop open-access resources for parents, teachers, and schools everywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
+    </div>
+  `;
+}
   // The five sample vocabulary units.
   //
   // Each is a family that already exists in the dictionary: a few short words,
