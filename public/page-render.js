@@ -55,6 +55,37 @@ export function createPageRenderer(ctx) {
         <p>Welcome! Search this free dictionary in Yorùbá (with or without tone marks or underdots), or search by its English definition. After your first visit, the dictionary is on your device, and it works with no connection.</p>
         <p>Or open a word and discover Yorùbá in a new way, finding the connections between words. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. For example, <a href="${ctx.pathFor('en-ounjẹ-yo-noun-wfAmWC~m')}">oúnjẹ</a>, food, is made from <a href="${ctx.pathFor('en-ohun-yo-noun-XelNaRrj')}">ohun</a>, a thing, and <a href="${ctx.pathFor('en-jijẹ-yo-noun-w9aEvSCL')}">jíjẹ</a>, eating — and is itself used in <a href="${ctx.pathFor('en-ounjẹ_aarọ-yo-noun-fFjqJTYo')}">oúnjẹ àárọ̀</a>, breakfast, <a href="${ctx.pathFor('en-ounjẹ_alẹ-yo-noun-FXhxqX-b')}">oúnjẹ alẹ́</a>, dinner, and <a href="${ctx.pathFor('en-ile-ounjẹ-yo-noun-7iddZNr8')}">ilé-oúnjẹ</a>, a restaurant. Or start at <a href="${ctx.pathFor('en-ẹrọ-yo-noun-MsZxKZjf')}">ẹ̀rọ</a>, a machine, used in <a href="${ctx.pathFor('en-ẹrọ_ayarabiaṣa-yo-noun-sIRyAz9N')}">ẹ̀rọ ayárabíàṣá</a>, a computer, and <a href="${ctx.pathFor('en-ẹrọ_amuletutu-yo-noun-tpAybTd7')}">ẹ̀rọ amúlétutù</a>, an air conditioner — or at <a href="${ctx.pathFor('en-ade-yo-noun-Dc-vq1-A')}">adé</a>, a crown.</p>
 
+        <svg class="welcome-diagram" viewBox="0 0 420 258" role="img"
+          aria-label="ohun, a thing, plus jíjẹ, eating, make oúnjẹ, food. oúnjẹ is in turn used in oúnjẹ àárọ̀, breakfast, and ilé-oúnjẹ, a restaurant.">
+          <path class="dg-line" d="M85 58 V82 H335 V58 M210 82 V100" />
+          <path class="dg-arrow" d="M205 96 h10 l-5 8 Z" />
+          <path class="dg-line" d="M210 154 V176 M106 176 H314 M106 176 V194 M314 176 V194" />
+          <path class="dg-arrow" d="M101 190 h10 l-5 8 Z" />
+          <path class="dg-arrow" d="M309 190 h10 l-5 8 Z" />
+
+          <rect class="dg-box" x="10" y="10" width="150" height="48" rx="6" />
+          <text class="dg-word" x="85" y="32" text-anchor="middle">ohun</text>
+          <text class="dg-gloss" x="85" y="48" text-anchor="middle">a thing</text>
+
+          <text class="dg-plus" x="210" y="41" text-anchor="middle">+</text>
+
+          <rect class="dg-box" x="260" y="10" width="150" height="48" rx="6" />
+          <text class="dg-word" x="335" y="32" text-anchor="middle">jíjẹ</text>
+          <text class="dg-gloss" x="335" y="48" text-anchor="middle">eating</text>
+
+          <rect class="dg-box current" x="135" y="106" width="150" height="48" rx="6" />
+          <text class="dg-word" x="210" y="128" text-anchor="middle">oúnjẹ</text>
+          <text class="dg-gloss" x="210" y="144" text-anchor="middle">food</text>
+
+          <rect class="dg-box" x="8" y="200" width="196" height="48" rx="6" />
+          <text class="dg-word" x="106" y="222" text-anchor="middle">oúnjẹ àárọ̀</text>
+          <text class="dg-gloss" x="106" y="238" text-anchor="middle">breakfast</text>
+
+          <rect class="dg-box" x="216" y="200" width="196" height="48" rx="6" />
+          <text class="dg-word" x="314" y="222" text-anchor="middle">ilé-oúnjẹ</text>
+          <text class="dg-gloss" x="314" y="238" text-anchor="middle">a restaurant</text>
+        </svg>
+
         <section class="welcome-about">
           <h2>Sọ̀rọ̀ sókè</h2>
           <p>The name of this dictionary means <a href="${ctx.pathFor('en-sọrọ_soke-yo-verb-zjLiM20R')}">speak up</a>. It is made of four words:</p>
@@ -134,9 +165,13 @@ function speakNigeriaHtml() {
       </ul>
 
       <h2>How this is funded</h2>
-      <p>Course fees pay the teachers who teach them, and support everything above that is free.</p>
-      <p>This site takes no revenue. It carries no advertising, sells nothing, and collects nothing about you — after your first visit the whole dictionary is on your device and your searches never leave it.</p>
-      <p>Our IRS record, including what we have filed, is under EIN 99-2964468 in the <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer">Tax Exempt Organization Search</a>.</p>
+      <p>This dictionary is free and non-commercial. It carries no advertising, sells nothing, and collects nothing about you — after your first visit the whole dictionary is on your device and your searches never leave it.</p>
+      <p>To sustain the work, our parent nonprofit charges tuition for small-group live classes, hosted on <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">speaknigeria.org</a> rather than here. As a 501(c)(3) nonprofit, that tuition is used for:</p>
+      <ul>
+        <li><strong>Teacher compensation.</strong> Paying native-speaking educators for instructional time.</li>
+        <li><strong>Public reinvestment.</strong> Hosting, maintaining and developing the free resources listed above.</li>
+      </ul>
+      <p>Our tax-exempt status and annual Form 990-N filings are public under EIN 99-2964468 in the IRS <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer">Tax Exempt Organization Search</a>.</p>
 
       <h2>Contribute</h2>
       <p>The words here come from Wiktionary, which anyone can edit. A correction made there reaches this dictionary at the next refresh, and everything else in the world built on Yorùbá Wiktionary at the same time. <a href="${ctx.pagePath('contribute')}">Contribute</a> lists the gaps we have found and the edit each one needs.</p>

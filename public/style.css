@@ -871,6 +871,59 @@ a { color: inherit; }
   text-rendering: optimizeLegibility;
 }
 
+/* The one picture on the site, and it earns the place by showing the thing the
+   page has just described in prose: a word's parts above it and the words built
+   from it below, both at once, which is what an entry page does and what a
+   sentence needs four clauses for.
+
+   Inline rather than a file, so it costs no request and rides in the cached
+   shell. Painted after the greeting and the search instructions on purpose -
+   those stay the largest-contentful element, and test/paint-budget.test.mjs
+   asserts the welcome text is painted rather than waited for.
+
+   Every colour is a token, so it follows the theme; the Yorùbá words take the
+   Yorùbá face, which is the only one here with reliable diacritic coverage. */
+.welcome-diagram {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  margin: 20px auto 4px;
+}
+
+.welcome-diagram .dg-box {
+  fill: var(--surface);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+/* The word the diagram is about, marked the way a current sibling row is. */
+.welcome-diagram .dg-box.current {
+  fill: var(--background-secondary);
+  stroke: var(--brand-accent);
+}
+.welcome-diagram .dg-word {
+  font-family: var(--font-yoruba);
+  font-size: 17px;
+  font-weight: 600;
+  fill: var(--brand-indigo);
+}
+.welcome-diagram .dg-gloss {
+  font-family: var(--font-body);
+  font-size: 12px;
+  fill: var(--text-secondary);
+}
+.welcome-diagram .dg-plus {
+  font-family: var(--font-body);
+  font-size: 20px;
+  fill: var(--text-secondary);
+}
+.welcome-diagram .dg-line {
+  fill: none;
+  stroke: var(--brand-accent);
+  stroke-width: 1.5;
+}
+.welcome-diagram .dg-arrow { fill: var(--brand-accent); }
+
 /* The half of the welcome page that is not about looking a word up. The rule
    above it does the separating; borrowed from .unit, which divides the sample
    vocabulary units on Language of Connections for the same reason.
