@@ -837,12 +837,12 @@ import { createPageRenderer } from './page-render.js';
 
     els.qualityContent.innerHTML = `
       ${sourceNote}
-      <div class="quality-stat"><span>Words in the dictionary</span><strong>${v.totalEntries}</strong></div>
-      <div class="quality-stat"><span>Things worth fixing</span><strong>${v.summary ? v.summary.actionable : '—'}</strong></div>
-      <div class="quality-stat"><span>…of those, easy wins</span><strong>${v.summary ? v.summary.easyWins : '—'}</strong></div>
       <div class="quality-note">
-        These describe the Wiktionary data this dictionary is built from, not bugs in this site. Almost everything here is fixed by editing the word on Wiktionary itself, and we pick that up automatically the next time we refresh — each item below links straight to the section to edit. A few are ours to fix, and say so.
+        This is a report on <strong>Wiktionary</strong>, the source this dictionary is built from — not a list of faults in this site. Almost every item is fixed by editing the word on Wiktionary itself, and we pick that up automatically the next time we refresh; each one below links straight to the section to edit. A few are ours to fix, and say so.
       </div>
+      <div class="quality-stat"><span>Words in the dictionary</span><strong>${v.totalEntries}</strong></div>
+      <div class="quality-stat"><span>Wiktionary edits worth making</span><strong>${v.summary ? v.summary.actionable : '—'}</strong></div>
+      <div class="quality-stat"><span>…of those, quick to do</span><strong>${v.summary ? v.summary.easyWins : '—'}</strong></div>
       ${groups}
       <a class="quality-download" href="/data/validation-report.json" download="yorubadict-quality-report.json">
         Download the full report (JSON) — every word affected, not just the first ${escapeHtml(String(120))}

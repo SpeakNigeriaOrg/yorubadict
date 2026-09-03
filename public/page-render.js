@@ -52,8 +52,8 @@ export function createPageRenderer(ctx) {
     return `
       <div class="entry-welcome">
         <h1>Ẹ káàbọ̀!</h1>
-        <p>Welcome! Search in Yorùbá (with or without tone marks or underdots), or search by its English definition. After your first visit, the dictionary is on your device, and it works with no connection.</p>
-        <p>Or open a word and follow it. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. Start at <a href="${ctx.pathFor('en-ẹrọ-yo-noun-MsZxKZjf')}">ẹ̀rọ</a>, a machine — <a href="${ctx.pathFor('en-ẹrọ_ayarabiaṣa-yo-noun-sIRyAz9N')}">ẹ̀rọ ayárabíàṣá</a> is a computer, <a href="${ctx.pathFor('en-ẹrọ_amuletutu-yo-noun-tpAybTd7')}">ẹ̀rọ amúlétutù</a> is an air conditioner — or at <a href="${ctx.pathFor('en-ade-yo-noun-Dc-vq1-A')}">adé</a>, a crown, or <a href="${ctx.pathFor('en-ounjẹ-yo-noun-wfAmWC~m')}">oúnjẹ</a>, food.</p>
+        <p>Welcome! Search this free dictionary in Yorùbá (with or without tone marks or underdots), or search by its English definition. After your first visit, the dictionary is on your device, and it works with no connection.</p>
+        <p>Or open a word and discover Yorùbá in a new way, finding the connections between words. Every entry lists its <strong>Component words</strong>, the words it is made from, and <strong>Used in</strong>, the words made from it. For example, <a href="${ctx.pathFor('en-ounjẹ-yo-noun-wfAmWC~m')}">oúnjẹ</a>, food, is made from <a href="${ctx.pathFor('en-ohun-yo-noun-XelNaRrj')}">ohun</a>, a thing, and <a href="${ctx.pathFor('en-jijẹ-yo-noun-w9aEvSCL')}">jíjẹ</a>, eating — and is itself used in <a href="${ctx.pathFor('en-ounjẹ_aarọ-yo-noun-fFjqJTYo')}">oúnjẹ àárọ̀</a>, breakfast, <a href="${ctx.pathFor('en-ounjẹ_alẹ-yo-noun-FXhxqX-b')}">oúnjẹ alẹ́</a>, dinner, and <a href="${ctx.pathFor('en-ile-ounjẹ-yo-noun-7iddZNr8')}">ilé-oúnjẹ</a>, a restaurant. Or start at <a href="${ctx.pathFor('en-ẹrọ-yo-noun-MsZxKZjf')}">ẹ̀rọ</a>, a machine, used in <a href="${ctx.pathFor('en-ẹrọ_ayarabiaṣa-yo-noun-sIRyAz9N')}">ẹ̀rọ ayárabíàṣá</a>, a computer, and <a href="${ctx.pathFor('en-ẹrọ_amuletutu-yo-noun-tpAybTd7')}">ẹ̀rọ amúlétutù</a>, an air conditioner — or at <a href="${ctx.pathFor('en-ade-yo-noun-Dc-vq1-A')}">adé</a>, a crown.</p>
 
         <section class="welcome-about">
           <h2>Sọ̀rọ̀ sókè</h2>
@@ -82,7 +82,7 @@ export function createPageRenderer(ctx) {
 
         <h2>What we changed</h2>
         <ul>
-          <li><strong>Cleaned and reorganized.</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing. With crowdsourced data, this will always be a work in progress, so let us know if you spot any quirks.</li>
+          <li><strong>Cleaned and reorganized.</strong> We start from Kaikki's already-cleaned extraction of Wiktionary's raw wikitext, then apply a light additional layer of our own processing. Crowdsourced data keeps changing, so we refresh from the source and rerun those checks with every release — tell us if you spot a quirk we have missed.</li>
           <li><strong>Searchable.</strong> With or without tone marks, with or without underdots, in English or Yorùbá.</li>
           <li><strong>Restructured relationships.</strong> Whichever side of a relationship Wiktionary happens to document — parent or derived word — we automatically synthesize the missing reverse link, turning its inconsistent, crowdsourced etymology links into a real, two-way, navigable path through the language.</li>
         </ul>
@@ -109,7 +109,7 @@ function speakNigeriaHtml() {
   return `
     <div class="about-content">
       <h1>About Speak Nigeria</h1>
-      <p class="about-lede">Speak Nigeria is a 501(c)(3) nonprofit dedicated to helping children learn and preserve Nigerian languages. We build free, open-access tools to fill a critical gap in digital education—beginning with this dictionary, designed from the ground up around how Yorùbá actually works.</p>
+      <p class="about-lede">Speak Nigeria is a 501(c)(3) nonprofit, registered as SpeakNigeria Inc, EIN 99-2964468. We help children learn and keep Nigerian languages, and we build the free digital resources they learn from. This dictionary is one of them.</p>
 
       <h2>Why we exist</h2>
       <p>A language can slip away in a single generation. It happens in the diaspora, but it also happens across urban Nigeria, where English-dominant classrooms, internal migration, and rapid cultural shifts leave children disconnected from the languages of their homes.</p>
@@ -118,36 +118,42 @@ function speakNigeriaHtml() {
       <p>Yet parents and educators trying to pass these languages on face an immediate hurdle: for most Nigerian languages, modern, child-friendly digital resources simply do not exist. Where tools do exist, they are rarely built for the way children naturally learn.</p>
 
       <h2>Built for the language, not adapted to it</h2>
-      <p>A child learning Spanish has access to thousands of apps, games, and dictionaries tailored to how Romance languages work. A child learning Yorùbá is often met with complete digital silence—or, at best, software built for European tongues with Yorùbá poured into it. Tone marks survive merely as decorative accents. Compound words are presented as isolated lists to memorize—the easiest route for a computer, but the hardest for a child.</p>
-      <p>We designed our resources around two fundamental linguistic realities most software ignores:</p>
-      <p><strong>Words are made of words.</strong> <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is composed of <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who understands those two roots can unlock the compound word immediately. This dictionary displays these connections across every entry. For a deeper look, see our guide: <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a>.</p>
-      <p><strong>Tone is part of the word.</strong> Pitch is not optional decoration; changing the tone changes the definition entirely. Our tools emphasize tone and pitch from day one, helping learners build correct mental models from their very first lesson.</p>
+      <p>A child learning Spanish has thousands of apps, games and dictionaries built around how Spanish works. A child learning Yorùbá is met with silence, or with software built for European languages and Yorùbá poured into it. Tone marks survive as decoration. Words built from other words are listed as separate vocabulary to memorise — the easiest thing for a computer and the hardest for a child.</p>
+      <p>Two things carry meaning in Yorùbá that most software throws away, and both are what our resources are built on.</p>
+      <p><strong>Words are made of words.</strong> <a href="${ctx.pathFor('en-ile_aye-yo-noun-t8m1zNPj')}">ilé ayé</a> means Earth. It is <a href="${ctx.pathFor('en-ile-yo-noun-VQM0lVeW')}">ilé</a> (home) and <a href="${ctx.pathFor('en-aye-yo-noun-SG6kYiTR')}">ayé</a> (life). A learner who knows those two words can read the third without being taught it, and that is true of a great deal of the language. This dictionary shows those parts on every entry, in both directions. <a href="${ctx.pagePath('language-of-connections')}">Language of connections</a> is the longer account, written for teachers and learners alike.</p>
+      <p><strong>Tone is part of the word.</strong> It is not an accent added to a spelling: change the tone and you have a different word. Our resources treat it that way from the first lesson.</p>
+      <p>We are starting with Yorùbá, where our curriculum is deepest. Igbo is next, with Hausa, Edo (Bini), Ijaw and Efik to follow.</p>
 
       <h2>What we make</h2>
       <ul>
-        <li><strong>Courses:</strong> Structured, live instruction led by native teachers. These are paid so our educators are compensated fairly.</li>
-        <li><strong>Games:</strong> Free and open-source games that make repetitive practice engaging, scalable, and community-driven.</li>
-        <li><strong>This Dictionary:</strong> A free, living reference built on open data that belongs to everyone.</li>
+        <li><strong>This dictionary</strong>, free, built on open data that belongs to everybody.</li>
+        <li><strong>Language games</strong> on our website, free and open source.</li>
+        <li><strong>A larger open-source game</strong> for learning several Nigerian languages, in development.</li>
+        <li><strong>A contribution platform</strong>, where volunteers add translations, spellings and pronunciations across Nigerian languages.</li>
+        <li><strong>Live courses</strong>, taught by native speakers. These are the one thing we charge for, and they are on <a href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">speaknigeria.org</a> rather than here.</li>
       </ul>
-      <p>We are starting with Yorùbá, where our curriculum is deepest. Igbo is next, with Hausa, Edo (Bini), Ijaw, and Efik to follow.</p>
 
-      <h2>How this dictionary fits</h2>
-      <p>While our courses provide a structured path, this dictionary is built for exploration. It reveals the roots beneath every word—because in Yorùbá, the meaning of a word is almost always another word.</p>
+      <h2>How this is funded</h2>
+      <p>Course fees pay the teachers who teach them, and support everything above that is free.</p>
+      <p>This site takes no revenue. It carries no advertising, sells nothing, and collects nothing about you — after your first visit the whole dictionary is on your device and your searches never leave it.</p>
+      <p>Our IRS record, including what we have filed, is under EIN 99-2964468 in the <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer">Tax Exempt Organization Search</a>.</p>
+
+      <h2>Contribute</h2>
+      <p>The words here come from Wiktionary, which anyone can edit. A correction made there reaches this dictionary at the next refresh, and everything else in the world built on Yorùbá Wiktionary at the same time. <a href="${ctx.pagePath('contribute')}">Contribute</a> lists the gaps we have found and the edit each one needs.</p>
 
       <div class="about-actions">
-        <a class="about-btn primary" href="https://speaknigeria.org/courses.html" target="_blank" rel="noopener noreferrer">Explore Yorùbá Courses</a>
-        <a class="about-btn ghost" href="https://games.speaknigeria.org/" target="_blank" rel="noopener noreferrer">Play Language Games ↗</a>
-        <a class="about-btn ghost" href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">Learn More About Us ↗</a>
+        <a class="about-btn primary" href="${ctx.pagePath('welcome')}">Search the dictionary</a>
+        <a class="about-btn ghost" href="${ctx.pagePath('contribute')}">Contribute an entry</a>
+        <a class="about-btn ghost" href="https://speaknigeria.org" target="_blank" rel="noopener noreferrer">Visit Speak Nigeria ↗</a>
       </div>
 
-      <h2>Contact & Contributions</h2>
-      <p>Questions, ideas, or feedback? Email us anytime at <a href="mailto:hello@speaknigeria.org">hello@speaknigeria.org</a>.</p>
-      <p>If you spot an error or want to improve a definition, you can edit entries directly via <a href="${ctx.pagePath('contribute')}">Wiktionary</a>. Because our data is open, your contributions automatically improve not just this dictionary, but open Yorùbá tools worldwide.</p>
+      <p>Questions, ideas or feedback: <a href="mailto:hello@speaknigeria.org">hello@speaknigeria.org</a>.</p>
 
-      <p class="blocks-note">Speak Nigeria is a 501(c)(3) nonprofit registered in the United States (EIN 99-2964468). We host community educational programs and develop open-access resources for parents, teachers, and schools everywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
+      <p class="blocks-note">SpeakNigeria Inc is a 501(c)(3) nonprofit registered in the United States, EIN 99-2964468. We host community educational programs and develop open-access resources for parents, teachers and schools everywhere. <a href="https://speaknigeria.org/about" target="_blank" rel="noopener noreferrer">speaknigeria.org/about</a></p>
     </div>
   `;
 }
+
   // The five sample vocabulary units.
   //
   // Each is a family that already exists in the dictionary: a few short words,
