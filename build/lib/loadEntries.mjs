@@ -24,10 +24,46 @@ export class ArtifactAssetNotFoundError extends Error {
   }
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url);
+// GitHub's API allows 60 requests an hour to an unauthenticated caller, counted
+// per IP - and on Cloudflare Pages that IP is shared with every other project
+// building at the same time. A deploy of this repo has exactly one job that
+// touches the API, and it still lost that race on 2026-09-09:
+//
+//   [1/5] Fetching kaikki-yoruba's latest release ...
+//   Build failed: 403 rate limit exceeded
+//
+// A token raises the ceiling to 5,000 an hour and makes the limit ours rather
+// than the build fleet's. Set GITHUB_TOKEN in the Pages project's environment
+// variables; the repo is public, so it needs no scopes at all - it is proof of
+// identity, not permission. Without one this still works, just fragilely.
+function githubHeaders() {
+  // A User-Agent is not optional to GitHub's API: it rejects requests without
+  // one, and Node's fetch does not send a default.
+  const headers = { 'User-Agent': 'yorubadict-build', Accept: 'application/vnd.github+json' };
+  const token = process.env.GITHUB_TOKEN;
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+async function fetchJson(url, attempt = 1) {
+  const response = await fetch(url, { headers: githubHeaders() });
+
+  // Rate limiting and GitHub's occasional 5xx are transient, and a failed
+  // build here costs a whole deploy. Three tries with a widening pause turns
+  // most of them into a slow build instead of a red one. A limit that is
+  // genuinely exhausted still fails, which is what the token is for.
+  const transient = response.status === 403 || response.status === 429 || response.status >= 500;
+  if (transient && attempt < 3) {
+    await new Promise((r) => setTimeout(r, attempt * 5000));
+    return fetchJson(url, attempt + 1);
+  }
+
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+    const hint =
+      transient && !process.env.GITHUB_TOKEN
+        ? ' - set GITHUB_TOKEN in the build environment to raise the rate limit'
+        : '';
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}${hint}`);
   }
   return response.json();
 }
