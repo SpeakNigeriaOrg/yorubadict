@@ -651,6 +651,14 @@ import { createPageRenderer } from './page-render.js';
   function handleRoute() {
     const path = decodeURIComponent(location.pathname);
 
+    // Every navigation after the first is pushState with no document load, so
+    // the default one-pageview-per-load would report a single view for a visit
+    // that read twenty entries. Reported here, at the top, because every route
+    // below this returns from somewhere different.
+    //
+    // Safe before the tag exists: track() queues until it does.
+    if (window.snTrack) window.snTrack('$pageview', { path: path, referrer: document.referrer || '' });
+
     // A prerendered page arrives with its content already in the markup. Leaving
     // it alone on the first pass is the difference between a page that is simply
     // there and one that blanks and redraws after 12 MB has downloaded.
@@ -975,6 +983,53 @@ import { createPageRenderer } from './page-render.js';
   // Boot
   // ---------------------------------------------------------------
 
+  // The paint gate, as one promise both callers share.
+  //
+  // It used to be inline in boot(), waited on only by the dictionary fetch.
+  // The analytics tag has exactly the same requirement - anything requested
+  // before the largest paint is treated as something the paint waited for -
+  // so it awaits this rather than a second approximation of it. Memoized: the
+  // paint happens once, and two callers must not race two observers.
+  //
+  // Only a fallback, never a race. An earlier version let an idle callback
+  // with a 1s timeout run against the observer, which meant that on a slow
+  // load - paint at 2.3s in one measured run - the timer fired first and
+  // started the download before the paint, which is the one case this is
+  // meant to prevent. It scored 65 where the same code scored 99 on a fast
+  // load. The long stop below exists only so a paint that never arrives can't
+  // strand the dictionary.
+  let paintPromise = null;
+  function afterPaint() {
+    if (paintPromise) return paintPromise;
+    paintPromise = new Promise((resolve) => {
+      let started = false;
+      const go = () => {
+        if (started) return;
+        started = true;
+        resolve();
+      };
+
+      let watchingPaint = false;
+      try {
+        const observer = new PerformanceObserver(() => {
+          observer.disconnect();
+          go();
+        });
+        observer.observe({ type: 'largest-contentful-paint', buffered: true });
+        watchingPaint = true;
+      } catch (err) {
+        // Older Safari has no largest-contentful-paint entry type.
+      }
+
+      if (!watchingPaint) {
+        if (typeof requestIdleCallback === 'function') requestIdleCallback(go, { timeout: 1000 });
+        else setTimeout(go, 200);
+      }
+      setTimeout(go, 5000);
+    });
+    return paintPromise;
+  }
+
   async function boot() {
     // Paint everything that doesn't depend on the dictionary BEFORE asking for
     // it. The YO/EN badge, the "Start typing…" hint and the welcome text are
@@ -1086,6 +1141,15 @@ import { createPageRenderer } from './page-render.js';
     document.addEventListener('click', interceptLinks);
     initSearchMode();
 
+    // The tag loads behind the same paint gate as the dictionary itself.
+    // test/paint-budget.test.mjs fails the build if anything is requested
+    // before the largest paint, and two third-party scripts in the head is
+    // exactly what it exists to catch. Not awaited: nothing below depends on
+    // it, and analytics must never delay the dictionary.
+    if (window.snAnalytics) {
+      window.snAnalytics.init('yorubadict', { waitFor: afterPaint() });
+    }
+
     // Wait for the paint above to actually commit before asking for 2.1 MB.
     //
     // Painting first in source order isn't enough, because the fetches were
@@ -1112,39 +1176,7 @@ import { createPageRenderer } from './page-render.js';
     // side and take LCP back to 14s. The paint entry is the actual signal, so
     // it's the one to wait for; idle and a timeout are only fallbacks for
     // browsers without the observer, and bound the wait if it never fires.
-    await new Promise((resolve) => {
-      let started = false;
-      const go = () => {
-        if (started) return;
-        started = true;
-        resolve();
-      };
-
-      let watchingPaint = false;
-      try {
-        const observer = new PerformanceObserver(() => {
-          observer.disconnect();
-          go();
-        });
-        observer.observe({ type: 'largest-contentful-paint', buffered: true });
-        watchingPaint = true;
-      } catch (err) {
-        // Older Safari has no largest-contentful-paint entry type.
-      }
-
-      // Only a fallback, never a race. An earlier version let an idle callback
-      // with a 1s timeout run against the observer, which meant that on a slow
-      // load - paint at 2.3s in one measured run - the timer fired first and
-      // started the download before the paint, which is the one case this is
-      // meant to prevent. It scored 65 where the same code scored 99 on a fast
-      // load. The long stop below exists only so a paint that never arrives
-      // can't strand the dictionary.
-      if (!watchingPaint) {
-        if (typeof requestIdleCallback === 'function') requestIdleCallback(go, { timeout: 1000 });
-        else setTimeout(go, 200);
-      }
-      setTimeout(go, 5000);
-    });
+    await afterPaint();
 
     // Only now the part that genuinely needs the dictionary. The quality
     // report is over half a megabyte and nothing on the reading path needs it,

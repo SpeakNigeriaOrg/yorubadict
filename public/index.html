@@ -243,6 +243,15 @@
      imports to write a real HTML file per word. english-relevance.js stays a
      classic script and still runs first - deferred classic scripts go before
      deferred modules - so its global is in place when app.js starts. -->
+<!-- Analytics. Classic scripts, deferred: they define window.snConsent and
+     window.snAnalytics before app.js boots, but the PostHog tag itself is not
+     fetched here - app.js loads it behind the same largest-contentful-paint
+     gate as the dictionary. See test/paint-budget.test.mjs before changing
+     this, and the note above afterPaint() in app.js.
+     consent.js and track.js are copies; edit them in analytics/ and run
+     analytics/copy-to-siblings.mjs. -->
+<script src="/analytics/consent.js" defer></script>
+<script src="/analytics/track.js" defer></script>
 <script src="/english-relevance.js" defer></script>
 <script type="module" src="/app.js"></script>
 </body>

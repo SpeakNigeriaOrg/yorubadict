@@ -41,6 +41,13 @@ const VERSION_URL = '/data/version.json';
 // makes a first visit affordable.
 const SHELL = [
   '/',
+  // Analytics, cached with everything else because the shell references them
+  // and a page that asks for a file the worker does not hold is a 404 in the
+  // console on every offline visit. They do nothing useful without a network -
+  // consent cannot resolve a country and no event can be sent - but app.js
+  // guards every call, so offline they are simply inert.
+  '/analytics/consent.js',
+  '/analytics/track.js',
   '/app.js',
   '/entry-render.js',
   '/page-render.js',

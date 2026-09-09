@@ -1,0 +1,747 @@
+{
+  "version": 1,
+  "generatedFor": "ANALYTICS.md §6",
+  "canonicalHome": "yorubadict/analytics/events.schema.json",
+  "note": "The contract between three repos that all report into one PostHog project. Event names and property names are exact: a property spelled levelId here is levelId everywhere, and a site that emits level_id silently drops out of every cross-property query. Copy this file into the other repos rather than retyping it, and change it here first.",
+  "sites": {
+    "yorubadict": "yorubadict.com",
+    "games": "games.speaknigeria.org",
+    "speaknigeria": "speaknigeria.org"
+  },
+  "commonProperties": {
+    "site": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "yorubadict",
+        "games",
+        "speaknigeria"
+      ],
+      "note": "Added by the track() wrapper, never by a call site."
+    },
+    "contentVersion": {
+      "type": "string",
+      "required": "on every games event",
+      "note": "A stamp identifying the vocab and level data the session ran against. sessions.json, vocab.json and syllables.json carry NO version marker today - adding one is part of G1. Without it, a vocab swap or a level reorganisation silently merges incomparable data into one series. With it, every query can segment on content, and 'before and after we changed the words' is a filter rather than a guess."
+    }
+  },
+  "designNote": {
+    "structureOverIdentity": "Prefer properties that describe WHAT HAPPENED over properties that name WHICH ITEM it happened to. syllableCount, expectedTones, wrongIndexes and speaker all survive a complete vocabulary replacement, because they describe the shape of the task rather than its content. word and levelId do not. The highest-value output in the plan - the tone confusion matrix - is built entirely from expectedTones against chosenTones, so it accumulates across any number of vocab swaps without a break.",
+    "levelIdIsALabel": "levelId is a human-readable display string like 'Level 1: Animals (Ẹranko) — speaker2'. It embeds the level number, the theme and the speaker, so reorganising levels can reuse a levelId for different words. That is worse than a rename: a rename ends one series and starts another, while a reuse merges two series that should not be compared. Treat levelId as a label for reading reports, never as the key an analysis depends on. Group by category, syllableCount, speaker and contentVersion instead."
+  },
+  "enums": {
+    "searchMode": [
+      "both",
+      "yoruba",
+      "english"
+    ],
+    "game": [
+      "phonics",
+      "tones"
+    ],
+    "tone": [
+      "high",
+      "mid",
+      "low"
+    ],
+    "relationType": [
+      "etymology",
+      "dialect",
+      "related",
+      "building-block"
+    ],
+    "entrySource": [
+      "search",
+      "spelling-page",
+      "relation",
+      "direct"
+    ],
+    "outboundTarget": [
+      "games",
+      "speaknigeria",
+      "courses",
+      "wiktionary",
+      "dictionary"
+    ],
+    "formName": [
+      "enrollment",
+      "info",
+      "volunteer"
+    ],
+    "audioScope": [
+      "full",
+      "syllable"
+    ],
+    "hintKind": [
+      "tone-dots",
+      "tone-melody"
+    ],
+    "levelCategory": [
+      "themed",
+      "syllable_reinforcement",
+      "tone_pattern",
+      "endless_practice"
+    ]
+  },
+  "events": {
+    "$pageview": {
+      "sites": [
+        "yorubadict",
+        "games",
+        "speaknigeria"
+      ],
+      "hook": "yorubadict: handleRoute (app.js:651) or capture_pageview:'history_change'. games landing + speaknigeria: page-events.js. games phonics/tones: game-events.js.",
+      "note": "The dictionary is an SPA; the default one-per-load reports a single view for a visit that read twenty entries. See ANALYTICS.md §6.1.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "required": true
+        },
+        "referrer": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "consent_granted": {
+      "sites": [
+        "yorubadict",
+        "games",
+        "speaknigeria"
+      ],
+      "hook": "consent.js, on an affirmative answer to the notice",
+      "note": "The record Google's EU user consent policy requires: which notice text was shown, and when it was agreed to. Only fired for a yes - a refusal leaves nothing to retain. noticeVersion maps to the wording in consent.js; never reuse a version for different text.",
+      "properties": {
+        "noticeVersion": {
+          "type": "string",
+          "required": true
+        },
+        "agreedAt": {
+          "type": "string",
+          "required": true,
+          "note": "ISO 8601 timestamp"
+        }
+      }
+    },
+    "entry_view": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "renderEntry (app.js:114)",
+      "properties": {
+        "entryId": {
+          "type": "string",
+          "required": true
+        },
+        "pos": {
+          "type": "string",
+          "required": false
+        },
+        "hasEtymology": {
+          "type": "boolean",
+          "required": true
+        },
+        "morphemeCount": {
+          "type": "integer",
+          "required": true
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "enum": "entrySource"
+        }
+      }
+    },
+    "spelling_page_view": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "handleRoute, /yo/<spelling> branch",
+      "note": "The word-ad landing page. 829 ambiguous spellings are self-canonical and in the sitemap.",
+      "properties": {
+        "spelling": {
+          "type": "string",
+          "required": true
+        },
+        "candidateCount": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "sense_chosen": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "entry_view whose source is spelling-page",
+      "note": "The word-ad conversion: landed on a toneless spelling, saw it was several words, picked one.",
+      "properties": {
+        "spelling": {
+          "type": "string",
+          "required": true
+        },
+        "entryId": {
+          "type": "string",
+          "required": true
+        },
+        "candidateCount": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "search_settled": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "end of a search episode - query unchanged ~1.5s, or blur/clear/navigation. NOT per keystroke: onSearchInput debounces at 60ms (app.js:766).",
+      "properties": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "maxLength": 120
+        },
+        "mode": {
+          "type": "string",
+          "required": true,
+          "enum": "searchMode"
+        },
+        "resultCount": {
+          "type": "integer",
+          "required": true
+        },
+        "clicked": {
+          "type": "boolean",
+          "required": true
+        },
+        "dwellMs": {
+          "type": "integer",
+          "required": true
+        },
+        "topResultIds": {
+          "type": "array",
+          "items": "string",
+          "required": false,
+          "maxItems": 3
+        },
+        "refinedFromPrevious": {
+          "type": "boolean",
+          "required": true,
+          "note": "True when this query is a prefix extension or diacritic variant of the previous episode - i.e. the reader was still typing."
+        }
+      }
+    },
+    "search_none_matched": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "the 'none of these' control on the result list",
+      "note": "Only build the control if someone will read the queue. See ANALYTICS.md §6.4.",
+      "properties": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "maxLength": 120
+        },
+        "mode": {
+          "type": "string",
+          "required": true,
+          "enum": "searchMode"
+        },
+        "resultCount": {
+          "type": "integer",
+          "required": true
+        },
+        "topResultIds": {
+          "type": "array",
+          "items": "string",
+          "required": false,
+          "maxItems": 3
+        }
+      }
+    },
+    "building_block_followed": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "[data-search-form] branch of the entryContent delegated handler",
+      "note": "The project's thesis, and a primary conversion.",
+      "properties": {
+        "relationType": {
+          "type": "string",
+          "required": true,
+          "enum": "relationType"
+        }
+      }
+    },
+    "relation_followed": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": ".relation-pill via interceptLinks (app.js:548)",
+      "properties": {
+        "relationType": {
+          "type": "string",
+          "required": true,
+          "enum": "relationType"
+        }
+      }
+    },
+    "alternatives_opened": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": ".pill-more branch",
+      "properties": {}
+    },
+    "dialect_panel_opened": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "<details class=\"dialect-panel\"> toggle",
+      "properties": {}
+    },
+    "hedge_explainer_opened": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": ".info-toggle branch",
+      "note": "A reader weighing a claim we already flagged as uncertain. The place to ask a question later, per §6.4.",
+      "properties": {}
+    },
+    "data_quality_opened": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "qualityToggle listener (app.js:1009)",
+      "properties": {}
+    },
+    "outbound_click": {
+      "sites": [
+        "yorubadict",
+        "games",
+        "speaknigeria"
+      ],
+      "hook": "yorubadict: interceptLinks. games landing + speaknigeria: page-events.js delegated click.",
+      "properties": {
+        "target": {
+          "type": "string",
+          "required": true,
+          "enum": "outboundTarget"
+        }
+      }
+    },
+    "pwa_installed": {
+      "sites": [
+        "yorubadict"
+      ],
+      "hook": "appinstalled",
+      "properties": {}
+    },
+    "outbound_form_click": {
+      "sites": [
+        "speaknigeria"
+      ],
+      "hook": "page-events.js delegated click; the three Google Form links in speaknigeria.org/courses.html",
+      "note": "A click, not a submission. Google Forms cannot redirect to a confirmation URL.",
+      "properties": {
+        "form": {
+          "type": "string",
+          "required": true,
+          "enum": "formName"
+        }
+      }
+    },
+    "game_start": {
+      "sites": [
+        "games"
+      ],
+      "hook": "loadLevel on the first level of a playlist (phonics:407, tones:719)",
+      "note": "Secondary conversion only - it fires on nearly every non-bounce ad click. See §7.1.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "category": {
+          "type": "string",
+          "required": true,
+          "enum": "levelCategory"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "speaker": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "game_opened": {
+      "sites": [
+        "games"
+      ],
+      "hook": "page-events.js delegated click, games landing page only",
+      "note": "Clicking from the games landing page into a game. The gap between this and game_start is people who opened a game and never picked a playlist - the drop-off an ad pays for and does not get.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        }
+      }
+    },
+    "playlist_selected": {
+      "sites": [
+        "games"
+      ],
+      "hook": "selectPlaylist (phonics:110, tones:477)",
+      "properties": {
+        "category": {
+          "type": "string",
+          "required": true,
+          "enum": "levelCategory"
+        },
+        "levelCount": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "word_shown": {
+      "sites": [
+        "games"
+      ],
+      "hook": "loadWord (phonics:422, tones:736)",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "word": {
+          "type": "string",
+          "required": true,
+          "note": "The vocab key, e.g. aja_dog. Stable while the word exists; absent after a vocab swap. Never the only thing an analysis groups by."
+        },
+        "syllableCount": {
+          "type": "integer",
+          "required": true
+        },
+        "tonePattern": {
+          "type": "string",
+          "required": true,
+          "note": "The word's tone shape as a dash-joined string, e.g. mid-high-low. Survives a complete vocab replacement, so 'which tone shapes are hard' stays answerable across content changes where 'which words are hard' does not."
+        },
+        "speaker": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "answer_checked": {
+      "sites": [
+        "games"
+      ],
+      "hook": "tones: checkAnswer (tones:915), both branches already exist. phonics: checkWinCondition (phonics:564) is a bare if with NO else - the wrong-answer path must be added.",
+      "note": "The highest-value event in the plan. expectedTones against chosenTones gives a confusion matrix of Yoruba tone perception. Do NOT introduce scoring - see the comment above playWrong in tones/app.js.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "word": {
+          "type": "string",
+          "required": true
+        },
+        "correct": {
+          "type": "boolean",
+          "required": true
+        },
+        "attemptNumber": {
+          "type": "integer",
+          "required": true
+        },
+        "msSinceWordShown": {
+          "type": "integer",
+          "required": true
+        },
+        "speaker": {
+          "type": "string",
+          "required": true
+        },
+        "syllableCount": {
+          "type": "integer",
+          "required": true
+        },
+        "expectedTones": {
+          "type": "array",
+          "items": "tone",
+          "required": false,
+          "note": "tones only"
+        },
+        "chosenTones": {
+          "type": "array",
+          "items": "tone",
+          "required": false,
+          "note": "tones only"
+        },
+        "wrongIndexes": {
+          "type": "array",
+          "items": "integer",
+          "required": false,
+          "note": "tones only"
+        },
+        "expectedSyllables": {
+          "type": "array",
+          "items": "string",
+          "required": false,
+          "note": "phonics only"
+        },
+        "submittedQueue": {
+          "type": "array",
+          "items": "string",
+          "required": false,
+          "note": "phonics only"
+        }
+      }
+    },
+    "hint_used": {
+      "sites": [
+        "games"
+      ],
+      "hook": "toggleToneHint (phonics:453, tones:777)",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "kind": {
+          "type": "string",
+          "required": true,
+          "enum": "hintKind"
+        }
+      }
+    },
+    "audio_replayed": {
+      "sites": [
+        "games"
+      ],
+      "hook": "full word: playFullWordAudio (phonics:471, tones:794). syllable: handleSyllableClick (phonics:531), playRecordedSyllable (tones:879).",
+      "note": "Doubles as a data-quality signal: a syllable replayed far more than its neighbours is probably an unclear recording, actionable back in yoruba-student-dict.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "word": {
+          "type": "string",
+          "required": true
+        },
+        "scope": {
+          "type": "string",
+          "required": true,
+          "enum": "audioScope"
+        },
+        "syllableIndex": {
+          "type": "integer",
+          "required": false
+        },
+        "speaker": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "word_skipped": {
+      "sites": [
+        "games"
+      ],
+      "hook": "skipWord (phonics:553, tones:825)",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "word": {
+          "type": "string",
+          "required": true
+        },
+        "attemptsBeforeSkip": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "word_back": {
+      "sites": [
+        "games"
+      ],
+      "hook": "prevWord (phonics:490, tones:817)",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        }
+      }
+    },
+    "level_complete": {
+      "sites": [
+        "games"
+      ],
+      "hook": "loadLevel advancing past the last word",
+      "note": "PRIMARY conversion, and the safest one: it maps onto the 'quizzes completed' example in the Ad Grants policy. sessions.json levels run 3-12 words, median 8, so it is reachable in one sitting.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "required": true,
+          "enum": "levelCategory"
+        },
+        "wordCount": {
+          "type": "integer",
+          "required": true
+        },
+        "durationMs": {
+          "type": "integer",
+          "required": true
+        },
+        "totalWrong": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "level_abandoned": {
+      "sites": [
+        "games"
+      ],
+      "hook": "pagehide ONLY - never visibilitychange. These are played in classrooms, where a teacher switching tabs is normal and is not abandonment.",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "wordsAttempted": {
+          "type": "integer",
+          "required": true
+        }
+      }
+    },
+    "share_link_created": {
+      "sites": [
+        "games"
+      ],
+      "hook": "the share control - requires URL routing, which neither game has today",
+      "note": "PRIMARY conversion. A share click is observable; whether anyone opened it is not (the Web Share API gives no success callback on mobile).",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "required": true,
+          "enum": "levelCategory"
+        },
+        "method": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "share_link_opened": {
+      "sites": [
+        "games"
+      ],
+      "hook": "arrival with a share parameter",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "levelId": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "fullscreen_toggled": {
+      "sites": [
+        "games"
+      ],
+      "hook": "toggleFullscreen (phonics:73, tones:236)",
+      "properties": {
+        "game": {
+          "type": "string",
+          "required": true,
+          "enum": "game"
+        },
+        "on": {
+          "type": "boolean",
+          "required": true
+        }
+      }
+    }
+  },
+  "conversions": {
+    "note": "Google Ads conversion actions, per ANALYTICS.md §7.3. A conversion must discriminate between a good click and a bad one. Count: One, never Every.",
+    "primary": [
+      "level_complete",
+      "share_link_created",
+      "game_opened",
+      "sense_chosen",
+      "building_block_followed",
+      "search_settled where resultCount > 0"
+    ],
+    "secondary": [
+      "game_start",
+      "pwa_installed",
+      "outbound_form_click"
+    ],
+    "categoryOtherExcludedFromConversions": [
+      "words attempted >= 3",
+      "time on site"
+    ],
+    "childDirectedConstraint": "games.speaknigeria.org is played by children (Speak Nigeria's courses are ages 5-17), which brings COPPA into scope. COPPA treats cookies as personal information on a child-directed site, and its narrow 'support for internal operations' exception covers basic analytics but NOT advertising. So the Google Ads tag must NOT load on /phonics/ or /tones/. The resolution: advertise the games LANDING page, which is what an adult searching Google actually reaches, put the Ads tag only there, and make game_opened the conversion. It discriminates well - not everyone who lands opens a game - and it fires on the adult-facing page. level_complete and share_link_created stay as PostHog events for curriculum insight, but can no longer be Google Ads conversions.",
+    "childAudienceNote": "The games are played by children in Speak Nigeria's classes (ages 5-17), so /phonics/ and /tones/ are a mixed audience: a child may be the direct user, though the sites are marketed to parents and teachers and no advertising is displayed anywhere. That is not the same as child-directed, and it does not bar the Ads tag or conversion tracking. Two choices follow from it anyway, both cheap: ad_personalization stays denied everywhere (Ad Grants cannot use it regardless), and session replay stays off on the game pages - a judgement about recording children's screens, not a legal requirement. answer_checked already carries what replay was wanted for."
+  }
+}
