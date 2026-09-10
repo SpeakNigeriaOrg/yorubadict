@@ -110,10 +110,64 @@ import { createPageRenderer } from './page-render.js';
   // route alone so the markup that arrived is the markup that stays; see there.
   let hydrated = false;
 
+  // How the reader reached the entry about to be rendered. Set by whichever
+  // path navigated - a search result, a relation pill, a spelling page - and
+  // consumed by renderEntry, which resets it to 'direct' so a later render
+  // that nobody navigated to is not mislabelled with a stale source.
+  //
+  // This is the property that makes entry_view answer "what leads people into
+  // words", and it is what separates sense_chosen (arrived from a spelling
+  // page, chose between two words spelled alike) from an ordinary view.
+  let entrySource = 'direct';
+  let sourceSpelling = null;
+  // True when the reader opened one of the results of the episode in flight.
+  // Declared here rather than beside the search code because interceptLinks
+  // sets it and is defined earlier in the file.
+  let searchClicked = false;
+  // Set when a spelling page renders, read when the next entry does. Separate
+  // from sourceSpelling because the click that carries it happens in between.
+  let pendingSpelling = null;
+
+  /** Report a spelling page, and hold what it offered for the sense the reader
+   * picks next. Called from both places a spelling page can be answered: the
+   * hydration branch for a direct arrival, and the route for an in-app click. */
+  function noteSpellingPage(path) {
+    if (!els.entryContent.innerHTML.includes('sibling-list')) return;
+    const spelling = decodeURIComponent(path.replace(/^\/yo\//, '').replace(/\/$/, ''));
+    const candidateCount = els.entryContent.querySelectorAll('.sibling-row').length;
+    if (window.snTrack) window.snTrack('spelling_page_view', { spelling, candidateCount });
+    pendingSpelling = { spelling, candidateCount };
+  }
+
   /** Put an entry on the page. The markup itself comes from entry-render.js. */
   function renderEntry(entry) {
     els.entryContent.innerHTML = entryHtml(entry);
     document.title = titleFor(entry);
+
+    if (window.snTrack) {
+      const relations = entry.relations || [];
+      window.snTrack('entry_view', {
+        entryId: entry.id,
+        pos: entry.pos || '',
+        hasEtymology: Boolean(entry.etymology || entry.etymologyNumber),
+        morphemeCount: relations.filter((r) => r && r.type === 'building-block').length,
+        source: entrySource
+      });
+
+      // Landed on a toneless spelling, saw it was several different words, and
+      // picked one. That is the word-ad conversion, and the tone argument
+      // working: the whole reason those pages exist.
+      if (entrySource === 'spelling-page' && sourceSpelling) {
+        window.snTrack('sense_chosen', {
+          spelling: sourceSpelling.spelling,
+          entryId: entry.id,
+          candidateCount: sourceSpelling.candidateCount
+        });
+      }
+    }
+
+    entrySource = 'direct';
+    sourceSpelling = null;
   }
 
   // ---------------------------------------------------------------
@@ -338,6 +392,7 @@ import { createPageRenderer } from './page-render.js';
     });
 
     appendMentionedRow();
+    appendNoneMatchedRow();
   }
 
   // A word several entries name but the dictionary has no page for, offered at the
@@ -365,6 +420,39 @@ import { createPageRenderer } from './page-render.js';
       <div class="result-headword">${escapeHtml(spelling)}</div>
       <div class="result-meta">no entry yet</div>
       <div class="result-relation">Other entries name this word — see which</div>`;
+    els.resultsList.appendChild(row);
+  }
+
+  // "None of these is the word I meant."
+  //
+  // Behaviour cannot tell a satisfied reader from a disappointed one here: the
+  // result row already carries the meaning, so someone who reads it and stops
+  // has been answered, and someone who found nothing useful looks identical.
+  // Where inference is weak, ask. This is the only signal on the site that
+  // says a search failed on its own authority rather than by our guessing.
+  //
+  // Outside the listbox, so it is never one of the options a keyboard user
+  // arrows through on the way to the word they wanted.
+  function appendNoneMatchedRow() {
+    const query = els.searchInput.value.trim();
+    if (!query || !state.ready) return;
+
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'none-matched';
+    row.textContent = 'None of these is the word I meant';
+    row.addEventListener('click', () => {
+      if (window.snTrack) {
+        window.snTrack('search_none_matched', {
+          query: query.slice(0, 120),
+          mode: state.searchMode,
+          resultCount: state.activeResults.length,
+          topResultIds: state.activeResults.slice(0, 3).map((e) => e.id)
+        });
+      }
+      row.textContent = 'Thank you — we will look at it.';
+      row.disabled = true;
+    });
     els.resultsList.appendChild(row);
   }
 
@@ -551,10 +639,51 @@ import { createPageRenderer } from './page-render.js';
     const link = event.target.closest && event.target.closest('a[href]');
     if (!link) return;
     const href = link.getAttribute('href');
+
+    // Links that leave the dictionary are not navigation and fall through to
+    // the browser, but they are worth counting on the way out - the nine to
+    // the games especially, since that hop is what the campaigns exist to
+    // produce.
+    if (window.snTrack && link.origin && link.origin !== location.origin) {
+      const host = link.hostname.replace(/^www\./, '');
+      const target =
+        host === 'games.speaknigeria.org' ? 'games'
+        : host === 'speaknigeria.org' ? (/courses/.test(link.pathname) ? 'courses' : 'speaknigeria')
+        : /wiktionary\.org$/.test(host) ? 'wiktionary'
+        : null;
+      if (target) window.snTrack('outbound_click', { target });
+    }
+
     // Leave alone: anything off-site, anything with a target, downloads, and
     // plain fragment links, which the browser scrolls to on its own.
     if (!href || !href.startsWith('/') || link.target || link.hasAttribute('download')) return;
     if (link.origin && link.origin !== location.origin) return;
+
+    // What the reader clicked to get to wherever this goes, so entry_view can
+    // say where its traffic came from. A relation pill is the interesting one:
+    // following the word graph is the thing this dictionary is for.
+    const relation = link.closest('.relation-pill');
+    if (relation) {
+      entrySource = 'relation';
+      if (window.snTrack) {
+        window.snTrack('relation_followed', {
+          relationType:
+            relation.closest('.dialect-panel') ? 'dialect'
+            : relation.classList.contains('synthesized') ? 'related'
+            : 'etymology'
+        });
+      }
+    } else if (link.closest('.result-item')) {
+      entrySource = 'search';
+      // Opening a result is the outcome the episode was waiting for, so it is
+      // reported here rather than left to the abandon timer.
+      searchClicked = true;
+      reportSearchEpisode();
+    } else if (link.closest('.sibling-row') && pendingSpelling) {
+      entrySource = 'spelling-page';
+      sourceSpelling = pendingSpelling;
+    }
+
     event.preventDefault();
     go(href);
   }
@@ -672,6 +801,10 @@ import { createPageRenderer } from './page-render.js';
       const arrived = els.entryContent.getAttribute('data-prerendered');
       els.entryContent.removeAttribute('data-prerendered');
       if (arrived && arrived.replace(/\/$/, '') === path.replace(/\/$/, '')) {
+        // A spelling page arrives prerendered and is answered here, before the
+        // routes below ever run - which is where an ad click lands, so it has
+        // to be reported from inside this branch rather than after it.
+        noteSpellingPage(path);
         // Keep the markup that arrived - but Contribute and Key Building
         // Blocks arrive holding a placeholder where their generated list goes,
         // and nothing else on this path would ever fetch it.
@@ -726,7 +859,10 @@ import { createPageRenderer } from './page-render.js';
     // the file on disk: the app has no renderer for it, so a click arriving here
     // falls through to the welcome page while a direct visit gets the real page.
     if (/^\/yo\/[^/]+\/?$/.test(path)) {
-      if (els.entryContent.innerHTML.includes('sibling-list')) return;
+      if (els.entryContent.innerHTML.includes('sibling-list')) {
+        noteSpellingPage(path);
+        return;
+      }
     }
 
     renderPage(pages.byName.get('welcome'));
@@ -771,12 +907,83 @@ import { createPageRenderer } from './page-render.js';
     if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // One event per search INTENT, not per keystroke.
+  //
+  // onSearchInput debounces at 60ms, which is effectively every key: typing
+  // "ile" runs three searches and two of them are abandoned by construction.
+  // Logging each would produce a stream dominated by people typing, at a
+  // volume out of proportion to its worth. So an episode is reported when the
+  // query stops changing for a beat, or when the reader leaves it.
+  //
+  // clicked is false far more often than it means failure. renderResults puts
+  // the meaning in the row, so someone who searches "ile", reads "home, house,
+  // abode" and stops has been answered. refinedFromPrevious is what separates
+  // that from someone still typing: a query that is a prefix or a diacritic
+  // variant of the last one was never a finished search.
+  // An episode is reported when its OUTCOME is known, not when typing stops.
+  //
+  // The first version reported 1.5s after the last keystroke, which meant
+  // `clicked` was false almost every time: reading a list of results takes
+  // longer than a second and a half, so the episode was always already
+  // reported by the time anyone opened one. It measured typing speed, not
+  // whether the search worked.
+  //
+  // Now the report waits for one of the things that actually end a search -
+  // opening a result, starting a different one, leaving the field, or leaving
+  // the page. The long timer is only a backstop for a tab left open.
+  const ABANDON_MS = 30000;
+  let settleTimer = null;
+  let pendingEpisode = null;
+  let previousQuery = '';
+
+  const bare = (t) => t.normalize('NFD').replace(/[\u0300-\u036f\u0323]/g, '').toLowerCase();
+
+  function reportSearchEpisode() {
+    clearTimeout(settleTimer);
+    const episode = pendingEpisode;
+    pendingEpisode = null;
+    if (!episode || !window.snTrack) return;
+
+    const a = bare(previousQuery);
+    const b = bare(episode.query);
+    const refined = Boolean(a) && (b.startsWith(a) || a.startsWith(b));
+    previousQuery = episode.query;
+
+    window.snTrack('search_settled', {
+      query: episode.query.slice(0, 120),
+      mode: state.searchMode,
+      resultCount: episode.resultCount,
+      clicked: searchClicked,
+      dwellMs: Date.now() - episode.at,
+      topResultIds: episode.topResultIds,
+      refinedFromPrevious: refined
+    });
+    searchClicked = false;
+  }
+
   let debounceTimer = null;
   function onSearchInput() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-      renderResults(search(els.searchInput.value));
+      const query = els.searchInput.value;
+      const results = search(query);
+      renderResults(results);
       revealResults();
+
+      clearTimeout(settleTimer);
+      if (!query.trim()) {
+        pendingEpisode = null;
+        return;
+      }
+      // A new query ends the previous episode, whatever became of it.
+      if (pendingEpisode && pendingEpisode.query !== query) reportSearchEpisode();
+      pendingEpisode = {
+        query,
+        at: Date.now(),
+        resultCount: results.length,
+        topResultIds: results.slice(0, 3).map((e) => e.id)
+      };
+      settleTimer = setTimeout(reportSearchEpisode, ABANDON_MS);
     }, 60);
   }
 
@@ -1062,6 +1269,7 @@ import { createPageRenderer } from './page-render.js';
     }
 
     els.qualityToggle.addEventListener('click', async () => {
+      if (window.snTrack) window.snTrack('data_quality_opened', {});
       els.qualityPanel.classList.remove('hidden');
       if (!state.validation) {
         els.qualityContent.innerHTML = '<div class="quality-note">Loading the report…</div>';
@@ -1105,6 +1313,7 @@ import { createPageRenderer } from './page-render.js';
         const group = more.closest('.pill-group');
         const panel = document.getElementById(more.getAttribute('aria-controls'));
         const open = more.getAttribute('aria-expanded') === 'true';
+        if (!open && window.snTrack) window.snTrack('alternatives_opened', {});
         more.setAttribute('aria-expanded', String(!open));
         group.classList.toggle('open', !open);
         if (panel) panel.hidden = open;
@@ -1118,6 +1327,8 @@ import { createPageRenderer } from './page-render.js';
       if (info) {
         const note = document.getElementById(info.getAttribute('aria-controls'));
         const open = info.getAttribute('aria-expanded') === 'true';
+        // Someone weighing a claim we already flagged as uncertain.
+        if (!open && window.snTrack) window.snTrack('hedge_explainer_opened', {});
         info.setAttribute('aria-expanded', String(!open));
         if (note) note.hidden = open;
         return;
@@ -1125,10 +1336,37 @@ import { createPageRenderer } from './page-render.js';
 
       // Component-word pills additionally populate and run the search pane for
       // that spelling, so every homograph is one click away too.
+      const dialect = e.target.closest('.dialect-panel > summary');
+      if (dialect) {
+        const panel = dialect.parentElement;
+        // The click precedes the state change, so open is what it is about to
+        // become rather than what it is.
+        if (!panel.open && window.snTrack) window.snTrack('dialect_panel_opened', {});
+        return;
+      }
+
       const pill = e.target.closest('[data-search-form]');
       if (!pill) return;
+      // Following a building block is what this dictionary does that nothing
+      // else does well - Yoruba builds larger words from smaller ones, and
+      // tracing that path is the whole thesis. It is a primary conversion.
+      if (window.snTrack) {
+        window.snTrack('building_block_followed', { relationType: 'building-block' });
+      }
       els.searchInput.value = pill.getAttribute('data-search-form');
       renderResults(search(els.searchInput.value));
+    });
+
+    // An episode the reader walked away from still happened. Without these it
+    // would sit in the timer until the tab closed and never be reported, which
+    // would quietly drop exactly the searches that ended in giving up.
+    els.searchInput.addEventListener('blur', reportSearchEpisode);
+    window.addEventListener('pagehide', reportSearchEpisode);
+
+    // Installing the dictionary to a home screen is a strong signal on a site
+    // whose whole offline story is the reason to.
+    window.addEventListener('appinstalled', () => {
+      if (window.snTrack) window.snTrack('pwa_installed', {});
     });
 
     window.addEventListener('resize', syncChromeHeights);

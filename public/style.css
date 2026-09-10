@@ -2199,3 +2199,25 @@ a { color: inherit; }
 /* The trailing search row. Quieter than a real result, because it is not one. */
 .result-mentioned { display: block; text-decoration: none; opacity: 0.82; }
 .result-mentioned .result-headword { font-style: italic; }
+
+
+/* "None of these is the word I meant" - under the results, outside the
+   listbox. Deliberately quiet: it is there for the reader who needs it, not an
+   invitation to everyone who scrolls past. */
+.none-matched {
+  display: block;
+  width: 100%;
+  margin: 0.4rem 0 0.2rem;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--muted, #666);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--rule, #e6e2da);
+  cursor: pointer;
+}
+.none-matched:hover:not(:disabled) { color: inherit; }
+.none-matched:disabled { cursor: default; font-style: italic; }
+.none-matched:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
