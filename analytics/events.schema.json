@@ -37,7 +37,8 @@
     ],
     "game": [
       "phonics",
-      "tones"
+      "tones",
+      "vocab"
     ],
     "tone": [
       "high",
@@ -74,7 +75,8 @@
     ],
     "hintKind": [
       "tone-dots",
-      "tone-melody"
+      "tone-melody",
+      "english-gloss"
     ],
     "levelCategory": [
       "themed",
@@ -384,7 +386,7 @@
         "games"
       ],
       "hook": "page-events.js delegated click, games landing page only",
-      "note": "Clicking from the games landing page into a game. The gap between this and game_start is people who opened a game and never picked a playlist - the drop-off an ad pays for and does not get.",
+      "note": "Clicking from the games landing page into a game. The gap between this and game_start is people who opened a game and never picked a playlist - the drop-off an ad pays for and does not get. Requires the game's path prefix in page-events.js: a game missing from that regex silently reports no conversion.",
       "properties": {
         "game": {
           "type": "string",
@@ -449,7 +451,7 @@
       "sites": [
         "games"
       ],
-      "hook": "tones: checkAnswer (tones:915), both branches already exist. phonics: checkWinCondition (phonics:564) is a bare if with NO else - the wrong-answer path must be added.",
+      "hook": "tones: checkAnswer (tones:915), both branches already exist. phonics: checkWinCondition (phonics:564) is a bare if with NO else - the wrong-answer path must be added. vocab: handleChoice, both branches.",
       "note": "The highest-value event in the plan. expectedTones against chosenTones gives a confusion matrix of Yoruba tone perception. Do NOT introduce scoring - see the comment above playWrong in tones/app.js.",
       "properties": {
         "game": {
@@ -514,6 +516,16 @@
           "items": "string",
           "required": false,
           "note": "phonics only"
+        },
+        "chosenWord": {
+          "type": "string",
+          "required": false,
+          "note": "vocab only - the word actually picked, so a wrong pick names the confusion"
+        },
+        "choiceCount": {
+          "type": "integer",
+          "required": false,
+          "note": "vocab only - how many words were offered, since a level too small to fill four changes the odds"
         }
       }
     },
@@ -521,7 +533,7 @@
       "sites": [
         "games"
       ],
-      "hook": "toggleToneHint (phonics:453, tones:777)",
+      "hook": "toggleToneHint (phonics, tones), toggleHint (vocab)",
       "properties": {
         "game": {
           "type": "string",
@@ -741,7 +753,7 @@
       "words attempted >= 3",
       "time on site"
     ],
-    "childDirectedConstraint": "games.speaknigeria.org is played by children (Speak Nigeria's courses are ages 5-17), which brings COPPA into scope. COPPA treats cookies as personal information on a child-directed site, and its narrow 'support for internal operations' exception covers basic analytics but NOT advertising. So the Google Ads tag must NOT load on /phonics/ or /tones/. The resolution: advertise the games LANDING page, which is what an adult searching Google actually reaches, put the Ads tag only there, and make game_opened the conversion. It discriminates well - not everyone who lands opens a game - and it fires on the adult-facing page. level_complete and share_link_created stay as PostHog events for curriculum insight, but can no longer be Google Ads conversions.",
-    "childAudienceNote": "The games are played by children in Speak Nigeria's classes (ages 5-17), so /phonics/ and /tones/ are a mixed audience: a child may be the direct user, though the sites are marketed to parents and teachers and no advertising is displayed anywhere. That is not the same as child-directed, and it does not bar the Ads tag or conversion tracking. Two choices follow from it anyway, both cheap: ad_personalization stays denied everywhere (Ad Grants cannot use it regardless), and session replay stays off on the game pages - a judgement about recording children's screens, not a legal requirement. answer_checked already carries what replay was wanted for."
+    "audienceNote": "The sites are marketed to parents and educators, and no advertising is displayed anywhere. There is NO restriction on where the Google Ads tag loads: it belongs on every page of all three sites, game pages included. A previous note here asserted a COPPA constraint barring the tag from /phonics/ and /tones/ and an agent acted on it, shipping a change that turned the tag off on the game pages. That constraint was invented, contradicted the note beside it, and was reverted. Do not reintroduce it, and do not add an ads restriction on this basis without asking the site owner first.",
+    "adPersonalization": "ad_personalization stays denied everywhere. Google Ad Grants cannot use it regardless, so this costs nothing and keeps the consent notice simpler."
   }
 }
