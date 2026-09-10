@@ -14,8 +14,8 @@ export async function loadEntriesFromFile(filePath) {
   return JSON.parse(raw);
 }
 
-export const KAIKKI_YORUBA_LATEST_RELEASE_API_URL =
-  'https://api.github.com/repos/SpeakNigeriaOrg/kaikki-yoruba/releases/latest';
+export const KAIKKI_YORUBA_REPO = 'https://github.com/SpeakNigeriaOrg/kaikki-yoruba';
+export const KAIKKI_YORUBA_LATEST_RELEASE_URL = `${KAIKKI_YORUBA_REPO}/releases/latest`;
 
 export class ArtifactAssetNotFoundError extends Error {
   constructor(assetName) {
@@ -24,66 +24,62 @@ export class ArtifactAssetNotFoundError extends Error {
   }
 }
 
-// GitHub's API allows 60 requests an hour to an unauthenticated caller, counted
-// per IP - and on Cloudflare Pages that IP is shared with every other project
-// building at the same time. A deploy of this repo has exactly one job that
-// touches the API, and it still lost that race on 2026-09-09:
+// Deliberately not api.github.com.
 //
-//   [1/5] Fetching kaikki-yoruba's latest release ...
-//   Build failed: 403 rate limit exceeded
+// This used to resolve the release through the API, which allows 60 requests
+// an hour to an unauthenticated caller and counts them per IP. On Cloudflare
+// Pages that IP belongs to the build fleet rather than to us, so a deploy
+// competed with every other project building at the same moment - and lost, on
+// 2026-09-09, failing at step 1 of 5 and leaving the site on the previous
+// commit.
 //
-// A token raises the ceiling to 5,000 an hour and makes the limit ours rather
-// than the build fleet's. Set GITHUB_TOKEN in the Pages project's environment
-// variables; the repo is public, so it needs no scopes at all - it is proof of
-// identity, not permission. Without one this still works, just fragilely.
-function githubHeaders() {
-  // A User-Agent is not optional to GitHub's API: it rejects requests without
-  // one, and Node's fetch does not send a default.
-  const headers = { 'User-Agent': 'yorubadict-build', Accept: 'application/vnd.github+json' };
-  const token = process.env.GITHUB_TOKEN;
-  if (token) headers.Authorization = `Bearer ${token}`;
-  return headers;
-}
+// The fix was going to be a token. But the API was never needed: every release
+// exposes /releases/latest/download/<asset> as an ordinary redirect to the
+// asset, and /releases/latest itself redirects to /releases/tag/<tag>, which is
+// where the tag name comes from below. Neither path is rate limited, so there
+// is no token to create, store, rotate, or discover has expired two years from
+// now.
+const assetUrl = (name) => `${KAIKKI_YORUBA_LATEST_RELEASE_URL}/download/${name}`;
 
 async function fetchJson(url, attempt = 1) {
-  const response = await fetch(url, { headers: githubHeaders() });
+  const response = await fetch(url, { headers: { 'User-Agent': 'yorubadict-build' } });
 
-  // Rate limiting and GitHub's occasional 5xx are transient, and a failed
-  // build here costs a whole deploy. Three tries with a widening pause turns
-  // most of them into a slow build instead of a red one. A limit that is
-  // genuinely exhausted still fails, which is what the token is for.
-  const transient = response.status === 403 || response.status === 429 || response.status >= 500;
-  if (transient && attempt < 3) {
+  // A failed fetch here costs a whole deploy, and GitHub's asset host has its
+  // own bad minutes. Three tries with a widening pause turns most of them into
+  // a slow build rather than a red one.
+  if (response.status >= 500 && attempt < 3) {
     await new Promise((r) => setTimeout(r, attempt * 5000));
     return fetchJson(url, attempt + 1);
   }
-
   if (!response.ok) {
-    const hint =
-      transient && !process.env.GITHUB_TOKEN
-        ? ' - set GITHUB_TOKEN in the build environment to raise the rate limit'
-        : '';
-    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}${hint}`);
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
   }
   return response.json();
 }
 
-/** Resolves entries.json/metadata.json download URLs from kaikki-yoruba's
- * latest GitHub Release, rather than a hardcoded path - each run publishes
- * a fresh release, so "latest" is always the right one to consume. */
-export async function resolveLatestArtifactUrls() {
-  const release = await fetchJson(KAIKKI_YORUBA_LATEST_RELEASE_API_URL);
-
-  const entriesAsset = release.assets.find((a) => a.name === 'entries.json');
-  if (!entriesAsset) throw new ArtifactAssetNotFoundError('entries.json');
-  const metadataAsset = release.assets.find((a) => a.name === 'metadata.json');
-  if (!metadataAsset) throw new ArtifactAssetNotFoundError('metadata.json');
-
-  return { tagName: release.tag_name, entriesUrl: entriesAsset.browser_download_url, metadataUrl: metadataAsset.browser_download_url };
+/** The tag of the current release, read off the redirect that /releases/latest
+ * performs to /releases/tag/<tag>. It names the data in the build stamp and the
+ * validation report, so a rebuilt site can always say which release it came
+ * from. A redirect that stops carrying the tag is not fatal - the build stamp
+ * falls back to "local" - so this returns null rather than throwing. */
+async function resolveLatestTag() {
+  try {
+    const response = await fetch(KAIKKI_YORUBA_LATEST_RELEASE_URL, {
+      redirect: 'follow',
+      headers: { 'User-Agent': 'yorubadict-build' },
+    });
+    const match = /\/releases\/tag\/([^/?#]+)/.exec(response.url);
+    return match ? decodeURIComponent(match[1]) : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function loadLatestEntriesAndMetadata() {
-  const { tagName, entriesUrl, metadataUrl } = await resolveLatestArtifactUrls();
-  const [entries, metadata] = await Promise.all([fetchJson(entriesUrl), fetchJson(metadataUrl)]);
+  const [entries, metadata, tagName] = await Promise.all([
+    fetchJson(assetUrl('entries.json')),
+    fetchJson(assetUrl('metadata.json')),
+    resolveLatestTag(),
+  ]);
   return { tagName, entries, metadata };
 }
