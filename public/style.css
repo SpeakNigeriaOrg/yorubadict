@@ -1000,8 +1000,43 @@ a { color: inherit; }
   border-radius: 3px;
 }
 
+/* IPA needs its own font, because IBM Plex Mono has no IPA Extensions block -
+   not in the Google subsets we ship, and not upstream in any version. Sixteen
+   of the symbols this dictionary uses were missing, including ɔ and ɛ, which
+   between them appear about 4,000 times.
+   
+   Nothing was obviously broken on a Mac, where the stack fell through to SF
+   Mono and rendered correctly. On a phone it fell through to the generic
+   monospace, which has thin IPA coverage, so most entries showed the wrong
+   font or a blank box. Self-hosting is meant to prevent exactly that: the
+   device should not decide.
+
+   DejaVu Sans Mono (public domain / Bitstream Vera licence), subset from the
+   @fontsource/dejavu-mono package with fontTools to these ranges:
+
+     U+0020-007E  basic latin        U+02B0-02FF  spacing modifiers
+     U+00C0-00FF  latin-1 accented   U+0300-036F  combining diacriticals
+     U+0100-017F  latin extended-A   U+1E00-1EFF  latin extended additional
+     U+0250-02AF  IPA extensions     U+A700-A71F  modifier tone letters
+
+   Ranges rather than the characters the data uses today: entries.json refreshes
+   from kaikki weekly, and a character-exact subset would break the first week a
+   new entry brought a symbol it did not contain - silently, and only on phones.
+   702 glyphs, 27 KB, with room for 635 IPA characters we do not use yet.
+
+   No unicode-range on the @font-face, deliberately. A transcription is one
+   thing and should look like one; splitting it so the consonants came from
+   Plex and the vowels from DejaVu would mix two sets of metrics mid-word. */
+@font-face {
+  font-family: 'IPA Mono';
+  src: url(/fonts/ipa-mono-subset.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .entry-ipa {
-  font-family: var(--font-mono);
+  font-family: 'IPA Mono', var(--font-mono);
   color: var(--brand-accent-deep);
   font-size: 1rem;
 }
