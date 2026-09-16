@@ -972,7 +972,13 @@ import { createPageRenderer } from './page-render.js';
 
       clearTimeout(settleTimer);
       if (!query.trim()) {
-        pendingEpisode = null;
+        // Clearing the box ends the episode as surely as typing a new query
+        // does, so it is reported rather than dropped. Emptying the field by
+        // hand to start a fresh search is ordinary, and discarding the episode
+        // there lost a search that had already found something - which is a
+        // primary Google Ads conversion, since search_settled converts on
+        // resultCount > 0. Escape never hit this: it blurs, and blur reports.
+        reportSearchEpisode();
         return;
       }
       // A new query ends the previous episode, whatever became of it.
