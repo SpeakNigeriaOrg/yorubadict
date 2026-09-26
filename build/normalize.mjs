@@ -232,11 +232,19 @@ async function main() {
   // app reads it to build every internal link, and a second file to fetch and
   // keep in step would be one more thing that can disagree with the pages on
   // disk. See build/lib/slugs.mjs for what it will and will not guess.
-  const { redirects, stats, provisional, newcomers } = attachAddresses(linkedEntries);
+  const { redirects, stats, provisional, newcomers, moves } = attachAddresses(linkedEntries);
   console.log(
     `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
       `${stats.provisional} still placeholders, ${redirects.length} retired`
   );
+  if (moves.length) {
+    // Served at their old addresses already. Writing the new ids into the
+    // ledger just stops this being worked out again on every build.
+    console.log(`      ${moves.length} entries changed id upstream and kept their address:`);
+    for (const m of moves.slice(0, 10)) console.log(`        ${m.from} -> ${m.to}`);
+    if (moves.length > 10) console.log(`        ...and ${moves.length - 10} more`);
+    console.log('        Record them:  node tools/slugs/rekey.mjs');
+  }
   if (newcomers.length) {
     // Loud, because these are the only addresses on the site nobody has read.
     // They are served and deliberately absent from the sitemap, so nothing is

@@ -87,6 +87,59 @@ function provisionalWord(entry, taken) {
   return { word, source: named ? 'etymid' : 'rule' };
 }
 
+/** The random tail of a Kaikki id. It survives most renames of the rest. */
+const idTail = (id) => id.slice(-8);
+const writtenOf = (entry) =>
+  ((entry.canonicalForm || {}).value || entry.headword || '').normalize('NFC');
+
+/**
+ * Entries whose Kaikki id changed, paired with the record they used to have.
+ *
+ * An id is somebody else's key. Wiktionary splitting the page for `i` by
+ * language renamed five of them at once; a part of speech corrected from num to
+ * noun renamed another. Without this, each looked like a new word, got a new
+ * address, and its old one - linked, indexed - went dead with nothing reporting
+ * it. That happened, to ten pages, in the build-17 refresh.
+ *
+ * A record is only a candidate if its own entry is gone and it has the same
+ * spelling. Then, in order: the same id tail, or failing that the same written
+ * form and part of speech. A pairing is taken only when it is one-to-one;
+ * anything else is returned as ambiguous for a person to settle, because
+ * guessing wrong gives one word's page to another.
+ */
+export function matchMovedEntries(entries, records, spellingOf) {
+  const live = new Set(entries.map((e) => e.id));
+  const orphans = Object.entries(records).filter(([id]) => !live.has(id));
+  const candidatesFor = new Map();
+  for (const entry of entries) {
+    if (records[entry.id]) continue;
+    const spelling = spellingOf.get(entry.id);
+    const same = orphans.filter(([, r]) => r.spelling === spelling);
+    let found = same.filter(([id]) => idTail(id) === idTail(entry.id));
+    if (!found.length) {
+      found = same.filter(
+        ([, r]) => (r.written || '').normalize('NFC') === writtenOf(entry) && r.pos === entry.pos
+      );
+    }
+    if (found.length) candidatesFor.set(entry.id, found.map(([id]) => id));
+  }
+
+  const claimants = new Map();
+  for (const [entryId, ids] of candidatesFor) {
+    for (const id of ids) claimants.set(id, [...(claimants.get(id) || []), entryId]);
+  }
+  const moves = [];
+  const ambiguous = [];
+  for (const [entryId, ids] of candidatesFor) {
+    if (ids.length === 1 && claimants.get(ids[0]).length === 1) {
+      moves.push({ from: ids[0], to: entryId });
+    } else {
+      ambiguous.push(`${entryId} could be ${ids.join(' or ')}`);
+    }
+  }
+  return { moves, ambiguous };
+}
+
 export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   const ledger = loadLedger(ledgerPath);
   const records = ledger.entries || {};
@@ -108,6 +161,19 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     for (const { entry } of members) spellingOf.set(entry.id, spelling);
   }
 
+  // Moved entries first: an entry whose id changed keeps the record, and so the
+  // address, it had under the old id. Ambiguity stops the build, like drift.
+  const { moves, ambiguous } = matchMovedEntries(entries, records, spellingOf);
+  if (ambiguous.length) {
+    throw new Error(
+      `${ambiguous.length} entries changed id and could belong to more than one old address:\n  ` +
+        `${ambiguous.slice(0, 5).join('\n  ')}\n` +
+        'Settle each one in data/url-slugs.json by moving the right record to the new id.'
+    );
+  }
+  const movedFrom = new Map(moves.map((m) => [m.to, m.from]));
+  const recordFor = (id) => records[id] || records[movedFrom.get(id)];
+
   const missing = [];
   const newcomers = [];
   const drifted = [];
@@ -122,7 +188,7 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   };
 
   for (const entry of entries) {
-    const record = records[entry.id];
+    const record = recordFor(entry.id);
     if (!record) {
       missing.push(entry);
       continue;
@@ -203,6 +269,7 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     addresses: claimed,
     provisional,
     newcomers,
+    moves,
     redirects,
     stats: {
       total: entries.length,

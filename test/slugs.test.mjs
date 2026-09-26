@@ -105,3 +105,46 @@ test('a missing ledger file is still a failure, not an empty one', () => {
     /No address ledger/
   );
 });
+
+test('an entry whose id changed keeps the address it had', () => {
+  // Wiktionary splitting a page renames its Kaikki ids. The words are the same
+  // words, so the addresses are the same addresses - the build-17 refresh moved
+  // ten pages by treating renamed ids as new words.
+  const entries = [
+    entry('en-i/languages_M_to_Z-yo-pron-9deM-3Vx', 'i', 'him'),
+    entry('en-eta-yo-noun-NEWTAIL1', 'ẹtà', 'civet cat', { pos: 'noun' }),
+  ];
+  const ledgerPath = ledgerFor({
+    'en-i-yo-pron-9deM-3Vx': record('i', 'him-high', { written: 'i', pos: 'pron' }),
+    'en-eta-yo-noun-OLDTAIL1': record('eta', 'civet', { written: 'ẹtà', pos: 'noun' }),
+  });
+
+  const result = attachAddresses(entries, { ledgerPath });
+
+  assert.equal(entries[0].path, '/yo/i/him-high', 'matched by the id tail');
+  assert.equal(entries[1].path, '/yo/eta/civet', 'matched by spelling and part of speech');
+  assert.equal(result.newcomers.length, 0);
+  assert.equal(result.moves.length, 2);
+});
+
+test('a renamed id that could be either of two old records stops the build', () => {
+  const entries = [entry('en-oko-yo-noun-NEWTAIL1', 'ọkọ̀', 'boat', { pos: 'noun' })];
+  const ledgerPath = ledgerFor({
+    'en-oko-yo-noun-OLDTAIL1': record('oko', 'boat', { written: 'ọkọ̀', pos: 'noun' }),
+    'en-oko-yo-noun-OLDTAIL2': record('oko', 'canoe', { written: 'ọkọ̀', pos: 'noun' }),
+  });
+
+  assert.throws(() => attachAddresses(entries, { ledgerPath }), /could belong to more than one/);
+});
+
+test('a genuinely new word is not handed a vanished word\'s address', () => {
+  const entries = [entry('en-gbe-yo-verb-NEWTAIL1', 'gbè', 'to take sides')];
+  const ledgerPath = ledgerFor({
+    'en-gbe-yo-verb-OLDTAIL1': record('gbe', 'carry', { written: 'gbé', pos: 'verb' }),
+  });
+
+  const result = attachAddresses(entries, { ledgerPath });
+
+  assert.equal(entries[0].path, '/yo/gbe/take-sides');
+  assert.equal(result.moves.length, 0);
+});

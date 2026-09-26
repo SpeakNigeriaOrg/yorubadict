@@ -70,6 +70,16 @@ def _unique_in_group(items):
 
 def main(argv):
     dry = "-dry" in argv
+    # Entries whose Kaikki id changed get their old record back first. Seeding
+    # them as new would give each a second record claiming the same address.
+    import subprocess
+    rekey = subprocess.run(
+        ["node", str(data.TOOL_DIR / "rekey.mjs")] + (["-dry"] if dry else []),
+        check=False,
+    )
+    if rekey.returncode != 0:
+        print("Settle the ambiguous ids above before seeding.")
+        return 1
     groups = data.load_groups()
     book = ledger.load()
     etymid_names = etymid.load()
