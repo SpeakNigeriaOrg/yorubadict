@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-10T01:33:03.569Z",
-  "totalEntries": 6273,
+  "generatedAt": "2026-09-26T19:43:13.781Z",
+  "totalEntries": 6283,
   "parseErrors": [],
   "inferredCanonicalForms": [
     {
@@ -48,18 +48,6 @@
     {
       "entryId": "en-o-yo-intj-2EJR6o9U",
       "headword": "o",
-      "method": "fallback_headword",
-      "confidence": 0.5
-    },
-    {
-      "entryId": "en-i-yo-character-CPhLBG1q",
-      "headword": "i",
-      "method": "fallback_headword",
-      "confidence": 0.5
-    },
-    {
-      "entryId": "en-i-yo-pron-9deM-3Vx",
-      "headword": "i",
       "method": "fallback_headword",
       "confidence": 0.5
     },
@@ -1870,6 +1858,12 @@
       "confidence": 0.5
     },
     {
+      "entryId": "en-m̄-yo-character-UcTQcAdV",
+      "headword": "m̄",
+      "method": "fallback_headword",
+      "confidence": 0.5
+    },
+    {
       "entryId": "en-bẹ-yo-verb-hEcG2l2N",
       "headword": "bẹ",
       "method": "fallback_headword",
@@ -1896,12 +1890,6 @@
     {
       "entryId": "en-bẹ-yo-verb-OjWcMC7x",
       "headword": "bẹ",
-      "method": "fallback_headword",
-      "confidence": 0.5
-    },
-    {
-      "entryId": "en-m̄-yo-character-UcTQcAdV",
-      "headword": "m̄",
       "method": "fallback_headword",
       "confidence": 0.5
     },
@@ -2639,6 +2627,12 @@
     },
     {
       "entryId": "en-ẹni-yo-det-IobTpipN",
+      "headword": "ẹni",
+      "method": "fallback_headword",
+      "confidence": 0.5
+    },
+    {
+      "entryId": "en-ẹni-yo-pron-ReVQWFyq",
       "headword": "ẹni",
       "method": "fallback_headword",
       "confidence": 0.5
@@ -4664,6 +4658,12 @@
       "headword": "eegun",
       "method": "fallback_headword",
       "confidence": 0.5
+    },
+    {
+      "entryId": "en-ọ--yo-prefix-bHK9za7b",
+      "headword": "ọ-",
+      "method": "fallback_headword",
+      "confidence": 0.5
     }
   ],
   "missingIpa": [
@@ -6162,6 +6162,18 @@
     {
       "entryId": "en-ẽru-yo-noun-JwCVoFAu",
       "headword": "ẽru"
+    },
+    {
+      "entryId": "en-jọwọ-yo-intj-VszE3PyW",
+      "headword": "jọwọ"
+    },
+    {
+      "entryId": "en-jọọ-yo-intj-7c5NB391",
+      "headword": "jọọ"
+    },
+    {
+      "entryId": "en-ọ--yo-prefix-bHK9za7b",
+      "headword": "ọ-"
     }
   ],
   "duplicateNormalizedSpellings": {
@@ -6235,16 +6247,6 @@
       "en-iwo-yo-noun-lUMJjxcE",
       "en-owo-yo-noun-Jx5UC9-4",
       "en-wuwo-yo-verb-3PUI1q-k"
-    ],
-    "i": [
-      "en-i-yo-character-CPhLBG1q",
-      "en-i-yo-noun-JDTgajb-",
-      "en-i-yo-particle-hs39Qmje",
-      "en-i-yo-pron-9deM-3Vx",
-      "en-i-yo-pron-gJOyAsa7",
-      "en-n-yo-particle-yo:progressive",
-      "en-I-yo-character-CPhLBG1q",
-      "en-اِ-yo-character-TgCoV39U"
     ],
     "sun": [
       "en-sun-yo-verb-w~6onUrj",
@@ -6677,6 +6679,16 @@
       "en-N-yo-pron-oS~HLXCQ",
       "en-mo-yo-pron-D7Ok9CkU",
       "en-ن-yo-character-7hclxwOZ"
+    ],
+    "i": [
+      "en-n-yo-particle-yo:progressive",
+      "en-I-yo-character-CPhLBG1q",
+      "en-اِ-yo-character-TgCoV39U",
+      "en-i/languages_M_to_Z-yo-character-CPhLBG1q",
+      "en-i/languages_M_to_Z-yo-noun-JDTgajb-",
+      "en-i/languages_M_to_Z-yo-particle-hs39Qmje",
+      "en-i/languages_M_to_Z-yo-pron-9deM-3Vx",
+      "en-i/languages_M_to_Z-yo-pron-gJOyAsa7"
     ],
     "ng": [
       "en-n-yo-pron-i9ESTIJJ",
@@ -7879,7 +7891,7 @@
     ],
     "oku": [
       "en-oku-yo-noun-UuGC6ilQ",
-      "en-Oku-yo-name-iQbydk-o"
+      "en-Oku-yo-name-V-P5qj4a"
     ],
     "wa": [
       "en-wa-yo-det-IobTpipN",
@@ -8577,7 +8589,7 @@
     ],
     "agbamurere": [
       "en-agbanrere-yo-noun-p7eVL7O9",
-      "en-agbamurere-yo-verb-AglVi8q1"
+      "en-agbamurere-yo-noun-AglVi8q1"
     ],
     "ọpọlọ": [
       "en-ọpọlọ-yo-noun-Vao1OFFP",
@@ -9478,10 +9490,6 @@
       "en-Taye-yo-name-W40I9SSH",
       "en-Taiwo-yo-name-jyZUPAqP"
     ],
-    "sẹ": [
-      "en-sẹ-yo-verb-a3FlIi6x",
-      "en-sẹ-yo-verb-6-rzcYER"
-    ],
     "oore": [
       "en-oore-yo-noun-3mqUPkS3",
       "en-Oore-yo-name-NpgXK2~j",
@@ -9989,7 +9997,7 @@
     ],
     "ẹta": [
       "en-ẹta-yo-num-i1udsME9",
-      "en-ẹta-yo-num-JOVCpPtX",
+      "en-ẹta-yo-noun-JOVCpPtX",
       "en-Ẹta-yo-name-sitJhPTh"
     ],
     "ẹrin": [
@@ -10826,7 +10834,6 @@
     ],
     "ọwọn": [
       "en-ọwun-yo-noun-6EAn4afy",
-      "en-ẹni-yo-pron-ReVQWFyq",
       "en-ọwọn-yo-particle--7pL~mlv",
       "en-ọwọn-yo-pron-Lvq2uu65"
     ],
@@ -12570,6 +12577,10 @@
       "en-rẹwa-yo-verb-DPUnMxF6",
       "en-ghẹngwa-yo-verb-rk9XLoZ0"
     ],
+    "sẹ": [
+      "en-sẹ-yo-verb-a3FlIi6x",
+      "en-sẹ-yo-verb-6-rzcYER"
+    ],
     "gbin": [
       "en-gbin-yo-verb-vQqTAZ5A",
       "en-gbin-yo-verb-6L5ZLbvI"
@@ -14075,6 +14086,21 @@
     "mọọnkọ-mọọnka": [
       "en-mọ-ọnkọ-mọ-ọnka-yo-verb-kLatID88",
       "en-mọ-ọnkọ-mọ-ọnka-yo-noun-V4dWykqh"
+    ],
+    "iyalaṣẹ": [
+      "en-iyalaṣẹ-yo-noun-6wm-mM88",
+      "en-Iyalaṣẹ-yo-noun-6wm-mM88"
+    ],
+    "jọọ": [
+      "en-jọwọ-yo-intj-VszE3PyW",
+      "en-jọọ-yo-intj-7c5NB391"
+    ],
+    "i/languages m to z": [
+      "en-i/languages_M_to_Z-yo-character-CPhLBG1q",
+      "en-i/languages_M_to_Z-yo-noun-JDTgajb-",
+      "en-i/languages_M_to_Z-yo-particle-hs39Qmje",
+      "en-i/languages_M_to_Z-yo-pron-9deM-3Vx",
+      "en-i/languages_M_to_Z-yo-pron-gJOyAsa7"
     ]
   },
   "unknownReferencedWords": [
@@ -14160,16 +14186,6 @@
     },
     {
       "sourceEntryId": "en-o-yo-pron-0egbdkis",
-      "relationType": "sense relatedTerms",
-      "text": "[preceding vowel repeated for mono­syllabic verbs]"
-    },
-    {
-      "sourceEntryId": "en-i-yo-pron-gJOyAsa7",
-      "relationType": "sense relatedTerms",
-      "text": "[pronoun dropped]"
-    },
-    {
-      "sourceEntryId": "en-i-yo-pron-gJOyAsa7",
       "relationType": "sense relatedTerms",
       "text": "[preceding vowel repeated for mono­syllabic verbs]"
     },
@@ -21916,22 +21932,12 @@
     {
       "sourceEntryId": "en-awo-yo-noun-dkFDPqbU",
       "relationType": "derivedTerms",
-      "text": "aláwo"
-    },
-    {
-      "sourceEntryId": "en-awo-yo-noun-dkFDPqbU",
-      "relationType": "derivedTerms",
       "text": "Olúwo"
     },
     {
       "sourceEntryId": "en-awo-yo-noun-dkFDPqbU",
       "relationType": "sense synonyms",
       "text": "ohun ìkọ̀kọ̀"
-    },
-    {
-      "sourceEntryId": "en-awo-yo-noun-dkFDPqbU",
-      "relationType": "sense synonyms",
-      "text": "aláwo"
     },
     {
       "sourceEntryId": "en-awo-yo-noun-dkFDPqbU",
@@ -22939,11 +22945,6 @@
       "text": "òsúkèsúkè"
     },
     {
-      "sourceEntryId": "en-babalawo-yo-noun-h68mtj2-",
-      "relationType": "sense synonyms",
-      "text": "aláwo"
-    },
-    {
       "sourceEntryId": "en-uroko-yo-noun-kgWXy7Y~",
       "relationType": "sense synonyms",
       "text": "ugi ùrókò"
@@ -23574,6 +23575,21 @@
       "text": "ọmọdé bú ìrókò, ó bojú wẹ̀hìn"
     },
     {
+      "sourceEntryId": "en-jiya-yo-verb-Crk7pLfN",
+      "relationType": "sense derivedTerms",
+      "text": "ìjìyà"
+    },
+    {
+      "sourceEntryId": "en-Onko-yo-name-QB-LJXSb",
+      "relationType": "sense synonyms",
+      "text": "Òkè Ògùn"
+    },
+    {
+      "sourceEntryId": "en-ṣiko-yo-intj-5LCTM2~5",
+      "relationType": "sense synonyms",
+      "text": "dákẹ́"
+    },
+    {
       "sourceEntryId": "en-bẹ-yo-verb-XQ31nnU1",
       "relationType": "derivedTerms",
       "text": "bẹ̀bẹ̀"
@@ -23612,21 +23628,6 @@
       "sourceEntryId": "en-bẹ-yo-verb-lvCUO4a5",
       "relationType": "derivedTerms",
       "text": "ụ̀bẹ́"
-    },
-    {
-      "sourceEntryId": "en-jiya-yo-verb-Crk7pLfN",
-      "relationType": "sense derivedTerms",
-      "text": "ìjìyà"
-    },
-    {
-      "sourceEntryId": "en-Onko-yo-name-QB-LJXSb",
-      "relationType": "sense synonyms",
-      "text": "Òkè Ògùn"
-    },
-    {
-      "sourceEntryId": "en-ṣiko-yo-intj-5LCTM2~5",
-      "relationType": "sense synonyms",
-      "text": "dákẹ́"
     },
     {
       "sourceEntryId": "en-eefin-yo-noun-BNWIy0G4",
@@ -25914,22 +25915,12 @@
       "text": "ìyáálé"
     },
     {
-      "sourceEntryId": "en-dakun-yo-intj-LU48f4y8",
-      "relationType": "sense synonyms",
-      "text": "jọ̀ọ́"
-    },
-    {
-      "sourceEntryId": "en-dakun-yo-intj-LU48f4y8",
-      "relationType": "sense synonyms",
-      "text": "jọ̀wọ́"
-    },
-    {
-      "sourceEntryId": "en-dakun-yo-intj-LU48f4y8",
+      "sourceEntryId": "en-dakun-yo-intj-yo:please",
       "relationType": "sense synonyms",
       "text": "dábọ̀"
     },
     {
-      "sourceEntryId": "en-dakun-yo-intj-LU48f4y8",
+      "sourceEntryId": "en-dakun-yo-intj-yo:please",
       "relationType": "sense synonyms",
       "text": "má bìínú"
     },
@@ -26342,11 +26333,6 @@
       "sourceEntryId": "en-ẹrindinlogun-yo-num-8s40H9qm",
       "relationType": "sense derivedTerms",
       "text": "ẹ̀rẹ̀ẹ̀rìndínlógún"
-    },
-    {
-      "sourceEntryId": "en-ẹrindinlogun-yo-num-8s40H9qm",
-      "relationType": "sense derivedTerms",
-      "text": "mẹ́rìndínlógún"
     },
     {
       "sourceEntryId": "en-ẹrindinlogun-yo-noun-mUpw0RZo",
@@ -27134,7 +27120,7 @@
       "text": "wàásù-wàásù"
     },
     {
-      "sourceEntryId": "en-ṣakabula-yo-noun-95BZCaZ1",
+      "sourceEntryId": "en-ṣakabula-yo-noun-RhG16B2P",
       "relationType": "sense synonyms",
       "text": "ìbọn ṣakabùlà"
     },
@@ -34429,22 +34415,22 @@
       "text": "amujemùjẹ̀"
     },
     {
-      "sourceEntryId": "en-Oku-yo-name-iQbydk-o",
+      "sourceEntryId": "en-Oku-yo-name-V-P5qj4a",
       "relationType": "sense derivedTerms",
       "text": "Òkúsànyà"
     },
     {
-      "sourceEntryId": "en-Oku-yo-name-iQbydk-o",
+      "sourceEntryId": "en-Oku-yo-name-V-P5qj4a",
       "relationType": "sense derivedTerms",
       "text": "Òkúsẹ̀hìndé"
     },
     {
-      "sourceEntryId": "en-Oku-yo-name-iQbydk-o",
+      "sourceEntryId": "en-Oku-yo-name-V-P5qj4a",
       "relationType": "sense derivedTerms",
       "text": "Òkúnúgà"
     },
     {
-      "sourceEntryId": "en-Oku-yo-name-iQbydk-o",
+      "sourceEntryId": "en-Oku-yo-name-V-P5qj4a",
       "relationType": "sense derivedTerms",
       "text": "Òkúmóyinbò"
     },
@@ -34847,16 +34833,6 @@
       "sourceEntryId": "en-ṣanpọnna-yo-noun-jvgQi6tN",
       "relationType": "sense synonyms",
       "text": "ègbóná"
-    },
-    {
-      "sourceEntryId": "en-onifa-yo-noun-5D2EXqW0",
-      "relationType": "sense synonyms",
-      "text": "aláwo"
-    },
-    {
-      "sourceEntryId": "en-iyanifa-yo-noun-tpz~8AQG",
-      "relationType": "sense synonyms",
-      "text": "ìyáláwo"
     },
     {
       "sourceEntryId": "en-agalamọsa-yo-noun-DuViCHQT",
@@ -40032,11 +40008,6 @@
       "sourceEntryId": "en-ewuro-yo-noun-uOX6SyLS",
       "relationType": "sense derivedTerms",
       "text": "adùn ni ń gbẹ̀yìn ewúro"
-    },
-    {
-      "sourceEntryId": "en-ọlọrunmila-yo-noun-FGZhsxxc",
-      "relationType": "sense synonyms",
-      "text": "aláwo"
     },
     {
       "sourceEntryId": "en-ọlọrunmila-yo-noun-FGZhsxxc",
@@ -45737,6 +45708,21 @@
       "sourceEntryId": "en-ojupo-yo-noun-ofzQDfMc",
       "relationType": "sense synonyms",
       "text": "ojúmurún"
+    },
+    {
+      "sourceEntryId": "en-okerekere-yo-noun-YbUTEDUv",
+      "relationType": "sense synonyms",
+      "text": "òkèrékèré ẹran"
+    },
+    {
+      "sourceEntryId": "en-i/languages_M_to_Z-yo-pron-gJOyAsa7",
+      "relationType": "sense relatedTerms",
+      "text": "[pronoun dropped]"
+    },
+    {
+      "sourceEntryId": "en-i/languages_M_to_Z-yo-pron-gJOyAsa7",
+      "relationType": "sense relatedTerms",
+      "text": "[preceding vowel repeated for mono­syllabic verbs]"
     }
   ],
   "circularDerivations": [
@@ -45758,6 +45744,189 @@
   "suspiciousRelationText": [],
   "issues": [
     {
+      "kind": "address-unnamed",
+      "title": "Live at a name nobody has chosen",
+      "severity": "high",
+      "effort": "easy",
+      "target": "pipeline",
+      "confidence": "certain",
+      "why": "These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.",
+      "fix": "Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.",
+      "count": 20,
+      "pageCount": 16,
+      "pages": [
+        {
+          "page": "ẹtà",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9t%C3%A0#Yoruba",
+          "entryIds": [
+            "en-ẹta-yo-noun-JOVCpPtX"
+          ],
+          "details": [
+            "/yo/eta/civet-cat — named by the definition rule"
+          ]
+        },
+        {
+          "page": "dákun!",
+          "editUrl": "https://en.wiktionary.org/wiki/d%C3%A1kun!#Yoruba",
+          "entryIds": [
+            "en-dakun-yo-intj-yo:please"
+          ],
+          "details": [
+            "/yo/dakun/excuse-me — named by the definition rule"
+          ]
+        },
+        {
+          "page": "ṣakabùlà",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3akab%C3%B9l%C3%A0#Yoruba",
+          "entryIds": [
+            "en-ṣakabula-yo-noun-RhG16B2P"
+          ],
+          "details": [
+            "/yo/sakabula/musket — named by the definition rule"
+          ]
+        },
+        {
+          "page": "àgbámùréré",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%A0gb%C3%A1m%C3%B9r%C3%A9r%C3%A9#Yoruba",
+          "entryIds": [
+            "en-agbamurere-yo-noun-AglVi8q1"
+          ],
+          "details": [
+            "/yo/agbamurere/agbanrere — named by the definition rule"
+          ]
+        },
+        {
+          "page": "Okù",
+          "editUrl": "https://en.wiktionary.org/wiki/Ok%C3%B9#Yoruba",
+          "entryIds": [
+            "en-Oku-yo-name-V-P5qj4a"
+          ],
+          "details": [
+            "/yo/oku/ancestors — named by the definition rule"
+          ]
+        },
+        {
+          "page": "òkèrékèré",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%B2k%C3%A8r%C3%A9k%C3%A8r%C3%A9#Yoruba",
+          "entryIds": [
+            "en-okerekere-yo-noun-YbUTEDUv"
+          ],
+          "details": [
+            "/yo/okerekere/cartilaginous-or-gristly — named by the definition rule"
+          ]
+        },
+        {
+          "page": "babaláṣẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/babal%C3%A1%E1%B9%A3%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-babalaṣẹ-yo-noun-BIPaJGXa"
+          ],
+          "details": [
+            "/yo/babalase/candomble-high-priest — named by the definition rule"
+          ]
+        },
+        {
+          "page": "ìyáláṣẹ",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACy%C3%A1l%C3%A1%E1%B9%A3%E1%BA%B9#Yoruba",
+          "entryIds": [
+            "en-iyalaṣẹ-yo-noun-6wm-mM88",
+            "en-Iyalaṣẹ-yo-noun-6wm-mM88"
+          ],
+          "details": [
+            "/yo/iyalase/candomble-high-priestess — named by the definition rule",
+            "/yo/iyalase/candomble-high-priestess-2 — named by the definition rule"
+          ]
+        },
+        {
+          "page": "mẹ́rìndínlógún",
+          "editUrl": "https://en.wiktionary.org/wiki/m%E1%BA%B9%CC%81r%C3%ACnd%C3%ADnl%C3%B3g%C3%BAn#Yoruba",
+          "entryIds": [
+            "en-mẹrindinlogun-yo-adj-8s40H9qm"
+          ],
+          "details": [
+            "/yo/merindinlogun/sixteen — named by the definition rule"
+          ]
+        },
+        {
+          "page": "ìyáláwo",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACy%C3%A1l%C3%A1wo#Yoruba",
+          "entryIds": [
+            "en-iyalawo-yo-noun-tpz~8AQG"
+          ],
+          "details": [
+            "/yo/iyalawo/female-initiate — named by the definition rule"
+          ]
+        },
+        {
+          "page": "aláwo",
+          "editUrl": "https://en.wiktionary.org/wiki/al%C3%A1wo#Yoruba",
+          "entryIds": [
+            "en-alawo-yo-noun-5D2EXqW0"
+          ],
+          "details": [
+            "/yo/alawo/devotee-or-initiate — named by the definition rule"
+          ]
+        },
+        {
+          "page": "jọ̀wọ́",
+          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BB%8D%CC%80w%E1%BB%8D%CC%81#Yoruba",
+          "entryIds": [
+            "en-jọwọ-yo-intj-VszE3PyW"
+          ],
+          "details": [
+            "/yo/jowo/please — named by the definition rule"
+          ]
+        },
+        {
+          "page": "jọ̀ọ́",
+          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BB%8D%CC%80%E1%BB%8D%CC%81#Yoruba",
+          "entryIds": [
+            "en-jọọ-yo-intj-7c5NB391"
+          ],
+          "details": [
+            "/yo/joo/jowo — named by the definition rule"
+          ]
+        },
+        {
+          "page": "i",
+          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
+          "entryIds": [
+            "en-i/languages_M_to_Z-yo-character-CPhLBG1q",
+            "en-i/languages_M_to_Z-yo-pron-9deM-3Vx"
+          ],
+          "details": [
+            "/yo/i/tenth-letter — named by the definition rule",
+            "/yo/i/him — named by the definition rule"
+          ]
+        },
+        {
+          "page": "í",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%AD#Yoruba",
+          "entryIds": [
+            "en-i/languages_M_to_Z-yo-noun-JDTgajb-",
+            "en-i/languages_M_to_Z-yo-particle-hs39Qmje",
+            "en-i/languages_M_to_Z-yo-pron-gJOyAsa7"
+          ],
+          "details": [
+            "/yo/i/word — named by the definition rule",
+            "/yo/i/express-the-progressive — named by the definition rule",
+            "/yo/i/him-2 — named by the definition rule"
+          ]
+        },
+        {
+          "page": "ọ-",
+          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8D-#Yoruba",
+          "entryIds": [
+            "en-ọ--yo-prefix-bHK9za7b"
+          ],
+          "details": [
+            "/yo/o/form-nouns-from — named by the definition rule"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
+    },
+    {
       "kind": "dangling-sense-anchor",
       "title": "Points at a name that was never created",
       "severity": "high",
@@ -45766,19 +45935,9 @@
       "confidence": "certain",
       "why": "Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà \"take\", ẹjọ́ \"law\", rò \"think\") and not one of those pages has the anchor. Careful work, pointing nowhere.",
       "fix": "Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.",
-      "count": 9,
-      "pageCount": 7,
+      "count": 7,
+      "pageCount": 6,
       "pages": [
-        {
-          "page": "iro",
-          "editUrl": "https://en.wiktionary.org/wiki/iro#Yoruba",
-          "entryIds": [
-            "en-iro-yo-noun-dmFD7C8M"
-          ],
-          "details": [
-            "points at “nominalizing prefix” on ró, which has no such name"
-          ]
-        },
         {
           "page": "agbọn",
           "editUrl": "https://en.wiktionary.org/wiki/agb%E1%BB%8Dn#Yoruba",
@@ -45797,8 +45956,7 @@
           ],
           "details": [
             "points at “take” on gbà, which has no such name",
-            "points at “law” on ẹjọ́, which has no such name",
-            "points at “think” on rò, which has no such name"
+            "points at “law” on ẹjọ́, which has no such name"
           ]
         },
         {
@@ -45853,8 +46011,8 @@
       "confidence": "certain",
       "why": "The entry gives no pronunciation. {{yo-IPA}} works one out from the tone-marked spelling, so where the spelling carries tone marks this is bulk work rather than research. Entries whose spelling has no tone marks at all are left out: the template would have nothing to read, and their tones have to be settled first - they are under \"Main spelling not confirmed\" instead.",
       "fix": "Add {{yo-IPA}} to the Pronunciation section of the listed page, and check what it produces against how you say the word.",
-      "count": 212,
-      "pageCount": 194,
+      "count": 214,
+      "pageCount": 196,
       "pages": [
         {
           "page": "India",
@@ -47091,7 +47249,7 @@
           ]
         }
       ],
-      "pagesOmitted": 74
+      "pagesOmitted": 76
     },
     {
       "kind": "reference-missing-entry",
@@ -47102,8 +47260,8 @@
       "confidence": "certain",
       "why": "The listed page names a related or derived word that has no Yoruba entry of its own, so the link goes nowhere. This is the dictionary's largest real content gap.",
       "fix": "Create the referenced word as a Yoruba entry on Wiktionary, with at least a definition and a headword template carrying its tone marks.",
-      "count": 3448,
-      "pageCount": 1514,
+      "count": 3439,
+      "pageCount": 1511,
       "pages": [
         {
           "page": "fa",
@@ -48752,7 +48910,7 @@
           ]
         }
       ],
-      "pagesOmitted": 1394
+      "pagesOmitted": 1391
     },
     {
       "kind": "inferred-canonical-form",
@@ -48763,8 +48921,8 @@
       "confidence": "certain",
       "why": "A headword template is the line on a Wiktionary entry that states the properly spelled form, tone marks and all. These entries have none, so the spelling shown here is the page title, which is usually written without tones. That does not make it wrong - often there is nothing to choose between - but nobody has confirmed it, and confirming it needs somebody who knows the word. Single letters of the alphabet are left out: there are no tones on them to confirm.",
       "fix": "Add a headword template carrying the tone marks (for example {{yo-verb|gbá}}) to the listed page.",
-      "count": 636,
-      "pageCount": 540,
+      "count": 638,
+      "pageCount": 541,
       "pages": [
         {
           "page": "in",
@@ -50075,7 +50233,7 @@
           ]
         }
       ],
-      "pagesOmitted": 420
+      "pagesOmitted": 421
     },
     {
       "kind": "reference-name-collision",
@@ -50947,8 +51105,8 @@
       "confidence": "certain",
       "why": "Other words are built from this one, but there is no way for them to say which of its meanings they mean. Wiktionary has a template for exactly this — {{etymid}} names an etymology section, and a compound then points at that name — and it is the only way to state the answer rather than have us guess it. Everything else we do here is inference, and inference is what makes pàdé (\"to meet\") look like it comes from pa (\"to kill\").",
       "fix": "Add {{etymid|yo|<short name>}} as the first line of each numbered etymology section, following the pattern on the page \"de\". Then the words built from this one can point at those names. The Contribute page lists both halves for this page with the text to add.",
-      "count": 51,
-      "pageCount": 51,
+      "count": 43,
+      "pageCount": 43,
       "pages": [
         {
           "page": "fa",
@@ -50958,26 +51116,6 @@
           ],
           "details": [
             "2 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "o",
-          "editUrl": "https://en.wiktionary.org/wiki/o#Yoruba",
-          "entryIds": [
-            "en-o-yo-character-DH~zt4JU"
-          ],
-          "details": [
-            "7 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "i",
-          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
-          "entryIds": [
-            "en-i-yo-character-CPhLBG1q"
-          ],
-          "details": [
-            "3 etymology sections, none of them named"
           ]
         },
         {
@@ -51151,16 +51289,6 @@
           ]
         },
         {
-          "page": "ibi",
-          "editUrl": "https://en.wiktionary.org/wiki/ibi#Yoruba",
-          "entryIds": [
-            "en-ibi-yo-noun-ABXml9EL"
-          ],
-          "details": [
-            "8 etymology sections, none of them named"
-          ]
-        },
-        {
           "page": "di",
           "editUrl": "https://en.wiktionary.org/wiki/di#Yoruba",
           "entryIds": [
@@ -51181,16 +51309,6 @@
           ]
         },
         {
-          "page": "le",
-          "editUrl": "https://en.wiktionary.org/wiki/le#Yoruba",
-          "entryIds": [
-            "en-le-yo-verb-nYZfFGVO"
-          ],
-          "details": [
-            "9 etymology sections, none of them named"
-          ]
-        },
-        {
           "page": "erin",
           "editUrl": "https://en.wiktionary.org/wiki/erin#Yoruba",
           "entryIds": [
@@ -51198,36 +51316,6 @@
           ],
           "details": [
             "6 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "ya",
-          "editUrl": "https://en.wiktionary.org/wiki/ya#Yoruba",
-          "entryIds": [
-            "en-ya-yo-verb-BsVCin63"
-          ],
-          "details": [
-            "10 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "ro",
-          "editUrl": "https://en.wiktionary.org/wiki/ro#Yoruba",
-          "entryIds": [
-            "en-ro-yo-verb-ci5lfH8k"
-          ],
-          "details": [
-            "7 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "a",
-          "editUrl": "https://en.wiktionary.org/wiki/a#Yoruba",
-          "entryIds": [
-            "en-a-yo-character-9n~aNY1j"
-          ],
-          "details": [
-            "3 etymology sections, none of them named"
           ]
         },
         {
@@ -51308,16 +51396,6 @@
           ],
           "details": [
             "10 etymology sections, none of them named"
-          ]
-        },
-        {
-          "page": "kọ",
-          "editUrl": "https://en.wiktionary.org/wiki/k%E1%BB%8D#Yoruba",
-          "entryIds": [
-            "en-kọ-yo-verb-gYxwiiH2"
-          ],
-          "details": [
-            "7 etymology sections, none of them named"
           ]
         },
         {
@@ -51642,8 +51720,8 @@
       "confidence": "certain",
       "why": "Verb phrases and proverbs listed as derived terms mostly have no entry of their own and are not expected to. Counted separately so they stop inflating the number of real gaps above.",
       "fix": "Nothing required. Create an entry only if the phrase is idiomatic enough to deserve one.",
-      "count": 2140,
-      "pageCount": 983,
+      "count": 2141,
+      "pageCount": 984,
       "pages": [
         {
           "page": "A",
@@ -51671,17 +51749,6 @@
           "editUrl": "https://en.wiktionary.org/wiki/o#Yoruba",
           "entryIds": [
             "en-o-yo-pron-0egbdkis"
-          ],
-          "details": [
-            "sense relatedTerms “[pronoun dropped]”",
-            "sense relatedTerms “[preceding vowel repeated for mono­syllabic verbs]”"
-          ]
-        },
-        {
-          "page": "i",
-          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
-          "entryIds": [
-            "en-i-yo-pron-gJOyAsa7"
           ],
           "details": [
             "sense relatedTerms “[pronoun dropped]”",
@@ -53083,9 +53150,20 @@
             "sense derivedTerms “iná adarí ọkọ̀”",
             "sense derivedTerms “iná mànàmáná”"
           ]
+        },
+        {
+          "page": "muti",
+          "editUrl": "https://en.wiktionary.org/wiki/muti#Yoruba",
+          "entryIds": [
+            "en-muti-yo-verb-ryCYdWQ5"
+          ],
+          "details": [
+            "sense derivedTerms “mutí para”",
+            "sense derivedTerms “mutí yó”"
+          ]
         }
       ],
-      "pagesOmitted": 863
+      "pagesOmitted": 864
     },
     {
       "kind": "shared-spelling",
@@ -53096,7 +53174,7 @@
       "confidence": "certain",
       "why": "Counted so it is not mistaken for a defect. Yoruba has many homographs, and entries that differ only in tone are different words that this dictionary keeps deliberately apart. Every entry involved now links to its siblings so a reader can see the others.",
       "fix": "Nothing required.",
-      "count": 1579,
+      "count": 1582,
       "pageCount": 0,
       "pages": [],
       "pagesOmitted": 0
@@ -53104,22 +53182,23 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 9,
-      "mechanical": 212,
-      "expertise": 4243,
-      "info": 3719
+      "easy": 27,
+      "mechanical": 214,
+      "expertise": 4228,
+      "info": 3723
     },
     "byTarget": {
-      "wiktionary": 8183
+      "pipeline": 20,
+      "wiktionary": 8172
     },
     "byConfidence": {
-      "certain": 8089,
+      "certain": 8098,
       "needs-checking": 94
     },
-    "actionable": 4464,
-    "easyWins": 9
+    "actionable": 4469,
+    "easyWins": 27
   },
-  "kaikkiSourceDate": "2026-09-07",
-  "kaikkiReleaseTag": "build-15",
+  "kaikkiSourceDate": "2026-09-21",
+  "kaikkiReleaseTag": "build-17",
   "kaikkiParseErrorCount": 0
 }
