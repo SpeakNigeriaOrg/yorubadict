@@ -177,10 +177,14 @@ def main(argv):
          for eid in orphans),
     )
 
-    # 6. An entry with no record has no page.
+    # 6. An entry with no record is a word Wiktionary gained since the ledger was
+    #    written. The build serves it at a rule-made address kept out of the
+    #    sitemap (build/lib/slugs.mjs), so it is work waiting for a name, not a
+    #    reason to stop a deploy. It used to be a FAIL here while the build
+    #    shipped it happily, so the two tools disagreed every week.
     missing = [eid for eid in live if eid not in records]
-    report.fail(
-        "every entry has an address",
+    report.warn(
+        "every entry has a chosen address (new words: review.py -new)",
         (f'{eid} ({live[eid]["written"]}, {live[eid]["pos"]})' for eid in missing),
     )
 

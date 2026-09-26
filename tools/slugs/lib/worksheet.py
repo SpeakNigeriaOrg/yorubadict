@@ -88,7 +88,10 @@ def _render_group(group):
         if item.get("flags"):
             out.append(f'      ⚠ {"; ".join(item["flags"])}')
         mark = " ✓" if item.get("approved") else ""
-        out.append(f'      word: {item["word"]}{mark}')
+        # `taken:` is not read back, so a neighbour shown for context cannot be
+        # changed or approved from a sheet that was not about it.
+        field = "taken" if item.get("context") else "word"
+        out.append(f'      {field}: {item["word"]}{mark}')
         out.append("")
     return out
 

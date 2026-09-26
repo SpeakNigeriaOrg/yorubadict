@@ -53,3 +53,7 @@ tools/trace/paint-profile.json
 
 # Local before/after for build/check-search-drift.mjs, never committed.
 build/search-drift-snapshot.json
+
+# What the last refresh needs from a person, written by build/normalize.mjs and
+# posted by the refresh workflow. Regenerated every build.
+build/refresh-summary.md

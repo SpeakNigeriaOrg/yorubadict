@@ -44,6 +44,11 @@ import { buildWiktionaryTasks } from './lib/wiktionary-tasks.mjs';
 import { buildMentionedWords } from './lib/mentioned-words.mjs';
 import { attachAddresses } from './lib/slugs.mjs';
 import { prerender } from './lib/prerender.mjs';
+import { writeRefreshSummary } from './lib/refresh-summary.mjs';
+
+// Filled in as the build learns it, so a pause can still say which release it
+// was looking at.
+const refresh = { release: null, moves: [], newcomers: [] };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -218,6 +223,7 @@ async function main() {
   }
   const entries = Object.values(entriesById);
   console.log(`      ${entries.length} entries loaded`);
+  if (kaikkiReleaseTag) refresh.release = `${kaikkiReleaseTag} (sourced ${kaikkiSourceDate})`;
 
   console.log('[2/5] Synthesizing relationship graph ...');
   const { entries: linkedEntries, unresolved, dialect, anchorTable, danglingAnchors } =
@@ -233,6 +239,7 @@ async function main() {
   // keep in step would be one more thing that can disagree with the pages on
   // disk. See build/lib/slugs.mjs for what it will and will not guess.
   const { redirects, stats, provisional, newcomers, moves } = attachAddresses(linkedEntries);
+  Object.assign(refresh, { moves, newcomers });
   console.log(
     `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
       `${stats.provisional} still placeholders, ${redirects.length} retired`
@@ -382,9 +389,11 @@ async function main() {
         `${String(issue.count).padStart(5)} on ${String(issue.pageCount).padStart(4)} pages  ${issue.title}`
     );
   }
+  writeRefreshSummary({ status: 'ok', ...refresh });
 }
 
 main().catch((err) => {
   console.error('\nBuild failed:', err.message);
+  writeRefreshSummary({ status: 'paused', ...refresh, error: err.message });
   process.exit(1);
 });

@@ -16,6 +16,22 @@ This directory is what chooses the English word, writes it down in
 `data/url-slugs.json`, and lets you read and change every one before it becomes
 a URL.
 
+## Weekly
+
+The refresh workflow runs every Monday. If it needs a person, it opens (or
+updates) one GitHub issue, **"Dictionary refresh needs you"**, with a short
+summary, and closes it again once a refresh needs nothing. There are only
+three things it can say:
+
+| The summary says | What happened | What to do |
+|---|---|---|
+| **N new words need a name** | Wiktionary gained words. They are live at rule-made addresses, kept out of the sitemap. | `python3 tools/slugs/review.py -new`, edit the `word:` lines in `tools/slugs/work/new.md`, set `reviewed: yes`, `review.py -apply`, `check.py`, commit the ledger. Empty a `word:` line to leave that entry unnamed. |
+| **N entries changed id and kept their address** | Kaikki renamed some ids (a page split, a part of speech corrected). The build matched them to their old records. | Nothing. `node tools/slugs/rekey.mjs` writes it into the ledger whenever convenient; `review.py -new` and `seed.py` run it for you. |
+| **Refresh stopped** | The build or a check refused. For the ledger, that is deliberate: the build will not change a live address on its own. | Read the message. *The ledger disagrees with address.mjs* means an entry's spelling changed upstream: confirm the new spelling, edit `spelling` (and `written`) on that record, and add the old `[spelling, word]` to `retired` if the old address had visitors. *Could belong to more than one old address* means an id changed ambiguously: move the right record to the new id by hand. |
+
+Everything below is how the ledger was first written and why it works the way
+it does. Week to week, the table above is all of it.
+
 ## Why the word is written down rather than worked out
 
 It would be easy to derive it on every build — take the first few words of the

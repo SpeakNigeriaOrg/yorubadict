@@ -18,6 +18,9 @@ jobs:
     # regardless of that default.
     permissions:
       contents: write
+      # One issue, "Dictionary refresh needs you", opened or updated when a
+      # refresh stops or brings new words to name, closed when neither holds.
+      issues: write
     steps:
       - uses: actions/checkout@v7
 
@@ -37,6 +40,11 @@ jobs:
 
       - name: Check the ranking against the shared fixture
         run: npm run check:search
+
+      # The address ledger's own checks. Standard library only, so the runner's
+      # python3 is enough. Warnings (new words awaiting names) do not fail it.
+      - name: Check the address ledger
+        run: python3 tools/slugs/check.py
 
       - name: Sanity-check the rebuilt entry count
         run: |
@@ -61,3 +69,39 @@ jobs:
           SOURCE_DATE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('build/validation-report.json','utf8')).kaikkiSourceDate)")
           git commit -m "Refresh data from kaikki-yoruba release ${TAG} (sourced ${SOURCE_DATE})"
           git push
+
+      # Runs whatever happened above. The summary goes on this run's page, and
+      # the issue is how a person finds out without looking: two refreshes
+      # failed unnoticed for a fortnight before this existed.
+      - name: Tell a person if one is needed
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -uo pipefail
+          TITLE="Dictionary refresh needs you"
+          SUMMARY=build/refresh-summary.md
+          if [ ! -f "$SUMMARY" ]; then
+            printf '<!-- needs-person: yes -->\n## Refresh stopped before the build ran\n' > "$SUMMARY"
+          fi
+          if [ "$JOB_STATUS" != "success" ] && ! grep -q "Refresh stopped" "$SUMMARY"; then
+            # The build finished but a later check failed - the tests, the
+            # ranking, or the ledger. The build's summary alone would say "done".
+            printf '<!-- needs-person: yes -->\n## Refresh stopped at a check after the build\n\nOpen the run below for which step failed.\n\n' | cat - "$SUMMARY" > "$SUMMARY.tmp" && mv "$SUMMARY.tmp" "$SUMMARY"
+          fi
+          printf '\n[This run](%s)\n' "$RUN_URL" >> "$SUMMARY"
+          cat "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+
+          OPEN=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number // empty')
+          if grep -q "needs-person: yes" "$SUMMARY"; then
+            if [ -n "$OPEN" ]; then
+              gh issue edit "$OPEN" --body-file "$SUMMARY"
+              gh issue comment "$OPEN" --body "Updated by the refresh of $(date -u +%F): $RUN_URL"
+            else
+              gh issue create --title "$TITLE" --body-file "$SUMMARY"
+            fi
+          elif [ -n "$OPEN" ]; then
+            gh issue close "$OPEN" --comment "The refresh of $(date -u +%F) needs nothing: $RUN_URL"
+          fi

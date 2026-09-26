@@ -240,7 +240,13 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     claimed.set(address, entry.id);
     entry.path = address;
     provisional.add(entry.id);
-    newcomers.push({ id: entry.id, address, source, spelling: (entry.canonicalForm || {}).value });
+    newcomers.push({
+      id: entry.id,
+      address,
+      source,
+      spelling: (entry.canonicalForm || {}).value,
+      definition: (entry.senses || []).map((s) => (s.glosses || [])[0]).find(Boolean) || '',
+    });
   }
   if (drifted.length) {
     throw new Error(
