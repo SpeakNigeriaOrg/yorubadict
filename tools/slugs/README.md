@@ -18,35 +18,56 @@ a URL.
 
 ## Weekly
 
-The refresh workflow runs every Monday, on its own. Nothing here needs a
-terminal. It can reach you in two ways:
+The refresh workflow runs every Monday, on its own, and never stops for an
+address question. Everything Wiktionary changed is served the safe way at once,
+and listed for a person in **one pull request, "Dictionary changes"**, holding
+one sheet. Nothing here needs a terminal.
 
-**A pull request called "Name the new words"** - when Wiktionary gained words.
-They are live already at rule-made addresses, kept out of the sitemap. Open the
-pull request, then **Files changed**, then the **⋯** menu on `new-words.md` >
-**Edit file**. The steps are at the top of the sheet: change the words after
-`word:`, or empty one to leave it alone for good, and commit. A check comments
-with the addresses it will make (✓) or what to fix (✗). Merge on ✓ - merging is
-the sign-off, and the names are written into the ledger for you.
+### Why one sheet
 
-**An issue called "Dictionary refresh needs you"** - when a refresh stopped. The
-site keeps serving the last good data meanwhile, and the issue closes itself the
-next time a refresh needs nothing. Stops about the ledger are deliberate, because
-the build will not change a live address on its own:
+An entry's Kaikki id is its first sense's id: page, part of speech, and a hash
+of that sense's text. So an id changes when a page moves, when a part of speech
+is corrected, when a sense is added above the first or senses are reordered, when
+a `{{senseid}}` is added - and when a single word of the first definition is
+edited. Deleting "Èkìtì" from ẹrẹja's definition gave it a new id. To the ledger,
+each of those first looks like one word leaving and another arriving.
 
-| The message says | What it means | What settles it |
+`build/lib/continuity.mjs` pairs them on everything the data carries: the old id
+surviving among the new entry's sense ids, the id hash surviving a move, how much
+of one entry's definitions the other's cover, spelling, written form, part of
+speech, page section. Clear cases are matched automatically. Everything else is
+shown to a person - and it is shown grouped by spelling, old and new definitions
+side by side, because a word that left and a word that arrived with the same
+spelling in the same week are usually one word, edited, and that is only visible
+when both are on the page together.
+
+### What the sheet asks
+
+| Item | Served meanwhile as | The one line to change |
 |---|---|---|
-| *The ledger disagrees with build/lib/address.mjs* | A word's spelling changed on Wiktionary, which would move its page. | Someone confirms the new spelling is right, and the record's `spelling` and `written` are updated in `data/url-slugs.json` - with the old `[spelling, word]` added to `retired` if the old address had visitors. This one does need an edit to the ledger. |
-| *Could belong to more than one old address* | An entry's id changed and two old records fit it equally. | The right record is moved to the new id in `data/url-slugs.json`. Rare. |
-| Anything else | A test, the ranking check, or the download failed. | Open the run linked from the issue. |
+| **NEW WORD** | a rule-made address, out of the sitemap | `word:` - the English word. Or `same as:` an address from the WORD LEFT items, if it is that word under a new id (prefilled when there is one likely match). Empty both to leave it alone for good. |
+| **WORD LEFT** | its address redirects (302) to the page for its spelling, or to a search when no word is spelled that way any more | `gone: yes` once you are sure it is not one of the new words. |
+| **SPELLING CHANGED** | still at its old address | `move: yes` to move it; the old address keeps redirecting. |
+| **WORD MAY NOT FIT** | at its address, whose word no longer appears in its definitions (Okù at `/oku/contextually`, when its definition became "Ancestors...") | `word:` - change it to rename; the old address redirects. |
+| **MATCHED** | at its old address, matched automatically | `same word: no`, only if the match is wrong. It is undone and never offered again. |
 
-Entries whose id merely changed (a page split, a part of speech corrected) need
-nothing: the build keeps their address and the refresh records the new id.
+A line left empty waits for next week; items are worked out from the ledger as
+it stands, so nothing is lost by waiting. Each edit to the sheet gets a comment
+from a check: exactly what merging will do (✓), or what to fix (✗). Merging is
+the sign-off; `.github/workflows/changes.yml` writes it into the ledger.
+
+### When a person is told something else
+
+**An issue, "Dictionary refresh needs you"**, opens only when a refresh stopped -
+a test, the ranking check or the download failed, or hundreds of addresses lost
+their entries at once, which is the id scheme changing upstream and wants a
+programmer rather than a sheet. It closes itself the next time a refresh needs
+nothing.
 
 If the pull request cannot be opened, the repository needs **Settings > Actions >
-General > "Allow GitHub Actions to create and approve pull requests"**; until
-then the new words appear in the issue instead, and `python3 tools/slugs/review.py
--new` makes the same sheet locally.
+General > "Allow GitHub Actions to create and approve pull requests"**. Locally,
+`node tools/slugs/changes.mjs write` makes the same sheet and
+`node tools/slugs/changes.mjs apply FILE` reads it back.
 
 Everything below is how the ledger was first written and why it works the way
 it does. Week to week, the section above is all of it.

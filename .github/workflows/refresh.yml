@@ -68,7 +68,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data build/validation-report.json data/url-slugs.json
+          git add public/data build/validation-report.json data/url-slugs.json data/address-history.json
           if git diff --cached --quiet; then
             echo "No changes since last refresh - nothing to commit."
             exit 0
@@ -78,35 +78,39 @@ jobs:
           git commit -m "Refresh data from kaikki-yoruba release ${TAG} (sourced ${SOURCE_DATE})"
           git push
 
-      # New words get a pull request holding a sheet to fill in on github.com:
-      # edit, commit, merge. names.yml checks every edit and applies it on
-      # merge. One at a time - while one is open, newer words wait for the next.
+      # Every change to a web address this week - new words, words that left,
+      # renames, respellings, matches made automatically - in one pull request
+      # holding one sheet, grouped by spelling with before and after side by
+      # side, to settle on github.com: edit, commit, merge. changes.yml checks
+      # every edit and applies it on merge. One at a time: while one is open,
+      # newer changes wait for the next, since the sheet is worked out from the
+      # ledger as it stands and nothing is lost by waiting.
       #
       # Needs Settings > Actions > General > "Allow GitHub Actions to create and
       # approve pull requests". Without it this step fails softly and the issue
-      # below carries the list instead.
-      - name: Open a pull request for new words to name
+      # below carries the summary instead.
+      - name: Open a pull request for this week's changes
         id: pr
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          BRANCH=name-new-words
-          SHEET=tools/slugs/new-words.md
+          BRANCH=dictionary-changes
+          SHEET=tools/slugs/changes.md
           OPEN=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
           if [ -n "$OPEN" ]; then
             echo "number=$OPEN" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          python3 tools/slugs/review.py -web:"$SHEET"
+          node tools/slugs/changes.mjs write "$SHEET"
           [ -f "$SHEET" ] || exit 0
           git checkout -B "$BRANCH"
           git add "$SHEET"
-          git commit -m "New words to name"
+          git commit -m "This week's dictionary changes to review"
           git push --force origin "$BRANCH"
-          URL=$(gh pr create --head "$BRANCH" --base main --title "Name the new words" \
-            --body "New words arrived from Wiktionary. Open **Files changed**, then the ⋯ menu on \`new-words.md\` > **Edit file**, and follow the steps at the top of it. Merging this pull request is the sign-off.")
+          URL=$(gh pr create --head "$BRANCH" --base main --title "Dictionary changes" \
+            --body "Wiktionary edits changed some of the dictionary's web addresses this week. Everything is already live in a safe form. Open **Files changed**, then the ⋯ menu on \`changes.md\` > **Edit file**, and follow the steps at the top of it. Merging this pull request is the sign-off.")
           echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
 
       # Runs whatever happened above. The summary goes on this run's page, and
