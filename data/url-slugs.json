@@ -61035,9 +61035,9 @@
       "provisional": false,
       "retired": [],
       "source": "model",
-      "spelling": "owon",
+      "spelling": "eni",
       "word": "us",
-      "written": "ọ̀wọn"
+      "written": "ẹni"
     },
     "en-ẹni_ti_ọkan_mi_yan-yo-noun-7ANUzcPm": {
       "approved": false,
@@ -69005,6 +69005,6 @@
     }
   },
   "note": "Which English word each entry's web address uses. Written by tools/slugs, read by build/lib/slugs.mjs, and never regenerated: an address that moves loses whatever the page had earned. To change one, edit it here and add the old [spelling, word] pair to that entry's `retired` list so the old address keeps redirecting. Set `published` to true the first time the site deploys these addresses - until then a change costs nothing and mints no redirect, because no reader could have reached the old one.",
-  "published": false,
+  "published": true,
   "version": 1
 }
