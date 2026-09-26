@@ -250,7 +250,7 @@ async function main() {
     console.log(`      ${moves.length} entries changed id upstream and kept their address:`);
     for (const m of moves.slice(0, 10)) console.log(`        ${m.from} -> ${m.to}`);
     if (moves.length > 10) console.log(`        ...and ${moves.length - 10} more`);
-    console.log('        Record them:  node tools/slugs/rekey.mjs');
+    console.log('        The refresh workflow records them; locally:  node tools/slugs/rekey.mjs');
   }
   if (newcomers.length) {
     // Loud, because these are the only addresses on the site nobody has read.
@@ -264,7 +264,7 @@ async function main() {
       console.log(`        ${n.address}  (${n.source}, ${n.spelling || '?'})`);
     }
     if (newcomers.length > 10) console.log(`        ...and ${newcomers.length - 10} more`);
-    console.log('        Name them:  python3 tools/slugs/seed.py && python3 tools/slugs/review.py');
+    console.log('        Named in the weekly "Name the new words" pull request; locally:  python3 tools/slugs/review.py -new');
   }
 
   const validationReport = buildValidationReport(

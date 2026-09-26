@@ -29,8 +29,18 @@ GROUP_HEADING = re.compile(r"^##\s+/(\S*)/")
 HEADER_FIELDS = ("letter", "groups", "entries", "reviewed")
 
 
-def render(letter, groups, totals, why=None):
-    """One worksheet. `letter` is a bucket name - a letter, or "priority"."""
+def render(letter, groups, totals, why=None, instructions=None):
+    """One worksheet. `letter` is a bucket name - a letter, or "priority".
+
+    With `instructions`, the sheet for the weekly pull request: no header block,
+    because merging is the sign-off and there is no `reviewed:` flag to set, and
+    those instructions in place of the terminal ones.
+    """
+    if instructions:
+        lines = ["# New words to name", ""] + (why or []) + [""] + instructions
+        for group in groups:
+            lines += _render_group(group)
+        return "\n".join(lines)
     title = "web addresses worth a second look" if why else "web addresses"
     lines = [f"# {letter} — {title}", ""]
     lines += ["```"]

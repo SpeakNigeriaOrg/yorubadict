@@ -18,19 +18,38 @@ a URL.
 
 ## Weekly
 
-The refresh workflow runs every Monday. If it needs a person, it opens (or
-updates) one GitHub issue, **"Dictionary refresh needs you"**, with a short
-summary, and closes it again once a refresh needs nothing. There are only
-three things it can say:
+The refresh workflow runs every Monday, on its own. Nothing here needs a
+terminal. It can reach you in two ways:
 
-| The summary says | What happened | What to do |
+**A pull request called "Name the new words"** - when Wiktionary gained words.
+They are live already at rule-made addresses, kept out of the sitemap. Open the
+pull request, then **Files changed**, then the **⋯** menu on `new-words.md` >
+**Edit file**. The steps are at the top of the sheet: change the words after
+`word:`, or empty one to leave it alone for good, and commit. A check comments
+with the addresses it will make (✓) or what to fix (✗). Merge on ✓ - merging is
+the sign-off, and the names are written into the ledger for you.
+
+**An issue called "Dictionary refresh needs you"** - when a refresh stopped. The
+site keeps serving the last good data meanwhile, and the issue closes itself the
+next time a refresh needs nothing. Stops about the ledger are deliberate, because
+the build will not change a live address on its own:
+
+| The message says | What it means | What settles it |
 |---|---|---|
-| **N new words need a name** | Wiktionary gained words. They are live at rule-made addresses, kept out of the sitemap. | `python3 tools/slugs/review.py -new`, edit the `word:` lines in `tools/slugs/work/new.md`, set `reviewed: yes`, `review.py -apply`, `check.py`, commit the ledger. Empty a `word:` line to leave that entry unnamed. |
-| **N entries changed id and kept their address** | Kaikki renamed some ids (a page split, a part of speech corrected). The build matched them to their old records. | Nothing. `node tools/slugs/rekey.mjs` writes it into the ledger whenever convenient; `review.py -new` and `seed.py` run it for you. |
-| **Refresh stopped** | The build or a check refused. For the ledger, that is deliberate: the build will not change a live address on its own. | Read the message. *The ledger disagrees with address.mjs* means an entry's spelling changed upstream: confirm the new spelling, edit `spelling` (and `written`) on that record, and add the old `[spelling, word]` to `retired` if the old address had visitors. *Could belong to more than one old address* means an id changed ambiguously: move the right record to the new id by hand. |
+| *The ledger disagrees with build/lib/address.mjs* | A word's spelling changed on Wiktionary, which would move its page. | Someone confirms the new spelling is right, and the record's `spelling` and `written` are updated in `data/url-slugs.json` - with the old `[spelling, word]` added to `retired` if the old address had visitors. This one does need an edit to the ledger. |
+| *Could belong to more than one old address* | An entry's id changed and two old records fit it equally. | The right record is moved to the new id in `data/url-slugs.json`. Rare. |
+| Anything else | A test, the ranking check, or the download failed. | Open the run linked from the issue. |
+
+Entries whose id merely changed (a page split, a part of speech corrected) need
+nothing: the build keeps their address and the refresh records the new id.
+
+If the pull request cannot be opened, the repository needs **Settings > Actions >
+General > "Allow GitHub Actions to create and approve pull requests"**; until
+then the new words appear in the issue instead, and `python3 tools/slugs/review.py
+-new` makes the same sheet locally.
 
 Everything below is how the ledger was first written and why it works the way
-it does. Week to week, the table above is all of it.
+it does. Week to week, the section above is all of it.
 
 ## Why the word is written down rather than worked out
 

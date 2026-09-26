@@ -21,6 +21,8 @@ jobs:
       # One issue, "Dictionary refresh needs you", opened or updated when a
       # refresh stops or brings new words to name, closed when neither holds.
       issues: write
+      # The weekly "Name the new words" pull request.
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
 
@@ -30,6 +32,12 @@ jobs:
 
       - name: Rebuild from kaikki-yoruba's latest release
         run: node build/normalize.mjs
+
+      # Entries whose Kaikki id changed are already served at their old address
+      # by the build; this writes the new ids into the ledger, in the same
+      # commit as the data, so nobody has to.
+      - name: Record entries whose id changed
+        run: node tools/slugs/rekey.mjs
 
       # Both gate the commit below. The size assertion inside normalize.mjs has
       # already run by this point; these cover the two things it cannot see -
@@ -60,7 +68,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data build/validation-report.json
+          git add public/data build/validation-report.json data/url-slugs.json
           if git diff --cached --quiet; then
             echo "No changes since last refresh - nothing to commit."
             exit 0
@@ -70,6 +78,37 @@ jobs:
           git commit -m "Refresh data from kaikki-yoruba release ${TAG} (sourced ${SOURCE_DATE})"
           git push
 
+      # New words get a pull request holding a sheet to fill in on github.com:
+      # edit, commit, merge. names.yml checks every edit and applies it on
+      # merge. One at a time - while one is open, newer words wait for the next.
+      #
+      # Needs Settings > Actions > General > "Allow GitHub Actions to create and
+      # approve pull requests". Without it this step fails softly and the issue
+      # below carries the list instead.
+      - name: Open a pull request for new words to name
+        id: pr
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BRANCH=name-new-words
+          SHEET=tools/slugs/new-words.md
+          OPEN=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$OPEN" ]; then
+            echo "number=$OPEN" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python3 tools/slugs/review.py -web:"$SHEET"
+          [ -f "$SHEET" ] || exit 0
+          git checkout -B "$BRANCH"
+          git add "$SHEET"
+          git commit -m "New words to name"
+          git push --force origin "$BRANCH"
+          URL=$(gh pr create --head "$BRANCH" --base main --title "Name the new words" \
+            --body "New words arrived from Wiktionary. Open **Files changed**, then the ⋯ menu on \`new-words.md\` > **Edit file**, and follow the steps at the top of it. Merging this pull request is the sign-off.")
+          echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
+
       # Runs whatever happened above. The summary goes on this run's page, and
       # the issue is how a person finds out without looking: two refreshes
       # failed unnoticed for a fortnight before this existed.
@@ -78,6 +117,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           JOB_STATUS: ${{ job.status }}
+          PR: ${{ steps.pr.outputs.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -uo pipefail
@@ -90,6 +130,11 @@ jobs:
             # The build finished but a later check failed - the tests, the
             # ranking, or the ledger. The build's summary alone would say "done".
             printf '<!-- needs-person: yes -->\n## Refresh stopped at a check after the build\n\nOpen the run below for which step failed.\n\n' | cat - "$SUMMARY" > "$SUMMARY.tmp" && mv "$SUMMARY.tmp" "$SUMMARY"
+          fi
+          if [ "$JOB_STATUS" = "success" ] && [ -n "$PR" ]; then
+            # New words have their own place to be named; the issue is for stops.
+            printf '\n**Name them in pull request #%s.**\n' "$PR" >> "$SUMMARY"
+            sed -i 's/needs-person: yes/needs-person: no/' "$SUMMARY"
           fi
           printf '\n[This run](%s)\n' "$RUN_URL" >> "$SUMMARY"
           cat "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"

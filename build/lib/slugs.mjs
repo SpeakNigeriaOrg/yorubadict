@@ -174,6 +174,7 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
   const movedFrom = new Map(moves.map((m) => [m.to, m.from]));
   const recordFor = (id) => records[id] || records[movedFrom.get(id)];
 
+  const provisional = new Set();
   const missing = [];
   const newcomers = [];
   const drifted = [];
@@ -215,13 +216,15 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     claimed.set(address, entry.id);
     takenFor(spelling).add(record.word);
     entry.path = address;
+    // Left unnamed on purpose. Served, but its name is still the rule's guess,
+    // so it stays out of the sitemap like any other placeholder.
+    if (record.deferred) provisional.add(entry.id);
   }
 
   // Entries the ledger has never seen - a word Wiktionary gained since it was
   // last written. Named by rule and marked provisional rather than failing the
   // deploy: see the note at the top of this file for why this is not the silent
   // address change the ledger forbids.
-  const provisional = new Set();
   for (const entry of missing) {
     const spelling = spellingOf.get(entry.id);
     if (RESERVED.has(spelling)) {

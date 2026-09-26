@@ -1,0 +1,94 @@
+name: Name the new words
+
+# The other half of the weekly "Name the new words" pull request, which
+# refresh.yml opens with a sheet, tools/slugs/new-words.md, for a person to fill
+# in on github.com.
+#
+#   on every edit to the sheet in the pull request: try it against the ledger
+#   and say, in a comment, either the addresses it will make or what to fix.
+#
+#   on merge: write it into data/url-slugs.json, remove the sheet, commit.
+#
+# Merging is the sign-off; nobody runs anything.
+
+on:
+  pull_request:
+    paths: ['tools/slugs/new-words.md']
+  push:
+    branches: [main]
+    paths: ['tools/slugs/new-words.md']
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Try the sheet against the ledger
+        id: try
+        run: |
+          set -o pipefail
+          {
+            python3 tools/slugs/review.py -apply -file:tools/slugs/new-words.md -signed \
+              && python3 tools/slugs/check.py
+          } 2>&1 | tee result.txt
+
+      - name: Say what it will do, or what to fix
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OUTCOME: ${{ steps.try.outcome }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          if [ "$OUTCOME" = "success" ]; then
+            {
+              echo "✓ **Ready to merge.** These addresses will go live:"
+              echo
+              echo '```'
+              grep '^  /yo/' result.txt || echo "(none - every entry was left unnamed)"
+              echo '```'
+            } > comment.md
+          else
+            {
+              echo "✗ **Not ready yet.** The most common cause is two words in one group"
+              echo "being the same - each word under one heading has to differ. Edit the"
+              echo "sheet again and this check reruns. What the check said:"
+              echo
+              echo '```'
+              grep -E 'FAIL|problems|^  line|not in the dictionary|claimed by' result.txt | head -20
+              echo '```'
+            } > comment.md
+          fi
+          gh pr comment "$PR" --body-file comment.md
+
+  apply:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Write the names into the ledger
+        run: |
+          set -euo pipefail
+          python3 tools/slugs/review.py -apply -file:tools/slugs/new-words.md -signed
+          python3 tools/slugs/check.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -q tools/slugs/new-words.md
+          git add data/url-slugs.json
+          git commit -m "Name the new words, from the merged sheet"
+          git push

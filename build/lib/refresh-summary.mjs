@@ -17,16 +17,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const SUMMARY_PATH = path.resolve(__dirname, '../refresh-summary.md');
 
 const WEEKLY = [
-  'To name them, on a checkout of `main` with the refreshed data pulled:',
-  '',
-  '```',
-  'python3 tools/slugs/review.py -new      # writes tools/slugs/work/new.md',
-  '#   edit the word: lines, set  reviewed: yes  at the top',
-  'python3 tools/slugs/review.py -apply',
-  'python3 tools/slugs/check.py',
-  '```',
-  '',
-  'then commit `data/url-slugs.json`. Naming one costs nothing - it has never been in the sitemap.',
+  'They are named in a pull request called **Name the new words**: edit the sheet on',
+  'github.com and merge. Naming one costs nothing - it has never been in the sitemap.',
 ];
 
 /**
@@ -60,7 +52,7 @@ export function writeRefreshSummary({ status, release, moves = [], newcomers = [
     if (moves.length) {
       lines.push(
         `**${moves.length} entries changed id upstream and kept their address.** Nothing to decide;`,
-        'run `node tools/slugs/rekey.mjs` sometime to write it into the ledger.',
+        'the refresh records the new ids in the ledger itself.',
         ''
       );
     }

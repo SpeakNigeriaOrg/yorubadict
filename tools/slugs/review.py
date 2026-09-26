@@ -4,6 +4,8 @@
 Offline. No credentials, no network.
 
     python3 tools/slugs/review.py -new        the weekly one: just the words not yet named
+    python3 tools/slugs/review.py -web:FILE   the same, as the weekly pull request's sheet
+    python3 tools/slugs/review.py -apply -file:FILE -signed   read that sheet back (CI)
     python3 tools/slugs/review.py -priority   ONE worksheet, worst addresses first
     python3 tools/slugs/review.py             one worksheet per letter, all 6,273
     python3 tools/slugs/review.py -apply      read them back into the ledger
@@ -78,7 +80,9 @@ def _collate(only_flagged=False, limit=None, only_new=False):
         for group in groups["groups"]:
             for e in group["entries"]:
                 record = book["entries"].get(e["id"])
-                if not record or record.get("provisional"):
+                # Deferred: somebody emptied its line on purpose. Asking again
+                # every week would keep a sheet open for a word nobody wants named.
+                if not record or (record.get("provisional") and not record.get("deferred")):
                     wanted.add(e["id"])
     buckets = {}
     for group in groups["groups"]:
@@ -152,6 +156,26 @@ NEW_PREAMBLE = [
     "`word:` line and it stays as it is.",
 ]
 
+# The same sheet, as it arrives in the weekly pull request. Written for someone
+# who has never opened a terminal: GitHub's pencil icon, then Merge.
+WEB_INSTRUCTIONS = [
+    "## How to fill this in",
+    "",
+    "1. Click the **⋯** menu at the top right of this file, then **Edit file**.",
+    "2. For each entry marked ⚠, change the text after `word:` to the English word",
+    "   the web address should end in. Keep it short - one word where one will do.",
+    "   Spaces and capitals are fine; they become hyphens and lowercase.",
+    "3. To leave an entry alone for now (a duplicate page, say), delete everything",
+    "   after `word:`. It keeps working and will not be asked about again.",
+    "4. Click **Commit changes**. A check runs and shows ✓ or ✗ on the pull request;",
+    "   a ✗ comes with a comment saying what to fix.",
+    "5. When it shows ✓, click **Merge pull request**. That is the sign-off.",
+    "",
+    "Only the `word:` lines are read. `taken:` lines are words already in use",
+    "nearby, shown so you can pick a different one.",
+    "",
+]
+
 
 def _rekey():
     """Records whose Kaikki id changed go to the new id before anything else.
@@ -163,6 +187,24 @@ def _rekey():
     done = subprocess.run(["node", str(data.TOOL_DIR / "rekey.mjs")], check=False)
     if done.returncode != 0:
         raise SystemExit("Settle the ambiguous ids above first.")
+
+
+def write_web(out):
+    """The new-words sheet for the weekly pull request. Returns how many to name."""
+    _rekey()
+    buckets, _ = _collate(only_new=True)
+    groups = buckets.get("new", [])
+    count = sum(1 for g in groups for e in g["entries"] if not e["context"])
+    if not groups:
+        print("Every word has a chosen address. Nothing to name.")
+        return 0
+    totals = {"groups": len(groups), "entries": sum(len(g["entries"]) for g in groups)}
+    Path(out).write_text(
+        worksheet.render("new", groups, totals, NEW_PREAMBLE, instructions=WEB_INSTRUCTIONS),
+        encoding="utf-8",
+    )
+    print(f"  wrote  {out} — {count} words to name")
+    return count
 
 
 def write(only=None, priority=False, limit=None, new=False):
@@ -216,22 +258,30 @@ def write(only=None, priority=False, limit=None, new=False):
     print("Edit the `word:` lines, set `reviewed: yes`, then: python3 tools/slugs/review.py -apply")
 
 
-def apply(only=None):
+def apply(only=None, file=None, signed=False):
+    """Read worksheets back into the ledger. Returns the number of problems.
+
+    `file` reads one sheet from anywhere, for the weekly pull request. `signed`
+    counts it as reviewed whatever its header says: merging the pull request is
+    the sign-off, and asking a person to also flip a flag is a step to forget.
+    """
     groups = {g["spelling"]: g for g in data.load_groups()["groups"]}
     by_id = {e["id"]: (g["spelling"], e) for g in groups.values() for e in g["entries"]}
     book = ledger.load()
     out_dir = data.work_dir()
+    entries = json.loads(data.ENTRIES_PATH.read_text(encoding="utf-8"))
 
     tallies = {"changed": 0, "approved": 0, "unchanged": 0, "unnamed": 0}
     skipped, problems = [], []
 
-    for path in sorted(out_dir.glob("*.md")):
+    paths = [Path(file)] if file else sorted(out_dir.glob("*.md"))
+    for path in paths:
         letter = path.stem
         if only and letter != only:
             continue
         header, words, file_problems = worksheet.parse(path.read_text(encoding="utf-8"))
         problems += [f"{path.name} {p}" for p in file_problems]
-        reviewed = header.get("reviewed", "no").lower() in ("yes", "y", "true")
+        reviewed = signed or header.get("reviewed", "no").lower() in ("yes", "y", "true")
         if not reviewed:
             skipped.append(letter)
 
@@ -244,6 +294,18 @@ def apply(only=None):
             folded = _fold_word(word)
             if not folded:
                 # Emptied on purpose: left unnamed, as the new-words sheet says.
+                # A reviewed sheet records that, at the address the entry is
+                # already served at, so it is not asked about again next week.
+                if reviewed and not existing:
+                    served = (entries.get(entry_id) or {}).get("path", "").rsplit("/", 1)[-1]
+                    if served:
+                        record = ledger.record(
+                            spelling, served, "rule",
+                            source_entry["written"], source_entry["pos"],
+                            source_entry["etymologyNumber"], provisional=True,
+                        )
+                        record["deferred"] = True
+                        book["entries"][entry_id] = record
                 tallies["unnamed"] += 1
                 continue
             changed = not existing or existing["word"] != folded
@@ -260,6 +322,7 @@ def apply(only=None):
                     ),
                 )
                 tallies["changed"] += 1
+                print(f'  /yo/{spelling}/{folded}  ({source_entry["written"]})')
             elif reviewed and not existing.get("approved"):
                 # Left as proposed, and the file says it was read. That is an
                 # approval - it is the whole reason approval is per file.
@@ -281,6 +344,7 @@ def apply(only=None):
         for line in problems[:20]:
             print("  " + line)
     print("\nNow: python3 tools/slugs/check.py")
+    return len(problems)
 
 
 def _fold_word(word):
@@ -297,7 +361,10 @@ def main(argv):
     only = flags.get("-letter") if isinstance(flags.get("-letter"), str) else None
     limit = int(flags["-n"]) if "-n" in flags else None
     if "-apply" in flags:
-        apply(only)
+        file = flags.get("-file") if isinstance(flags.get("-file"), str) else None
+        sys.exit(1 if apply(only, file=file, signed="-signed" in flags) else 0)
+    elif isinstance(flags.get("-web"), str):
+        write_web(flags["-web"])
     else:
         write(only, priority="-priority" in flags, limit=limit, new="-new" in flags)
 

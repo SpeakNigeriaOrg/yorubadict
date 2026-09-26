@@ -148,3 +148,23 @@ test('a genuinely new word is not handed a vanished word\'s address', () => {
   assert.equal(entries[0].path, '/yo/gbe/take-sides');
   assert.equal(result.moves.length, 0);
 });
+
+test('an entry left unnamed on purpose is served, but not advertised', () => {
+  // Emptying its line on the weekly sheet records it as deferred: it keeps the
+  // rule's address, is not asked about again, and stays out of the sitemap
+  // because that address is still a guess.
+  const entries = [entry('en-Iyalase-yo-noun-AAA', 'ìyáláṣẹ', 'high priestess')];
+  const ledgerPath = ledgerFor({
+    'en-Iyalase-yo-noun-AAA': record('iyalase', 'high-priestess-2', {
+      provisional: true,
+      deferred: true,
+      approved: false,
+    }),
+  });
+
+  const result = attachAddresses(entries, { ledgerPath });
+
+  assert.equal(entries[0].path, '/yo/iyalase/high-priestess-2');
+  assert.ok(result.provisional.has('en-Iyalase-yo-noun-AAA'), 'kept out of the sitemap');
+  assert.equal(result.newcomers.length, 0, 'and not reported as new again');
+});
