@@ -7,20 +7,26 @@
 // build, and for a while it was - but kaikki-yoruba republishes weekly, so a
 // Wiktionary editor rewording one definition would move a page Google had
 // already indexed, and nothing would say so. Written down, the address survives
-// the rewording. tools/slugs/ is what writes it, offline, with a person reading
-// every one.
+// the rewording.
 //
-// So a ledger that DISAGREES with itself or with address.mjs is a build failure,
-// not something to paper over: changing the word for an entry that already has
-// one is a silent address change, which is the exact failure the ledger exists
-// to prevent.
+// Nothing upstream is allowed to move a live address, and nothing upstream is
+// allowed to stop the refresh either. Every change the ledger cannot settle by
+// itself is served the safe way and listed for a person on the weekly sheet
+// (tools/slugs/changes.mjs):
 //
-// An entry the ledger has never seen is a different case, and used to be treated
-// the same. kaikki-yoruba republishes weekly and Wiktionary gains words, so a
-// new entry would fail the deploy - the whole site stuck on one unnamed word
-// until somebody noticed. There is no address to change there, because there
-// has never been one. It gets a rule-derived name marked provisional, which the
-// ledger's own rules already say may be replaced without minting a redirect.
+//   an entry whose id changed      matched to its old record (continuity.mjs):
+//                                  automatically when the evidence is clear,
+//                                  otherwise its old address points at it,
+//                                  temporarily, until someone confirms
+//   a word that vanished           its address redirects, temporarily, to the
+//                                  page for its spelling
+//   a spelling that changed        served at its old address until someone
+//                                  confirms the move
+//   a word never seen before       a rule-made address, out of the sitemap
+//
+// The only thing that stops the build is a change too large to be an edit -
+// hundreds of entries at once means the id scheme itself moved upstream, and
+// that wants a programmer, not a sheet.
 //
 // Provisional pages are served but kept out of the sitemap. The name is a guess
 // meant to be replaced, and advertising a guess you intend to change is how a
@@ -30,10 +36,19 @@ import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-import { groupBySpelling, RESERVED, pathFor, foldWord, wordFromDefinition } from './address.mjs';
+import {
+  groupBySpelling,
+  RESERVED,
+  pathFor,
+  spellingPathFor,
+  foldWord,
+  wordFromDefinition,
+} from './address.mjs';
+import { matchArrivals, snapshot } from './continuity.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LEDGER_PATH = path.resolve(__dirname, '../../data/url-slugs.json');
+export const HISTORY_PATH = path.resolve(__dirname, '../../data/address-history.json');
 
 const HOW_TO_FIX =
   'Run:  python3 tools/slugs/seed.py  &&  python3 tools/slugs/check.py\n' +
@@ -50,15 +65,41 @@ export function loadLedger(ledgerPath = LEDGER_PATH) {
   return JSON.parse(readFileSync(ledgerPath, 'utf8'));
 }
 
+/** What was kept of entries that have gone: old id -> snapshot. */
+export function loadHistory(historyPath = HISTORY_PATH) {
+  return existsSync(historyPath) ? JSON.parse(readFileSync(historyPath, 'utf8')).entries || {} : {};
+}
+
+/** entry id -> the first segment of its address, as address.mjs decides it. */
+export function spellingsOf(entries) {
+  const { groups, unresolved } = groupBySpelling(entries);
+  const spellingOf = new Map();
+  for (const [spelling, members] of groups) {
+    for (const { entry } of members) spellingOf.set(entry.id, spelling);
+  }
+  return { spellingOf, groups, unresolved };
+}
+
 /**
- * Give every entry a `path`, and fail loudly rather than serve a broken one.
- *
- * Mutates the entries, because `path` belongs on the entry: the browser reads it
- * to build a link, and it is one field against 6,273 rows rather than a second
- * file to fetch and keep in step.
- *
- * Returns what the caller needs to write the redirects and the sitemap.
+ * The before-picture of every record whose entry is gone: from the history file
+ * if it was kept in an earlier week, or from the previous data if it went just
+ * now. Without it an old entry is only a spelling and a part of speech, and
+ * neither the matcher nor a person can tell a rename from a deletion.
  */
+export function snapshotsFor({ records, entries, previous = {}, history = {} }) {
+  const live = new Set(entries.map((e) => e.id));
+  const out = {};
+  const keep = (id, spelling) => {
+    if (history[id]) out[id] = history[id];
+    else if (previous[id]) out[id] = snapshot(previous[id], spelling);
+  };
+  for (const [id, record] of Object.entries(records)) {
+    if (!live.has(id)) keep(id, record.spelling);
+    // A record already moved to a new id still owes the sheet its old side.
+    if (record.formerly) keep(record.formerly, record.spelling);
+  }
+  return out;
+}
 
 /**
  * A first address for an entry the ledger has never seen.
@@ -87,63 +128,27 @@ function provisionalWord(entry, taken) {
   return { word, source: named ? 'etymid' : 'rule' };
 }
 
-/** The random tail of a Kaikki id. It survives most renames of the rest. */
-const idTail = (id) => id.slice(-8);
-const writtenOf = (entry) =>
-  ((entry.canonicalForm || {}).value || entry.headword || '').normalize('NFC');
+/**
+ * More unsettled changes than this in one build is not an editor at work - it
+ * is the id scheme changing upstream - and gets a stop rather than a sheet
+ * nobody could read.
+ */
+export const floodLimit = (recordCount) => Math.max(25, Math.round(recordCount * 0.02));
 
 /**
- * Entries whose Kaikki id changed, paired with the record they used to have.
+ * Give every entry a `path`, and serve every change the safe way.
  *
- * An id is somebody else's key. Wiktionary splitting the page for `i` by
- * language renamed five of them at once; a part of speech corrected from num to
- * noun renamed another. Without this, each looked like a new word, got a new
- * address, and its old one - linked, indexed - went dead with nothing reporting
- * it. That happened, to ten pages, in the build-17 refresh.
+ * Mutates the entries, because `path` belongs on the entry: the browser reads it
+ * to build a link, and it is one field against 6,273 rows rather than a second
+ * file to fetch and keep in step.
  *
- * A record is only a candidate if its own entry is gone and it has the same
- * spelling. Then, in order: the same id tail, or failing that the same written
- * form and part of speech. A pairing is taken only when it is one-to-one;
- * anything else is returned as ambiguous for a person to settle, because
- * guessing wrong gives one word's page to another.
+ * Returns what the caller needs to write the redirects and the sitemap, and
+ * everything the weekly sheet lists.
  */
-export function matchMovedEntries(entries, records, spellingOf) {
-  const live = new Set(entries.map((e) => e.id));
-  const orphans = Object.entries(records).filter(([id]) => !live.has(id));
-  const candidatesFor = new Map();
-  for (const entry of entries) {
-    if (records[entry.id]) continue;
-    const spelling = spellingOf.get(entry.id);
-    const same = orphans.filter(([, r]) => r.spelling === spelling);
-    let found = same.filter(([id]) => idTail(id) === idTail(entry.id));
-    if (!found.length) {
-      found = same.filter(
-        ([, r]) => (r.written || '').normalize('NFC') === writtenOf(entry) && r.pos === entry.pos
-      );
-    }
-    if (found.length) candidatesFor.set(entry.id, found.map(([id]) => id));
-  }
-
-  const claimants = new Map();
-  for (const [entryId, ids] of candidatesFor) {
-    for (const id of ids) claimants.set(id, [...(claimants.get(id) || []), entryId]);
-  }
-  const moves = [];
-  const ambiguous = [];
-  for (const [entryId, ids] of candidatesFor) {
-    if (ids.length === 1 && claimants.get(ids[0]).length === 1) {
-      moves.push({ from: ids[0], to: entryId });
-    } else {
-      ambiguous.push(`${entryId} could be ${ids.join(' or ')}`);
-    }
-  }
-  return { moves, ambiguous };
-}
-
-export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
+export function attachAddresses(entries, { ledgerPath = LEDGER_PATH, snapshots = {} } = {}) {
   const ledger = loadLedger(ledgerPath);
   const records = ledger.entries || {};
-  const { groups, unresolved } = groupBySpelling(entries);
+  const { spellingOf, groups, unresolved } = spellingsOf(entries);
 
   if (unresolved.length) {
     throw new Error(
@@ -153,25 +158,18 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     );
   }
 
-  // What address.mjs says the first segment is. The ledger's copy is a record,
-  // not the authority, and a disagreement means the ledger is describing an
-  // address the site does not serve.
-  const spellingOf = new Map();
-  for (const [spelling, members] of groups) {
-    for (const { entry } of members) spellingOf.set(entry.id, spelling);
-  }
-
-  // Moved entries first: an entry whose id changed keeps the record, and so the
-  // address, it had under the old id. Ambiguity stops the build, like drift.
-  const { moves, ambiguous } = matchMovedEntries(entries, records, spellingOf);
-  if (ambiguous.length) {
+  const { automatic, probable, unmatched } = matchArrivals({ entries, records, spellingOf, snapshots });
+  const unsettled = new Set([...unmatched, ...[...probable.values()].flat().map((c) => c.from)]);
+  const limit = floodLimit(Object.keys(records).length);
+  if (unsettled.size > limit) {
     throw new Error(
-      `${ambiguous.length} entries changed id and could belong to more than one old address:\n  ` +
-        `${ambiguous.slice(0, 5).join('\n  ')}\n` +
-        'Settle each one in data/url-slugs.json by moving the right record to the new id.'
+      `${unsettled.size} addresses lost their entry this week and could not be matched - more than ` +
+        `${limit}, which is not an editor at work. Most likely the way Kaikki or kaikki-yoruba ` +
+        'makes entry ids changed. Nothing was published; this wants a programmer to look at ' +
+        'build/lib/continuity.mjs against the new release.'
     );
   }
-  const movedFrom = new Map(moves.map((m) => [m.to, m.from]));
+  const movedFrom = new Map(automatic.map((m) => [m.to, m.from]));
   const recordFor = (id) => records[id] || records[movedFrom.get(id)];
 
   const provisional = new Set();
@@ -194,10 +192,11 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
       missing.push(entry);
       continue;
     }
-    const spelling = spellingOf.get(entry.id);
-    if (record.spelling !== spelling) {
-      drifted.push(`${entry.id}: ledger /${record.spelling}/, address.mjs /${spelling}/`);
-      continue;
+    // A spelling change upstream would move the page. It stays where it is -
+    // the ledger's spelling - until a person confirms the move on the sheet.
+    const spelling = record.spelling;
+    if (spelling !== spellingOf.get(entry.id)) {
+      drifted.push({ id: entry.id, from: spelling, to: spellingOf.get(entry.id), word: record.word });
     }
     if (RESERVED.has(spelling)) {
       shadowing.push(`${entry.id}: /${spelling}/ would shadow a page of the site`);
@@ -221,10 +220,9 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     if (record.deferred) provisional.add(entry.id);
   }
 
-  // Entries the ledger has never seen - a word Wiktionary gained since it was
-  // last written. Named by rule and marked provisional rather than failing the
-  // deploy: see the note at the top of this file for why this is not the silent
-  // address change the ledger forbids.
+  // Entries the ledger has never seen - a word Wiktionary gained, or one whose
+  // id changed without clear enough evidence to say which it was. Named by rule
+  // and kept out of the sitemap until the sheet settles it.
   for (const entry of missing) {
     const spelling = spellingOf.get(entry.id);
     if (RESERVED.has(spelling)) {
@@ -249,28 +247,58 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
       source,
       spelling: (entry.canonicalForm || {}).value,
       definition: (entry.senses || []).map((s) => (s.glosses || [])[0]).find(Boolean) || '',
+      candidates: (probable.get(entry.id) || []).map((c) => ({
+        ...c,
+        address: pathFor(records[c.from].spelling, records[c.from].word),
+      })),
     });
-  }
-  if (drifted.length) {
-    throw new Error(
-      `The ledger disagrees with build/lib/address.mjs on ${drifted.length} spellings:\n  ` +
-        `${drifted.slice(0, 5).join('\n  ')}\n${HOW_TO_FIX}`
-    );
   }
   if (shadowing.length) {
     throw new Error(`${shadowing.length} addresses shadow a page:\n  ${shadowing.join('\n  ')}`);
   }
 
+  const redirects = [];
+  const redirect = (from, to, status) => {
+    if (from !== to && !claimed.has(from)) redirects.push({ from, to, status });
+  };
+
   // Old addresses that must keep redirecting. Retired only when a word that
   // somebody may have linked to is changed - a provisional placeholder being
   // filled in is not a move and mints nothing.
-  const redirects = [];
-  for (const [entryId, record] of Object.entries(records)) {
-    const live = records[entryId] && pathFor(record.spelling, record.word);
-    for (const [spelling, word] of record.retired || []) {
-      const from = pathFor(spelling, word);
-      if (from !== live && !claimed.has(from)) redirects.push({ from, to: live });
+  for (const record of Object.values(records)) {
+    const live = pathFor(record.spelling, record.word);
+    for (const [spelling, word] of record.retired || []) redirect(pathFor(spelling, word), live, 301);
+  }
+
+  // An address waiting on a person points somewhere sensible meanwhile, with a
+  // 302 because it may point somewhere else next week.
+  //
+  // A probable rename goes to the entry it probably became; a word that is gone,
+  // or that nothing could be matched to, goes to the page for its spelling, or
+  // to a search for it when no word is spelled that way any more.
+  const bestArrival = new Map();
+  for (const n of newcomers) {
+    for (const c of n.candidates) {
+      const held = bestArrival.get(c.from);
+      if (!held || (c.overlap ?? -1) > (held.overlap ?? -1)) bestArrival.set(c.from, { ...c, to: n.address });
     }
+  }
+  const vanished = [];
+  const live = new Set(entries.map((e) => e.id));
+  const movedAway = new Set(automatic.map((m) => m.from));
+  for (const [id, record] of Object.entries(records)) {
+    if (live.has(id) || movedAway.has(id)) continue;
+    const from = pathFor(record.spelling, record.word);
+    const guess = bestArrival.get(id);
+    if (guess) {
+      redirect(from, guess.to, 302);
+      continue;
+    }
+    const to = groups.has(record.spelling)
+      ? spellingPathFor(record.spelling)
+      : `/?q=${encodeURIComponent(record.written || record.spelling)}`;
+    redirect(from, to, 302);
+    if (!record.gone) vanished.push({ id, address: from, redirectTo: to });
   }
 
   const approved = Object.values(records).filter((r) => r.approved).length;
@@ -278,7 +306,9 @@ export function attachAddresses(entries, { ledgerPath = LEDGER_PATH } = {}) {
     addresses: claimed,
     provisional,
     newcomers,
-    moves,
+    moves: automatic,
+    drifted,
+    vanished,
     redirects,
     stats: {
       total: entries.length,

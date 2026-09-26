@@ -86,17 +86,17 @@ test('a new word does not take an address the ledger already spent', () => {
   assert.equal(result.addresses.size, 2, 'two entries, two pages');
 });
 
-test('changing the word for an entry that already has one is still a failure', () => {
-  // The line this file draws. There is no address to change for a new entry;
-  // for a known one there is, and quietly changing it is what the ledger exists
-  // to prevent.
-  const entries = [entry('en-gbe-yo-verb-AAA', 'gbé', 'to carry')];
-  const ledgerPath = ledgerFor({ 'en-gbe-yo-verb-AAA': record('WRONG', 'carry') });
+test('a spelling changed upstream keeps its old address until someone confirms', () => {
+  // ẹni's pronoun lost a wrong headword on Wiktionary and its spelling moved
+  // from /owon/ to /eni/. That used to stop every refresh for two weeks. Now
+  // the page stays where it was and the move waits on the weekly sheet.
+  const entries = [entry('en-eni-yo-pron-AAA', 'ẹni', 'us', { pos: 'pron' })];
+  const ledgerPath = ledgerFor({ 'en-eni-yo-pron-AAA': record('owon', 'us') });
 
-  assert.throws(
-    () => attachAddresses(entries, { ledgerPath }),
-    /disagrees with build\/lib\/address\.mjs/
-  );
+  const result = attachAddresses(entries, { ledgerPath });
+
+  assert.equal(entries[0].path, '/yo/owon/us', 'still at the old address');
+  assert.deepEqual(result.drifted, [{ id: 'en-eni-yo-pron-AAA', from: 'owon', to: 'eni', word: 'us' }]);
 });
 
 test('a missing ledger file is still a failure, not an empty one', () => {
@@ -118,23 +118,70 @@ test('an entry whose id changed keeps the address it had', () => {
     'en-i-yo-pron-9deM-3Vx': record('i', 'him-high', { written: 'i', pos: 'pron' }),
     'en-eta-yo-noun-OLDTAIL1': record('eta', 'civet', { written: 'ẹtà', pos: 'noun' }),
   });
+  // What the old ẹtà said, as the history file keeps it: a reworded definition
+  // gives a new id hash, so the meaning is what shows it is the same word.
+  const snapshots = {
+    'en-eta-yo-noun-OLDTAIL1': {
+      headword: 'ẹtà', pos: 'noun', etymologyNumber: null, written: 'ẹtà', spelling: 'eta',
+      senseIds: ['en-eta-yo-noun-OLDTAIL1'], definitions: ['civet cat'],
+    },
+  };
 
-  const result = attachAddresses(entries, { ledgerPath });
+  const result = attachAddresses(entries, { ledgerPath, snapshots });
 
   assert.equal(entries[0].path, '/yo/i/him-high', 'matched by the id tail');
-  assert.equal(entries[1].path, '/yo/eta/civet', 'matched by spelling and part of speech');
+  assert.equal(entries[1].path, '/yo/eta/civet', 'matched by spelling, part of speech and meaning');
   assert.equal(result.newcomers.length, 0);
   assert.equal(result.moves.length, 2);
 });
 
-test('a renamed id that could be either of two old records stops the build', () => {
+test('a renamed id that could be either of two old records waits for a person', () => {
+  // Two old records fit equally. Guessing gives one word's page to another, so
+  // neither is chosen: the entry gets a rule-made address, both old addresses
+  // point at it for now, and the sheet shows the candidates side by side.
   const entries = [entry('en-oko-yo-noun-NEWTAIL1', 'ọkọ̀', 'boat', { pos: 'noun' })];
   const ledgerPath = ledgerFor({
     'en-oko-yo-noun-OLDTAIL1': record('oko', 'boat', { written: 'ọkọ̀', pos: 'noun' }),
     'en-oko-yo-noun-OLDTAIL2': record('oko', 'canoe', { written: 'ọkọ̀', pos: 'noun' }),
   });
 
-  assert.throws(() => attachAddresses(entries, { ledgerPath }), /could belong to more than one/);
+  const result = attachAddresses(entries, { ledgerPath });
+
+  assert.equal(result.moves.length, 0);
+  assert.equal(result.newcomers[0].candidates.length, 2);
+  // Its rule-made name is "boat", so it simply lives at the vacated /oko/boat;
+  // only the other old address needs pointing at it.
+  assert.equal(entries[0].path, '/yo/oko/boat');
+  assert.deepEqual(
+    result.redirects.map((r) => [r.from, r.to, r.status]),
+    [['/yo/oko/canoe', '/yo/oko/boat', 302]]
+  );
+});
+
+test('a word that left redirects to its spelling, or to a search when none is left', () => {
+  const entries = [entry('en-gba-yo-verb-KEEP', 'gbà', 'to receive')];
+  const ledgerPath = ledgerFor({
+    'en-gba-yo-verb-KEEP': record('gba', 'receive'),
+    'en-gba-yo-noun-GONE': record('gba', 'sweep', { written: 'gbá', pos: 'noun' }),
+    'en-ojupo-yo-noun-GONE': record('ojupo', 'throne', { written: 'ojúpò', pos: 'noun' }),
+  });
+
+  const result = attachAddresses(entries, { ledgerPath });
+  const to = Object.fromEntries(result.redirects.map((r) => [r.from, [r.to, r.status]]));
+
+  assert.deepEqual(to['/yo/gba/sweep'], ['/yo/gba', 302], 'the page listing what gba still means');
+  assert.deepEqual(to['/yo/ojupo/throne'], [`/?q=${encodeURIComponent('ojúpò')}`, 302]);
+  assert.equal(result.vanished.length, 2, 'and both are on the sheet');
+});
+
+test('a flood of unmatched changes stops the build instead of filling a sheet', () => {
+  // Hundreds at once is the id scheme changing upstream, not an editor.
+  const records = {};
+  for (let i = 0; i < 30; i++) records[`en-w${i}-yo-noun-OLD${String(i).padStart(5, '0')}`] = record(`w${i}`, 'x');
+  const entries = [entry('en-keep-yo-verb-AAA', 'kéép', 'to keep')];
+  records['en-keep-yo-verb-AAA'] = record('keep', 'keep');
+
+  assert.throws(() => attachAddresses(entries, { ledgerPath: ledgerFor(records) }), /not an editor at work/);
 });
 
 test('a genuinely new word is not handed a vanished word\'s address', () => {

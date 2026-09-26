@@ -3,9 +3,6 @@
 
 Offline. No credentials, no network.
 
-    python3 tools/slugs/review.py -new        the weekly one: just the words not yet named
-    python3 tools/slugs/review.py -web:FILE   the same, as the weekly pull request's sheet
-    python3 tools/slugs/review.py -apply -file:FILE -signed   read that sheet back (CI)
     python3 tools/slugs/review.py -priority   ONE worksheet, worst addresses first
     python3 tools/slugs/review.py             one worksheet per letter, all 6,273
     python3 tools/slugs/review.py -apply      read them back into the ledger
@@ -54,45 +51,26 @@ def _letter_of(spelling):
     return first if first.isalnum() else "other"
 
 
-def _collate(only_flagged=False, limit=None, only_new=False):
+def _collate(only_flagged=False, limit=None):
     """Every group with its current ledger word, bucketed by first letter.
 
     With only_flagged, one bucket instead - "priority" - holding just the entries
     a measurement can already tell are wrong, worst first. The group's other
     entries come along with it, because a word has to be different from its
     neighbours and a reviewer cannot check that without seeing them.
-
-    With only_new, one bucket - "new" - holding the groups with a word nobody
-    has named: an entry the ledger has no record for, or a placeholder. That is
-    the weekly queue. An entry with no record shows the address the build is
-    serving it at right now, read off entries.json, so the sheet says what is
-    live rather than a second guess at it.
     """
     groups = data.load_groups()
     book = ledger.load()
     flags = flags_for(book, groups) if only_flagged else {}
     ranked = list(flags)[: limit or len(flags)]
     wanted = set(ranked)
-    served = {}
-    if only_new:
-        entries = json.loads(data.ENTRIES_PATH.read_text(encoding="utf-8"))
-        served = {eid: e.get("path", "").rsplit("/", 1)[-1] for eid, e in entries.items()}
-        for group in groups["groups"]:
-            for e in group["entries"]:
-                record = book["entries"].get(e["id"])
-                # Deferred: somebody emptied its line on purpose. Asking again
-                # every week would keep a sheet open for a word nobody wants named.
-                if not record or (record.get("provisional") and not record.get("deferred")):
-                    wanted.add(e["id"])
     buckets = {}
     for group in groups["groups"]:
-        if (only_flagged or only_new) and not any(e["id"] in wanted for e in group["entries"]):
+        if only_flagged and not any(e["id"] in wanted for e in group["entries"]):
             continue
         rows = []
         for item in group["entries"]:
             existing = book["entries"].get(item["id"])
-            if not existing and only_new:
-                existing = {"word": served.get(item["id"]) or item["ruleWord"], "source": "rule"}
             if not existing:
                 continue
             rows.append(
@@ -106,18 +84,11 @@ def _collate(only_flagged=False, limit=None, only_new=False):
                     "word": existing["word"],
                     "source": existing["source"],
                     "approved": existing.get("approved", False),
-                    "flags": flags.get(item["id"], [])
-                    or (["not named yet"] if only_new and item["id"] in wanted else []),
-                    # Shown so a new word can avoid it, but not offered for
-                    # approval: `reviewed: yes` on this sheet vouches for the
-                    # new words, not for forty neighbours nobody was asked about.
-                    "context": only_new and item["id"] not in wanted,
+                    "flags": flags.get(item["id"], []),
                 }
             )
         if rows:
-            bucket = (
-                "priority" if only_flagged else "new" if only_new else _letter_of(group["spelling"])
-            )
+            bucket = "priority" if only_flagged else _letter_of(group["spelling"])
             buckets.setdefault(bucket, []).append(
                 {"spelling": group["spelling"], "entries": rows}
             )
@@ -145,76 +116,8 @@ PRIORITY_PREAMBLE = [
 ]
 
 
-NEW_PREAMBLE = [
-    "The words Wiktionary gained since the ledger was last written. Each is live",
-    "already, at the address shown, but kept out of the sitemap until it is named",
-    "here. Entries marked ⚠ are the new ones; the rest of each group is shown",
-    "because a new word has to differ from its neighbours.",
-    "",
-    "Naming one now costs nothing: no redirect, because nothing has linked to it.",
-    "To leave one unnamed - a duplicate page awaiting deletion, say - empty its",
-    "`word:` line and it stays as it is.",
-]
-
-# The same sheet, as it arrives in the weekly pull request. Written for someone
-# who has never opened a terminal: GitHub's pencil icon, then Merge.
-WEB_INSTRUCTIONS = [
-    "## How to fill this in",
-    "",
-    "1. Click the **⋯** menu at the top right of this file, then **Edit file**.",
-    "2. For each entry marked ⚠, change the text after `word:` to the English word",
-    "   the web address should end in. Keep it short - one word where one will do.",
-    "   Spaces and capitals are fine; they become hyphens and lowercase.",
-    "3. To leave an entry alone for now (a duplicate page, say), delete everything",
-    "   after `word:`. It keeps working and will not be asked about again.",
-    "4. Click **Commit changes**. A check runs and shows ✓ or ✗ on the pull request;",
-    "   a ✗ comes with a comment saying what to fix.",
-    "5. When it shows ✓, click **Merge pull request**. That is the sign-off.",
-    "",
-    "Only the `word:` lines are read. `taken:` lines are words already in use",
-    "nearby, shown so you can pick a different one.",
-    "",
-]
-
-
-def _rekey():
-    """Records whose Kaikki id changed go to the new id before anything else.
-
-    Otherwise a renamed entry shows up here as a new word, and naming it gives
-    it a second record claiming the address its first one already holds.
-    """
-    import subprocess
-    done = subprocess.run(["node", str(data.TOOL_DIR / "rekey.mjs")], check=False)
-    if done.returncode != 0:
-        raise SystemExit("Settle the ambiguous ids above first.")
-
-
-def write_web(out):
-    """The new-words sheet for the weekly pull request. Returns how many to name."""
-    _rekey()
-    buckets, _ = _collate(only_new=True)
-    groups = buckets.get("new", [])
-    count = sum(1 for g in groups for e in g["entries"] if not e["context"])
-    if not groups:
-        print("Every word has a chosen address. Nothing to name.")
-        return 0
-    totals = {"groups": len(groups), "entries": sum(len(g["entries"]) for g in groups)}
-    Path(out).write_text(
-        worksheet.render("new", groups, totals, NEW_PREAMBLE, instructions=WEB_INSTRUCTIONS),
-        encoding="utf-8",
-    )
-    print(f"  wrote  {out} — {count} words to name")
-    return count
-
-
-def write(only=None, priority=False, limit=None, new=False):
-    if new:
-        _rekey()
-    buckets, _ = _collate(only_flagged=priority, limit=limit, only_new=new)
-    if new and not buckets:
-        print("Every word has a chosen address. Nothing to name.")
-        return
-    preamble = NEW_PREAMBLE if new else PRIORITY_PREAMBLE if priority else None
+def write(only=None, priority=False, limit=None):
+    buckets, _ = _collate(only_flagged=priority, limit=limit)
     out_dir = data.work_dir()
     written = []
     for letter, groups in sorted(buckets.items()):
@@ -242,7 +145,9 @@ def write(only=None, priority=False, limit=None, new=False):
                 print(f"  kept   {path.name} — already open, and not applied yet")
                 continue
         path.write_text(
-            worksheet.render(letter, groups, totals, preamble),
+            worksheet.render(
+                letter, groups, totals, PRIORITY_PREAMBLE if priority else None
+            ),
             encoding="utf-8",
         )
         written.append((letter, totals))
@@ -258,30 +163,22 @@ def write(only=None, priority=False, limit=None, new=False):
     print("Edit the `word:` lines, set `reviewed: yes`, then: python3 tools/slugs/review.py -apply")
 
 
-def apply(only=None, file=None, signed=False):
-    """Read worksheets back into the ledger. Returns the number of problems.
-
-    `file` reads one sheet from anywhere, for the weekly pull request. `signed`
-    counts it as reviewed whatever its header says: merging the pull request is
-    the sign-off, and asking a person to also flip a flag is a step to forget.
-    """
+def apply(only=None):
     groups = {g["spelling"]: g for g in data.load_groups()["groups"]}
     by_id = {e["id"]: (g["spelling"], e) for g in groups.values() for e in g["entries"]}
     book = ledger.load()
     out_dir = data.work_dir()
-    entries = json.loads(data.ENTRIES_PATH.read_text(encoding="utf-8"))
 
-    tallies = {"changed": 0, "approved": 0, "unchanged": 0, "unnamed": 0}
+    tallies = {"changed": 0, "approved": 0, "unchanged": 0}
     skipped, problems = [], []
 
-    paths = [Path(file)] if file else sorted(out_dir.glob("*.md"))
-    for path in paths:
+    for path in sorted(out_dir.glob("*.md")):
         letter = path.stem
         if only and letter != only:
             continue
         header, words, file_problems = worksheet.parse(path.read_text(encoding="utf-8"))
         problems += [f"{path.name} {p}" for p in file_problems]
-        reviewed = signed or header.get("reviewed", "no").lower() in ("yes", "y", "true")
+        reviewed = header.get("reviewed", "no").lower() in ("yes", "y", "true")
         if not reviewed:
             skipped.append(letter)
 
@@ -293,20 +190,7 @@ def apply(only=None, file=None, signed=False):
             existing = book["entries"].get(entry_id)
             folded = _fold_word(word)
             if not folded:
-                # Emptied on purpose: left unnamed, as the new-words sheet says.
-                # A reviewed sheet records that, at the address the entry is
-                # already served at, so it is not asked about again next week.
-                if reviewed and not existing:
-                    served = (entries.get(entry_id) or {}).get("path", "").rsplit("/", 1)[-1]
-                    if served:
-                        record = ledger.record(
-                            spelling, served, "rule",
-                            source_entry["written"], source_entry["pos"],
-                            source_entry["etymologyNumber"], provisional=True,
-                        )
-                        record["deferred"] = True
-                        book["entries"][entry_id] = record
-                tallies["unnamed"] += 1
+                problems.append(f"{path.name}: {entry_id} has an empty word")
                 continue
             changed = not existing or existing["word"] != folded
 
@@ -322,7 +206,6 @@ def apply(only=None, file=None, signed=False):
                     ),
                 )
                 tallies["changed"] += 1
-                print(f'  /yo/{spelling}/{folded}  ({source_entry["written"]})')
             elif reviewed and not existing.get("approved"):
                 # Left as proposed, and the file says it was read. That is an
                 # approval - it is the whole reason approval is per file.
@@ -334,7 +217,7 @@ def apply(only=None, file=None, signed=False):
 
     ledger.save(book)
     print(f'{tallies["changed"]} words changed, {tallies["approved"]} confirmed as they were, '
-          f'{tallies["unchanged"]} already settled, {tallies["unnamed"]} left unnamed')
+          f'{tallies["unchanged"]} already settled')
     approved = sum(1 for r in book["entries"].values() if r.get("approved"))
     print(f'{approved} of {len(book["entries"])} addresses checked by hand')
     if skipped:
@@ -344,7 +227,6 @@ def apply(only=None, file=None, signed=False):
         for line in problems[:20]:
             print("  " + line)
     print("\nNow: python3 tools/slugs/check.py")
-    return len(problems)
 
 
 def _fold_word(word):
@@ -361,12 +243,9 @@ def main(argv):
     only = flags.get("-letter") if isinstance(flags.get("-letter"), str) else None
     limit = int(flags["-n"]) if "-n" in flags else None
     if "-apply" in flags:
-        file = flags.get("-file") if isinstance(flags.get("-file"), str) else None
-        sys.exit(1 if apply(only, file=file, signed="-signed" in flags) else 0)
-    elif isinstance(flags.get("-web"), str):
-        write_web(flags["-web"])
+        apply(only)
     else:
-        write(only, priority="-priority" in flags, limit=limit, new="-new" in flags)
+        write(only, priority="-priority" in flags, limit=limit)
 
 
 if __name__ == "__main__":

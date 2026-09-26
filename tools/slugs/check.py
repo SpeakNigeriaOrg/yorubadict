@@ -93,6 +93,10 @@ def main(argv):
     #    the loser of a collision has no page and nothing reports it.
     seen = {}
     for entry_id, rec in records.items():
+        # A word confirmed gone serves nothing - its address only redirects -
+        # so a new word may take it.
+        if rec.get("gone"):
+            continue
         seen.setdefault(ledger.address(rec), []).append(entry_id)
     report.fail(
         "no two entries share an address",
@@ -139,10 +143,12 @@ def main(argv):
         (f'{eid}: /{rec["spelling"]}/' for eid, rec in records.items() if rec["spelling"] in reserved),
     )
 
-    # 4. The ledger's own idea of the spelling must match address.mjs's. A drift
-    #    here means the ledger is describing an address the site never serves.
-    report.fail(
-        "the ledger agrees with build/lib/address.mjs on every spelling",
+    # 4. The ledger's own idea of the spelling against address.mjs's. A
+    #    difference is a spelling that changed upstream: the build keeps serving
+    #    the old address until someone confirms the move on the weekly sheet
+    #    (tools/slugs/changes.mjs), so it is a decision waiting, not a fault.
+    report.warn(
+        "the ledger agrees with build/lib/address.mjs on every spelling (changes: weekly sheet)",
         (
             f'{eid}: ledger says /{rec["spelling"]}/, address.mjs says /{spelling_of[eid]}/'
             for eid, rec in records.items()
@@ -168,11 +174,12 @@ def main(argv):
         ),
     )
 
-    # 5. A record for an entry that no longer exists. Not fatal - it is how a
-    #    retired address keeps redirecting - but it should be deliberate.
-    orphans = [eid for eid in records if eid not in live]
+    # 5. A record for an entry that no longer exists, and nobody has yet said
+    #    whether it is gone or became another entry. Its address redirects to
+    #    the spelling's page meanwhile. Confirmed-gone records are settled.
+    orphans = [eid for eid in records if eid not in live and not records[eid].get("gone")]
     report.warn(
-        "every ledger record still has an entry",
+        "every ledger record still has an entry (words that left: weekly sheet)",
         (f'{eid} ({records[eid]["written"]}, {records[eid]["pos"]}) -> {ledger.address(records[eid])}'
          for eid in orphans),
     )
@@ -184,7 +191,7 @@ def main(argv):
     #    shipped it happily, so the two tools disagreed every week.
     missing = [eid for eid in live if eid not in records]
     report.warn(
-        "every entry has a chosen address (new words: review.py -new)",
+        "every entry has a chosen address (new words: weekly sheet)",
         (f'{eid} ({live[eid]["written"]}, {live[eid]["pos"]})' for eid in missing),
     )
 

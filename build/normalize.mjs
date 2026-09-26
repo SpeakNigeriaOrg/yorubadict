@@ -30,7 +30,7 @@
 //   public/yo/<spelling>/index.html           the words sharing a spelling
 //   public/sitemap.xml, public/_redirects
 
-import { mkdirSync, writeFileSync, statSync, readFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, statSync, readFileSync, existsSync } from 'node:fs';
 import { brotliCompressSync, constants } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -42,13 +42,47 @@ import { buildSearchIndex } from './lib/search-index.mjs';
 import { buildBuildingBlocks, assertBuildingBlocksAreUsable } from './lib/building-blocks.mjs';
 import { buildWiktionaryTasks } from './lib/wiktionary-tasks.mjs';
 import { buildMentionedWords } from './lib/mentioned-words.mjs';
-import { attachAddresses } from './lib/slugs.mjs';
+import { attachAddresses, loadLedger, loadHistory, snapshotsFor, HISTORY_PATH } from './lib/slugs.mjs';
 import { prerender } from './lib/prerender.mjs';
 import { writeRefreshSummary } from './lib/refresh-summary.mjs';
 
 // Filled in as the build learns it, so a pause can still say which release it
 // was looking at.
-const refresh = { release: null, moves: [], newcomers: [] };
+const refresh = { release: null, moves: [], newcomers: [], drifted: [], vanished: [] };
+
+/**
+ * data/address-history.json: the before-picture of every entry the weekly sheet
+ * may still need to show - one that vanished (so "gone or renamed?" can be
+ * answered next week too), and the old side of every automatic match until a
+ * person has seen it. Committed by the refresh; never read by the site.
+ */
+function writeHistory({ records, entries, snapshots, moves }) {
+  const live = new Set(entries.map((e) => e.id));
+  const wanted = new Set(moves.map((m) => m.from));
+  for (const [id, record] of Object.entries(records)) {
+    if (!live.has(id)) wanted.add(id);
+    if (record.formerly && (record.review || []).length) wanted.add(record.formerly);
+  }
+  const previous = loadHistory();
+  const kept = {};
+  for (const id of [...wanted].sort()) {
+    const shot = snapshots[id] || previous[id];
+    if (shot) kept[id] = shot;
+  }
+  writeFileSync(
+    HISTORY_PATH,
+    JSON.stringify(
+      {
+        note:
+          'What was kept of entries that vanished or changed id, for the weekly sheet ' +
+          '(tools/slugs/changes.mjs). Written by build/normalize.mjs; not read by the site.',
+        entries: kept,
+      },
+      null,
+      2
+    ) + '\n'
+  );
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -223,6 +257,10 @@ async function main() {
   }
   const entries = Object.values(entriesById);
   console.log(`      ${entries.length} entries loaded`);
+  // Last week's data, read before this build writes over it: the only place an
+  // entry that has just vanished can still be seen whole, and the matcher and
+  // the weekly sheet both need to see it to tell a rename from a deletion.
+  const previousEntries = existsSync(outEntriesPath) ? JSON.parse(readFileSync(outEntriesPath, 'utf8')) : {};
   if (kaikkiReleaseTag) refresh.release = `${kaikkiReleaseTag} (sourced ${kaikkiSourceDate})`;
 
   console.log('[2/5] Synthesizing relationship graph ...');
@@ -238,11 +276,27 @@ async function main() {
   // app reads it to build every internal link, and a second file to fetch and
   // keep in step would be one more thing that can disagree with the pages on
   // disk. See build/lib/slugs.mjs for what it will and will not guess.
-  const { redirects, stats, provisional, newcomers, moves } = attachAddresses(linkedEntries);
-  Object.assign(refresh, { moves, newcomers });
+  const ledgerRecords = loadLedger().entries || {};
+  const history = loadHistory();
+  const snapshots = snapshotsFor({ records: ledgerRecords, entries: linkedEntries, previous: previousEntries, history });
+  const { redirects, stats, provisional, newcomers, moves, drifted, vanished } = attachAddresses(
+    linkedEntries,
+    { snapshots }
+  );
+  Object.assign(refresh, { moves, newcomers, drifted, vanished });
+  writeHistory({ records: ledgerRecords, entries: linkedEntries, snapshots, moves });
+  if (drifted.length) {
+    console.log(`      ${drifted.length} spellings changed upstream, served at the old address until confirmed:`);
+    for (const d of drifted.slice(0, 10)) console.log(`        /${d.from}/${d.word}  ->  /${d.to}/`);
+  }
+  if (vanished.length) {
+    console.log(`      ${vanished.length} addresses lost their entry, redirected for now:`);
+    for (const v of vanished.slice(0, 10)) console.log(`        ${v.address}  ->  ${v.redirectTo}`);
+  }
   console.log(
     `      ${stats.total} addresses, ${stats.approved} checked by hand, ` +
-      `${stats.provisional} still placeholders, ${redirects.length} retired`
+      `${stats.provisional} still placeholders, ${redirects.filter((r) => r.status !== 302).length} retired, ` +
+      `${redirects.filter((r) => r.status === 302).length} redirected for now`
   );
   if (moves.length) {
     // Served at their old addresses already. Writing the new ids into the
@@ -264,7 +318,7 @@ async function main() {
       console.log(`        ${n.address}  (${n.source}, ${n.spelling || '?'})`);
     }
     if (newcomers.length > 10) console.log(`        ...and ${newcomers.length - 10} more`);
-    console.log('        Named in the weekly "Name the new words" pull request; locally:  python3 tools/slugs/review.py -new');
+    console.log('        Settled in the weekly "Dictionary changes" pull request; locally:  node tools/slugs/changes.mjs write');
   }
 
   const validationReport = buildValidationReport(

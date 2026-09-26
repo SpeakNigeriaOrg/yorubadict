@@ -29,18 +29,8 @@ GROUP_HEADING = re.compile(r"^##\s+/(\S*)/")
 HEADER_FIELDS = ("letter", "groups", "entries", "reviewed")
 
 
-def render(letter, groups, totals, why=None, instructions=None):
-    """One worksheet. `letter` is a bucket name - a letter, or "priority".
-
-    With `instructions`, the sheet for the weekly pull request: no header block,
-    because merging is the sign-off and there is no `reviewed:` flag to set, and
-    those instructions in place of the terminal ones.
-    """
-    if instructions:
-        lines = ["# New words to name", ""] + (why or []) + [""] + instructions
-        for group in groups:
-            lines += _render_group(group)
-        return "\n".join(lines)
+def render(letter, groups, totals, why=None):
+    """One worksheet. `letter` is a bucket name - a letter, or "priority"."""
     title = "web addresses worth a second look" if why else "web addresses"
     lines = [f"# {letter} — {title}", ""]
     lines += ["```"]
@@ -98,10 +88,7 @@ def _render_group(group):
         if item.get("flags"):
             out.append(f'      ⚠ {"; ".join(item["flags"])}')
         mark = " ✓" if item.get("approved") else ""
-        # `taken:` is not read back, so a neighbour shown for context cannot be
-        # changed or approved from a sheet that was not about it.
-        field = "taken" if item.get("context") else "word"
-        out.append(f'      {field}: {item["word"]}{mark}')
+        out.append(f'      word: {item["word"]}{mark}')
         out.append("")
     return out
 

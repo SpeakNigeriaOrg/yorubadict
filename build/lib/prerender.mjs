@@ -569,7 +569,10 @@ function redirectsFile(redirects) {
   return (
     header.join('\n') +
     '\n' +
-    redirects.map((r) => `${r.from} ${r.to} 301`).join('\n') +
+    // 302 for a redirect that is waiting on a person (a word that vanished, a
+    // probable rename): it may point somewhere else next week, and a 301 is
+    // cached by browsers and crawlers as if it never would.
+    redirects.map((r) => `${r.from} ${r.to} ${r.status || 301}`).join('\n') +
     (redirects.length ? '\n' : '')
   );
 }

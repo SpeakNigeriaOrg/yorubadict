@@ -1440,6 +1440,15 @@ import { createPageRenderer } from './page-render.js';
     }
     state.ready = true;
 
+    // /?q=<spelling>: where the address of a word that has since left the
+    // dictionary is sent when no other word shares its spelling (the ones that
+    // do go to /yo/<spelling> instead). Also just a search you can link to.
+    const linkedQuery = location.pathname === '/' && new URLSearchParams(location.search).get('q');
+    if (linkedQuery) {
+      els.searchInput.value = linkedQuery;
+      renderResults(search(linkedQuery));
+    }
+
     // Offline, and deliberately the last thing that happens.
     //
     // This used to sit up in the wiring, about forty lines above the paint
