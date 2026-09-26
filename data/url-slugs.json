@@ -13178,6 +13178,17 @@
       "word": "comedian",
       "written": "aláwàdà"
     },
+    "en-alawo-yo-noun-5D2EXqW0": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "noun",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "alawo",
+      "word": "ifa-devotee",
+      "written": "aláwo"
+    },
     "en-alaye-yo-noun-94~K5n1K": {
       "approved": false,
       "etymologyNumber": "1",
@@ -17511,6 +17522,17 @@
       "spelling": "babalawo",
       "word": "father-of-mysteries",
       "written": "babaláwo"
+    },
+    "en-babalaṣẹ-yo-noun-BIPaJGXa": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "noun",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "babalase",
+      "word": "candomble-high-priest",
+      "written": "babaláṣẹ"
     },
     "en-babalooṣa-yo-noun-JK0rCst9": {
       "approved": false,
@@ -33264,6 +33286,28 @@
       "word": "mallotus",
       "written": "ìyàdúdú"
     },
+    "en-iyalawo-yo-noun-tpz~8AQG": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "noun",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "iyalawo",
+      "word": "ifa-priestess",
+      "written": "ìyáláwo"
+    },
+    "en-iyalaṣẹ-yo-noun-6wm-mM88": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "noun",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "iyalase",
+      "word": "candomble-high-priestess",
+      "written": "ìyáláṣẹ"
+    },
     "en-iyalooṣa-yo-noun-m50iR~OI": {
       "approved": false,
       "etymologyNumber": null,
@@ -35012,6 +35056,28 @@
       "spelling": "jo",
       "word": "resemble",
       "written": "jọ"
+    },
+    "en-jọwọ-yo-intj-VszE3PyW": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "intj",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "jowo",
+      "word": "please",
+      "written": "jọ̀wọ́"
+    },
+    "en-jọọ-yo-intj-7c5NB391": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "intj",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "joo",
+      "word": "jowo",
+      "written": "jọ̀ọ́"
     },
     "en-k-yo-character-RW-F~PZT": {
       "approved": false,
@@ -40359,6 +40425,17 @@
       "word": "four-by-four",
       "written": "mẹ́rin mẹ́rin"
     },
+    "en-mẹrindinlogun-yo-adj-8s40H9qm": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "adj",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "merindinlogun",
+      "word": "sixteen",
+      "written": "mẹ́rìndínlógún"
+    },
     "en-mẹrẹẹrin-yo-adj-hZ0hDriK": {
       "approved": false,
       "etymologyNumber": null,
@@ -43559,6 +43636,17 @@
       "spelling": "okeere",
       "word": "far-away",
       "written": "òkèèrè"
+    },
+    "en-okerekere-yo-noun-YbUTEDUv": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "noun",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "okerekere",
+      "word": "gristly",
+      "written": "òkèrékèré"
     },
     "en-okete-yo-noun-ByxkY0-O": {
       "approved": false,
@@ -64283,6 +64371,17 @@
       "spelling": "oosawe",
       "word": "orisha-washed",
       "written": "Ọ̀ọ̀ṣáwẹ̀"
+    },
+    "en-ọ--yo-prefix-bHK9za7b": {
+      "approved": true,
+      "etymologyNumber": null,
+      "pos": "prefix",
+      "provisional": false,
+      "retired": [],
+      "source": "hand",
+      "spelling": "o",
+      "word": "form-nouns-from",
+      "written": "ọ-"
     },
     "en-ọ-yo-character-h5KHBrXu": {
       "approved": false,
