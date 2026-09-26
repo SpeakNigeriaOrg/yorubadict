@@ -15,7 +15,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
@@ -169,7 +169,7 @@ function installDom({ pathname = '/', hash = '', prerendered = null } = {}) {
 
 /** A fresh instance of app.js. Modules are cached by specifier, so vary it. */
 let bootCount = 0;
-const bootApp = () => import(`${path.join(publicDir, 'app.js')}?boot=${++bootCount}`);
+const bootApp = () => import(`${pathToFileURL(path.join(publicDir, 'app.js')).href}?boot=${++bootCount}`);
 
 const readEntries = () =>
   JSON.parse(fs.readFileSync(path.join(publicDir, 'data/entries.json'), 'utf8'));

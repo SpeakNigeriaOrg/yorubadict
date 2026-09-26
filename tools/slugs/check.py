@@ -132,7 +132,7 @@ def main(argv):
     reserved = set(json.loads(run(
         ["node", "--input-type=module", "-e",
          "import {RESERVED} from '%s'; process.stdout.write(JSON.stringify([...RESERVED]))"
-         % (data.REPO_DIR / "build/lib/address.mjs")],
+         % (data.REPO_DIR / "build/lib/address.mjs").as_uri()],
         capture_output=True, check=True).stdout))
     report.fail(
         "no address shadows a page of the site",
