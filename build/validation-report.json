@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T19:43:13.781Z",
+  "generatedAt": "2026-09-26T20:05:30.751Z",
   "totalEntries": 6283,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -45752,59 +45752,9 @@
       "confidence": "certain",
       "why": "These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.",
       "fix": "Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.",
-      "count": 20,
-      "pageCount": 16,
+      "count": 10,
+      "pageCount": 9,
       "pages": [
-        {
-          "page": "ẹtà",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BA%B9t%C3%A0#Yoruba",
-          "entryIds": [
-            "en-ẹta-yo-noun-JOVCpPtX"
-          ],
-          "details": [
-            "/yo/eta/civet-cat — named by the definition rule"
-          ]
-        },
-        {
-          "page": "dákun!",
-          "editUrl": "https://en.wiktionary.org/wiki/d%C3%A1kun!#Yoruba",
-          "entryIds": [
-            "en-dakun-yo-intj-yo:please"
-          ],
-          "details": [
-            "/yo/dakun/excuse-me — named by the definition rule"
-          ]
-        },
-        {
-          "page": "ṣakabùlà",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%B9%A3akab%C3%B9l%C3%A0#Yoruba",
-          "entryIds": [
-            "en-ṣakabula-yo-noun-RhG16B2P"
-          ],
-          "details": [
-            "/yo/sakabula/musket — named by the definition rule"
-          ]
-        },
-        {
-          "page": "àgbámùréré",
-          "editUrl": "https://en.wiktionary.org/wiki/%C3%A0gb%C3%A1m%C3%B9r%C3%A9r%C3%A9#Yoruba",
-          "entryIds": [
-            "en-agbamurere-yo-noun-AglVi8q1"
-          ],
-          "details": [
-            "/yo/agbamurere/agbanrere — named by the definition rule"
-          ]
-        },
-        {
-          "page": "Okù",
-          "editUrl": "https://en.wiktionary.org/wiki/Ok%C3%B9#Yoruba",
-          "entryIds": [
-            "en-Oku-yo-name-V-P5qj4a"
-          ],
-          "details": [
-            "/yo/oku/ancestors — named by the definition rule"
-          ]
-        },
         {
           "page": "òkèrékèré",
           "editUrl": "https://en.wiktionary.org/wiki/%C3%B2k%C3%A8r%C3%A9k%C3%A8r%C3%A9#Yoruba",
@@ -45885,32 +45835,6 @@
           ],
           "details": [
             "/yo/joo/jowo — named by the definition rule"
-          ]
-        },
-        {
-          "page": "i",
-          "editUrl": "https://en.wiktionary.org/wiki/i#Yoruba",
-          "entryIds": [
-            "en-i/languages_M_to_Z-yo-character-CPhLBG1q",
-            "en-i/languages_M_to_Z-yo-pron-9deM-3Vx"
-          ],
-          "details": [
-            "/yo/i/tenth-letter — named by the definition rule",
-            "/yo/i/him — named by the definition rule"
-          ]
-        },
-        {
-          "page": "í",
-          "editUrl": "https://en.wiktionary.org/wiki/%C3%AD#Yoruba",
-          "entryIds": [
-            "en-i/languages_M_to_Z-yo-noun-JDTgajb-",
-            "en-i/languages_M_to_Z-yo-particle-hs39Qmje",
-            "en-i/languages_M_to_Z-yo-pron-gJOyAsa7"
-          ],
-          "details": [
-            "/yo/i/word — named by the definition rule",
-            "/yo/i/express-the-progressive — named by the definition rule",
-            "/yo/i/him-2 — named by the definition rule"
           ]
         },
         {
@@ -53182,21 +53106,21 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 27,
+      "easy": 17,
       "mechanical": 214,
       "expertise": 4228,
       "info": 3723
     },
     "byTarget": {
-      "pipeline": 20,
+      "pipeline": 10,
       "wiktionary": 8172
     },
     "byConfidence": {
-      "certain": 8098,
+      "certain": 8088,
       "needs-checking": 94
     },
-    "actionable": 4469,
-    "easyWins": 27
+    "actionable": 4459,
+    "easyWins": 17
   },
   "kaikkiSourceDate": "2026-09-21",
   "kaikkiReleaseTag": "build-17",
