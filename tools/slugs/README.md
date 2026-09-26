@@ -64,8 +64,12 @@ their entries at once, which is the id scheme changing upstream and wants a
 programmer rather than a sheet. It closes itself the next time a refresh needs
 nothing.
 
-If the pull request cannot be opened, the repository needs **Settings > Actions >
-General > "Allow GitHub Actions to create and approve pull requests"**. Locally,
+Opening the pull request automatically needs **"Allow GitHub Actions to create
+and approve pull requests"**, under Settings > Actions > General > Workflow
+permissions - first in the SpeakNigeriaOrg organization's settings (while it is
+off there, the repository's own checkbox is greyed out), then in the
+repository's. Without it nothing is lost: the sheet's branch is still pushed,
+and the issue carries a one-click link to open the pull request by hand. Locally,
 `node tools/slugs/changes.mjs write` makes the same sheet and
 `node tools/slugs/changes.mjs apply FILE` reads it back.
 

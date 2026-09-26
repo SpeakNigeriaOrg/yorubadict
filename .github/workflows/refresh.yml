@@ -109,9 +109,16 @@ jobs:
           git add "$SHEET"
           git commit -m "This week's dictionary changes to review"
           git push --force origin "$BRANCH"
-          URL=$(gh pr create --head "$BRANCH" --base main --title "Dictionary changes" \
-            --body "Wiktionary edits changed some of the dictionary's web addresses this week. Everything is already live in a safe form. Open **Files changed**, then the ⋯ menu on \`changes.md\` > **Edit file**, and follow the steps at the top of it. Merging this pull request is the sign-off.")
-          echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
+          # Opening the pull request needs an org/repo setting that may be off.
+          # The branch is pushed either way, so without it a person gets a link
+          # that opens the pull request in one click - and one opened by a
+          # person also runs the check straight away, which a bot's would not.
+          if URL=$(gh pr create --head "$BRANCH" --base main --title "Dictionary changes" \
+            --body "Wiktionary edits changed some of the dictionary's web addresses this week. Everything is already live in a safe form. Open **Files changed**, then the ⋯ menu on \`changes.md\` > **Edit file**, and follow the steps at the top of it. Merging this pull request is the sign-off."); then
+            echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "compare=${{ github.server_url }}/${{ github.repository }}/compare/main...$BRANCH?expand=1&title=Dictionary%20changes" >> "$GITHUB_OUTPUT"
+          fi
 
       # Runs whatever happened above. The summary goes on this run's page, and
       # the issue is how a person finds out without looking: two refreshes
@@ -122,6 +129,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           JOB_STATUS: ${{ job.status }}
           PR: ${{ steps.pr.outputs.number }}
+          COMPARE: ${{ steps.pr.outputs.compare }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -uo pipefail
@@ -137,8 +145,12 @@ jobs:
           fi
           if [ "$JOB_STATUS" = "success" ] && [ -n "$PR" ]; then
             # New words have their own place to be named; the issue is for stops.
-            printf '\n**Name them in pull request #%s.**\n' "$PR" >> "$SUMMARY"
+            printf '\n**Settle them in pull request #%s.**\n' "$PR" >> "$SUMMARY"
             sed -i 's/needs-person: yes/needs-person: no/' "$SUMMARY"
+          elif [ "$JOB_STATUS" = "success" ] && [ -n "$COMPARE" ]; then
+            # Actions may not open pull requests here, so the issue carries the
+            # one-click link instead, and stays open until the sheet is merged.
+            printf '\n**[Open the sheet as a pull request](%s)** - then click *Create pull request*, edit `changes.md` there, and merge.\n' "$COMPARE" >> "$SUMMARY"
           fi
           printf '\n[This run](%s)\n' "$RUN_URL" >> "$SUMMARY"
           cat "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
