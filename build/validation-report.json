@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T20:05:30.751Z",
+  "generatedAt": "2026-09-28T17:12:08.825Z",
   "totalEntries": 6283,
   "parseErrors": [],
   "inferredCanonicalForms": [
@@ -45744,113 +45744,6 @@
   "suspiciousRelationText": [],
   "issues": [
     {
-      "kind": "address-unnamed",
-      "title": "Live at a name nobody has chosen",
-      "severity": "high",
-      "effort": "easy",
-      "target": "pipeline",
-      "confidence": "certain",
-      "why": "These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.",
-      "fix": "Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.",
-      "count": 10,
-      "pageCount": 9,
-      "pages": [
-        {
-          "page": "òkèrékèré",
-          "editUrl": "https://en.wiktionary.org/wiki/%C3%B2k%C3%A8r%C3%A9k%C3%A8r%C3%A9#Yoruba",
-          "entryIds": [
-            "en-okerekere-yo-noun-YbUTEDUv"
-          ],
-          "details": [
-            "/yo/okerekere/cartilaginous-or-gristly — named by the definition rule"
-          ]
-        },
-        {
-          "page": "babaláṣẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/babal%C3%A1%E1%B9%A3%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-babalaṣẹ-yo-noun-BIPaJGXa"
-          ],
-          "details": [
-            "/yo/babalase/candomble-high-priest — named by the definition rule"
-          ]
-        },
-        {
-          "page": "ìyáláṣẹ",
-          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACy%C3%A1l%C3%A1%E1%B9%A3%E1%BA%B9#Yoruba",
-          "entryIds": [
-            "en-iyalaṣẹ-yo-noun-6wm-mM88",
-            "en-Iyalaṣẹ-yo-noun-6wm-mM88"
-          ],
-          "details": [
-            "/yo/iyalase/candomble-high-priestess — named by the definition rule",
-            "/yo/iyalase/candomble-high-priestess-2 — named by the definition rule"
-          ]
-        },
-        {
-          "page": "mẹ́rìndínlógún",
-          "editUrl": "https://en.wiktionary.org/wiki/m%E1%BA%B9%CC%81r%C3%ACnd%C3%ADnl%C3%B3g%C3%BAn#Yoruba",
-          "entryIds": [
-            "en-mẹrindinlogun-yo-adj-8s40H9qm"
-          ],
-          "details": [
-            "/yo/merindinlogun/sixteen — named by the definition rule"
-          ]
-        },
-        {
-          "page": "ìyáláwo",
-          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACy%C3%A1l%C3%A1wo#Yoruba",
-          "entryIds": [
-            "en-iyalawo-yo-noun-tpz~8AQG"
-          ],
-          "details": [
-            "/yo/iyalawo/female-initiate — named by the definition rule"
-          ]
-        },
-        {
-          "page": "aláwo",
-          "editUrl": "https://en.wiktionary.org/wiki/al%C3%A1wo#Yoruba",
-          "entryIds": [
-            "en-alawo-yo-noun-5D2EXqW0"
-          ],
-          "details": [
-            "/yo/alawo/devotee-or-initiate — named by the definition rule"
-          ]
-        },
-        {
-          "page": "jọ̀wọ́",
-          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BB%8D%CC%80w%E1%BB%8D%CC%81#Yoruba",
-          "entryIds": [
-            "en-jọwọ-yo-intj-VszE3PyW"
-          ],
-          "details": [
-            "/yo/jowo/please — named by the definition rule"
-          ]
-        },
-        {
-          "page": "jọ̀ọ́",
-          "editUrl": "https://en.wiktionary.org/wiki/j%E1%BB%8D%CC%80%E1%BB%8D%CC%81#Yoruba",
-          "entryIds": [
-            "en-jọọ-yo-intj-7c5NB391"
-          ],
-          "details": [
-            "/yo/joo/jowo — named by the definition rule"
-          ]
-        },
-        {
-          "page": "ọ-",
-          "editUrl": "https://en.wiktionary.org/wiki/%E1%BB%8D-#Yoruba",
-          "entryIds": [
-            "en-ọ--yo-prefix-bHK9za7b"
-          ],
-          "details": [
-            "/yo/o/form-nouns-from — named by the definition rule"
-          ]
-        }
-      ],
-      "pagesOmitted": 0
-    },
-    {
       "kind": "dangling-sense-anchor",
       "title": "Points at a name that was never created",
       "severity": "high",
@@ -53106,23 +52999,22 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 17,
+      "easy": 7,
       "mechanical": 214,
       "expertise": 4228,
       "info": 3723
     },
     "byTarget": {
-      "pipeline": 10,
       "wiktionary": 8172
     },
     "byConfidence": {
-      "certain": 8088,
+      "certain": 8078,
       "needs-checking": 94
     },
-    "actionable": 4459,
-    "easyWins": 17
+    "actionable": 4449,
+    "easyWins": 7
   },
-  "kaikkiSourceDate": "2026-09-21",
-  "kaikkiReleaseTag": "build-17",
+  "kaikkiSourceDate": "2026-09-28",
+  "kaikkiReleaseTag": "build-18",
   "kaikkiParseErrorCount": 0
 }
