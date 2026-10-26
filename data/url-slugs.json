@@ -13982,12 +13982,16 @@
       "word": "pancreas",
       "written": "àmọ́"
     },
-    "en-amọkoko-yo-name-uBJ-JUMd": {
+    "en-amọkoko-yo-noun-uBJ-JUMd": {
       "approved": false,
       "etymologyNumber": null,
-      "pos": "name",
+      "formerly": "en-amọkoko-yo-name-uBJ-JUMd",
+      "pos": "noun",
       "provisional": false,
       "retired": [],
+      "review": [
+        "rekeyed"
+      ],
       "source": "model",
       "spelling": "amokoko",
       "word": "potter",
@@ -42703,12 +42707,16 @@
       "word": "stirring-stick",
       "written": "ogìo"
     },
-    "en-ogiri-yo-noun-067aaq9A": {
+    "en-ogiri-yo-noun-byuJNZoH": {
       "approved": false,
-      "etymologyNumber": "2",
+      "etymologyNumber": null,
+      "formerly": "en-ogiri-yo-noun-067aaq9A",
       "pos": "noun",
       "provisional": false,
       "retired": [],
+      "review": [
+        "rekeyed"
+      ],
       "source": "model",
       "spelling": "ogiri",
       "word": "fermented-egusi",
@@ -64384,12 +64392,16 @@
       "word": "orisha-washed",
       "written": "Ọ̀ọ̀ṣáwẹ̀"
     },
-    "en-ọ--yo-prefix-bHK9za7b": {
+    "en-ọ--yo-prefix-yo:agent_prefix": {
       "approved": true,
       "etymologyNumber": null,
+      "formerly": "en-ọ--yo-prefix-bHK9za7b",
       "pos": "prefix",
       "provisional": false,
       "retired": [],
+      "review": [
+        "rekeyed"
+      ],
       "source": "hand",
       "spelling": "o",
       "word": "form-nouns-from",

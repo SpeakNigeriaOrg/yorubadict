@@ -1,4 +1,59 @@
 {
   "note": "What was kept of entries that vanished or changed id, for the weekly sheet (tools/slugs/changes.mjs). Written by build/normalize.mjs; not read by the site.",
-  "entries": {}
+  "entries": {
+    "en-Iyalaṣẹ-yo-noun-6wm-mM88": {
+      "headword": "Iyalaṣẹ",
+      "pos": "noun",
+      "etymologyNumber": null,
+      "written": "ìyáláṣẹ",
+      "spelling": "iyalase",
+      "senseIds": [
+        "en-Iyalaṣẹ-yo-noun-6wm-mM88"
+      ],
+      "definitions": [
+        "Candomblé high priestess, the highest priestess of a given worship house."
+      ]
+    },
+    "en-amọkoko-yo-name-uBJ-JUMd": {
+      "headword": "amọkoko",
+      "pos": "name",
+      "etymologyNumber": null,
+      "written": "amọ̀kòkò",
+      "spelling": "amokoko",
+      "senseIds": [
+        "en-amọkoko-yo-name-uBJ-JUMd"
+      ],
+      "definitions": [
+        "potter, ceramicist"
+      ]
+    },
+    "en-ogiri-yo-noun-067aaq9A": {
+      "headword": "ogiri",
+      "pos": "noun",
+      "etymologyNumber": "2",
+      "written": "ògìrì",
+      "spelling": "ogiri",
+      "senseIds": [
+        "en-ogiri-yo-noun-067aaq9A",
+        "en-ogiri-yo-noun-Lj9jmv15"
+      ],
+      "definitions": [
+        "Fermented egusi seeds used as a seasoning in soups and stews",
+        "A soup made from fermented and cooked egusi seeds"
+      ]
+    },
+    "en-ọ--yo-prefix-bHK9za7b": {
+      "headword": "ọ-",
+      "pos": "prefix",
+      "etymologyNumber": null,
+      "written": "ọ-",
+      "spelling": "o",
+      "senseIds": [
+        "en-ọ--yo-prefix-bHK9za7b"
+      ],
+      "definitions": [
+        "Used to form nouns from verbs denoting someone performing the action or the result of the action."
+      ]
+    }
+  }
 }

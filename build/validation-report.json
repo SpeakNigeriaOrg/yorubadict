@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-19T16:02:45.095Z",
-  "totalEntries": 6283,
+  "generatedAt": "2026-10-26T15:39:40.899Z",
+  "totalEntries": 6285,
   "parseErrors": [],
   "inferredCanonicalForms": [
     {
@@ -4660,7 +4660,7 @@
       "confidence": 0.5
     },
     {
-      "entryId": "en-ọ--yo-prefix-bHK9za7b",
+      "entryId": "en-ọ--yo-prefix-yo:agent_prefix",
       "headword": "ọ-",
       "method": "fallback_headword",
       "confidence": 0.5
@@ -4806,10 +4806,6 @@
     {
       "entryId": "en-Afrika-yo-name-zIspzIfE",
       "headword": "Afrika"
-    },
-    {
-      "entryId": "en-koko-yo-noun-JR~s1ZLl",
-      "headword": "koko"
     },
     {
       "entryId": "en-Sa-yo-noun-MbxBwdu3",
@@ -6172,8 +6168,12 @@
       "headword": "jọọ"
     },
     {
-      "entryId": "en-ọ--yo-prefix-bHK9za7b",
+      "entryId": "en-ọ--yo-prefix-yo:agent_prefix",
       "headword": "ọ-"
+    },
+    {
+      "entryId": "en-ibori-yo-noun-MTIf3H2n",
+      "headword": "ibori"
     }
   ],
   "duplicateNormalizedSpellings": {
@@ -8790,6 +8790,11 @@
       "en-aago-yo-noun-~FnZkH0D",
       "en-aogo-yo-noun-z0ol3dbw"
     ],
+    "igogo": [
+      "en-agogo-yo-noun-BAvOrnUc",
+      "en-agogo-yo-noun-BGHPotaG",
+      "en-agogo-yo-noun-XyyYeml3"
+    ],
     "ادُن": [
       "en-adun-yo-noun-~b6MwB3e",
       "en-ادُن-yo-noun-4WiEd98B"
@@ -9319,6 +9324,10 @@
     "uga": [
       "en-uga-yo-noun-4d~gT0Zg",
       "en-uga-yo-noun-FeYos0R-"
+    ],
+    "maasi": [
+      "en-Maasi-yo-name-K2N36ytX",
+      "en-Maasi-yo-name-U2Y9bRbG"
     ],
     "baaluu": [
       "en-baaluu-yo-noun-AEd62KRD",
@@ -10959,7 +10968,7 @@
     ],
     "ogiri": [
       "en-ogiri-yo-noun-ogvSLVsM",
-      "en-ogiri-yo-noun-067aaq9A"
+      "en-ogiri-yo-noun-byuJNZoH"
     ],
     "ọrọ-orukọ": [
       "en-ọrọ-orukọ-yo-noun-E1HVLO5s",
@@ -14086,10 +14095,6 @@
     "mọọnkọ-mọọnka": [
       "en-mọ-ọnkọ-mọ-ọnka-yo-verb-kLatID88",
       "en-mọ-ọnkọ-mọ-ọnka-yo-noun-V4dWykqh"
-    ],
-    "iyalaṣẹ": [
-      "en-iyalaṣẹ-yo-noun-6wm-mM88",
-      "en-Iyalaṣẹ-yo-noun-6wm-mM88"
     ],
     "jọọ": [
       "en-jọwọ-yo-intj-VszE3PyW",
@@ -22975,6 +22980,16 @@
       "text": "Adénúgà"
     },
     {
+      "sourceEntryId": "en-Maasi-yo-name-U2Y9bRbG",
+      "relationType": "derivedTerms",
+      "text": "ìfojú-máàsì-wòtàn"
+    },
+    {
+      "sourceEntryId": "en-Maasi-yo-name-U2Y9bRbG",
+      "relationType": "derivedTerms",
+      "text": "ìfojú-máàsì-wo-ìtàn-àwùjọ"
+    },
+    {
       "sourceEntryId": "en-eela-yo-noun-5D0ZtSJE",
       "relationType": "sense synonyms",
       "text": "aléfọ́"
@@ -28420,12 +28435,12 @@
       "text": "àtẹ́lẹsẹ̀"
     },
     {
-      "sourceEntryId": "en-ogiri-yo-noun-067aaq9A",
+      "sourceEntryId": "en-ogiri-yo-noun-byuJNZoH",
       "relationType": "derivedTerms",
       "text": "irú-wá-ògìrì-wá"
     },
     {
-      "sourceEntryId": "en-ogiri-yo-noun-067aaq9A",
+      "sourceEntryId": "en-ogiri-yo-noun-byuJNZoH",
       "relationType": "sense synonyms",
       "text": "ọbẹ̀ ògìrì"
     },
@@ -45752,7 +45767,7 @@
       "confidence": "certain",
       "why": "Somebody did this properly — the word says which meaning of its component it means — but the component page never got the matching name, so the reference resolves to nothing. agbẹjọro is the clearest case: it names all three of its components (gbà \"take\", ẹjọ́ \"law\", rò \"think\") and not one of those pages has the anchor. Careful work, pointing nowhere.",
       "fix": "Add {{etymid|yo|<name>}} to the right etymology section of the component page, using exactly the name already being pointed at.",
-      "count": 7,
+      "count": 6,
       "pageCount": 6,
       "pages": [
         {
@@ -45772,8 +45787,7 @@
             "en-agbẹjọro-yo-noun-H~Uh3Zmo"
           ],
           "details": [
-            "points at “take” on gbà, which has no such name",
-            "points at “law” on ẹjọ́, which has no such name"
+            "points at “take” on gbà, which has no such name"
           ]
         },
         {
@@ -45814,6 +45828,51 @@
           ],
           "details": [
             "points at “nominalizing prefix” on ọ̀, which has no such name"
+          ]
+        }
+      ],
+      "pagesOmitted": 0
+    },
+    {
+      "kind": "address-unnamed",
+      "title": "Live at a name nobody has chosen",
+      "severity": "high",
+      "effort": "easy",
+      "target": "pipeline",
+      "confidence": "certain",
+      "why": "These words arrived from Wiktionary after the address ledger was last written, so the second half of each address was picked by a rule rather than read by a person. The pages work and are served, but they are held back from the sitemap, because the name is expected to change and a page that moves after it has been indexed is the problem the ledger exists to prevent. Until they are named they are the only addresses on the site nobody has looked at.",
+      "fix": "Run  python3 tools/slugs/seed.py  then  python3 tools/slugs/review.py  , read the proposed name for each word and correct it where the rule guessed badly. Naming one does not mint a redirect, so there is no cost to changing it now and a real cost to changing it later.",
+      "count": 3,
+      "pageCount": 3,
+      "pages": [
+        {
+          "page": "Máàsì",
+          "editUrl": "https://en.wiktionary.org/wiki/M%C3%A1%C3%A0s%C3%AC#Yoruba",
+          "entryIds": [
+            "en-Maasi-yo-name-U2Y9bRbG"
+          ],
+          "details": [
+            "/yo/maasi/marx — named by an etymid from Wiktionary"
+          ]
+        },
+        {
+          "page": "ìborí",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACbor%C3%AD#Yoruba",
+          "entryIds": [
+            "en-ibori-yo-noun-MTIf3H2n"
+          ],
+          "details": [
+            "/yo/ibori/scarf — named by the definition rule"
+          ]
+        },
+        {
+          "page": "ìfojú-máàsì-wò",
+          "editUrl": "https://en.wiktionary.org/wiki/%C3%ACfoj%C3%BA-m%C3%A1%C3%A0s%C3%AC-w%C3%B2#Yoruba",
+          "entryIds": [
+            "en-ifoju-maasi-wo-yo-noun-T8uduM16"
+          ],
+          "details": [
+            "/yo/ifoju-maasi-wo/marxism — named by the definition rule"
           ]
         }
       ],
@@ -46011,16 +46070,6 @@
           ],
           "details": [
             "Áfríkà (name) — no Pronunciation section"
-          ]
-        },
-        {
-          "page": "koko",
-          "editUrl": "https://en.wiktionary.org/wiki/koko#Yoruba",
-          "entryIds": [
-            "en-koko-yo-noun-JR~s1ZLl"
-          ],
-          "details": [
-            "kókó (noun · etym. 4) — no Pronunciation section"
           ]
         },
         {
@@ -47064,6 +47113,16 @@
           "details": [
             "májèlé (noun) — no Pronunciation section"
           ]
+        },
+        {
+          "page": "gadagbagadagba",
+          "editUrl": "https://en.wiktionary.org/wiki/gadagbagadagba#Yoruba",
+          "entryIds": [
+            "en-gadagbagadagba-yo-noun-aoq-5cgj"
+          ],
+          "details": [
+            "gàdàgbàgàdàgbà (noun · etym. 2) — no Pronunciation section"
+          ]
         }
       ],
       "pagesOmitted": 76
@@ -47077,8 +47136,8 @@
       "confidence": "certain",
       "why": "The listed page names a related or derived word that has no Yoruba entry of its own, so the link goes nowhere. This is the dictionary's largest real content gap.",
       "fix": "Create the referenced word as a Yoruba entry on Wiktionary, with at least a definition and a headword template carrying its tone marks.",
-      "count": 3439,
-      "pageCount": 1511,
+      "count": 3441,
+      "pageCount": 1512,
       "pages": [
         {
           "page": "fa",
@@ -48727,7 +48786,7 @@
           ]
         }
       ],
-      "pagesOmitted": 1391
+      "pagesOmitted": 1392
     },
     {
       "kind": "inferred-canonical-form",
@@ -52991,7 +53050,7 @@
       "confidence": "certain",
       "why": "Counted so it is not mistaken for a defect. Yoruba has many homographs, and entries that differ only in tone are different words that this dictionary keeps deliberately apart. Every entry involved now links to its siblings so a reader can see the others.",
       "fix": "Nothing required.",
-      "count": 1582,
+      "count": 1583,
       "pageCount": 0,
       "pages": [],
       "pagesOmitted": 0
@@ -52999,22 +53058,23 @@
   ],
   "summary": {
     "byEffort": {
-      "easy": 7,
+      "easy": 9,
       "mechanical": 214,
-      "expertise": 4228,
-      "info": 3723
+      "expertise": 4230,
+      "info": 3724
     },
     "byTarget": {
-      "wiktionary": 8172
+      "wiktionary": 8174,
+      "pipeline": 3
     },
     "byConfidence": {
-      "certain": 8078,
+      "certain": 8083,
       "needs-checking": 94
     },
-    "actionable": 4449,
-    "easyWins": 7
+    "actionable": 4453,
+    "easyWins": 9
   },
-  "kaikkiSourceDate": "2026-10-19",
-  "kaikkiReleaseTag": "build-21",
+  "kaikkiSourceDate": "2026-10-26",
+  "kaikkiReleaseTag": "build-22",
   "kaikkiParseErrorCount": 0
 }
